@@ -171,7 +171,6 @@ const processEvent = () => {
   if (data.tagType === "ga4Event") {
     options.integrations = {
       "All": false,
-      "Google Analytics 4": true,
       "Google Analytics 4 Proxy": true,
     };
   }
