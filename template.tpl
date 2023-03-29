@@ -162,26 +162,37 @@ function parseProps(inputProps) {
 
 
 const processEvent = () => {
+  const options = {};
+  if (data.tagType === "ga4Event") {
+    options.integrations = {
+      "All": false,
+      "Google Analytics 4": true,
+      "Google Analytics 4 Proxy": true,
+    };
+  }
+  
+  
   if (data.userProps) {
     const props = parseProps(data.userProps || []);
-    callInWindow('freshpaint.identify', props); 
+    callInWindow('freshpaint.identify', props, options); 
   }
   
   if (data.eventName) {
     const props = parseProps(data.eventProps || []);    
-    callInWindow('freshpaint.track', data.eventName, props); 
+    callInWindow('freshpaint.track', data.eventName, props, options); 
   }
   
   data.gtmOnSuccess();
 };
 
 
-const JS_URL = 'https://perfalytics.com/static/js/freshpaint-jslib-snippet.js';
+const JS_URL = "https://perfalytics.com/static/js/freshpaint-jslib-snippet.js";
 
 const freshpaint = copyFromWindow("freshpaint");
 if (!freshpaint || !freshpaint.__initialized) {  
   const onSuccess = () => {
     callInWindow('freshpaint.init', data.envID, {debug: true});
+    callInWindow('freshpaint.addEventProperties', {"$gtm": true}); 
     processEvent();
   };
   injectScript(JS_URL, onSuccess, data.gtmOnFailure, 'freshpaint');
@@ -360,6 +371,45 @@ ___WEB_PERMISSIONS___
                     "boolean": true
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "freshpaint.addEventProperties"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
               }
             ]
           }
@@ -407,6 +457,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 29/03/2023, 10:34:06
+Created on 29/03/2023, 15:36:11
 
 
