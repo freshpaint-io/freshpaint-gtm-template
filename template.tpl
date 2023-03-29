@@ -6,6 +6,9 @@
   "version": 1,
   "securityGroups": [],
   "displayName": "Freshpaint",
+  "categories": [
+    "ANALYTICS"
+  ],
   "brand": {
     "id": "brand_dummy",
     "displayName": "",
