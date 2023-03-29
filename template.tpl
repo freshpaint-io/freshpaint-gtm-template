@@ -36,7 +36,12 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "envID",
     "displayName": "Freshpaint Environment ID",
-    "simpleValueType": true
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
   },
   {
     "type": "SELECT",
