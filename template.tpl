@@ -64,6 +64,10 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "ga4Event",
         "displayValue": "GA4 Event"
+      },
+      {
+        "value": "fbPixelEvent",
+        "displayValue": "Facebook Pixel Event"
       }
     ],
     "simpleValueType": true
@@ -147,6 +151,176 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
+  },
+  {
+    "type": "RADIO",
+    "name": "fbEventName",
+    "radioItems": [
+      {
+        "value": "standard",
+        "displayValue": "Standard",
+        "subParams": [
+          {
+            "type": "SELECT",
+            "name": "standardEventName",
+            "selectItems": [
+              {
+                "value": "PageView",
+                "displayValue": "PageView"
+              },
+              {
+                "value": "AddPaymentInfo",
+                "displayValue": "AddPaymentInfo"
+              },
+              {
+                "value": "AddToCart",
+                "displayValue": "AddToCart"
+              },
+              {
+                "value": "AddToWishlist",
+                "displayValue": "AddToWishlist"
+              },
+              {
+                "value": "CompleteRegistration",
+                "displayValue": "CompleteRegistration"
+              },
+              {
+                "value": "Contact",
+                "displayValue": "Contact"
+              },
+              {
+                "value": "CustomizeProduct",
+                "displayValue": "CustomizeProduct"
+              },
+              {
+                "value": "Donate",
+                "displayValue": "Donate"
+              },
+              {
+                "value": "FindLocation",
+                "displayValue": "FindLocation"
+              },
+              {
+                "value": "InitiateCheckout",
+                "displayValue": "InitiateCheckout"
+              },
+              {
+                "value": "Lead",
+                "displayValue": "Lead"
+              },
+              {
+                "value": "Purchase",
+                "displayValue": "Purchase"
+              },
+              {
+                "value": "Schedule",
+                "displayValue": "Schedule"
+              },
+              {
+                "value": "Search",
+                "displayValue": "Search"
+              },
+              {
+                "value": "StartTrial",
+                "displayValue": "StartTrial"
+              },
+              {
+                "value": "Subscribe",
+                "displayValue": "Subscribe"
+              },
+              {
+                "value": "ViewContent",
+                "displayValue": "ViewContent"
+              }
+            ],
+            "simpleValueType": true,
+            "defaultValue": "Pageview"
+          }
+        ]
+      },
+      {
+        "value": "custom",
+        "displayValue": "Custom",
+        "subParams": [
+          {
+            "type": "TEXT",
+            "name": "customEventName",
+            "displayName": "",
+            "simpleValueType": true
+          }
+        ]
+      },
+      {
+        "value": "variable",
+        "displayValue": "Variable",
+        "subParams": [
+          {
+            "type": "SELECT",
+            "name": "variableEventName",
+            "displayName": "",
+            "macrosInSelect": true,
+            "selectItems": [],
+            "simpleValueType": true
+          }
+        ]
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "group1",
+    "displayName": "Object Properties",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "SELECT",
+        "name": "objectPropertiesFromVariable",
+        "displayName": "Load Properties From Variable",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": false,
+            "displayValue": "False"
+          }
+        ],
+        "simpleValueType": true,
+        "help": "You can use a variable that returns a JavaScript object with the properties you want to use. This object will be merged with any additional properties you add via the table below. Any conflicts will be resolved in favor of the properties you add to the table."
+      },
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "objectPropertyList",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Property Name",
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Property Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "newRowButtonText": "Add property"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
   }
 ]
 
@@ -156,8 +330,12 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 const callInWindow = require('callInWindow');
 const copyFromWindow = require('copyFromWindow');
 const injectScript = require('injectScript');
+const log = require('logToConsole');
+const makeTableMap = require('makeTableMap');
+const getType = require('getType');
 
-function parseProps(inputProps) {
+
+function parseGA4Props(inputProps) {
   const props = {};
   for (let prop of inputProps) {
     props[prop.propName] = prop.propValue;
@@ -165,38 +343,86 @@ function parseProps(inputProps) {
   return props;
 }
 
-
 const processEvent = () => {
-  const options = {};
   if (data.tagType === "ga4Event") {
-    options.integrations = {
-      "All": false,
-      "Google Analytics 4 Proxy": true,
-    };
-  }
-  
-  
-  if (data.userProps) {
-    const props = parseProps(data.userProps || []);
-    callInWindow('freshpaint.identify', props, options); 
-  }
-  
-  if (data.eventName) {
-    const props = parseProps(data.eventProps || []);    
-    callInWindow('freshpaint.track', data.eventName, props, options); 
+    processGA4Event();
+  } else if (data.tagType === "fbPixelEvent") {
+    processFBPixelEvent();
   }
   
   data.gtmOnSuccess();
 };
 
+const generateOptions = (integration) => {
+  const integrations = {
+    "All": false,
+  };
+  integrations[integration] = true;
+  
+  return {
+    "integrations": integrations
+  };
+};
+
+const processGA4Event = () => {
+  const options = generateOptions("Google Analytics 4 Proxy");
+  
+  if (data.userProps) {
+    const props = parseGA4Props(data.userProps || []);
+    callInWindow('freshpaint.identify', props, options); 
+  }
+  
+  if (data.eventName) {
+    const props = parseGA4Props(data.eventProps || []);   
+    track(data.eventName, props, options);
+  }
+};
+
+const mergeObj = (obj, obj2) => {
+  for (let key in obj2) {
+    if (obj2.hasOwnProperty(key)) {
+      obj[key] = obj2[key];
+    }
+  }
+  return obj;
+};
+
+const processFBPixelEvent = () => {
+  const options = generateOptions("Facebook Conversions API");
+  
+  log('hello');
+  log(data);
+  const eventName = (data.fbEventName === 'custom' ? data.customEventName : (data.fbEventName === 'variable' ? data.variableEventName : data.standardEventName));
+  const objectProps = data.objectPropertyList && data.objectPropertyList.length ? makeTableMap(data.objectPropertyList, 'name', 'value') : {};
+  const objectPropsFromVar = getType(data.objectPropertiesFromVariable) === 'object' ? data.objectPropertiesFromVariable : {};
+  const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
+
+  log(eventName);
+  log(objectProps);
+  log(objectPropsFromVar);
+  
+  track(eventName, mergedObjectProps);
+};
+
+const identify = (userID, props, options) => {
+  if (userID !== undefined) {
+    callInWindow('freshpaint.identify', userID, props, options);
+  } else {
+    callInWindow('freshpaint.identify', props, options);
+  }
+};
+
+const track = (eventName, props, options) => {
+  callInWindow('freshpaint.track', eventName, props, options);
+};
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-jslib-snippet.js";
 
 const freshpaint = copyFromWindow("freshpaint");
 if (!freshpaint || !freshpaint.__initialized) {  
   const onSuccess = () => {
-    callInWindow('freshpaint.init', data.envID, {debug: true});
     callInWindow('freshpaint.addEventProperties', {"$gtm": true}); 
+    callInWindow('freshpaint.init', data.envID, {debug: true});
     processEvent();
   };
   injectScript(JS_URL, onSuccess, data.gtmOnFailure, 'freshpaint');
@@ -442,6 +668,27 @@ ___WEB_PERMISSIONS___
                 "string": "https://perfalytics.com/*"
               }
             ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "logging",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "environments",
+          "value": {
+            "type": 1,
+            "string": "all"
           }
         }
       ]
