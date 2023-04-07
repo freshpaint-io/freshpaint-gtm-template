@@ -442,7 +442,7 @@ const track = (eventName, props, options) => {
    });
 };
 
-const JS_URL = "https://ci-test-sites.s3-us-west-2.amazonaws.com/fp001.local/fp-gtm-proxy/7.js";
+const JS_URL = "https://perfalytics.com/static/js/freshpaint-jslib-snippet-gtm.js";
 
 
 if (!callFreshpaintProxy("isLoaded")) {
