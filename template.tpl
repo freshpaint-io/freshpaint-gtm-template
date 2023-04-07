@@ -341,8 +341,8 @@ function parsePropsTable(inputProps) {
 }
 
 const processEvent = () => {
-  if (data.tagType === "init" && !data.envID) {
-    log("[freshpaint-GTM] environment ID is required for init tag");
+  if (data.tagType === 'init' && !data.envID) {
+    log('[freshpaint-GTM] environment ID is required for init tag');
     return;
   }
   
@@ -352,7 +352,7 @@ const processEvent = () => {
     callFreshpaintProxy('init', {
       envID: data.envID,
       initPersistantProps: {
-        "$gtm": true,
+        '$gtm': true,
       },
       initConfig: {
         debug: true
@@ -361,9 +361,9 @@ const processEvent = () => {
   }
   
   // actually process the event
-  if (data.tagType === "track" || data.tagType === "identify" || data.tagType === "ga4Event") {
-    processBasicOrGA4Event(data.tagType === "ga4Event");
-  } else if (data.tagType === "fbPixelEvent") {
+  if (data.tagType === 'track' || data.tagType === 'identify' || data.tagType === 'ga4Event') {
+    processBasicOrGA4Event(data.tagType === 'ga4Event');
+  } else if (data.tagType === 'fbPixelEvent') {
     processFBPixelEvent();
   }
   
@@ -372,19 +372,19 @@ const processEvent = () => {
 
 const generateOptions = (integration) => {
   const integrations = {
-    "All": false,
+    'All': false,
   };
   integrations[integration] = true;
   
   return {
-    "integrations": integrations
+    'integrations': integrations
   };
 };
 
 const processBasicOrGA4Event = (isGA4Event) => {
   let options = {};
   if (isGA4Event) {
-    options = generateOptions("Google Analytics 4 Proxy");
+    options = generateOptions('Google Analytics 4 Proxy');
   }
   
   if (data.userProps) {
@@ -408,7 +408,7 @@ const mergeObj = (obj, obj2) => {
 };
 
 const processFBPixelEvent = () => {
-  const options = generateOptions("Facebook Conversions API");
+  const options = generateOptions('Facebook Conversions API');
   
   const eventName = (data.fbEventName === 'custom' ? data.customEventName : (data.fbEventName === 'variable' ? data.variableEventName : data.standardEventName));
   const objectProps = data.objectPropertyList && data.objectPropertyList.length ? makeTableMap(data.objectPropertyList, 'name', 'value') : {};
@@ -437,15 +437,15 @@ const identify = (userID, props, options) => {
 const track = (eventName, props, options) => {
    callFreshpaintProxy('apply', {
      envID: data.envID,
-     methodName: "track",
+     methodName: 'track',
      methodArgs: [ eventName, props, options ],
    });
 };
 
-const JS_URL = "https://perfalytics.com/static/js/freshpaint-jslib-snippet-gtm.js";
+const JS_URL = 'https://perfalytics.com/static/js/freshpaint-jslib-snippet-gtm.js';
 
 
-if (!callFreshpaintProxy("isLoaded")) {
+if (!callFreshpaintProxy('isLoaded')) {
   injectScript(JS_URL, processEvent, data.gtmOnFailure, 'freshpaint_gtm_proxy');
 } else {  
   processEvent();
