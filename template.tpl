@@ -530,11 +530,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://perfalytics.com/*,"
-              },
-              {
-                "type": 1,
-                "string": "https://ci-test-sites.s3-us-west-2.amazonaws.com/fp001.local/*"
+                "string": "https://perfalytics.com/*"
               }
             ]
           }
