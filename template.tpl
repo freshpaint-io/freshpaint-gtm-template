@@ -36,12 +36,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "envID",
     "displayName": "Freshpaint Environment ID",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ]
+    "simpleValueType": true
   },
   {
     "type": "SELECT",
@@ -327,15 +322,17 @@ ___TEMPLATE_PARAMETERS___
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
+// TODOS:
+// 1. remove debug mode from all initialization
+
 const callInWindow = require('callInWindow');
-const copyFromWindow = require('copyFromWindow');
 const injectScript = require('injectScript');
 const log = require('logToConsole');
 const makeTableMap = require('makeTableMap');
 const getType = require('getType');
 
 
-function parseGA4Props(inputProps) {
+function parsePropsTable(inputProps) {
   const props = {};
   for (let prop of inputProps) {
     props[prop.propName] = prop.propValue;
@@ -344,8 +341,28 @@ function parseGA4Props(inputProps) {
 }
 
 const processEvent = () => {
-  if (data.tagType === "ga4Event") {
-    processGA4Event();
+  if (data.tagType === "init" && !data.envID) {
+    log("[freshpaint-GTM] environment ID is required for init tag");
+    return;
+  }
+  
+  // initialize environment
+  // if already done before then this is a no-op
+  if (data.envID) {
+    callFreshpaintProxy('init', {
+      envID: data.envID,
+      initPersistantProps: {
+        "$gtm": true,
+      },
+      initConfig: {
+        debug: true
+      }
+    });
+  }
+  
+  // actually process the event
+  if (data.tagType === "track" || data.tagType === "identify" || data.tagType === "ga4Event") {
+    processBasicOrGA4Event(data.tagType === "ga4Event");
   } else if (data.tagType === "fbPixelEvent") {
     processFBPixelEvent();
   }
@@ -364,16 +381,19 @@ const generateOptions = (integration) => {
   };
 };
 
-const processGA4Event = () => {
-  const options = generateOptions("Google Analytics 4 Proxy");
+const processBasicOrGA4Event = (isGA4Event) => {
+  let options = {};
+  if (isGA4Event) {
+    options = generateOptions("Google Analytics 4 Proxy");
+  }
   
   if (data.userProps) {
-    const props = parseGA4Props(data.userProps || []);
-    callInWindow('freshpaint.identify', props, options); 
+    const props = parsePropsTable(data.userProps || []);
+    identify(undefined, props, options);
   }
   
   if (data.eventName) {
-    const props = parseGA4Props(data.eventProps || []);   
+    const props = parsePropsTable(data.eventProps || []);   
     track(data.eventName, props, options);
   }
 };
@@ -390,43 +410,44 @@ const mergeObj = (obj, obj2) => {
 const processFBPixelEvent = () => {
   const options = generateOptions("Facebook Conversions API");
   
-  log('hello');
-  log(data);
   const eventName = (data.fbEventName === 'custom' ? data.customEventName : (data.fbEventName === 'variable' ? data.variableEventName : data.standardEventName));
   const objectProps = data.objectPropertyList && data.objectPropertyList.length ? makeTableMap(data.objectPropertyList, 'name', 'value') : {};
   const objectPropsFromVar = getType(data.objectPropertiesFromVariable) === 'object' ? data.objectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-
-  log(eventName);
-  log(objectProps);
-  log(objectPropsFromVar);
   
-  track(eventName, mergedObjectProps);
+  track(eventName, mergedObjectProps, options);
+};
+
+const callFreshpaintProxy = (cmdName, args) => {
+  return callInWindow('_freshpaint_gtm_proxy', cmdName, args);
 };
 
 const identify = (userID, props, options) => {
+  let args = [ props, options ];
   if (userID !== undefined) {
-    callInWindow('freshpaint.identify', userID, props, options);
-  } else {
-    callInWindow('freshpaint.identify', props, options);
+    args = [ userID ].concat(args);
   }
+  callFreshpaintProxy('apply', {
+    envID: data.envID,
+    methodName: 'identify',
+    methodArgs: args
+  });
 };
 
 const track = (eventName, props, options) => {
-  callInWindow('freshpaint.track', eventName, props, options);
+   callFreshpaintProxy('apply', {
+     envID: data.envID,
+     methodName: "track",
+     methodArgs: [ eventName, props, options ],
+   });
 };
 
-const JS_URL = "https://perfalytics.com/static/js/freshpaint-jslib-snippet.js";
+const JS_URL = "https://ci-test-sites.s3-us-west-2.amazonaws.com/fp001.local/fp-gtm-proxy/7.js";
 
-const freshpaint = copyFromWindow("freshpaint");
-if (!freshpaint || !freshpaint.__initialized) {  
-  const onSuccess = () => {
-    callInWindow('freshpaint.addEventProperties', {"$gtm": true}); 
-    callInWindow('freshpaint.init', data.envID, {debug: true});
-    processEvent();
-  };
-  injectScript(JS_URL, onSuccess, data.gtmOnFailure, 'freshpaint');
-} else {
+
+if (!callFreshpaintProxy("isLoaded")) {
+  injectScript(JS_URL, processEvent, data.gtmOnFailure, 'freshpaint_gtm_proxy');
+} else {  
   processEvent();
 }
 
@@ -469,171 +490,15 @@ ___WEB_PERMISSIONS___
                 "mapValue": [
                   {
                     "type": 1,
-                    "string": "freshpaint"
+                    "string": "_freshpaint_gtm_proxy"
                   },
                   {
                     "type": 8,
-                    "boolean": true
+                    "boolean": false
                   },
                   {
                     "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  }
-                ]
-              },
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "freshpaint.init"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  }
-                ]
-              },
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "freshpaint.track"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  }
-                ]
-              },
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "freshpaint.identify"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  }
-                ]
-              },
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "freshpaint.addEventProperties"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
+                    "boolean": false
                   },
                   {
                     "type": 8,
@@ -665,7 +530,11 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://perfalytics.com/*"
+                "string": "https://perfalytics.com/*,"
+              },
+              {
+                "type": 1,
+                "string": "https://ci-test-sites.s3-us-west-2.amazonaws.com/fp001.local/*"
               }
             ]
           }
