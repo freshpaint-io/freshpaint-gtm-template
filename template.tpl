@@ -442,7 +442,7 @@ const track = (eventName, props, options) => {
    });
 };
 
-const JS_URL = 'https://perfalytics.com/static/js/freshpaint-jslib-snippet-gtm.js';
+const JS_URL = 'https://perfalytics.com/static/js/freshpaint-gtm.js';
 
 
 if (!callFreshpaintProxy('isLoaded')) {
