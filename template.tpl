@@ -389,7 +389,7 @@ const processBasicOrGA4Event = (isGA4Event) => {
   
   if (data.userProps) {
     const props = parsePropsTable(data.userProps || []);
-    identify(undefined, props, options);
+    identify("", props, options);
   }
   
   if (data.eventName) {
@@ -424,7 +424,7 @@ const callFreshpaintProxy = (cmdName, args) => {
 
 const identify = (userID, props, options) => {
   let args = [ props, options ];
-  if (userID !== undefined) {
+  if (userID) {
     args = [ userID ].concat(args);
   }
   callFreshpaintProxy('apply', {
