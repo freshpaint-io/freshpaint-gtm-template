@@ -325,12 +325,11 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 // TODOS:
 // 1. remove debug mode from all initialization
 
-const callInWindow = require('callInWindow');
-const injectScript = require('injectScript');
-const log = require('logToConsole');
-const makeTableMap = require('makeTableMap');
-const getType = require('getType');
-
+const callInWindow = require("callInWindow");
+const injectScript = require("injectScript");
+const log = require("logToConsole");
+const makeTableMap = require("makeTableMap");
+const getType = require("getType");
 
 function parsePropsTable(inputProps) {
   const props = {};
@@ -341,59 +340,63 @@ function parsePropsTable(inputProps) {
 }
 
 const processEvent = () => {
-  if (data.tagType === 'init' && !data.envID) {
-    log('[freshpaint-GTM] environment ID is required for init tag');
+  if (data.tagType === "init" && !data.envID) {
+    log("[freshpaint-GTM] environment ID is required for init tag");
     return;
   }
-  
+
   // initialize environment
   // if already done before then this is a no-op
   if (data.envID) {
-    callFreshpaintProxy('init', {
+    callFreshpaintProxy("init", {
       envID: data.envID,
       initPersistantProps: {
-        '$gtm': true,
+        $gtm: true,
       },
       initConfig: {
-        debug: true
-      }
+        debug: true,
+      },
     });
   }
-  
+
   // actually process the event
-  if (data.tagType === 'track' || data.tagType === 'identify' || data.tagType === 'ga4Event') {
-    processBasicOrGA4Event(data.tagType === 'ga4Event');
-  } else if (data.tagType === 'fbPixelEvent') {
+  if (
+    data.tagType === "track" ||
+    data.tagType === "identify" ||
+    data.tagType === "ga4Event"
+  ) {
+    processBasicOrGA4Event(data.tagType === "ga4Event");
+  } else if (data.tagType === "fbPixelEvent") {
     processFBPixelEvent();
   }
-  
+
   data.gtmOnSuccess();
 };
 
 const generateOptions = (integration) => {
   const integrations = {
-    'All': false,
+    All: false,
   };
   integrations[integration] = true;
-  
+
   return {
-    'integrations': integrations
+    integrations: integrations,
   };
 };
 
 const processBasicOrGA4Event = (isGA4Event) => {
   let options = {};
   if (isGA4Event) {
-    options = generateOptions('Google Analytics 4 Proxy');
+    options = generateOptions("Google Analytics 4 Proxy");
   }
-  
+
   if (data.userProps) {
     const props = parsePropsTable(data.userProps || []);
     identify("", props, options);
   }
-  
+
   if (data.eventName) {
-    const props = parsePropsTable(data.eventProps || []);   
+    const props = parsePropsTable(data.eventProps || []);
     track(data.eventName, props, options);
   }
 };
@@ -408,46 +411,56 @@ const mergeObj = (obj, obj2) => {
 };
 
 const processFBPixelEvent = () => {
-  const options = generateOptions('Facebook Conversions API');
-  
-  const eventName = (data.fbEventName === 'custom' ? data.customEventName : (data.fbEventName === 'variable' ? data.variableEventName : data.standardEventName));
-  const objectProps = data.objectPropertyList && data.objectPropertyList.length ? makeTableMap(data.objectPropertyList, 'name', 'value') : {};
-  const objectPropsFromVar = getType(data.objectPropertiesFromVariable) === 'object' ? data.objectPropertiesFromVariable : {};
+  const options = generateOptions("Facebook Conversions API");
+
+  const eventName =
+    data.fbEventName === "custom"
+      ? data.customEventName
+      : data.fbEventName === "variable"
+      ? data.variableEventName
+      : data.standardEventName;
+  const objectProps =
+    data.objectPropertyList && data.objectPropertyList.length
+      ? makeTableMap(data.objectPropertyList, "name", "value")
+      : {};
+  const objectPropsFromVar =
+    getType(data.objectPropertiesFromVariable) === "object"
+      ? data.objectPropertiesFromVariable
+      : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-  
+
   track(eventName, mergedObjectProps, options);
 };
 
 const callFreshpaintProxy = (cmdName, args) => {
-  return callInWindow('_freshpaint_gtm_proxy', cmdName, args);
+  return callInWindow("_freshpaint_gtm_proxy", cmdName, args);
 };
 
 const identify = (userID, props, options) => {
-  let args = [ props, options ];
+  let args = [props, options];
   if (userID) {
-    args = [ userID ].concat(args);
+    args = [userID].concat(args);
   }
-  callFreshpaintProxy('apply', {
+  callFreshpaintProxy("apply", {
     envID: data.envID,
-    methodName: 'identify',
-    methodArgs: args
+    methodName: "identify",
+    methodArgs: args,
   });
 };
 
 const track = (eventName, props, options) => {
-   callFreshpaintProxy('apply', {
-     envID: data.envID,
-     methodName: 'track',
-     methodArgs: [ eventName, props, options ],
-   });
+  callFreshpaintProxy("apply", {
+    envID: data.envID,
+    methodName: "track",
+    methodArgs: [eventName, props, options],
+  });
 };
 
-const JS_URL = 'https://perfalytics.com/static/js/freshpaint-gtm.js';
+const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
-
-if (!callFreshpaintProxy('isLoaded')) {
-  injectScript(JS_URL, processEvent, data.gtmOnFailure, 'freshpaint_gtm_proxy');
-} else {  
+if (!callFreshpaintProxy("isLoaded")) {
+  injectScript(JS_URL, processEvent, data.gtmOnFailure, "freshpaint_gtm_proxy");
+} else {
   processEvent();
 }
 
