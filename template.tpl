@@ -65,7 +65,7 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Facebook Pixel Event"
       },
       {
-        "value": "twitterConversionEvent",
+        "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads Event"
       }
     ],
@@ -375,7 +375,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "twitterConversionEvent",
+        "paramValue": "twitterAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -442,7 +442,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "twitterConversionEvent",
+        "paramValue": "twitterAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -498,7 +498,7 @@ const processEvent = () => {
     processBasicOrGA4Event(data.tagType === "ga4Event");
   } else if (data.tagType === "fbPixelEvent") {
     processFBPixelEvent();
-  } else if (data.tagType === "twitterConversionEvent") {
+  } else if (data.tagType === "twitterAdsEvent") {
     processTwitterEvent();
   }
 
