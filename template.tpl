@@ -351,7 +351,7 @@ const processEvent = () => {
     callFreshpaintProxy("init", {
       envID: data.envID,
       initPersistantProps: {
-        $gtm: true,
+        "$gtm": true,
       },
       initConfig: {
         debug: true,
@@ -414,19 +414,17 @@ const processFBPixelEvent = () => {
   const options = generateOptions("Facebook Conversions API");
 
   const eventName =
-    data.fbEventName === "custom"
-      ? data.customEventName
-      : data.fbEventName === "variable"
-      ? data.variableEventName
-      : data.standardEventName;
+    data.fbEventName === "custom" ? 
+      data.customEventName : (
+        data.fbEventName === "variable" ? 
+          data.variableEventName : data.standardEventName
+      );
   const objectProps =
-    data.objectPropertyList && data.objectPropertyList.length
-      ? makeTableMap(data.objectPropertyList, "name", "value")
-      : {};
+    data.objectPropertyList && data.objectPropertyList.length ? 
+      makeTableMap(data.objectPropertyList, "name", "value") : {};
   const objectPropsFromVar =
-    getType(data.objectPropertiesFromVariable) === "object"
-      ? data.objectPropertiesFromVariable
-      : {};
+    getType(data.objectPropertiesFromVariable) === "object" ? 
+      data.objectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
   track(eventName, mergedObjectProps, options);
