@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/"
 versions:
-  - sha: 2af65ed255c7456e9f06b1892de9b52ffca5452e
+  - sha: 1b35b0b37c9b16ac121407ce888a9081f7dc7c3a
     changeNotes: Initial release.
