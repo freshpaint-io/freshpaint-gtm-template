@@ -63,6 +63,10 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Pixel Event"
+      },
+      {
+        "value": "twitterAdsEvent",
+        "displayValue": "Twitter Ads Event"
       }
     ],
     "simpleValueType": true
@@ -316,6 +320,132 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
+  },
+  {
+    "type": "RADIO",
+    "name": "twitterEventName",
+    "displayName": "Select tag event:",
+    "radioItems": [
+      {
+        "value": "PageView",
+        "displayValue": "PageView"
+      },
+      {
+        "value": "ViewContent",
+        "displayValue": "ViewContent"
+      },
+      {
+        "value": "Search",
+        "displayValue": "Search"
+      },
+      {
+        "value": "AddToCart",
+        "displayValue": "AddToCart"
+      },
+      {
+        "value": "AddToWishlist",
+        "displayValue": "AddToWishlist"
+      },
+      {
+        "value": "InitiateCheckout",
+        "displayValue": "InitiateCheckout"
+      },
+      {
+        "value": "AddPaymentInfo",
+        "displayValue": "AddPaymentInfo"
+      },
+      {
+        "value": "Purchase",
+        "displayValue": "Purchase"
+      },
+      {
+        "value": "Signup",
+        "displayValue": "Signup"
+      },
+      {
+        "value": "Download",
+        "displayValue": "Download"
+      },
+      {
+        "value": "CompleteRegistration",
+        "displayValue": "CompleteRegistration"
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "twitterProps",
+    "displayName": "Event Parameters.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "propName",
+          "displayName": "Event parameter name",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "value",
+              "displayValue": "\u0027value\u0027 - amount of an action valuable to your business, such as a purchase. Example: 12.99"
+            },
+            {
+              "value": "currency",
+              "displayValue": "\u0027currency\u0027 - use if the \u0027value\u0027 parameter is set. ISO 4217 currency code. Example: USD"
+            },
+            {
+              "value": "content_name",
+              "displayValue": "\u0027content_name\u0027 - name of the page or product. Example: Promotional User Sign-up Complete"
+            },
+            {
+              "value": "content_category",
+              "displayValue": "\u0027content_category\u0027 - category of the page or product. Example: 30day Trial"
+            },
+            {
+              "value": "content_ids",
+              "displayValue": "\u0027content_ids\u0027 - product IDs associated with the Purchase event. Example: [\u0027SKU-AB12\u0027,\u0027SKU-DE45\u0027]."
+            },
+            {
+              "value": "content_type",
+              "displayValue": "\u0027content_type\u0027 - use either \u0027product\u0027 or \u0027product_group\u0027 based on the content_ids"
+            },
+            {
+              "value": "num_items",
+              "displayValue": "\u0027num_items\u0027 - number of items associated with the conversion event. Example: 3."
+            },
+            {
+              "value": "order_id",
+              "displayValue": "\u0027order_id\u0027 - order ID associated with the user\u0027s purchase. Example: OID-8767-1"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "propValue",
+          "displayName": "Value for the event parameter",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
   }
 ]
 
@@ -368,6 +498,8 @@ const processEvent = () => {
     processBasicOrGA4Event(data.tagType === "ga4Event");
   } else if (data.tagType === "fbPixelEvent") {
     processFBPixelEvent();
+  } else if (data.tagType === "twitterAdsEvent") {
+    processTwitterEvent();
   }
 
   data.gtmOnSuccess();
@@ -428,6 +560,13 @@ const processFBPixelEvent = () => {
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
   track(eventName, mergedObjectProps, options);
+};
+
+const processTwitterEvent = () => {
+  const options = generateOptions("Twitter Ads");
+  const eventName = data.twitterEventName;
+  const props = parsePropsTable(data.twitterProps || []);
+  track(eventName, props, options);  
 };
 
 const callFreshpaintProxy = (cmdName, args) => {
