@@ -629,6 +629,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "bingEventAction",
         "paramValue": "customAction",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "defineYourOwn",
+        "type": "EQUALS"
       }
     ]
   },
@@ -789,11 +794,222 @@ ___TEMPLATE_PARAMETERS___
     "name": "bingHotelParams",
     "displayName": "Hotel event parameters",
     "groupStyle": "NO_ZIPPY",
-    "subParams": [],
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "bingHotelBasePrice",
+        "displayName": "Hotel base price",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHotelBookingRefNum",
+        "displayName": "Hotel booking reference #",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHotelCheckinDate",
+        "displayName": "Hotel check-in date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHotelCheckoutDate",
+        "displayName": "Hotel check-out date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHotelStayLength",
+        "displayName": "Hotel length of stay",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHotelPartnerID",
+        "displayName": "Partner hotel ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHotelTotalPrice",
+        "displayName": "Hotel total price",
+        "simpleValueType": true
+      },
+      {
+        "type": "SELECT",
+        "name": "bingHotelPageType",
+        "displayName": "Hotel page type",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": "home",
+            "displayValue": "Home"
+          },
+          {
+            "value": "searchresults",
+            "displayValue": "Search Results"
+          },
+          {
+            "value": "offerdetail",
+            "displayValue": "Offer Detail"
+          },
+          {
+            "value": "conversionintent",
+            "displayValue": "Conversion Intent"
+          },
+          {
+            "value": "conversion",
+            "displayValue": "Conversion"
+          },
+          {
+            "value": "property",
+            "displayValue": "Property"
+          },
+          {
+            "value": "cart",
+            "displayValue": "Cart"
+          },
+          {
+            "value": "purchase",
+            "displayValue": "Purchase"
+          },
+          {
+            "value": "cancel",
+            "displayValue": "Cancel"
+          },
+          {
+            "value": "other",
+            "displayValue": "Other"
+          }
+        ],
+        "simpleValueType": true
+      },
+      {
+        "type": "LABEL",
+        "name": "bingHotelLabel",
+        "displayName": "The hotel total price (hct_total_price) and currency parameters are required when you include other hotel parameters."
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "bingTrackType",
         "paramValue": "verticalHotel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "bingTravelParams",
+    "displayName": "Travel event parameters",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "bingTravelDestinationID",
+        "displayName": "Travel destination ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelOriginID",
+        "displayName": "Travel origin ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "SELECT",
+        "name": "bingTravelPageType",
+        "displayName": "Travel page type",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": "home",
+            "displayValue": "Home"
+          },
+          {
+            "value": "searchresults",
+            "displayValue": "Search Results"
+          },
+          {
+            "value": "offerdetail",
+            "displayValue": "Offer Detail"
+          },
+          {
+            "value": "conversionintent",
+            "displayValue": "Conversion Intent"
+          },
+          {
+            "value": "conversion",
+            "displayValue": "Conversion"
+          },
+          {
+            "value": "cancel",
+            "displayValue": "Cancel"
+          },
+          {
+            "value": "other",
+            "displayValue": "Other"
+          }
+        ],
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelStartDate",
+        "displayName": "Travel start date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelEndDate",
+        "displayName": "Travel end date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelTotalValue",
+        "displayName": "Travel total value",
+        "simpleValueType": true
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "verticalTravel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingPagePath",
+    "displayName": "Page path",
+    "simpleValueType": true,
+    "help": "Must start with a \u0027/\u0027, ex: \u0027/spa_page\u0027",
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "pageViewSPA",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingPageTitle",
+    "displayName": "Page title",
+    "simpleValueType": true,
+    "help": "Can leave empty to re-use document title",
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "pageViewSPA",
         "type": "EQUALS"
       }
     ]
