@@ -1066,6 +1066,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 // TODOS:
 // 1. remove debug mode from all initialization
+// 2. Bing: Implement - Page view (SPA)
 
 const callInWindow = require("callInWindow");
 const injectScript = require("injectScript");
@@ -1112,6 +1113,8 @@ const processEvent = () => {
     processFBPixelEvent();
   } else if (data.tagType === "twitterAdsEvent") {
     processTwitterEvent();
+  } else if (data.tagType === "bingAdsEvent") {
+    processBingEvent();
   }
 
   data.gtmOnSuccess();
@@ -1181,6 +1184,98 @@ const processTwitterEvent = () => {
   track(eventName, props, options);  
 };
 
+
+const processBingEvent = () => {
+  const options = generateOptions("Bing Ads");
+  
+  if (data.bingTrackType === "pageView") {
+    page({}, options);
+    return;
+  } 
+  
+  if (data.bingTrackType === "pageViewSPA") {
+    // our Bing destination does not support this
+    // TODO: implement this in destination and here
+    return;
+  }
+  
+  // make required track call
+  let eventName;
+  const props = { tpp: "1" }; 
+  const includePropsFromData = (mapping) => {
+    for (let propKey in mapping) {
+      const dataKey = mapping[propKey];
+      if (data[dataKey]) {
+        props[propKey] = data[dataKey];
+      }
+    }
+  };
+  
+  if (data.bingTrackType === "variableRevenueForDestinationURL") {
+    eventName = "revenue_generated";
+    props.action = "";
+    props.label = "";
+    includePropsFromData({
+      currency: "bingCurrency",
+      revenue: "bingRevenue",
+    });
+  } else if (data.bingTrackType === "customConversion") {
+    eventName = data.bingCustomAction || "";
+    props.action = eventName;
+    props.currency = data.bingCurrency || "USD";
+    includePropsFromData({
+      label: "bingCustomConversionLabel",
+      category: "bingCustomConversionCategory",
+      event_value: "bingCustomConversionValue",
+      revenue: "bingRevenue",
+    });
+  } else if (data.bingTrackType === "verticalEcommerce" || data.bingTrackType === "verticalHotel" || data.bingTrackType === "verticalTravel") {
+    let action = data.bingEventAction;
+    if (action === "customAction") {
+      action = data.bingCustomAction;
+    }
+    eventName = action;
+    props.action = action;
+    props.label = "";
+    
+    if (data.bingTrackType === "verticalEcommerce") {
+      includePropsFromData({
+        product_id: "bingEcomProdID",
+        pagetype: "bingEcomPageType",
+        ecomm_totalvalue: "bingEcomValue",
+        ecomm_category: "bingEcomCategory",
+      });
+    } else if (data.bingTrackType === "verticalHotel") {
+      props.currency = data.bingCurrency || "USD";
+      includePropsFromData({
+        hct_base_price: "bingHotelBasePrice",
+        hct_booking_xref: "bingHotelBookingRefNum",
+        hct_checkin_date: "bingHotelCheckinDate",
+        hct_checkout_date: "bingHotelCheckoutDate",
+        hct_length_of_stay: "bingHotelStayLength",
+        hct_partner_hotel_id: "bingHotelPartnerID",
+        hct_total_price: "bingHotelTotalPrice",
+        hct_pagetype: "bingHotelPageType",
+      });
+    } else if (data.bingTrackType === "verticalTravel") {
+      includePropsFromData({
+        travel_destid: "bingTravelDestinationID",
+        travel_originid: "bingTravelOriginID",
+        travel_pagetype: "bingTravelPageType",
+        travel_startdate: "bingTravelStartDate",
+        travel_enddate: "bingTravelEndDate",
+        travel_totalvalue: "bingTravelTotalValue",
+      });
+    }
+  } else if (data.bingTrackType === "defineYourOwn") {
+    eventName = data.bingCustomAction || "";
+    props.action = eventName;
+    props.label = "";
+  } 
+  
+  track(eventName, props, options);
+};
+
 const callFreshpaintProxy = (cmdName, args) => {
   return callInWindow("_freshpaint_gtm_proxy", cmdName, args);
 };
@@ -1202,6 +1297,14 @@ const track = (eventName, props, options) => {
     envID: data.envID,
     methodName: "track",
     methodArgs: [eventName, props, options],
+  });
+};
+
+const page = (pageProps, options) => {
+  callFreshpaintProxy("apply", {
+    envID: data.envID,
+    methodName: "page",
+    methodArgs: [pageProps, options],
   });
 };
 
