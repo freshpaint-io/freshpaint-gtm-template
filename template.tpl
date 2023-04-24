@@ -1066,7 +1066,9 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 // TODOS:
 // 1. remove debug mode from all initialization
-// 2. Bing: Implement - Page view (SPA)
+// 2. Bing: 
+//    a. Implement - Page view (SPA)
+//    b. Add support for custom event props (Define your own event parameters)
 
 const callInWindow = require("callInWindow");
 const injectScript = require("injectScript");
