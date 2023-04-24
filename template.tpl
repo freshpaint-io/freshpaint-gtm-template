@@ -67,6 +67,10 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads Event"
+      },
+      {
+        "value": "bingAdsEvent",
+        "displayValue": "Microsoft Advertising Universal Event Tracking (Bing Ads)"
       }
     ],
     "simpleValueType": true
@@ -443,6 +447,398 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "bingTrackType",
+    "displayName": "Track Type",
+    "macrosInSelect": false,
+    "selectItems": [
+      {
+        "value": "pageView",
+        "displayValue": "page view"
+      },
+      {
+        "value": "variableRevenueForDestinationURL",
+        "displayValue": "Variable revenue for destination URL"
+      },
+      {
+        "value": "customConversion",
+        "displayValue": "Custom conversion"
+      },
+      {
+        "value": "verticalEcommerce",
+        "displayValue": "Vertical: Ecommerce"
+      },
+      {
+        "value": "verticalHotel",
+        "displayValue": "Vertical: Hotel"
+      },
+      {
+        "value": "verticalTravel",
+        "displayValue": "Vertical: Travel"
+      },
+      {
+        "value": "defineYourOwn",
+        "displayValue": "Define your own"
+      },
+      {
+        "value": "pageViewSPA",
+        "displayValue": "Page view (SPA)"
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "bingEventAction",
+    "displayName": "Event action",
+    "macrosInSelect": true,
+    "selectItems": [
+      {
+        "value": "customAction",
+        "displayValue": "Custom (input action name manually)"
+      },
+      {
+        "value": "add_payment_info",
+        "displayValue": "Add payment info (add_payment_info)"
+      },
+      {
+        "value": "add_to_cart",
+        "displayValue": "Add to cart (add_to_cart)"
+      },
+      {
+        "value": "add_to_wishlist",
+        "displayValue": "Add to wishlist (add_to_wishlist)"
+      },
+      {
+        "value": "begin_checkout",
+        "displayValue": "Begin checkout (begin_checkout)"
+      },
+      {
+        "value": "checkout_progress",
+        "displayValue": "Checkout progress (checkout_progress)"
+      },
+      {
+        "value": "exception",
+        "displayValue": "Exception (exception)"
+      },
+      {
+        "value": "generate_lead",
+        "displayValue": "Generate lead (generate_lead)"
+      },
+      {
+        "value": "login",
+        "displayValue": "Log in (login)"
+      },
+      {
+        "value": "purchase",
+        "displayValue": "Purchase (purchase)"
+      },
+      {
+        "value": "refund",
+        "displayValue": "Refund (refund)"
+      },
+      {
+        "value": "remove_from_cart",
+        "displayValue": "Remove from cart (remove_from_cart)"
+      },
+      {
+        "value": "screen_view",
+        "displayValue": "Screen view (screen_view)"
+      },
+      {
+        "value": "search",
+        "displayValue": "Search (search)"
+      },
+      {
+        "value": "select_content",
+        "displayValue": "Select content (select_content)"
+      },
+      {
+        "value": "set_checkout_option",
+        "displayValue": "Set checkout option (set_checkout_option)"
+      },
+      {
+        "value": "share",
+        "displayValue": "Share (share)"
+      },
+      {
+        "value": "sign_up",
+        "displayValue": "Sign up (sign_up)"
+      },
+      {
+        "value": "view_item",
+        "displayValue": "View item (view_item)"
+      },
+      {
+        "value": "view_item_list",
+        "displayValue": "View item list (view_item_list)"
+      },
+      {
+        "value": "view_promotion",
+        "displayValue": "View promotion (view_promotion)"
+      },
+      {
+        "value": "view_search_results",
+        "displayValue": "View search results (view_search_results)"
+      }
+    ],
+    "simpleValueType": true,
+    "help": "If you select \"Custom\" and then leave the \"Define your own event action\" field blank, an empty event action value will be sent",
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "verticalEcommerce",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "verticalHotel",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "verticalTravel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCustomAction",
+    "displayName": "Define your own event action",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "customConversion",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventAction",
+        "paramValue": "customAction",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCustomConversionCategory",
+    "displayName": "Event category",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "customConversion",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCustomConversionLabel",
+    "displayName": "Event label",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "customConversion",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCustomConversionValue",
+    "displayName": "Event value",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "customConversion",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCurrency",
+    "displayName": "Currency",
+    "simpleValueType": true,
+    "help": "Currency value must be ISO standard currency code",
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "variableRevenueForDestinationURL",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "customConversion",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "verticalHotel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingRevenue",
+    "displayName": "Revenue Value",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "variableRevenueForDestinationURL",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "customConversion",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "bingEcomParams",
+    "displayName": "Ecommerce event parameters",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "bingEcomProdID",
+        "displayName": "Retail product ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "SELECT",
+        "name": "bingEcomPageType",
+        "displayName": "Retail page type",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": "home",
+            "displayValue": "Home"
+          },
+          {
+            "value": "searchresults",
+            "displayValue": "Search Results"
+          },
+          {
+            "value": "category",
+            "displayValue": "Category"
+          },
+          {
+            "value": "product",
+            "displayValue": "Product"
+          },
+          {
+            "value": "cart",
+            "displayValue": "Cart"
+          },
+          {
+            "value": "purchase",
+            "displayValue": "Purchase"
+          },
+          {
+            "value": "other",
+            "displayValue": "Other"
+          }
+        ],
+        "simpleValueType": true,
+        "help": "The pagetype parameter is required when you include the prodid parameter."
+      },
+      {
+        "type": "TEXT",
+        "name": "bingEcomValue",
+        "displayName": "Retail total value",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingEcomCategory",
+        "displayName": "Retail category",
+        "simpleValueType": true
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "verticalEcommerce",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "bingHotelParams",
+    "displayName": "Hotel event parameters",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingTrackType",
+        "paramValue": "verticalHotel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "bingCustomEventProps",
+    "displayName": "Define your own event parameters",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
+      {
+        "type": "LABEL",
+        "name": "bingCustomPropsLabel",
+        "displayName": "Explicit parameters given a value above may be overridden by parameters given in this table. You can use either way to pass parameters."
+      },
+      {
+        "type": "PARAM_TABLE",
+        "name": "bingCustomPropsTable",
+        "displayName": "",
+        "paramTableColumns": [
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "propName",
+              "displayName": "Name",
+              "simpleValueType": true
+            },
+            "isUnique": false
+          },
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "propValue",
+              "displayName": "Value",
+              "simpleValueType": true
+            },
+            "isUnique": false
+          }
+        ]
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
         "type": "EQUALS"
       }
     ]
