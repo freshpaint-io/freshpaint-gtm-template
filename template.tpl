@@ -698,7 +698,8 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "verticalHotel",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "defaultValue": "USD"
   },
   {
     "type": "TEXT",
