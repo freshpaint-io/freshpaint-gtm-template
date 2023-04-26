@@ -71,7 +71,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "bingAdsEvent",
         "displayValue": "Microsoft Advertising Universal Event Tracking (Bing Ads)"
-      }
+      },
+      {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads Conversion Event"
+      },
     ],
     "simpleValueType": true
   },
@@ -89,6 +93,96 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionId",
+    "displayName": "Conversion ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionLabel",
+    "displayName": "Conversion Label",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionValue",
+    "displayName": "Conversion Value",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsTransactionId",
+    "displayName": "Transaction ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCurrencyCode",
+    "displayName": "Currency Code",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -1118,6 +1212,8 @@ const processEvent = () => {
     processTwitterEvent();
   } else if (data.tagType === "bingAdsEvent") {
     processBingEvent();
+  } else if (data.tagType === "googleAdsEvent") {
+    processGoogleAdsEvent();
   }
 
   data.gtmOnSuccess();
@@ -1277,6 +1373,9 @@ const processBingEvent = () => {
   } 
   
   track(eventName, props, options);
+};
+
+const processGoogleAdsEvent = () => {
 };
 
 const callFreshpaintProxy = (cmdName, args) => {
