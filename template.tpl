@@ -99,8 +99,8 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "googleAdsConversionId",
-    "displayName": "Conversion ID",
+    "name": "googleAdseventName",
+    "displayName": "Event Name",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -135,8 +135,26 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "googleAdsConversionId",
+    "displayName": "Conversion ID (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "googleAdsConversionValue",
-    "displayName": "Conversion Value",
+    "displayName": "Conversion Value (optional)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -154,7 +172,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "googleAdsTransactionId",
-    "displayName": "Transaction ID",
+    "displayName": "Transaction ID (optional)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -172,7 +190,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "googleAdsCurrencyCode",
-    "displayName": "Currency Code",
+    "displayName": "Currency Code (optional)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -1376,6 +1394,32 @@ const processBingEvent = () => {
 };
 
 const processGoogleAdsEvent = () => {
+  const options = generateOptions("Google Ads");
+
+  // make track call
+
+  if (data.googleAdseventName && data.googleAdsConversionLabel) {
+    const props = parsePropsTable(data.eventProps || []);
+
+    props["conversion_label"] = data.googleAdsConversion_label;
+
+    // conversion_id is optional override to freshpaint-configured one for destination
+    if (data.googleAdsConversionId) {
+        props["conversion_id"] = data.googleAdsConversionId;
+    }
+
+    if (data.googleAdsConversionValue) {
+        props["value"] = data.googleAdsConversionValue;
+    }
+    if (data.googleAdsTransactionId) {
+        props["transaction_id"] = data.googleAdsTransactionId;
+    }
+    if (data.googleAdsCurrencyCode) {
+        props["currency"] = data.googleAdsCurrencyCode;
+    }
+
+    track(data.googleAdseventName, props, options);
+  }
 };
 
 const callFreshpaintProxy = (cmdName, args) => {
