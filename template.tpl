@@ -1401,7 +1401,7 @@ const processGoogleAdsEvent = () => {
   if (data.googleAdseventName && data.googleAdsConversionLabel) {
     const props = parsePropsTable(data.eventProps || []);
 
-    props["conversion_label"] = data.googleAdsConversion_label;
+    props["conversion_label"] = data.googleAdsConversionLabel;
 
     // conversion_id is optional override to freshpaint-configured one for destination
     if (data.googleAdsConversionId) {
