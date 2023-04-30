@@ -1394,7 +1394,7 @@ const processBingEvent = () => {
 };
 
 const processGoogleAdsEvent = () => {
-  const options = generateOptions("Google Ads");
+  const options = generateOptions("Google AdWords New");
 
   // make track call
 
