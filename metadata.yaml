@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/"
 versions:
-  - sha: fd34267ad19350e1599071cdfd3776a9562fdf65
-    changeNotes: Initial release.
+  - sha: b30383562bb5ac747a64be27b35be2d2c414d656
+    changeNotes: Add Google Ads.
