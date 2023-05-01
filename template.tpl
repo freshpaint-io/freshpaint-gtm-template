@@ -71,7 +71,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "bingAdsEvent",
         "displayValue": "Microsoft Advertising Universal Event Tracking (Bing Ads)"
-      }
+      },
+      {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads Conversion Event"
+      },
     ],
     "simpleValueType": true
   },
@@ -89,6 +93,114 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdseventName",
+    "displayName": "Event Name",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionLabel",
+    "displayName": "Conversion Label",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionId",
+    "displayName": "Conversion ID (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionValue",
+    "displayName": "Conversion Value (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsTransactionId",
+    "displayName": "Transaction ID (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCurrencyCode",
+    "displayName": "Currency Code (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -1118,6 +1230,8 @@ const processEvent = () => {
     processTwitterEvent();
   } else if (data.tagType === "bingAdsEvent") {
     processBingEvent();
+  } else if (data.tagType === "googleAdsEvent") {
+    processGoogleAdsEvent();
   }
 
   data.gtmOnSuccess();
@@ -1277,6 +1391,35 @@ const processBingEvent = () => {
   } 
   
   track(eventName, props, options);
+};
+
+const processGoogleAdsEvent = () => {
+  const options = generateOptions("Google AdWords New");
+
+  // make track call
+
+  if (data.googleAdseventName && data.googleAdsConversionLabel) {
+    const props = parsePropsTable(data.eventProps || []);
+
+    props["conversion_label"] = data.googleAdsConversionLabel;
+
+    // conversion_id is optional override to freshpaint-configured one for destination
+    if (data.googleAdsConversionId) {
+        props["conversion_id"] = data.googleAdsConversionId;
+    }
+
+    if (data.googleAdsConversionValue) {
+        props["value"] = data.googleAdsConversionValue;
+    }
+    if (data.googleAdsTransactionId) {
+        props["transaction_id"] = data.googleAdsTransactionId;
+    }
+    if (data.googleAdsCurrencyCode) {
+        props["currency"] = data.googleAdsCurrencyCode;
+    }
+
+    track(data.googleAdseventName, props, options);
+  }
 };
 
 const callFreshpaintProxy = (cmdName, args) => {
