@@ -75,7 +75,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "googleAdsEvent",
         "displayValue": "Google Ads Conversion Event"
-      },
+      }
     ],
     "simpleValueType": true
   },
@@ -105,11 +105,6 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
@@ -121,11 +116,6 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Conversion Label",
     "simpleValueType": true,
     "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
@@ -141,11 +131,6 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
@@ -157,11 +142,6 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Conversion Value (optional)",
     "simpleValueType": true,
     "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
@@ -177,11 +157,6 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
@@ -195,11 +170,6 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
@@ -207,19 +177,19 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SIMPLE_TABLE",
-    "name": "eventProps",
+    "name": "eventParameters",
     "displayName": "Event Properties",
     "simpleTableColumns": [
       {
         "defaultValue": "",
         "displayName": "Property Name",
-        "name": "propName",
+        "name": "name",
         "type": "TEXT"
       },
       {
         "defaultValue": "",
         "displayName": "Property Value",
-        "name": "propValue",
+        "name": "value",
         "type": "TEXT"
       }
     ],
@@ -238,19 +208,19 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SIMPLE_TABLE",
-    "name": "userProps",
+    "name": "userProperties",
     "displayName": "User Properties",
     "simpleTableColumns": [
       {
         "defaultValue": "",
         "displayName": "Property Name",
-        "name": "propName",
+        "name": "name",
         "type": "TEXT"
       },
       {
         "defaultValue": "",
         "displayName": "Property Value",
-        "name": "propValue",
+        "name": "value",
         "type": "TEXT"
       }
     ],
@@ -504,7 +474,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "param": {
           "type": "SELECT",
-          "name": "propName",
+          "name": "name",
           "displayName": "Event parameter name",
           "macrosInSelect": false,
           "selectItems": [
@@ -548,7 +518,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "param": {
           "type": "TEXT",
-          "name": "propValue",
+          "name": "value",
           "displayName": "Value for the event parameter",
           "simpleValueType": true
         },
@@ -1192,7 +1162,7 @@ const getType = require("getType");
 function parsePropsTable(inputProps) {
   const props = {};
   for (let prop of inputProps) {
-    props[prop.propName] = prop.propValue;
+    props[prop.name] = prop.value;
   }
   return props;
 }
@@ -1254,13 +1224,13 @@ const processBasicOrGA4Event = (isGA4Event) => {
     options = generateOptions("Google Analytics 4 Proxy");
   }
 
-  if (data.userProps) {
-    const props = parsePropsTable(data.userProps || []);
+  if (data.userProperties) {
+    const props = parsePropsTable(data.userProperties || []);
     identify("", props, options);
   }
 
   if (data.eventName) {
-    const props = parsePropsTable(data.eventProps || []);
+    const props = parsePropsTable(data.eventParameters || []);
     track(data.eventName, props, options);
   }
 };
@@ -1399,23 +1369,23 @@ const processGoogleAdsEvent = () => {
   // make track call
 
   if (data.googleAdseventName && data.googleAdsConversionLabel) {
-    const props = parsePropsTable(data.eventProps || []);
+    const props = {};
 
-    props["conversion_label"] = data.googleAdsConversionLabel;
+    props.conversion_label = data.googleAdsConversionLabel;
 
     // conversion_id is optional override to freshpaint-configured one for destination
     if (data.googleAdsConversionId) {
-        props["conversion_id"] = data.googleAdsConversionId;
+        props.conversion_id = data.googleAdsConversionId;
     }
 
     if (data.googleAdsConversionValue) {
-        props["value"] = data.googleAdsConversionValue;
+        props.value = data.googleAdsConversionValue;
     }
     if (data.googleAdsTransactionId) {
-        props["transaction_id"] = data.googleAdsTransactionId;
+        props.transaction_id = data.googleAdsTransactionId;
     }
     if (data.googleAdsCurrencyCode) {
-        props["currency"] = data.googleAdsCurrencyCode;
+        props.currency = data.googleAdsCurrencyCode;
     }
 
     track(data.googleAdseventName, props, options);
