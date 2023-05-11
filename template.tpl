@@ -81,7 +81,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "eventName",
+    "name": "ga4EventName",
     "displayName": "Event Name",
     "simpleValueType": true,
     "enablingConditions": [
@@ -98,8 +98,70 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "SIMPLE_TABLE",
+    "name": "ga4EventParameters",
+    "displayName": "Event Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "ga4UserProperties",
+    "displayName": "User Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "TEXT",
-    "name": "googleAdseventName",
+    "name": "googleAdsEventName",
     "displayName": "Event Name",
     "simpleValueType": true,
     "enablingConditions": [
@@ -171,68 +233,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "eventParameters",
-    "displayName": "Event Properties",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "userProperties",
-    "displayName": "User Properties",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
         "type": "EQUALS"
       }
     ]
@@ -1224,14 +1224,14 @@ const processBasicOrGA4Event = (isGA4Event) => {
     options = generateOptions("Google Analytics 4 Proxy");
   }
 
-  if (data.userProperties) {
-    const props = parsePropsTable(data.userProperties || []);
+  if (data.ga4UserProperties) {
+    const props = parsePropsTable(data.ga4UserProperties || []);
     identify("", props, options);
   }
 
-  if (data.eventName) {
-    const props = parsePropsTable(data.eventParameters || []);
-    track(data.eventName, props, options);
+  if (data.ga4EventName) {
+    const props = parsePropsTable(data.ga4EventParameters || []);
+    track(data.ga4EventName, props, options);
   }
 };
 
@@ -1368,7 +1368,7 @@ const processGoogleAdsEvent = () => {
 
   // make track call
 
-  if (data.googleAdseventName && data.googleAdsConversionLabel) {
+  if (data.googleAdsEventName && data.googleAdsConversionLabel) {
     const props = {};
 
     props.conversion_label = data.googleAdsConversionLabel;
@@ -1388,7 +1388,7 @@ const processGoogleAdsEvent = () => {
         props.currency = data.googleAdsCurrencyCode;
     }
 
-    track(data.googleAdseventName, props, options);
+    track(data.googleAdsEventName, props, options);
   }
 };
 
