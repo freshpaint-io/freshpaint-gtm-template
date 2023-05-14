@@ -213,7 +213,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "googleAdsTransactionId",
+    "name": "googleAdsOrderId",
     "displayName": "Transaction ID (optional)",
     "simpleValueType": true,
     "enablingConditions": [
@@ -1381,8 +1381,8 @@ const processGoogleAdsEvent = () => {
     if (data.googleAdsConversionValue) {
         props.value = data.googleAdsConversionValue;
     }
-    if (data.googleAdsTransactionId) {
-        props.transaction_id = data.googleAdsTransactionId;
+    if (data.googleAdsOrderId) {
+        props.transaction_id = data.googleAdsOrderId;
     }
     if (data.googleAdsCurrencyCode) {
         props.currency = data.googleAdsCurrencyCode;
