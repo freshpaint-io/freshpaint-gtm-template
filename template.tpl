@@ -361,7 +361,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "GROUP",
-    "name": "group1",
+    "name": "fbGroupParams",
     "displayName": "Object Properties",
     "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
