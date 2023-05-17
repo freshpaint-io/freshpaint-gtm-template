@@ -247,7 +247,7 @@ ___TEMPLATE_PARAMETERS___
         "subParams": [
           {
             "type": "SELECT",
-            "name": "standardEventName",
+            "name": "fbStandardEventName",
             "selectItems": [
               {
                 "value": "PageView",
@@ -329,7 +329,7 @@ ___TEMPLATE_PARAMETERS___
         "subParams": [
           {
             "type": "TEXT",
-            "name": "customEventName",
+            "name": "fbCustomEventName",
             "displayName": "",
             "simpleValueType": true
           }
@@ -341,7 +341,7 @@ ___TEMPLATE_PARAMETERS___
         "subParams": [
           {
             "type": "SELECT",
-            "name": "variableEventName",
+            "name": "fbVariableEventName",
             "displayName": "",
             "macrosInSelect": true,
             "selectItems": [],
@@ -367,7 +367,7 @@ ___TEMPLATE_PARAMETERS___
     "subParams": [
       {
         "type": "SELECT",
-        "name": "objectPropertiesFromVariable",
+        "name": "fbObjectPropertiesFromVariable",
         "displayName": "Load Properties From Variable",
         "macrosInSelect": true,
         "selectItems": [
@@ -381,7 +381,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "SIMPLE_TABLE",
-        "name": "objectPropertyList",
+        "name": "fbObjectPropertyList",
         "simpleTableColumns": [
           {
             "defaultValue": "",
@@ -1249,16 +1249,16 @@ const processFBPixelEvent = () => {
 
   const eventName =
     data.fbEventName === "custom" ? 
-      data.customEventName : (
+      data.fbCustomEventName : (
         data.fbEventName === "variable" ? 
-          data.variableEventName : data.standardEventName
+          data.fbVariableEventName : data.fbStandardEventName
       );
   const objectProps =
-    data.objectPropertyList && data.objectPropertyList.length ? 
-      makeTableMap(data.objectPropertyList, "name", "value") : {};
+    data.fbObjectPropertyList && data.fbObjectPropertyList.length ? 
+      makeTableMap(data.fbObjectPropertyList, "name", "value") : {};
   const objectPropsFromVar =
-    getType(data.objectPropertiesFromVariable) === "object" ? 
-      data.objectPropertiesFromVariable : {};
+    getType(data.fbObjectPropertiesFromVariable) === "object" ? 
+      data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
   track(eventName, mergedObjectProps, options);
