@@ -548,23 +548,23 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Variable revenue for destination URL"
       },
       {
-        "value": "customConversion",
+        "value": "CUSTOM",
         "displayValue": "Custom conversion"
       },
       {
-        "value": "verticalEcommerce",
+        "value": "ecommerce",
         "displayValue": "Vertical: Ecommerce"
       },
       {
-        "value": "verticalHotel",
+        "value": "hotel",
         "displayValue": "Vertical: Hotel"
       },
       {
-        "value": "verticalTravel",
+        "value": "travel",
         "displayValue": "Vertical: Travel"
       },
       {
-        "value": "defineYourOwn",
+        "value": "userDefined",
         "displayValue": "Define your own"
       },
       {
@@ -681,17 +681,17 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "verticalEcommerce",
+        "paramValue": "ecommerce",
         "type": "EQUALS"
       },
       {
         "paramName": "bingEventType",
-        "paramValue": "verticalHotel",
+        "paramValue": "hotel",
         "type": "EQUALS"
       },
       {
         "paramName": "bingEventType",
-        "paramValue": "verticalTravel",
+        "paramValue": "travel",
         "type": "EQUALS"
       }
     ]
@@ -704,7 +704,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "customConversion",
+        "paramValue": "CUSTOM",
         "type": "EQUALS"
       },
       {
@@ -714,7 +714,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "bingEventType",
-        "paramValue": "defineYourOwn",
+        "paramValue": "userDefined",
         "type": "EQUALS"
       }
     ]
@@ -727,7 +727,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "customConversion",
+        "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
     ]
@@ -740,7 +740,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "customConversion",
+        "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
     ]
@@ -753,7 +753,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "customConversion",
+        "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
     ]
@@ -772,12 +772,12 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "bingEventType",
-        "paramValue": "customConversion",
+        "paramValue": "CUSTOM",
         "type": "EQUALS"
       },
       {
         "paramName": "bingEventType",
-        "paramValue": "verticalHotel",
+        "paramValue": "hotel",
         "type": "EQUALS"
       }
     ],
@@ -796,7 +796,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "bingEventType",
-        "paramValue": "customConversion",
+        "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
     ]
@@ -867,7 +867,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "verticalEcommerce",
+        "paramValue": "ecommerce",
         "type": "EQUALS"
       }
     ]
@@ -980,7 +980,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "verticalHotel",
+        "paramValue": "hotel",
         "type": "EQUALS"
       }
     ]
@@ -1064,7 +1064,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "verticalTravel",
+        "paramValue": "travel",
         "type": "EQUALS"
       }
     ]
@@ -1300,7 +1300,7 @@ const processBingEvent = () => {
       currency: "bingCurrency",
       revenue: "bingRevenue",
     });
-  } else if (data.bingEventType === "customConversion") {
+  } else if (data.bingEventType === "CUSTOM") {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.currency = data.bingCurrency || "USD";
@@ -1310,7 +1310,7 @@ const processBingEvent = () => {
       event_value: "bingEventValue",
       revenue: "bingRevenue",
     });
-  } else if (data.bingEventType === "verticalEcommerce" || data.bingEventType === "verticalHotel" || data.bingEventType === "verticalTravel") {
+  } else if (data.bingEventType === "ecommerce" || data.bingEventType === "hotel" || data.bingEventType === "travel") {
     let action = data.bingEventAction;
     if (action === "customAction") {
       action = data.bingCustomEventAction;
@@ -1319,14 +1319,14 @@ const processBingEvent = () => {
     props.action = action;
     props.label = "";
     
-    if (data.bingEventType === "verticalEcommerce") {
+    if (data.bingEventType === "ecommerce") {
       includePropsFromData({
         product_id: "bingEcommProdId",
         pagetype: "bingEcommPagetype",
         ecomm_totalvalue: "bingEcommTotalValue",
         ecomm_category: "bingEcommCategory",
       });
-    } else if (data.bingEventType === "verticalHotel") {
+    } else if (data.bingEventType === "hotel") {
       props.currency = data.bingCurrency || "USD";
       includePropsFromData({
         hct_base_price: "bingHctBasePrice",
@@ -1338,7 +1338,7 @@ const processBingEvent = () => {
         hct_total_price: "bingHctTotalPrice",
         hct_pagetype: "bingHctPagetype",
       });
-    } else if (data.bingEventType === "verticalTravel") {
+    } else if (data.bingEventType === "travel") {
       includePropsFromData({
         travel_destid: "bingTravelDestid",
         travel_originid: "bingTravelOriginid",
@@ -1348,7 +1348,7 @@ const processBingEvent = () => {
         travel_totalvalue: "bingTravelTotalvalue",
       });
     }
-  } else if (data.bingEventType === "defineYourOwn") {
+  } else if (data.bingEventType === "userDefined") {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.label = "";
