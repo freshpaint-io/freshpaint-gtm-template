@@ -567,10 +567,6 @@ ___TEMPLATE_PARAMETERS___
         "value": "userDefined",
         "displayValue": "Define your own"
       },
-      {
-        "value": "pageViewSPA",
-        "displayValue": "Page view (SPA)"
-      }
     ],
     "simpleValueType": true,
     "enablingConditions": [
@@ -588,7 +584,7 @@ ___TEMPLATE_PARAMETERS___
     "macrosInSelect": true,
     "selectItems": [
       {
-        "value": "customAction",
+        "value": "",
         "displayValue": "Custom (input action name manually)"
       },
       {
@@ -709,7 +705,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "bingEventAction",
-        "paramValue": "customAction",
+        "paramValue": "",
         "type": "EQUALS"
       },
       {
@@ -1274,12 +1270,6 @@ const processBingEvent = () => {
     return;
   } 
   
-  if (data.bingEventType === "pageViewSPA") {
-    // our Bing destination does not support this
-    // TODO: implement this in destination and here
-    return;
-  }
-  
   // make required track call
   let eventName;
   const props = { tpp: "1" }; 
@@ -1312,7 +1302,7 @@ const processBingEvent = () => {
     });
   } else if (data.bingEventType === "ecommerce" || data.bingEventType === "hotel" || data.bingEventType === "travel") {
     let action = data.bingEventAction;
-    if (action === "customAction") {
+    if (action === "") {
       action = data.bingCustomEventAction;
     }
     eventName = action;
