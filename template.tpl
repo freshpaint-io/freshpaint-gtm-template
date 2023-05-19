@@ -41,7 +41,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "SELECT",
     "name": "tagType",
-    "displayName": "Tag Type",
+    "displayName": "Freshpaint Tag Type",
     "macrosInSelect": false,
     "selectItems": [
       {
@@ -58,23 +58,23 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "value": "ga4Event",
-        "displayValue": "GA4 Event"
+        "displayValue": "Google Analytics 4 (Proxy)"
       },
       {
         "value": "fbPixelEvent",
-        "displayValue": "Facebook Pixel Event"
+        "displayValue": "Facebook Conversions API"
       },
       {
         "value": "twitterAdsEvent",
-        "displayValue": "Twitter Ads Event"
+        "displayValue": "Twitter Ads"
       },
       {
         "value": "bingAdsEvent",
-        "displayValue": "Microsoft Advertising Universal Event Tracking (Bing Ads)"
+        "displayValue": "Bing Ads"
       },
       {
         "value": "googleAdsEvent",
-        "displayValue": "Google Ads Conversion Event"
+        "displayValue": "Google Ads"
       }
     ],
     "simpleValueType": true
@@ -468,13 +468,13 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "PARAM_TABLE",
-    "name": "twitterProps",
+    "name": "twitterEventParameters",
     "displayName": "Event Parameters.",
     "paramTableColumns": [
       {
         "param": {
           "type": "SELECT",
-          "name": "name",
+          "name": "param_table_key_column",
           "displayName": "Event parameter name",
           "macrosInSelect": false,
           "selectItems": [
@@ -518,7 +518,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "param": {
           "type": "TEXT",
-          "name": "value",
+          "name": "param_table_value_column",
           "displayName": "Value for the event parameter",
           "simpleValueType": true
         },
@@ -535,16 +535,16 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SELECT",
-    "name": "bingTrackType",
+    "name": "bingEventType",
     "displayName": "Track Type",
     "macrosInSelect": false,
     "selectItems": [
       {
-        "value": "pageView",
+        "value": "PAGE_LOAD",
         "displayValue": "page view"
       },
       {
-        "value": "variableRevenueForDestinationURL",
+        "value": "VARIABLE_REVENUE",
         "displayValue": "Variable revenue for destination URL"
       },
       {
@@ -680,17 +680,17 @@ ___TEMPLATE_PARAMETERS___
     "help": "If you select \"Custom\" and then leave the \"Define your own event action\" field blank, an empty event action value will be sent",
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "verticalEcommerce",
         "type": "EQUALS"
       },
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "verticalHotel",
         "type": "EQUALS"
       },
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "verticalTravel",
         "type": "EQUALS"
       }
@@ -698,12 +698,12 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "bingCustomAction",
+    "name": "bingCustomEventAction",
     "displayName": "Define your own event action",
     "simpleValueType": true,
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "customConversion",
         "type": "EQUALS"
       },
@@ -713,7 +713,7 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       },
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "defineYourOwn",
         "type": "EQUALS"
       }
@@ -721,12 +721,12 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "bingCustomConversionCategory",
+    "name": "bingEventCategory",
     "displayName": "Event category",
     "simpleValueType": true,
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "customConversion",
         "type": "EQUALS"
       }
@@ -734,12 +734,12 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "bingCustomConversionLabel",
+    "name": "bingEventLabel",
     "displayName": "Event label",
     "simpleValueType": true,
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "customConversion",
         "type": "EQUALS"
       }
@@ -747,12 +747,12 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "bingCustomConversionValue",
+    "name": "bingEventValue",
     "displayName": "Event value",
     "simpleValueType": true,
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "customConversion",
         "type": "EQUALS"
       }
@@ -766,17 +766,17 @@ ___TEMPLATE_PARAMETERS___
     "help": "Currency value must be ISO standard currency code",
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
-        "paramValue": "variableRevenueForDestinationURL",
+        "paramName": "bingEventType",
+        "paramValue": "VARIABLE_REVENUE",
         "type": "EQUALS"
       },
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "customConversion",
         "type": "EQUALS"
       },
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "verticalHotel",
         "type": "EQUALS"
       }
@@ -790,12 +790,12 @@ ___TEMPLATE_PARAMETERS___
     "simpleValueType": true,
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
-        "paramValue": "variableRevenueForDestinationURL",
+        "paramName": "bingEventType",
+        "paramValue": "VARIABLE_REVENUE",
         "type": "EQUALS"
       },
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "customConversion",
         "type": "EQUALS"
       }
@@ -809,13 +809,13 @@ ___TEMPLATE_PARAMETERS___
     "subParams": [
       {
         "type": "TEXT",
-        "name": "bingEcomProdID",
+        "name": "bingEcommProdId",
         "displayName": "Retail product ID",
         "simpleValueType": true
       },
       {
         "type": "SELECT",
-        "name": "bingEcomPageType",
+        "name": "bingEcommPagetype",
         "displayName": "Retail page type",
         "macrosInSelect": true,
         "selectItems": [
@@ -853,20 +853,20 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "TEXT",
-        "name": "bingEcomValue",
+        "name": "bingEcommTotalValue",
         "displayName": "Retail total value",
         "simpleValueType": true
       },
       {
         "type": "TEXT",
-        "name": "bingEcomCategory",
+        "name": "bingEcommCategory",
         "displayName": "Retail category",
         "simpleValueType": true
       }
     ],
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "verticalEcommerce",
         "type": "EQUALS"
       }
@@ -880,51 +880,51 @@ ___TEMPLATE_PARAMETERS___
     "subParams": [
       {
         "type": "TEXT",
-        "name": "bingHotelBasePrice",
+        "name": "bingHctBasePrice",
         "displayName": "Hotel base price",
         "simpleValueType": true
       },
       {
         "type": "TEXT",
-        "name": "bingHotelBookingRefNum",
+        "name": "bingHctBookingXref",
         "displayName": "Hotel booking reference #",
         "simpleValueType": true
       },
       {
         "type": "TEXT",
-        "name": "bingHotelCheckinDate",
+        "name": "bingHctCheckinDate",
         "displayName": "Hotel check-in date",
         "simpleValueType": true,
         "help": "Value must be in YYYY-MM-DD date format"
       },
       {
         "type": "TEXT",
-        "name": "bingHotelCheckoutDate",
+        "name": "bingHctCheckoutDate",
         "displayName": "Hotel check-out date",
         "simpleValueType": true,
         "help": "Value must be in YYYY-MM-DD date format"
       },
       {
         "type": "TEXT",
-        "name": "bingHotelStayLength",
+        "name": "bingHctLengthOfStay",
         "displayName": "Hotel length of stay",
         "simpleValueType": true
       },
       {
         "type": "TEXT",
-        "name": "bingHotelPartnerID",
+        "name": "bingHctPartnerHotelId",
         "displayName": "Partner hotel ID",
         "simpleValueType": true
       },
       {
         "type": "TEXT",
-        "name": "bingHotelTotalPrice",
+        "name": "bingHctTotalPrice",
         "displayName": "Hotel total price",
         "simpleValueType": true
       },
       {
         "type": "SELECT",
-        "name": "bingHotelPageType",
+        "name": "bingHctPagetype",
         "displayName": "Hotel page type",
         "macrosInSelect": true,
         "selectItems": [
@@ -979,7 +979,7 @@ ___TEMPLATE_PARAMETERS___
     ],
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "verticalHotel",
         "type": "EQUALS"
       }
@@ -993,19 +993,19 @@ ___TEMPLATE_PARAMETERS___
     "subParams": [
       {
         "type": "TEXT",
-        "name": "bingTravelDestinationID",
+        "name": "bingTravelDestid",
         "displayName": "Travel destination ID",
         "simpleValueType": true
       },
       {
         "type": "TEXT",
-        "name": "bingTravelOriginID",
+        "name": "bingTravelOriginid",
         "displayName": "Travel origin ID",
         "simpleValueType": true
       },
       {
         "type": "SELECT",
-        "name": "bingTravelPageType",
+        "name": "bingTravelPagetype",
         "displayName": "Travel page type",
         "macrosInSelect": true,
         "selectItems": [
@@ -1042,28 +1042,28 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "TEXT",
-        "name": "bingTravelStartDate",
+        "name": "bingTravelStartdate",
         "displayName": "Travel start date",
         "simpleValueType": true,
         "help": "Value must be in YYYY-MM-DD date format"
       },
       {
         "type": "TEXT",
-        "name": "bingTravelEndDate",
+        "name": "bingTravelEnddate",
         "displayName": "Travel end date",
         "simpleValueType": true,
         "help": "Value must be in YYYY-MM-DD date format"
       },
       {
         "type": "TEXT",
-        "name": "bingTravelTotalValue",
+        "name": "bingTravelTotalvalue",
         "displayName": "Travel total value",
         "simpleValueType": true
       }
     ],
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "verticalTravel",
         "type": "EQUALS"
       }
@@ -1077,7 +1077,7 @@ ___TEMPLATE_PARAMETERS___
     "help": "Must start with a \u0027/\u0027, ex: \u0027/spa_page\u0027",
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "pageViewSPA",
         "type": "EQUALS"
       }
@@ -1091,7 +1091,7 @@ ___TEMPLATE_PARAMETERS___
     "help": "Can leave empty to re-use document title",
     "enablingConditions": [
       {
-        "paramName": "bingTrackType",
+        "paramName": "bingEventType",
         "paramValue": "pageViewSPA",
         "type": "EQUALS"
       }
@@ -1099,7 +1099,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "GROUP",
-    "name": "bingCustomEventProps",
+    "name": "bingCustomParamTableGroup",
     "displayName": "Define your own event parameters",
     "groupStyle": "NO_ZIPPY",
     "subParams": [
@@ -1109,27 +1109,21 @@ ___TEMPLATE_PARAMETERS___
         "displayName": "Explicit parameters given a value above may be overridden by parameters given in this table. You can use either way to pass parameters."
       },
       {
-        "type": "PARAM_TABLE",
-        "name": "bingCustomPropsTable",
-        "displayName": "",
-        "paramTableColumns": [
+        "type": "SIMPLE_TABLE",
+        "name": "bingCustomParamTable",
+        "displayName": "Event Properties",
+        "simpleTableColumns": [
           {
-            "param": {
-              "type": "TEXT",
-              "name": "propName",
-              "displayName": "Name",
-              "simpleValueType": true
-            },
-            "isUnique": false
+            "defaultValue": "",
+            "displayName": "Name",
+            "name": "customParamName",
+            "type": "TEXT"
           },
           {
-            "param": {
-              "type": "TEXT",
-              "name": "propValue",
-              "displayName": "Value",
-              "simpleValueType": true
-            },
-            "isUnique": false
+            "defaultValue": "",
+            "displayName": "Value",
+            "name": "customParamValue",
+            "type": "TEXT"
           }
         ]
       }
@@ -1267,7 +1261,7 @@ const processFBPixelEvent = () => {
 const processTwitterEvent = () => {
   const options = generateOptions("Twitter Ads");
   const eventName = data.twitterEventName;
-  const props = parsePropsTable(data.twitterProps || []);
+  const props = parsePropsTable(data.twitterEventParameters || []);
   track(eventName, props, options);  
 };
 
@@ -1275,12 +1269,12 @@ const processTwitterEvent = () => {
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
   
-  if (data.bingTrackType === "pageView") {
+  if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
     return;
   } 
   
-  if (data.bingTrackType === "pageViewSPA") {
+  if (data.bingEventType === "pageViewSPA") {
     // our Bing destination does not support this
     // TODO: implement this in destination and here
     return;
@@ -1298,7 +1292,7 @@ const processBingEvent = () => {
     }
   };
   
-  if (data.bingTrackType === "variableRevenueForDestinationURL") {
+  if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
     props.label = "";
@@ -1306,56 +1300,56 @@ const processBingEvent = () => {
       currency: "bingCurrency",
       revenue: "bingRevenue",
     });
-  } else if (data.bingTrackType === "customConversion") {
-    eventName = data.bingCustomAction || "";
+  } else if (data.bingEventType === "customConversion") {
+    eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.currency = data.bingCurrency || "USD";
     includePropsFromData({
-      label: "bingCustomConversionLabel",
-      category: "bingCustomConversionCategory",
-      event_value: "bingCustomConversionValue",
+      label: "bingEventLabel",
+      category: "bingEventCategory",
+      event_value: "bingEventValue",
       revenue: "bingRevenue",
     });
-  } else if (data.bingTrackType === "verticalEcommerce" || data.bingTrackType === "verticalHotel" || data.bingTrackType === "verticalTravel") {
+  } else if (data.bingEventType === "verticalEcommerce" || data.bingEventType === "verticalHotel" || data.bingEventType === "verticalTravel") {
     let action = data.bingEventAction;
     if (action === "customAction") {
-      action = data.bingCustomAction;
+      action = data.bingCustomEventAction;
     }
     eventName = action;
     props.action = action;
     props.label = "";
     
-    if (data.bingTrackType === "verticalEcommerce") {
+    if (data.bingEventType === "verticalEcommerce") {
       includePropsFromData({
-        product_id: "bingEcomProdID",
-        pagetype: "bingEcomPageType",
-        ecomm_totalvalue: "bingEcomValue",
-        ecomm_category: "bingEcomCategory",
+        product_id: "bingEcommProdId",
+        pagetype: "bingEcommPagetype",
+        ecomm_totalvalue: "bingEcommTotalValue",
+        ecomm_category: "bingEcommCategory",
       });
-    } else if (data.bingTrackType === "verticalHotel") {
+    } else if (data.bingEventType === "verticalHotel") {
       props.currency = data.bingCurrency || "USD";
       includePropsFromData({
-        hct_base_price: "bingHotelBasePrice",
-        hct_booking_xref: "bingHotelBookingRefNum",
-        hct_checkin_date: "bingHotelCheckinDate",
-        hct_checkout_date: "bingHotelCheckoutDate",
-        hct_length_of_stay: "bingHotelStayLength",
-        hct_partner_hotel_id: "bingHotelPartnerID",
-        hct_total_price: "bingHotelTotalPrice",
-        hct_pagetype: "bingHotelPageType",
+        hct_base_price: "bingHctBasePrice",
+        hct_booking_xref: "bingHctBookingXref",
+        hct_checkin_date: "bingHctCheckinDate",
+        hct_checkout_date: "bingHctCheckoutDate",
+        hct_length_of_stay: "bingHctLengthOfStay",
+        hct_partner_hotel_id: "bingHctPartnerHotelId",
+        hct_total_price: "bingHctTotalPrice",
+        hct_pagetype: "bingHctPagetype",
       });
-    } else if (data.bingTrackType === "verticalTravel") {
+    } else if (data.bingEventType === "verticalTravel") {
       includePropsFromData({
-        travel_destid: "bingTravelDestinationID",
-        travel_originid: "bingTravelOriginID",
-        travel_pagetype: "bingTravelPageType",
-        travel_startdate: "bingTravelStartDate",
-        travel_enddate: "bingTravelEndDate",
-        travel_totalvalue: "bingTravelTotalValue",
+        travel_destid: "bingTravelDestid",
+        travel_originid: "bingTravelOriginid",
+        travel_pagetype: "bingTravelPagetype",
+        travel_startdate: "bingTravelStartdate",
+        travel_enddate: "bingTravelEnddate",
+        travel_totalvalue: "bingTravelTotalvalue",
       });
     }
-  } else if (data.bingTrackType === "defineYourOwn") {
-    eventName = data.bingCustomAction || "";
+  } else if (data.bingEventType === "defineYourOwn") {
+    eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.label = "";
   } 
