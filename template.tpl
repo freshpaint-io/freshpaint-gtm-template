@@ -1216,7 +1216,7 @@ const processBasicOrGA4Event = (isGA4Event) => {
 
   if (data.ga4UserProperties) {
     const props = parsePropsTable(data.ga4UserProperties || []);
-    identify("", props, options);
+    identify(undefined, props, options);
   }
 
   if (data.ga4EventName) {
