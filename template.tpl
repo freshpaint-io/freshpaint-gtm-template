@@ -36,7 +36,12 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "envID",
     "displayName": "Freshpaint Environment ID",
-    "simpleValueType": true
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
   },
   {
     "type": "SELECT",
@@ -81,9 +86,14 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "ga4EventName",
+    "name": "commonEventName",
     "displayName": "Event Name",
     "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -94,12 +104,17 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
       }
     ]
   },
   {
     "type": "SIMPLE_TABLE",
-    "name": "ga4EventParameters",
+    "name": "commonEventProperties",
     "displayName": "Event Properties",
     "simpleTableColumns": [
       {
@@ -130,7 +145,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SIMPLE_TABLE",
-    "name": "ga4UserProperties",
+    "name": "commonUserProperties",
     "displayName": "User Properties",
     "simpleTableColumns": [
       {
@@ -161,22 +176,14 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "googleAdsEventName",
-    "displayName": "Event Name",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "googleAdsConversionLabel",
     "displayName": "Conversion Label",
     "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -1214,14 +1221,14 @@ const processBasicOrGA4Event = (isGA4Event) => {
     options = generateOptions("Google Analytics 4 Proxy");
   }
 
-  if (data.ga4UserProperties) {
-    const props = parsePropsTable(data.ga4UserProperties || []);
+  if (data.commonUserProperties) {
+    const props = parsePropsTable(data.commonUserProperties || []);
     identify(undefined, props, options);
   }
 
-  if (data.ga4EventName) {
-    const props = parsePropsTable(data.ga4EventParameters || []);
-    track(data.ga4EventName, props, options);
+  if (data.commonEventName) {
+    const props = parsePropsTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
   }
 };
 
@@ -1352,7 +1359,7 @@ const processGoogleAdsEvent = () => {
 
   // make track call
 
-  if (data.googleAdsEventName && data.googleAdsConversionLabel) {
+  if (data.commonEventName && data.googleAdsConversionLabel) {
     const props = {};
 
     props.conversion_label = data.googleAdsConversionLabel;
@@ -1372,7 +1379,7 @@ const processGoogleAdsEvent = () => {
         props.currency = data.googleAdsCurrencyCode;
     }
 
-    track(data.googleAdsEventName, props, options);
+    track(data.commonEventName, props, options);
   }
 };
 
