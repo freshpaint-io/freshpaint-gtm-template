@@ -573,7 +573,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "userDefined",
         "displayValue": "Define your own"
-      },
+      }
     ],
     "simpleValueType": true,
     "enablingConditions": [
