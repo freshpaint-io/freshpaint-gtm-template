@@ -2,4 +2,4 @@ homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/"
 versions:
   - sha: b439a511e7f9afc8194fbeda7fdb2065e42d563c
-    changeNotes: Add param validations.
+    changeNotes: Remove extraneous comma.
