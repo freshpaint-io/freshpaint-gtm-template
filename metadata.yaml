@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/"
 versions:
-  - sha: 5e8844fa79f7cf3c6dbfdb0909514b4789d4842f
+  - sha: b439a511e7f9afc8194fbeda7fdb2065e42d563c
     changeNotes: Add param validations.
