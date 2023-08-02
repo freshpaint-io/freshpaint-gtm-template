@@ -113,6 +113,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
       }
     ]
   },
