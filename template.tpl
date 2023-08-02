@@ -1150,15 +1150,15 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "SELECT",
     "name": "theTradeDeskTrackerOrUPixel",
-    "displayName": "tracker_id / upixel_id",
+    "displayName": "Event Tracker ID / Universal Pixel ID",
     "selectItems": [
       {
         "value": "tracker_id",
-        "displayValue": "tracker_id"
+        "displayValue": "Event Tracker ID"
       },
       {
         "value": "upixel_id",
-        "displayValue": "upixel_id"
+        "displayValue": "Universal Pixel ID"
       }
     ],
     "simpleValueType": true,
@@ -1174,7 +1174,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "theTradeDeskTrackerOrUPixelIDValue",
-    "displayName": "tracker_id / upixel_id Value",
+    "displayName": "Event Tracker ID / Universal Pixel ID Value",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -1192,7 +1192,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "SELECT",
     "name": "theTradeDeskEventName",
-    "displayName": "Event Name (optional)",
+    "displayName": "Event Name (recommended if using Event Tracker ID)",
     "selectItems": [
       {
         "value": "addtocart",
