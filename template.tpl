@@ -80,6 +80,10 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "googleAdsEvent",
         "displayValue": "Google Ads"
+      },
+      {
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
       }
     ],
     "simpleValueType": true
@@ -315,6 +319,10 @@ ___TEMPLATE_PARAMETERS___
               {
                 "value": "StartTrial",
                 "displayValue": "StartTrial"
+              },
+              {
+                "value": "SubmitApplication",
+                "displayValue": "SubmitApplication"
               },
               {
                 "value": "Subscribe",
@@ -1135,6 +1143,240 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "theTradeDeskTrackerOrUPixel",
+    "displayName": "tracker_id / upixel_id",
+    "selectItems": [
+      {
+        "value": "tracker_id",
+        "displayValue": "tracker_id"
+      },
+      {
+        "value": "upixel_id",
+        "displayValue": "upixel_id"
+      }
+    ],
+    "simpleValueType": true,
+    "defaultValue": "tracker_id",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskTrackerOrUPixelIDValue",
+    "displayName": "tracker_id / upixel_id Value",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "theTradeDeskEventName",
+    "displayName": "Event Name (optional)",
+    "selectItems": [
+      {
+        "value": "addtocart",
+        "displayValue": "addtocart"
+      },
+      {
+        "value": "purchase",
+        "displayValue": "purchase"
+      },
+      {
+        "value": "viewitem",
+        "displayValue": "viewitem"
+      },
+      {
+        "value": "searchitem",
+        "displayValue": "searchitem"
+      },
+      {
+        "value": "searchcategory",
+        "displayValue": "searchcategory"
+      },
+      {
+        "value": "login",
+        "displayValue": "login"
+      },
+      {
+        "value": "messagebusiness",
+        "displayValue": "messagebusiness"
+      },
+      {
+        "value": "direction",
+        "displayValue": "direction"
+      },
+      {
+        "value": "startcheckout",
+        "displayValue": "startcheckout"
+      },
+      {
+        "value": "viewcart",
+        "displayValue": "viewcart"
+      },
+      {
+        "value": "sitevisit",
+        "displayValue": "sitevisit"
+      },
+      {
+        "value": "wishlistitem",
+        "displayValue": "wishlistitem"
+      }
+    ],
+    "simpleValueType": true,
+    "notSetText": "",
+    "defaultValue": "",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskValue",
+    "displayName": "value (required only for purchase events)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskCurrency",
+    "displayName": "currency (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskOrderId",
+    "displayName": "order_id (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskItems",
+    "displayName": "items (optional object array)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "theTradeDeskTDEventParameters",
+    "displayName": "td1 - td10 properties (optional)",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "property",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "td1",
+              "displayValue": "td1"
+            },
+            {
+              "value": "td2",
+              "displayValue": "td2"
+            },
+            {
+              "value": "td3",
+              "displayValue": "td3"
+            },
+            {
+              "value": "td4",
+              "displayValue": "td4"
+            },
+            {
+              "value": "td5",
+              "displayValue": "td5"
+            },
+            {
+              "value": "td6",
+              "displayValue": "td6"
+            },
+            {
+              "value": "td7",
+              "displayValue": "td7"
+            },
+            {
+              "value": "td8",
+              "displayValue": "td8"
+            },
+            {
+              "value": "td9",
+              "displayValue": "td9"
+            },
+            {
+              "value": "td10",
+              "displayValue": "td10"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Value",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
     ]
