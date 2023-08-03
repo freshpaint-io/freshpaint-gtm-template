@@ -1153,10 +1153,10 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "SELECT",
+    "type": "RADIO",
     "name": "theTradeDeskTrackerOrUPixel",
-    "displayName": "Event Tracker ID / Universal Pixel ID",
-    "selectItems": [
+    "displayName": "Use Event Tracker ID vs. Universal Pixel ID",
+    "radioItems": [
       {
         "value": "tracker_id",
         "displayValue": "Event Tracker ID"
@@ -1166,15 +1166,13 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Universal Pixel ID"
       }
     ],
-    "simpleValueType": true,
-    "defaultValue": "tracker_id",
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
-    ]
+    ],
   },
   {
     "type": "TEXT",
@@ -1248,7 +1246,7 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "wishlistitem"
       }
     ],
-    "defaultValue": "NONEXISTENT",
+    "notSetText": "-",
     "enablingConditions": [
       {
         "paramName": "tagType",
