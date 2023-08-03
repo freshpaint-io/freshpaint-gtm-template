@@ -91,7 +91,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "commonEventName",
-    "displayName": "Event Name",
+    "displayName": "Freshpaint Event Name",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -339,7 +339,7 @@ ___TEMPLATE_PARAMETERS___
               }
             ],
             "simpleValueType": true,
-            "defaultValue": "Pageview"
+            "defaultValue": "PageView"
           }
         ]
       },
@@ -1197,7 +1197,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "SELECT",
     "name": "theTradeDeskEventName",
-    "displayName": "Event Name (recommended if using Event Tracker ID)",
+    "displayName": "Event Name",
     "selectItems": [
       {
         "value": "addtocart",
@@ -1248,9 +1248,7 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "wishlistitem"
       }
     ],
-    "simpleValueType": true,
-    "notSetText": "",
-    "defaultValue": "",
+    "defaultValue": "NONEXISTENT",
     "enablingConditions": [
       {
         "paramName": "tagType",
