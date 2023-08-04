@@ -1754,6 +1754,43 @@ const processTheTradeDeskEvent = () => {
   }
 };
 
+const processTheTradeDeskEvent = () => {
+  const options = generateOptions("theTradeDesk");
+
+  // make track call
+
+  if (data.commonEventName && data.theTradeDeskTrackerOrUPixelIDValue) {
+    const props = parseParamTable(data.theTradeDeskTDEventParameters || []);
+
+    if (data.theTradeDeskTrackerOrUPixel === "tracker_id") {
+      props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
+    } else {
+      props.upixel_id = data.theTradeDeskTrackerOrUPixelIDValue;
+    }
+
+    if (data.theTradeDeskEventName) {
+      props.event_name = data.theTradeDeskEventName;
+    }
+
+    if (data.theTradeDeskValue) {
+      props.value = data.theTradeDeskValue;
+    }
+
+    if (data.theTradeDeskCurrency) {
+      props.currency = data.theTradeDeskCurrency;
+    }
+
+    if (data.theTradeDeskOrderId) {
+      props.order_id = data.theTradeDeskOrderId;
+    }
+
+    if (data.theTradeDeskItems) {
+      props.items = data.theTradeDeskItems;
+    }
+    track(data.commonEventName, props, options);
+  }
+};
+
 const callFreshpaintProxy = (cmdName, args) => {
   return callInWindow("_freshpaint_gtm_proxy", cmdName, args);
 };
