@@ -186,6 +186,19 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "identifyIdentifier",
+    "displayName": "Identifier (recommended)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "googleAdsConversionLabel",
     "displayName": "Conversion Label",
     "simpleValueType": true,
@@ -1399,6 +1412,7 @@ const injectScript = require("injectScript");
 const log = require("logToConsole");
 const makeTableMap = require("makeTableMap");
 const getType = require("getType");
+const JSON = require('JSON');
 
 function parseSimpleTable(inputProps) {
   const props = {};
@@ -1419,6 +1433,7 @@ function parseParamTable(inputProps) {
 const processEvent = () => {
   if (data.tagType === "init" && !data.envID) {
     log("[freshpaint-GTM] environment ID is required for init tag");
+    data.gtmOnFailure();
     return;
   }
 
@@ -1437,12 +1452,14 @@ const processEvent = () => {
   }
 
   // actually process the event
-  if (
-    data.tagType === "track" ||
-    data.tagType === "identify" ||
-    data.tagType === "ga4Event"
-  ) {
-    processBasicOrGA4Event(data.tagType === "ga4Event");
+  if (data.tagType === "init") {
+    processInit();
+  } else if (data.tagType === "track") {
+    processTrack();
+  } else if (data.tagType === "identify") {
+    processIdentify();
+  } else if (data.tagType === "ga4Event") {
+    processGA4Event();
   } else if (data.tagType === "fbPixelEvent") {
     processFBPixelEvent();
   } else if (data.tagType === "twitterAdsEvent") {
@@ -1453,9 +1470,10 @@ const processEvent = () => {
     processGoogleAdsEvent();
   } else if (data.tagType === "theTradeDeskEvent") {
     processTheTradeDeskEvent();
+  } else {
+    log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
+    data.gtmOnFailure();
   }
-
-  data.gtmOnSuccess();
 };
 
 const generateOptions = (integration) => {
@@ -1469,11 +1487,30 @@ const generateOptions = (integration) => {
   };
 };
 
-const processBasicOrGA4Event = (isGA4Event) => {
-  let options = {};
-  if (isGA4Event) {
-    options = generateOptions("Google Analytics 4 Proxy");
-  }
+const processInit = () => {
+  data.gtmOnSuccess();
+};
+
+const processTrack = () => {
+  data.gtmOnSuccess();
+};
+
+const processIdentify = () => {
+    const options = {};
+
+    let identifier = undefined;
+    if (data.identifyIdentifier) {
+      identifier = data.identifyIdentifier;
+    }
+
+    const props = parseSimpleTable(data.commonUserProperties || []);
+    identify(identifier, props, options);
+
+    data.gtmOnSuccess();
+};
+
+const processGA4Event = () => {
+  const options = generateOptions("Google Analytics 4 Proxy");
 
   if (data.commonUserProperties) {
     const props = parseSimpleTable(data.commonUserProperties || []);
@@ -1483,6 +1520,11 @@ const processBasicOrGA4Event = (isGA4Event) => {
   if (data.commonEventName) {
     const props = parseSimpleTable(data.commonEventProperties || []);
     track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+      log("ERROR: Freshpaint Google Analytics 4 Proxy GTM Template missing eventName");
+      data.gtmOnFailure();
   }
 };
 
@@ -1513,6 +1555,8 @@ const processFBPixelEvent = () => {
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
   track(eventName, mergedObjectProps, options);
+
+  data.gtmOnSuccess();
 };
 
 const processTwitterEvent = () => {
@@ -1522,6 +1566,8 @@ const processTwitterEvent = () => {
   const props = parseParamTable(data.twitterEventParameters || []);
 
   track(eventName, props, options);
+
+  data.gtmOnSuccess();
 };
 
 
@@ -1530,6 +1576,8 @@ const processBingEvent = () => {
   
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
+
+    data.gtmOnSuccess();
     return;
   } 
   
@@ -1608,6 +1656,8 @@ const processBingEvent = () => {
   } 
   
   track(eventName, props, options);
+
+  data.gtmOnSuccess();
 };
 
 const processGoogleAdsEvent = () => {
@@ -1636,6 +1686,11 @@ const processGoogleAdsEvent = () => {
     }
 
     track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Google Ads GTM Template missing eventNme and / or conversionLabel");
+    data.gtmOnFailure();
   }
 };
 
@@ -1670,9 +1725,21 @@ const processTheTradeDeskEvent = () => {
     }
 
     if (data.theTradeDeskItems) {
-      props.items = data.theTradeDeskItems;
+      props.items = JSON.parse(data.theTradeDeskItems);
+      if (!props.items) {
+        log("ERROR: Freshpaint theTradeDesk GTM Template parsing items json: " + data.theTradeDeskItems);
+
+        data.gtmOnFailure();
+        return;
+      }
     }
+
     track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint theTradeDesk GTM Template missing eventNme and / or trackerOrUPixelIDValue");
+    data.gtmOnFailure();
   }
 };
 
