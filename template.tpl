@@ -1488,11 +1488,22 @@ const generateOptions = (integration) => {
 };
 
 const processInit = () => {
+  // Init handled upstream
   data.gtmOnSuccess();
 };
 
 const processTrack = () => {
-  data.gtmOnSuccess();
+  const options = {};
+
+  if (data.commonEventName) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+      log("ERROR: Freshpaint Track GTM Template missing eventName");
+      data.gtmOnFailure();
+  }
 };
 
 const processIdentify = () => {
@@ -1709,7 +1720,7 @@ const processTheTradeDeskEvent = () => {
     }
 
     if (data.theTradeDeskEventName) {
-      props.event_name = data.theTradeDeskEventName;
+      props.ttd_event_name = data.theTradeDeskEventName;
     }
 
     if (data.theTradeDeskValue) {
