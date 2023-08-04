@@ -86,6 +86,7 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "theTradeDesk"
       }
     ],
+    "defaultValue": "ga4Event",
     "simpleValueType": true
   },
   {
@@ -1399,10 +1400,18 @@ const log = require("logToConsole");
 const makeTableMap = require("makeTableMap");
 const getType = require("getType");
 
-function parsePropsTable(inputProps) {
+function parseSimpleTable(inputProps) {
   const props = {};
   for (let prop of inputProps) {
     props[prop.name] = prop.value;
+  }
+  return props;
+}
+
+function parseParamTable(inputProps) {
+  const props = {};
+  for (let prop of inputProps) {
+    props[prop.param_table_key_column] = prop.param_table_value_column;
   }
   return props;
 }
@@ -1442,6 +1451,8 @@ const processEvent = () => {
     processBingEvent();
   } else if (data.tagType === "googleAdsEvent") {
     processGoogleAdsEvent();
+  } else if (data.tagType === "theTradeDeskEvent") {
+    processTheTradeDeskEvent();
   }
 
   data.gtmOnSuccess();
@@ -1465,12 +1476,12 @@ const processBasicOrGA4Event = (isGA4Event) => {
   }
 
   if (data.commonUserProperties) {
-    const props = parsePropsTable(data.commonUserProperties || []);
+    const props = parseSimpleTable(data.commonUserProperties || []);
     identify(undefined, props, options);
   }
 
   if (data.commonEventName) {
-    const props = parsePropsTable(data.commonEventProperties || []);
+    const props = parseSimpleTable(data.commonEventProperties || []);
     track(data.commonEventName, props, options);
   }
 };
@@ -1506,9 +1517,11 @@ const processFBPixelEvent = () => {
 
 const processTwitterEvent = () => {
   const options = generateOptions("Twitter Ads");
+
   const eventName = data.twitterEventName;
-  const props = parsePropsTable(data.twitterEventParameters || []);
-  track(eventName, props, options);  
+  const props = parseParamTable(data.twitterEventParameters || []);
+
+  track(eventName, props, options);
 };
 
 
@@ -1622,6 +1635,43 @@ const processGoogleAdsEvent = () => {
         props.currency = data.googleAdsCurrencyCode;
     }
 
+    track(data.commonEventName, props, options);
+  }
+};
+
+const processTheTradeDeskEvent = () => {
+  const options = generateOptions("theTradeDesk");
+
+  // make track call
+
+  if (data.commonEventName && data.theTradeDeskTrackerOrUPixelIDValue) {
+    const props = parseParamTable(data.theTradeDeskTDEventParameters || []);
+
+    if (data.theTradeDeskTrackerOrUPixel === "tracker_id") {
+      props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
+    } else {
+      props.upixel_id = data.theTradeDeskTrackerOrUPixelIDValue;
+    }
+
+    if (data.theTradeDeskEventName) {
+      props.event_name = data.theTradeDeskEventName;
+    }
+
+    if (data.theTradeDeskValue) {
+      props.value = data.theTradeDeskValue;
+    }
+
+    if (data.theTradeDeskCurrency) {
+      props.currency = data.theTradeDeskCurrency;
+    }
+
+    if (data.theTradeDeskOrderId) {
+      props.order_id = data.theTradeDeskOrderId;
+    }
+
+    if (data.theTradeDeskItems) {
+      props.items = data.theTradeDeskItems;
+    }
     track(data.commonEventName, props, options);
   }
 };
