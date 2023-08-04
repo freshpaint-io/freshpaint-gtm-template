@@ -1785,9 +1785,21 @@ const processTheTradeDeskEvent = () => {
     }
 
     if (data.theTradeDeskItems) {
-      props.items = data.theTradeDeskItems;
+      props.items = JSON.parse(data.theTradeDeskItems);
+      if (!props.items) {
+        log("ERROR: Freshpaint theTradeDesk GTM Template parsing items json: " + data.theTradeDeskItems);
+
+        data.gtmOnFailure();
+        return;
+      }
     }
+
     track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint theTradeDesk GTM Template missing eventNme and / or trackerOrUPixelIDValue");
+    data.gtmOnFailure();
   }
 };
 
