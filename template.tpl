@@ -84,6 +84,10 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "theTradeDeskEvent",
         "displayValue": "theTradeDesk"
+      },
+      {
+        "value": "stackAdaptEvent",
+        "displayValue": "StackAdapt"
       }
     ],
     "defaultValue": "ga4Event",
@@ -119,67 +123,10 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "commonEventProperties",
-    "displayName": "Event Properties",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
       },
       {
         "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "commonUserProperties",
-    "displayName": "User Properties",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
+        "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       }
     ]
@@ -1395,6 +1342,91 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
+  },
+  {
+    "type": "TEXT",
+    "name": "stackAdaptConversionEventID",
+    "displayName": "StackAdapt Conversion Event Unique ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventProperties",
+    "displayName": "Event Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonUserProperties",
+    "displayName": "User Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
   }
 ]
 
@@ -1470,6 +1502,8 @@ const processEvent = () => {
     processGoogleAdsEvent();
   } else if (data.tagType === "theTradeDeskEvent") {
     processTheTradeDeskEvent();
+  } else if (data.tagType === "stackAdaptEvent") {
+    processStackAdaptEvent();
   } else {
     log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
     data.gtmOnFailure();
@@ -1750,6 +1784,23 @@ const processTheTradeDeskEvent = () => {
     data.gtmOnSuccess();
   } else {
     log("ERROR: Freshpaint theTradeDesk GTM Template missing eventNme and / or trackerOrUPixelIDValue");
+    data.gtmOnFailure();
+  }
+};
+
+const processStackAdaptEvent = () => {
+  const options = generateOptions("StackAdapt");
+
+  if (data.commonEventName && data.stackAdaptConversionEventID) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+
+    props.conversion_id = data.stackAdaptConversionEventID;
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint StackAdapt GTM Template missing eventName and / or stackAdaptConversionEventID");
     data.gtmOnFailure();
   }
 };
