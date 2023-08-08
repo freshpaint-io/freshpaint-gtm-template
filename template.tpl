@@ -80,14 +80,19 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "googleAdsEvent",
         "displayValue": "Google Ads"
+      },
+      {
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
       }
     ],
+    "defaultValue": "ga4Event",
     "simpleValueType": true
   },
   {
     "type": "TEXT",
     "name": "commonEventName",
-    "displayName": "Event Name",
+    "displayName": "Freshpaint Event Name",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -108,6 +113,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
     ]
@@ -170,6 +180,19 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "identifyIdentifier",
+    "displayName": "Identifier (recommended)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
         "type": "EQUALS"
       }
     ]
@@ -317,6 +340,10 @@ ___TEMPLATE_PARAMETERS___
                 "displayValue": "StartTrial"
               },
               {
+                "value": "SubmitApplication",
+                "displayValue": "SubmitApplication"
+              },
+              {
                 "value": "Subscribe",
                 "displayValue": "Subscribe"
               },
@@ -326,7 +353,7 @@ ___TEMPLATE_PARAMETERS___
               }
             ],
             "simpleValueType": true,
-            "defaultValue": "Pageview"
+            "defaultValue": "PageView"
           }
         ]
       },
@@ -1138,6 +1165,236 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
+  },
+  {
+    "type": "RADIO",
+    "name": "theTradeDeskTrackerOrUPixel",
+    "displayName": "Use Event Tracker ID vs. Universal Pixel ID",
+    "radioItems": [
+      {
+        "value": "tracker_id",
+        "displayValue": "Event Tracker ID"
+      },
+      {
+        "value": "upixel_id",
+        "displayValue": "Universal Pixel ID"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskTrackerOrUPixelIDValue",
+    "displayName": "Event Tracker ID / Universal Pixel ID Value",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "theTradeDeskEventName",
+    "displayName": "Event Name",
+    "selectItems": [
+      {
+        "value": "addtocart",
+        "displayValue": "addtocart"
+      },
+      {
+        "value": "purchase",
+        "displayValue": "purchase"
+      },
+      {
+        "value": "viewitem",
+        "displayValue": "viewitem"
+      },
+      {
+        "value": "searchitem",
+        "displayValue": "searchitem"
+      },
+      {
+        "value": "searchcategory",
+        "displayValue": "searchcategory"
+      },
+      {
+        "value": "login",
+        "displayValue": "login"
+      },
+      {
+        "value": "messagebusiness",
+        "displayValue": "messagebusiness"
+      },
+      {
+        "value": "direction",
+        "displayValue": "direction"
+      },
+      {
+        "value": "startcheckout",
+        "displayValue": "startcheckout"
+      },
+      {
+        "value": "viewcart",
+        "displayValue": "viewcart"
+      },
+      {
+        "value": "sitevisit",
+        "displayValue": "sitevisit"
+      },
+      {
+        "value": "wishlistitem",
+        "displayValue": "wishlistitem"
+      }
+    ],
+    "notSetText": "-",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskValue",
+    "displayName": "value (required only for purchase events)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskCurrency",
+    "displayName": "currency (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskOrderId",
+    "displayName": "order_id (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskItems",
+    "displayName": "items (optional object array)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "theTradeDeskTDEventParameters",
+    "displayName": "td1 - td10 properties (optional)",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "property",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "td1",
+              "displayValue": "td1"
+            },
+            {
+              "value": "td2",
+              "displayValue": "td2"
+            },
+            {
+              "value": "td3",
+              "displayValue": "td3"
+            },
+            {
+              "value": "td4",
+              "displayValue": "td4"
+            },
+            {
+              "value": "td5",
+              "displayValue": "td5"
+            },
+            {
+              "value": "td6",
+              "displayValue": "td6"
+            },
+            {
+              "value": "td7",
+              "displayValue": "td7"
+            },
+            {
+              "value": "td8",
+              "displayValue": "td8"
+            },
+            {
+              "value": "td9",
+              "displayValue": "td9"
+            },
+            {
+              "value": "td10",
+              "displayValue": "td10"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Value",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
   }
 ]
 
@@ -1155,8 +1412,9 @@ const injectScript = require("injectScript");
 const log = require("logToConsole");
 const makeTableMap = require("makeTableMap");
 const getType = require("getType");
+const JSON = require('JSON');
 
-function parsePropsTable(inputProps) {
+function parseSimpleTable(inputProps) {
   const props = {};
   for (let prop of inputProps) {
     props[prop.name] = prop.value;
@@ -1164,9 +1422,18 @@ function parsePropsTable(inputProps) {
   return props;
 }
 
+function parseParamTable(inputProps) {
+  const props = {};
+  for (let prop of inputProps) {
+    props[prop.param_table_key_column] = prop.param_table_value_column;
+  }
+  return props;
+}
+
 const processEvent = () => {
   if (data.tagType === "init" && !data.envID) {
     log("[freshpaint-GTM] environment ID is required for init tag");
+    data.gtmOnFailure();
     return;
   }
 
@@ -1185,12 +1452,14 @@ const processEvent = () => {
   }
 
   // actually process the event
-  if (
-    data.tagType === "track" ||
-    data.tagType === "identify" ||
-    data.tagType === "ga4Event"
-  ) {
-    processBasicOrGA4Event(data.tagType === "ga4Event");
+  if (data.tagType === "init") {
+    processInit();
+  } else if (data.tagType === "track") {
+    processTrack();
+  } else if (data.tagType === "identify") {
+    processIdentify();
+  } else if (data.tagType === "ga4Event") {
+    processGA4Event();
   } else if (data.tagType === "fbPixelEvent") {
     processFBPixelEvent();
   } else if (data.tagType === "twitterAdsEvent") {
@@ -1199,9 +1468,12 @@ const processEvent = () => {
     processBingEvent();
   } else if (data.tagType === "googleAdsEvent") {
     processGoogleAdsEvent();
+  } else if (data.tagType === "theTradeDeskEvent") {
+    processTheTradeDeskEvent();
+  } else {
+    log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
+    data.gtmOnFailure();
   }
-
-  data.gtmOnSuccess();
 };
 
 const generateOptions = (integration) => {
@@ -1215,20 +1487,55 @@ const generateOptions = (integration) => {
   };
 };
 
-const processBasicOrGA4Event = (isGA4Event) => {
-  let options = {};
-  if (isGA4Event) {
-    options = generateOptions("Google Analytics 4 Proxy");
+const processInit = () => {
+  // Init handled upstream
+  data.gtmOnSuccess();
+};
+
+const processTrack = () => {
+  const options = {};
+
+  if (data.commonEventName) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+      log("ERROR: Freshpaint Track GTM Template missing eventName");
+      data.gtmOnFailure();
   }
+};
+
+const processIdentify = () => {
+    const options = {};
+
+    let identifier = undefined;
+    if (data.identifyIdentifier) {
+      identifier = data.identifyIdentifier;
+    }
+
+    const props = parseSimpleTable(data.commonUserProperties || []);
+    identify(identifier, props, options);
+
+    data.gtmOnSuccess();
+};
+
+const processGA4Event = () => {
+  const options = generateOptions("Google Analytics 4 Proxy");
 
   if (data.commonUserProperties) {
-    const props = parsePropsTable(data.commonUserProperties || []);
+    const props = parseSimpleTable(data.commonUserProperties || []);
     identify(undefined, props, options);
   }
 
   if (data.commonEventName) {
-    const props = parsePropsTable(data.commonEventProperties || []);
+    const props = parseSimpleTable(data.commonEventProperties || []);
     track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+      log("ERROR: Freshpaint Google Analytics 4 Proxy GTM Template missing eventName");
+      data.gtmOnFailure();
   }
 };
 
@@ -1259,13 +1566,19 @@ const processFBPixelEvent = () => {
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
   track(eventName, mergedObjectProps, options);
+
+  data.gtmOnSuccess();
 };
 
 const processTwitterEvent = () => {
   const options = generateOptions("Twitter Ads");
+
   const eventName = data.twitterEventName;
-  const props = parsePropsTable(data.twitterEventParameters || []);
-  track(eventName, props, options);  
+  const props = parseParamTable(data.twitterEventParameters || []);
+
+  track(eventName, props, options);
+
+  data.gtmOnSuccess();
 };
 
 
@@ -1274,6 +1587,8 @@ const processBingEvent = () => {
   
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
+
+    data.gtmOnSuccess();
     return;
   } 
   
@@ -1352,6 +1667,8 @@ const processBingEvent = () => {
   } 
   
   track(eventName, props, options);
+
+  data.gtmOnSuccess();
 };
 
 const processGoogleAdsEvent = () => {
@@ -1380,6 +1697,60 @@ const processGoogleAdsEvent = () => {
     }
 
     track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Google Ads GTM Template missing eventNme and / or conversionLabel");
+    data.gtmOnFailure();
+  }
+};
+
+const processTheTradeDeskEvent = () => {
+  const options = generateOptions("theTradeDesk");
+
+  // make track call
+
+  if (data.commonEventName && data.theTradeDeskTrackerOrUPixelIDValue) {
+    const props = parseParamTable(data.theTradeDeskTDEventParameters || []);
+
+    if (data.theTradeDeskTrackerOrUPixel === "tracker_id") {
+      props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
+    } else {
+      props.upixel_id = data.theTradeDeskTrackerOrUPixelIDValue;
+    }
+
+    if (data.theTradeDeskEventName) {
+      props.ttd_event_name = data.theTradeDeskEventName;
+    }
+
+    if (data.theTradeDeskValue) {
+      props.value = data.theTradeDeskValue;
+    }
+
+    if (data.theTradeDeskCurrency) {
+      props.currency = data.theTradeDeskCurrency;
+    }
+
+    if (data.theTradeDeskOrderId) {
+      props.order_id = data.theTradeDeskOrderId;
+    }
+
+    if (data.theTradeDeskItems) {
+      props.items = JSON.parse(data.theTradeDeskItems);
+      if (!props.items) {
+        log("ERROR: Freshpaint theTradeDesk GTM Template parsing items json: " + data.theTradeDeskItems);
+
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint theTradeDesk GTM Template missing eventNme and / or trackerOrUPixelIDValue");
+    data.gtmOnFailure();
   }
 };
 
