@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/"
 versions:
-  - sha: b439a511e7f9afc8194fbeda7fdb2065e42d563c
-    changeNotes: Remove extraneous comma.
+  - sha: a7c9e10f141432eaa5f4b73c6a0e1038225c3c5c
+    changeNotes: Add theTradeDesk and StackAdapt destination support.
