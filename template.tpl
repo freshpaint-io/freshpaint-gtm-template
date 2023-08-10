@@ -133,6 +133,25 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "commonDestConfigNames",
+    "displayName": "Freshpaint Config Name(s) (optional)",
+    "help": "To deliver using a configuration other than the primary Freshpaint configuration, specify one or more configuration names, comma-delimited if two or more",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "identifyIdentifier",
     "displayName": "Identifier (recommended)",
     "simpleValueType": true,
@@ -1598,6 +1617,10 @@ const processFBPixelEvent = () => {
     getType(data.fbObjectPropertiesFromVariable) === "object" ? 
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
+  
+  if (data.commonDestConfigNames) {
+    mergedObjectProps.dest_config_names = data.commonDestConfigNames;
+  }
 
   track(eventName, mergedObjectProps, options);
 
@@ -1767,6 +1790,10 @@ const processTheTradeDeskEvent = () => {
 
     if (data.theTradeDeskOrderId) {
       props.order_id = data.theTradeDeskOrderId;
+    }
+
+    if (data.commonDestConfigNames) {
+      props.dest_config_names = data.commonDestConfigNames;
     }
 
     if (data.theTradeDeskItems) {
