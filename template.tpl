@@ -50,18 +50,6 @@ ___TEMPLATE_PARAMETERS___
     "macrosInSelect": false,
     "selectItems": [
       {
-        "value": "init",
-        "displayValue": "Init"
-      },
-      {
-        "value": "identify",
-        "displayValue": "Identify"
-      },
-      {
-        "value": "track",
-        "displayValue": "Track"
-      },
-      {
         "value": "ga4Event",
         "displayValue": "Google Analytics 4 (Proxy)"
       },
@@ -88,10 +76,27 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
-      }
+      },
+      {
+        "value": "init",
+        "displayValue": "Init"
+      },
+      {
+        "value": "identify",
+        "displayValue": "Identify"
+      },
+      {
+        "value": "track",
+        "displayValue": "Track"
+      },
     ],
-    "defaultValue": "ga4Event",
-    "simpleValueType": true
+    "notSetText": "-",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
   },
   {
     "type": "TEXT",
