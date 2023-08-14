@@ -1141,14 +1141,11 @@ ___TEMPLATE_PARAMETERS___
     "type": "RADIO",
     "name": "theTradeDeskTrackerOrUPixel",
     "displayName": "Use Event Tracker ID vs. Universal Pixel ID",
+    "help": "Universal Pixel ID not currently supported",
     "radioItems": [
       {
         "value": "tracker_id",
         "displayValue": "Event Tracker ID"
-      },
-      {
-        "value": "upixel_id",
-        "displayValue": "Universal Pixel ID"
       }
     ],
     "enablingConditions": [
@@ -1163,6 +1160,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "theTradeDeskTrackerOrUPixelIDValue",
     "displayName": "Event Tracker ID / Universal Pixel ID Value",
+    "help": "Universal Pixel ID not currently supported",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -1180,7 +1178,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "SELECT",
     "name": "theTradeDeskEventName",
-    "displayName": "Event Name",
+    "displayName": "Event Name (optional)",
     "selectItems": [
       {
         "value": "addtocart",
@@ -1778,6 +1776,7 @@ const processTheTradeDeskEvent = () => {
     if (data.theTradeDeskTrackerOrUPixel === "tracker_id") {
       props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
     } else {
+      // Not currently exercised since upixel_id is disabled from UI control, for now
       props.upixel_id = data.theTradeDeskTrackerOrUPixelIDValue;
     }
 
