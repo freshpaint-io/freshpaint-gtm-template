@@ -1173,7 +1173,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "SELECT",
     "name": "theTradeDeskEventName",
-    "displayName": "Event Name",
+    "displayName": "Event Name (optional)",
     "selectItems": [
       {
         "value": "addtocart",
