@@ -78,16 +78,16 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Twitter Ads"
       },
       {
-        "value": "init",
-        "displayValue": "Init"
-      },
-      {
         "value": "identify",
         "displayValue": "Identify"
       },
       {
         "value": "track",
         "displayValue": "Track"
+      },
+      {
+        "value": "init",
+        "displayValue": "Init"
       },
     ],
     "notSetText": "-",
