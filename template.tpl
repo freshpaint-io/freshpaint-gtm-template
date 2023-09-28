@@ -54,8 +54,20 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Analytics 4 (Proxy)"
       },
       {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
+      },
+      {
+        "value": "stackAdaptEvent",
+        "displayValue": "StackAdapt"
+      },
+      {
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
       },
       {
         "value": "twitterAdsEvent",
@@ -64,18 +76,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "bingAdsEvent",
         "displayValue": "Bing Ads"
-      },
-      {
-        "value": "googleAdsEvent",
-        "displayValue": "Google Ads"
-      },
-      {
-        "value": "theTradeDeskEvent",
-        "displayValue": "theTradeDesk"
-      },
-      {
-        "value": "stackAdaptEvent",
-        "displayValue": "StackAdapt"
       },
       {
         "value": "init",
