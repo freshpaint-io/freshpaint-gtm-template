@@ -139,8 +139,8 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "commonDestConfigNames",
-    "displayName": "Freshpaint Config Name(s) (optional)",
-    "help": "To deliver using a configuration other than the primary Freshpaint configuration, specify one or more configuration names, comma-delimited if two or more",
+    "displayName": "Freshpaint Destination Name(s) (optional)",
+    "help": "To deliver using a destination instance other than the default Freshpaint destination instance, specify one or more destination names, comma-delimited if two or more",
     "simpleValueType": true,
     "enablingConditions": [
       {
