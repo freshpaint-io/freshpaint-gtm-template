@@ -70,12 +70,12 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "theTradeDesk"
       },
       {
-        "value": "twitterAdsEvent",
-        "displayValue": "Twitter Ads"
-      },
-      {
         "value": "bingAdsEvent",
         "displayValue": "Bing Ads"
+      },
+      {
+        "value": "twitterAdsEvent",
+        "displayValue": "Twitter Ads"
       },
       {
         "value": "init",
