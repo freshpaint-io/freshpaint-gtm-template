@@ -54,32 +54,32 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Analytics 4 (Proxy)"
       },
       {
-        "value": "fbPixelEvent",
-        "displayValue": "Facebook Conversions API"
-      },
-      {
-        "value": "twitterAdsEvent",
-        "displayValue": "Twitter Ads"
-      },
-      {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
-      },
-      {
         "value": "googleAdsEvent",
         "displayValue": "Google Ads"
       },
       {
-        "value": "theTradeDeskEvent",
-        "displayValue": "theTradeDesk"
+        "value": "fbPixelEvent",
+        "displayValue": "Facebook Conversions API"
       },
       {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
       },
       {
-        "value": "init",
-        "displayValue": "Init"
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
+      },
+      {
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
+      },
+      {
+        "value": "twitterAdsEvent",
+        "displayValue": "Twitter Ads"
+      },
+      {
+        "value": "addEventProperties",
+        "displayValue": "AddEventProperties"
       },
       {
         "value": "identify",
@@ -88,6 +88,10 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "track",
         "displayValue": "Track"
+      },
+      {
+        "value": "init",
+        "displayValue": "Init"
       },
     ],
     "notSetText": "-",
@@ -1385,6 +1389,41 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SIMPLE_TABLE",
+    "name": "addEventPropertiesSharedProperties",
+    "displayName": "Shared Event Properties",
+    "help": "Any properties that should be included with all events going forward.",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "addEventProperties",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "TABLE_ROW_COUNT",
+        "args": [
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
     "name": "commonEventProperties",
     "displayName": "Event Properties",
     "simpleTableColumns": [
@@ -1512,6 +1551,8 @@ const processEvent = () => {
     processTrack();
   } else if (data.tagType === "identify") {
     processIdentify();
+  } else if (data.tagType === "addEventProperties") {
+    processAddEventProperties();
   } else if (data.tagType === "ga4Event") {
     processGA4Event();
   } else if (data.tagType === "fbPixelEvent") {
@@ -1563,6 +1604,7 @@ const processTrack = () => {
 };
 
 const processIdentify = () => {
+    // Send identify to all enabled destinations
     const options = {};
 
     let identifier = undefined;
@@ -1572,6 +1614,14 @@ const processIdentify = () => {
 
     const props = parseSimpleTable(data.commonUserProperties || []);
     identify(identifier, props, options);
+
+    data.gtmOnSuccess();
+};
+
+const processAddEventProperties = () => {
+    const props = parseSimpleTable(data.addEventPropertiesSharedProperties || []);
+
+    addEventProperties(props);
 
     data.gtmOnSuccess();
 };
@@ -1867,6 +1917,16 @@ const page = (pageProps, options) => {
     methodArgs: [pageProps, options],
   });
 };
+
+const addEventProperties = (props) => {
+  // register is the exposed sdk instance name for addEventProperties
+  callFreshpaintProxy("apply", {
+    envID: data.envID,
+    methodName: "register",
+    methodArgs: [props],
+  });
+};
+
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
