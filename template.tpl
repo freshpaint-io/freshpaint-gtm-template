@@ -62,16 +62,20 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Facebook Conversions API"
       },
       {
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
+      },
+      {
+        "value": "impactEvent",
+        "displayValue": "impact.com"
+      },
+      {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
       },
       {
         "value": "theTradeDeskEvent",
         "displayValue": "theTradeDesk"
-      },
-      {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
       },
       {
         "value": "twitterAdsEvent",
@@ -171,6 +175,55 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
+  },
+  {
+    "type": "SELECT",
+    "name": "identifyDestToDeliverTo",
+    "displayName": "Specific Destination to deliver to (optional)",
+    "macrosInSelect": false,
+    "selectItems": [
+      {
+        "value": "ga4Event",
+        "displayValue": "Google Analytics 4 (Proxy)"
+      },
+      {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads"
+      },
+      {
+        "value": "fbPixelEvent",
+        "displayValue": "Facebook Conversions API"
+      },
+      {
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
+      },
+      {
+        "value": "impactEvent",
+        "displayValue": "impact.com"
+      },
+      {
+        "value": "stackAdaptEvent",
+        "displayValue": "StackAdapt"
+      },
+      {
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
+      },
+      {
+        "value": "twitterAdsEvent",
+        "displayValue": "Twitter Ads"
+      },
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ],
+    "notSetText": "-",
+    "simpleValueType": true
   },
   {
     "type": "TEXT",
@@ -1143,6 +1196,144 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "RADIO",
+    "name": "impactEventIdOrCode",
+    "displayName": "Use Event Type ID vs. Event Type Code",
+    "help": "One or the other of Event Type ID or Event Type Code must be specified.",
+    "radioItems": [
+      {
+        "value": "event_type_id",
+        "displayValue": "event_type_id"
+      },
+      {
+        "value": "event_type_code",
+        "displayValue": "event_type_code"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "impactEventTypeIdOrCode",
+    "displayName": "event_type_id / event_type_code (required)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "impactOrderId",
+    "displayName": "order_id (required)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "impactEventParameters",
+    "displayName": "Other parameters (optional)",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "property",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "currency",
+              "displayValue": "currency"
+            },
+            {
+              "value": "customer_status",
+              "displayValue": "customer_status"
+            },
+            {
+              "value": "discount",
+              "displayValue": "discount"
+            },
+            {
+              "value": "email",
+              "displayValue": "email"
+            },
+            {
+              "value": "items",
+              "displayValue": "items"
+            },
+            {
+              "value": "latitude",
+              "displayValue": "latitude"
+            },
+            {
+              "value": "longitude",
+              "displayValue": "longitude"
+            },
+            {
+              "value": "order_promo_code",
+              "displayValue": "order_promo_code"
+            },
+            {
+              "value": "order_revenue",
+              "displayValue": "order_revenue"
+            },
+            {
+              "value": "order_shipping",
+              "displayValue": "order_shipping"
+            },
+            {
+              "value": "order_tax",
+              "displayValue": "order_tax"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Value",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
     "name": "theTradeDeskTrackerOrUPixel",
     "displayName": "Use Event Tracker ID vs. Universal Pixel ID",
     "help": "Universal Pixel ID not currently supported",
@@ -1454,6 +1645,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
         "type": "EQUALS"
       }
     ]
