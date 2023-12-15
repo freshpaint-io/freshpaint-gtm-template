@@ -1197,7 +1197,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "RADIO",
     "name": "impactEventIdOrCode",
-    "displayName": "Use Event Type ID vs. Event Type Code",
+    "displayName": "Use event_type_id vs. event_type_code",
     "help": "One or the other of Event Type ID or Event Type Code must be specified.",
     "radioItems": [
       {
@@ -1234,6 +1234,20 @@ ___TEMPLATE_PARAMETERS___
         "type": "NON_EMPTY"
       }
     ]
+  },
+  {
+    "type": "TEXT",
+    "name": "impactCustomerId",
+    "displayName": "customer_id",
+    "simpleValueType": true,
+    "help": "This overrides $user_id (which is masked in HIPAA mode)",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
   },
   {
     "type": "TEXT",
