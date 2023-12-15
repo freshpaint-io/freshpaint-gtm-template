@@ -1255,7 +1255,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "PARAM_TABLE",
-    "name": "impactEventParameters",
+    "name": "impactOtherEventParameters",
     "displayName": "Other parameters (optional)",
     "paramTableColumns": [
       {
@@ -1327,7 +1327,7 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
+        "paramValue": "impactEvent",
         "type": "EQUALS"
       }
     ]
@@ -1645,11 +1645,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "impactEvent",
         "type": "EQUALS"
       }
     ]
