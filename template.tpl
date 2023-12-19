@@ -177,55 +177,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "SELECT",
-    "name": "identifyDestToDeliverTo",
-    "displayName": "Specific Destination to deliver to (optional)",
-    "macrosInSelect": false,
-    "selectItems": [
-      {
-        "value": "ga4Event",
-        "displayValue": "Google Analytics 4 (Proxy)"
-      },
-      {
-        "value": "googleAdsEvent",
-        "displayValue": "Google Ads"
-      },
-      {
-        "value": "fbPixelEvent",
-        "displayValue": "Facebook Conversions API"
-      },
-      {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
-      },
-      {
-        "value": "impactEvent",
-        "displayValue": "impact.com"
-      },
-      {
-        "value": "stackAdaptEvent",
-        "displayValue": "StackAdapt"
-      },
-      {
-        "value": "theTradeDeskEvent",
-        "displayValue": "theTradeDesk"
-      },
-      {
-        "value": "twitterAdsEvent",
-        "displayValue": "Twitter Ads"
-      },
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ],
-    "notSetText": "-",
-    "simpleValueType": true
-  },
-  {
     "type": "TEXT",
     "name": "googleAdsConversionLabel",
     "displayName": "Conversion Label",
@@ -1237,20 +1188,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "impactCustomerId",
-    "displayName": "customer_id",
-    "simpleValueType": true,
-    "help": "This overrides $user_id (which is masked in HIPAA mode)",
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "impactEvent",
-        "type": "EQUALS"
-      }
-    ],
-  },
-  {
-    "type": "TEXT",
     "name": "impactOrderId",
     "displayName": "order_id (required)",
     "simpleValueType": true,
@@ -1766,6 +1703,8 @@ const processEvent = () => {
     processTwitterEvent();
   } else if (data.tagType === "bingAdsEvent") {
     processBingEvent();
+  } else if (data.tagType === "impactEvent") {
+    processImpactEvent();
   } else if (data.tagType === "googleAdsEvent") {
     processGoogleAdsEvent();
   } else if (data.tagType === "theTradeDeskEvent") {
@@ -1896,7 +1835,6 @@ const processTwitterEvent = () => {
   data.gtmOnSuccess();
 };
 
-
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
   
@@ -1982,6 +1920,26 @@ const processBingEvent = () => {
   } 
   
   track(eventName, props, options);
+
+  data.gtmOnSuccess();
+};
+
+const processImpactEvent = () => {
+  const options = generateOptions("impactdotcom");
+
+  // make track call
+
+  const props = parseParamTable(data.impactOtherEventParameters || []);
+
+  if (props.impactEventIdOrCodeSelect === "event_type_id") {
+    props.event_type_id = data.impactEventTypeIdOrCode;
+  } else {
+    props.event_type_code = data.impactEventTypeIdOrCode;
+  }
+
+  props.order_id = data.impactOrderId;
+
+  track(data.props.impactEventTypeIdOrCode, props, options);
 
   data.gtmOnSuccess();
 };
