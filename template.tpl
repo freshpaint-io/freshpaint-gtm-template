@@ -1147,7 +1147,7 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "RADIO",
-    "name": "impactEventIdOrCode",
+    "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
     "help": "One or the other of Event Type ID or Event Type Code must be specified.",
     "radioItems": [
@@ -1926,17 +1926,28 @@ const processBingEvent = () => {
 
 const processImpactEvent = () => {
   const options = generateOptions("impactdotcom");
-  // make track call
 
+  // make track call
   const props = parseParamTable(data.impactOtherEventParameters || []);
 
-  if (props.impactEventIdOrCodeSelect === "event_type_id") {
-    props.event_type_id = data.impactEventTypeIdOrCode;
-  } else {
+  if (data.impactEventTypeIdOrCodeSelector === "event_type_code") {
     props.event_type_code = data.impactEventTypeIdOrCode;
+  } else {
+    props.event_type_id = data.impactEventTypeIdOrCode;
   }
 
   props.order_id = data.impactOrderId;
+
+  // Convert items, if any, to json object
+  if (props.items) {
+    props.items = JSON.parse(props.items);
+    if (!props.items) {
+      log("ERROR: Freshpaint impact.com GTM Template parsing items json: " + props.items);
+
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
   track(data.impactEventTypeIdOrCode, props, options);
 
