@@ -62,16 +62,20 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Facebook Conversions API"
       },
       {
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
+      },
+      {
+        "value": "impactEvent",
+        "displayValue": "impact.com"
+      },
+      {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
       },
       {
         "value": "theTradeDeskEvent",
         "displayValue": "theTradeDesk"
-      },
-      {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
       },
       {
         "value": "twitterAdsEvent",
@@ -1143,6 +1147,144 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "RADIO",
+    "name": "impactEventTypeIdOrCodeSelector",
+    "displayName": "Use event_type_id vs. event_type_code",
+    "help": "One or the other of event_type_id or event_type_code must be specified.",
+    "radioItems": [
+      {
+        "value": "event_type_id",
+        "displayValue": "event_type_id"
+      },
+      {
+        "value": "event_type_code",
+        "displayValue": "event_type_code"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "impactEventTypeIdOrCode",
+    "displayName": "event_type_id / event_type_code (required)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "impactOrderId",
+    "displayName": "order_id (required)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "impactOtherEventParameters",
+    "displayName": "Other parameters (optional)",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "property",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "currency",
+              "displayValue": "currency"
+            },
+            {
+              "value": "customer_status",
+              "displayValue": "customer_status"
+            },
+            {
+              "value": "discount",
+              "displayValue": "discount"
+            },
+            {
+              "value": "email",
+              "displayValue": "email"
+            },
+            {
+              "value": "items",
+              "displayValue": "items"
+            },
+            {
+              "value": "latitude",
+              "displayValue": "latitude"
+            },
+            {
+              "value": "longitude",
+              "displayValue": "longitude"
+            },
+            {
+              "value": "order_promo_code",
+              "displayValue": "order_promo_code"
+            },
+            {
+              "value": "order_revenue",
+              "displayValue": "order_revenue"
+            },
+            {
+              "value": "order_shipping",
+              "displayValue": "order_shipping"
+            },
+            {
+              "value": "order_tax",
+              "displayValue": "order_tax"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Value",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
     "name": "theTradeDeskTrackerOrUPixel",
     "displayName": "Use Event Tracker ID vs. Universal Pixel ID",
     "help": "Universal Pixel ID not currently supported",
@@ -1561,6 +1703,8 @@ const processEvent = () => {
     processTwitterEvent();
   } else if (data.tagType === "bingAdsEvent") {
     processBingEvent();
+  } else if (data.tagType === "impactEvent") {
+    processImpactEvent();
   } else if (data.tagType === "googleAdsEvent") {
     processGoogleAdsEvent();
   } else if (data.tagType === "theTradeDeskEvent") {
@@ -1691,7 +1835,6 @@ const processTwitterEvent = () => {
   data.gtmOnSuccess();
 };
 
-
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
   
@@ -1777,6 +1920,36 @@ const processBingEvent = () => {
   } 
   
   track(eventName, props, options);
+
+  data.gtmOnSuccess();
+};
+
+const processImpactEvent = () => {
+  const options = generateOptions("impactdotcom");
+
+  // make track call
+  const props = parseParamTable(data.impactOtherEventParameters || []);
+
+  if (data.impactEventTypeIdOrCodeSelector === "event_type_code") {
+    props.event_type_code = data.impactEventTypeIdOrCode;
+  } else {
+    props.event_type_id = data.impactEventTypeIdOrCode;
+  }
+
+  props.order_id = data.impactOrderId;
+
+  // Convert items, if any, to json object
+  if (props.items) {
+    props.items = JSON.parse(props.items);
+    if (!props.items) {
+      log("ERROR: Freshpaint impact.com GTM Template parsing items json: " + props.items);
+
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  track(data.impactEventTypeIdOrCode, props, options);
 
   data.gtmOnSuccess();
 };
