@@ -1149,7 +1149,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
-    "help": "One or the other of Event Type ID or Event Type Code must be specified.",
+    "help": "One or the other of event_type_id or event_type_code must be specified.",
     "radioItems": [
       {
         "value": "event_type_id",
