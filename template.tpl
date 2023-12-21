@@ -1926,7 +1926,6 @@ const processBingEvent = () => {
 
 const processImpactEvent = () => {
   const options = generateOptions("impactdotcom");
-
   // make track call
 
   const props = parseParamTable(data.impactOtherEventParameters || []);
@@ -1939,7 +1938,7 @@ const processImpactEvent = () => {
 
   props.order_id = data.impactOrderId;
 
-  track(data.props.impactEventTypeIdOrCode, props, options);
+  track(data.impactEventTypeIdOrCode, props, options);
 
   data.gtmOnSuccess();
 };
