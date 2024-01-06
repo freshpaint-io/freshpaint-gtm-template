@@ -58,6 +58,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads"
       },
       {
+        "value": "googleAdsCallConversionsEvent",
+        "displayValue": "Google Ads Call Conversions"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
       },
@@ -178,6 +182,25 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "googleAdsCallConversionsDisplayedPhoneNbr",
+    "displayName": "Displayed Phone Number to Replace",
+    "help": "The phone number you enter needs to have the exact digits it has on your website. For example, if the number on your website has a country code, include the country code here. If the number on your website does not have a country code, do not include the country code here.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "googleAdsConversionLabel",
     "displayName": "Conversion Label",
     "simpleValueType": true,
@@ -191,6 +214,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -198,11 +226,25 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "googleAdsConversionId",
     "displayName": "Conversion ID (optional)",
+    "help": "This is needed only if the Conversion ID differs from the one configured in the Freshpaint Destination",
     "simpleValueType": true,
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCallConversionsConversionId",
+    "displayName": "Conversion ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
         "type": "EQUALS"
       }
     ]
@@ -1707,6 +1749,8 @@ const processEvent = () => {
     processImpactEvent();
   } else if (data.tagType === "googleAdsEvent") {
     processGoogleAdsEvent();
+//  } else if (data.tagType === "googleAdsCallConversionsEvent") {
+//    processGoogleAdsCallConversionsEvent();
   } else if (data.tagType === "theTradeDeskEvent") {
     processTheTradeDeskEvent();
   } else if (data.tagType === "stackAdaptEvent") {
@@ -1988,6 +2032,14 @@ const processGoogleAdsEvent = () => {
   }
 };
 
+//const processGoogleAdsCallConversionsEvent = () => {
+//  let tagIdConversionLabel = "AW-" + data.googleAdsCallConversionsConversionId + "/" + data.googleAdsConversionLabel;
+
+//  registerCallConversion(tagIdConversionLabel, data.googleAdsCallConversionsDisplayedPhoneNbr);
+
+//  data.gtmOnSuccess();
+//};
+
 const processTheTradeDeskEvent = () => {
   const options = generateOptions("theTradeDesk");
 
@@ -2100,6 +2152,13 @@ const addEventProperties = (props) => {
   });
 };
 
+//const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
+//  callFreshpaintProxy("apply", {
+//    envID: data.envID,
+//    methodName: "registerCallConversion",
+//    methodArgs: [tagIdConversionLabel, phoneNbr],
+//  });
+//};
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
