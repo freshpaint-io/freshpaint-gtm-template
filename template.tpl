@@ -1749,8 +1749,8 @@ const processEvent = () => {
     processImpactEvent();
   } else if (data.tagType === "googleAdsEvent") {
     processGoogleAdsEvent();
-//  } else if (data.tagType === "googleAdsCallConversionsEvent") {
-//    processGoogleAdsCallConversionsEvent();
+  } else if (data.tagType === "googleAdsCallConversionsEvent") {
+    processGoogleAdsCallConversionsEvent();
   } else if (data.tagType === "theTradeDeskEvent") {
     processTheTradeDeskEvent();
   } else if (data.tagType === "stackAdaptEvent") {
@@ -2032,13 +2032,13 @@ const processGoogleAdsEvent = () => {
   }
 };
 
-//const processGoogleAdsCallConversionsEvent = () => {
-//  let tagIdConversionLabel = "AW-" + data.googleAdsCallConversionsConversionId + "/" + data.googleAdsConversionLabel;
+const processGoogleAdsCallConversionsEvent = () => {
+  let tagIdConversionLabel = "AW-" + data.googleAdsCallConversionsConversionId + "/" + data.googleAdsConversionLabel;
 
-//  registerCallConversion(tagIdConversionLabel, data.googleAdsCallConversionsDisplayedPhoneNbr);
+  registerCallConversion(tagIdConversionLabel, data.googleAdsCallConversionsDisplayedPhoneNbr);
 
-//  data.gtmOnSuccess();
-//};
+  data.gtmOnSuccess();
+};
 
 const processTheTradeDeskEvent = () => {
   const options = generateOptions("theTradeDesk");
@@ -2152,13 +2152,13 @@ const addEventProperties = (props) => {
   });
 };
 
-//const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
-//  callFreshpaintProxy("apply", {
-//    envID: data.envID,
-//    methodName: "registerCallConversion",
-//    methodArgs: [tagIdConversionLabel, phoneNbr],
-//  });
-//};
+const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
+  callFreshpaintProxy("apply", {
+    envID: data.envID,
+    methodName: "registerCallConversion",
+    methodArgs: [tagIdConversionLabel, phoneNbr],
+  });
+};
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
