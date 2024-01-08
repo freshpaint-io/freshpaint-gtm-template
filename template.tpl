@@ -58,6 +58,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads"
       },
       {
+        "value": "googleAdsCallConversionsEvent",
+        "displayValue": "Google Ads Call Conversions"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
       },
@@ -178,6 +182,25 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "googleAdsCallConversionsDisplayedPhoneNbr",
+    "displayName": "Displayed Phone Number to Replace",
+    "help": "The phone number you enter needs to have the exact digits it has on your website. For example, if the number on your website has a country code, include the country code here. If the number on your website does not have a country code, do not include the country code here.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "googleAdsConversionLabel",
     "displayName": "Conversion Label",
     "simpleValueType": true,
@@ -191,6 +214,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -198,11 +226,25 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "googleAdsConversionId",
     "displayName": "Conversion ID (optional)",
+    "help": "This is needed only if the Conversion ID differs from the one configured in the Freshpaint Destination",
     "simpleValueType": true,
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCallConversionsConversionId",
+    "displayName": "Conversion ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
         "type": "EQUALS"
       }
     ]
@@ -1638,7 +1680,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 // TODOS:
 // 1. remove debug mode from all initialization
-// 2. Bing: 
+// 2. Bing:
 //    a. Implement - Page view (SPA)
 //    b. Add support for custom event props (Define your own event parameters)
 
@@ -1707,6 +1749,8 @@ const processEvent = () => {
     processImpactEvent();
   } else if (data.tagType === "googleAdsEvent") {
     processGoogleAdsEvent();
+  } else if (data.tagType === "googleAdsCallConversionsEvent") {
+    processGoogleAdsCallConversionsEvent();
   } else if (data.tagType === "theTradeDeskEvent") {
     processTheTradeDeskEvent();
   } else if (data.tagType === "stackAdaptEvent") {
@@ -1802,19 +1846,19 @@ const processFBPixelEvent = () => {
   const options = generateOptions("Facebook Conversions API");
 
   const eventName =
-    data.fbEventName === "custom" ? 
+    data.fbEventName === "custom" ?
       data.fbCustomEventName : (
-        data.fbEventName === "variable" ? 
+        data.fbEventName === "variable" ?
           data.fbVariableEventName : data.fbStandardEventName
       );
   const objectProps =
-    data.fbObjectPropertyList && data.fbObjectPropertyList.length ? 
+    data.fbObjectPropertyList && data.fbObjectPropertyList.length ?
       makeTableMap(data.fbObjectPropertyList, "name", "value") : {};
   const objectPropsFromVar =
-    getType(data.fbObjectPropertiesFromVariable) === "object" ? 
+    getType(data.fbObjectPropertiesFromVariable) === "object" ?
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-  
+
   if (data.commonDestConfigNames) {
     mergedObjectProps.dest_config_names = data.commonDestConfigNames;
   }
@@ -1837,17 +1881,17 @@ const processTwitterEvent = () => {
 
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
-  
+
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
 
     data.gtmOnSuccess();
     return;
-  } 
-  
+  }
+
   // make required track call
   let eventName;
-  const props = { tpp: "1" }; 
+  const props = { tpp: "1" };
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
       const dataKey = mapping[propKey];
@@ -1856,7 +1900,7 @@ const processBingEvent = () => {
       }
     }
   };
-  
+
   if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
@@ -1883,7 +1927,7 @@ const processBingEvent = () => {
     eventName = action;
     props.action = action;
     props.label = "";
-    
+
     if (data.bingEventType === "ecommerce") {
       includePropsFromData({
         product_id: "bingEcommProdId",
@@ -1917,8 +1961,8 @@ const processBingEvent = () => {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.label = "";
-  } 
-  
+  }
+
   track(eventName, props, options);
 
   data.gtmOnSuccess();
@@ -1986,6 +2030,14 @@ const processGoogleAdsEvent = () => {
     log("ERROR: Freshpaint Google Ads GTM Template missing eventNme and / or conversionLabel");
     data.gtmOnFailure();
   }
+};
+
+const processGoogleAdsCallConversionsEvent = () => {
+  let tagIdConversionLabel = "AW-" + data.googleAdsCallConversionsConversionId + "/" + data.googleAdsConversionLabel;
+
+  registerCallConversion(tagIdConversionLabel, data.googleAdsCallConversionsDisplayedPhoneNbr);
+
+  data.gtmOnSuccess();
 };
 
 const processTheTradeDeskEvent = () => {
@@ -2100,6 +2152,13 @@ const addEventProperties = (props) => {
   });
 };
 
+const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
+  callFreshpaintProxy("apply", {
+    envID: data.envID,
+    methodName: "registerCallConversion",
+    methodArgs: [tagIdConversionLabel, phoneNbr],
+  });
+};
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
