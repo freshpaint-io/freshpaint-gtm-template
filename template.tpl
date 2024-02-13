@@ -41,6 +41,13 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "NON_EMPTY"
       }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "init",
+        "type": "EQUALS"
+      }
     ]
   },
   {
@@ -1679,8 +1686,7 @@ ___TEMPLATE_PARAMETERS___
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 // TODOS:
-// 1. remove debug mode from all initialization
-// 2. Bing:
+// 1. Bing:
 //    a. Implement - Page view (SPA)
 //    b. Add support for custom event props (Define your own event parameters)
 
@@ -1708,25 +1714,27 @@ function parseParamTable(inputProps) {
 }
 
 const processEvent = () => {
-  if (data.tagType === "init" && !data.envID) {
-    log("[freshpaint-GTM] environment ID is required for init tag");
-    data.gtmOnFailure();
-    return;
+  let envID = undefined;
+  if (data.tagType === "init") {
+    if (!data.envID) {
+      log("[freshpaint-GTM] environment ID is required for init tag");
+      data.gtmOnFailure();
+      return;
+    }
+
+    envID = data.envID;
   }
 
   // initialize environment
   // if already done before then this is a no-op
-  if (data.envID) {
-    callFreshpaintProxy("init", {
-      envID: data.envID,
-      initPersistantProps: {
-        "$gtm": true,
-      },
-      initConfig: {
-        debug: true,
-      },
-    });
-  }
+  callFreshpaintProxy("init", {
+    envID: envID,
+    initPersistantProps: {
+      "$gtm": true,
+    },
+    initConfig: {
+    },
+  });
 
   // actually process the event
   if (data.tagType === "init") {
@@ -1852,13 +1860,13 @@ const processFBPixelEvent = () => {
           data.fbVariableEventName : data.fbStandardEventName
       );
   const objectProps =
-    data.fbObjectPropertyList && data.fbObjectPropertyList.length ?
+    data.fbObjectPropertyList && data.fbObjectPropertyList.length ? 
       makeTableMap(data.fbObjectPropertyList, "name", "value") : {};
   const objectPropsFromVar =
-    getType(data.fbObjectPropertiesFromVariable) === "object" ?
+    getType(data.fbObjectPropertiesFromVariable) === "object" ? 
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-
+  
   if (data.commonDestConfigNames) {
     mergedObjectProps.dest_config_names = data.commonDestConfigNames;
   }
@@ -1881,17 +1889,17 @@ const processTwitterEvent = () => {
 
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
-
+  
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
 
     data.gtmOnSuccess();
     return;
-  }
-
+  } 
+  
   // make required track call
   let eventName;
-  const props = { tpp: "1" };
+  const props = { tpp: "1" }; 
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
       const dataKey = mapping[propKey];
@@ -1900,7 +1908,7 @@ const processBingEvent = () => {
       }
     }
   };
-
+  
   if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
@@ -1927,7 +1935,7 @@ const processBingEvent = () => {
     eventName = action;
     props.action = action;
     props.label = "";
-
+    
     if (data.bingEventType === "ecommerce") {
       includePropsFromData({
         product_id: "bingEcommProdId",
@@ -1961,8 +1969,8 @@ const processBingEvent = () => {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.label = "";
-  }
-
+  } 
+  
   track(eventName, props, options);
 
   data.gtmOnSuccess();
@@ -2121,7 +2129,7 @@ const identify = (userID, props, options) => {
     args = [userID].concat(args);
   }
   callFreshpaintProxy("apply", {
-    envID: data.envID,
+    envID: undefined,
     methodName: "identify",
     methodArgs: args,
   });
@@ -2129,7 +2137,7 @@ const identify = (userID, props, options) => {
 
 const track = (eventName, props, options) => {
   callFreshpaintProxy("apply", {
-    envID: data.envID,
+    envID: undefined,
     methodName: "track",
     methodArgs: [eventName, props, options],
   });
@@ -2137,7 +2145,7 @@ const track = (eventName, props, options) => {
 
 const page = (pageProps, options) => {
   callFreshpaintProxy("apply", {
-    envID: data.envID,
+    envID: undefined,
     methodName: "page",
     methodArgs: [pageProps, options],
   });
@@ -2146,7 +2154,7 @@ const page = (pageProps, options) => {
 const addEventProperties = (props) => {
   // register is the exposed sdk instance name for addEventProperties
   callFreshpaintProxy("apply", {
-    envID: data.envID,
+    envID: undefined,
     methodName: "register",
     methodArgs: [props],
   });
