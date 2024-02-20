@@ -106,7 +106,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "value": "init",
-        "displayValue": "Init-DEPRECATED"
+        "displayValue": "Init-OBSOLETE"
       },
     ],
     "notSetText": "-",
