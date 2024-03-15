@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/"
 versions:
-  - sha: a7c9e10f141432eaa5f4b73c6a0e1038225c3c5c
-    changeNotes: Add theTradeDesk and StackAdapt destination support.
+  - sha: 26c8656189ad8b18acfa0b98aebbfe31ef6947b6
+    changeNotes: Add Floodlight destination support.
