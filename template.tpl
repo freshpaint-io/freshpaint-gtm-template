@@ -480,25 +480,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "floodlightAdvertiserID",
-    "displayName": "Advertiser ID",
-    "help": "This is the value of the \"src=\" parameter.",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "floodlightEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "floodlightGroupTagString",
     "displayName": "Group Tag String",
     "help": "This is the value of the \"type=\" parameter.",
@@ -520,7 +501,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "floodlightActivityTagString",
     "displayName": "Activity Tag String",
-    "help": "This is the value of the \"type=\" parameter.",
+    "help": "This is the value of the \"cat=\" parameter.",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -2339,11 +2320,6 @@ const processFloodlightEvent = () => {
     data.gtmOnFailure();
     return;
   }
-  if (!data.floodlightAdvertiserID) {
-    log("ERROR: Freshpaint Floodlight GTM Template missing Advertiser ID");
-    data.gtmOnFailure();
-    return;
-  }
   if (!data.floodlightGroupTagString) {
     log("ERROR: Freshpaint Floodlight GTM Template missing Group Tag String");
     data.gtmOnFailure();
@@ -2361,7 +2337,6 @@ const processFloodlightEvent = () => {
   }
 
   const props = parseParamTable(data.floodlightCustomVariables || []);
-  props.advertiser_id = data.floodlightAdvertiserID;
   props.group_tag_string = data.floodlightGroupTagString;
   props.activity_tag_string = data.floodlightActivityTagString;
   props.counting_method = data.floodlightCountingMethod;
