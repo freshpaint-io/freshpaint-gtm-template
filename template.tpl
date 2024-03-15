@@ -73,6 +73,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Facebook Conversions API"
       },
       {
+        "value": "floodlightEvent",
+        "displayValue": "Floodlight"
+      },
+      {
         "value": "bingAdsEvent",
         "displayValue": "Bing Ads"
       },
@@ -151,6 +155,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
         "type": "EQUALS"
       }
     ]
@@ -465,6 +474,209 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "floodlightAdvertiserID",
+    "displayName": "Advertiser ID",
+    "help": "This is the value of the \"src=\" parameter.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "floodlightGroupTagString",
+    "displayName": "Group Tag String",
+    "help": "This is the value of the \"type=\" parameter.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "floodlightActivityTagString",
+    "displayName": "Activity Tag String",
+    "help": "This is the value of the \"type=\" parameter.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "floodlightCountingMethod",
+    "displayName": "Counting Method",
+    "radioItems": [
+      {
+        "value": "standard",
+        "displayValue": "Standard",
+        "help": "Count every conversion."
+      },
+      {
+        "value": "unique",
+        "displayValue": "Unique",
+        "help": "Count the first conversion for each unique user during each 24-hour day, from midnight to midnight, Eastern Time (US)."
+      },
+      {
+        "value": "session",
+        "displayValue": "Per Session",
+        "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "floodlightCustomVariables",
+    "displayName": "Custom Variables",
+    "help": "Floodlight custom variables are key-value pairs that can be used to track data that you collect about your users, for example the genre of movie that a user purchases. The keys are of the format \"u1=\", \"u2=\", etc.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Key",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "u1",
+              "displayValue": "u1"
+            },
+            {
+              "value": "u2",
+              "displayValue": "u2"
+            },
+            {
+              "value": "u3",
+              "displayValue": "u3"
+            },
+            {
+              "value": "u4",
+              "displayValue": "u4"
+            },
+            {
+              "value": "u5",
+              "displayValue": "u5"
+            },
+            {
+              "value": "u6",
+              "displayValue": "u6"
+            },
+            {
+              "value": "u7",
+              "displayValue": "u7"
+            },
+            {
+              "value": "u8",
+              "displayValue": "u8"
+            },
+            {
+              "value": "u9",
+              "displayValue": "u9"
+            },
+            {
+              "value": "u10",
+              "displayValue": "u10"
+            },
+            {
+              "value": "u11",
+              "displayValue": "u11"
+            },
+            {
+              "value": "u12",
+              "displayValue": "u12"
+            },
+            {
+              "value": "u13",
+              "displayValue": "u13"
+            },
+            {
+              "value": "u14",
+              "displayValue": "u14"
+            },
+            {
+              "value": "u15",
+              "displayValue": "u15"
+            },
+            {
+              "value": "u16",
+              "displayValue": "u16"
+            },
+            {
+              "value": "u17",
+              "displayValue": "u17"
+            },
+            {
+              "value": "u18",
+              "displayValue": "u18"
+            },
+            {
+              "value": "u19",
+              "displayValue": "u19"
+            },
+            {
+              "value": "u20",
+              "displayValue": "u20"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Value",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
         "type": "EQUALS"
       }
     ]
@@ -1763,6 +1975,8 @@ const processEvent = () => {
     processTheTradeDeskEvent();
   } else if (data.tagType === "stackAdaptEvent") {
     processStackAdaptEvent();
+  } else if (data.tagType === "floodlightEvent") {
+    processFloodlightEvent();
   } else {
     log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
     data.gtmOnFailure();
@@ -2117,6 +2331,45 @@ const processStackAdaptEvent = () => {
     log("ERROR: Freshpaint StackAdapt GTM Template missing eventName and / or stackAdaptConversionEventID");
     data.gtmOnFailure();
   }
+};
+
+const processFloodlightEvent = () => {
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Floodlight GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.floodlightAdvertiserID) {
+    log("ERROR: Freshpaint Floodlight GTM Template missing Advertiser ID");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.floodlightGroupTagString) {
+    log("ERROR: Freshpaint Floodlight GTM Template missing Group Tag String");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.floodlightActivityTagString) {
+    log("ERROR: Freshpaint Floodlight GTM Template missing Activity Tag String");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.floodlightCountingMethod) {
+    log("ERROR: Freshpaint Floodlight GTM Template missing Counting Method");
+    data.gtmOnFailure();
+    return;
+  }
+
+  const props = parseParamTable(data.floodlightCustomVariables || []);
+  props.advertiser_id = data.floodlightAdvertiserID;
+  props.group_tag_string = data.floodlightGroupTagString;
+  props.activity_tag_string = data.floodlightActivityTagString;
+  props.counting_method = data.floodlightCountingMethod;
+
+  const options = generateOptions("Floodlight");
+
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
 };
 
 const callFreshpaintProxy = (cmdName, args) => {
