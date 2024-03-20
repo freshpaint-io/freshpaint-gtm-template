@@ -522,17 +522,17 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Counting Method",
     "radioItems": [
       {
-        "value": "standard",
+        "value": "STANDARD",
         "displayValue": "Standard",
         "help": "Count every conversion."
       },
       {
-        "value": "unique",
+        "value": "UNIQUE",
         "displayValue": "Unique",
         "help": "Count the first conversion for each unique user during each 24-hour day, from midnight to midnight, Eastern Time (US)."
       },
       {
-        "value": "session",
+        "value": "SESSION",
         "displayValue": "Per Session",
         "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
       }
@@ -2339,7 +2339,7 @@ const processFloodlightEvent = () => {
   const props = parseParamTable(data.floodlightCustomVariables || []);
   props.group_tag_string = data.floodlightGroupTagString;
   props.activity_tag_string = data.floodlightActivityTagString;
-  props.counting_method = data.floodlightCountingMethod;
+  props.counting_method = data.floodlightCountingMethod.toLowerCase();
 
   const options = generateOptions("Floodlight");
 
