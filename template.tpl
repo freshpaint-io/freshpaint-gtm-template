@@ -555,7 +555,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "param": {
           "type": "SELECT",
-          "name": "param_table_key_column",
+          "name": "key",
           "displayName": "Key",
           "macrosInSelect": false,
           "selectItems": [
@@ -647,7 +647,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "param": {
           "type": "TEXT",
-          "name": "param_table_value_column",
+          "name": "value",
           "displayName": "Value",
           "simpleValueType": true
         },
