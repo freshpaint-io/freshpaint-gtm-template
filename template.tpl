@@ -123,6 +123,48 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "ga4InstanceNames",
+    "displayName": "Specific Measurement ID(s) (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 (Proxy), specify one or more specific Measurement IDs to deliver to (otherwise, this event will be delivered to all configured Measurement IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "fbInstanceNames",
+    "displayName": "Specific Pixel ID(s) (optional)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API, specify one or more specific Pixel IDs to deliver to (otherwise, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskInstanceNames",
+    "displayName": "Specific Advertiser ID(s) (optional)",
+    "help": "If multiple Advertiser IDs are configured for theTradeDesk, specify one or more specific Advertiser IDs to deliver to (otherwise, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "commonEventName",
     "displayName": "Freshpaint Event Name",
     "simpleValueType": true,
@@ -163,25 +205,6 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
-  },
-  {
-    "type": "TEXT",
-    "name": "commonDestConfigNames",
-    "displayName": "Freshpaint Config Name(s) (optional)",
-    "help": "To deliver using a configuration other than the primary Freshpaint configuration, specify one or more configuration names, comma-delimited if two or more",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "fbPixelEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ],
   },
   {
     "type": "TEXT",
