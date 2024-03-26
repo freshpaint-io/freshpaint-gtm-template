@@ -77,6 +77,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Floodlight"
       },
       {
+        "value": "basisEvent",
+        "displayValue": "Basis"
+      },
+      {
         "value": "bingAdsEvent",
         "displayValue": "Bing Ads"
       },
@@ -174,6 +178,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
         "type": "EQUALS"
       }
     ]
@@ -793,6 +802,25 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "basisAuctionId",
+    "displayName": "Auction ID",
+    "help": "This is the value of the \"cntr_auctionId=\" parameter.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
         "type": "EQUALS"
       }
     ]
@@ -1970,6 +1998,8 @@ const processEvent = () => {
     processStackAdaptEvent();
   } else if (data.tagType === "floodlightEvent") {
     processFloodlightEvent();
+  } else if (data.tagType === "basisEvent") {
+    processBasisEvent();
   } else {
     log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
     data.gtmOnFailure();
@@ -2382,6 +2412,27 @@ const processFloodlightEvent = () => {
   props.counting_method = data.floodlightCountingMethod.toLowerCase();
 
   const options = generateOptions("Floodlight");
+
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processBasisEvent = () => {
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Basis GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.basisAuctionId) {
+    log("ERROR: Freshpaint Basis GTM Template missing Auction ID");
+    data.gtmOnFailure();
+    return;
+  }
+
+  const props = {};
+  props.cntr_auctionId = data.basisAuctionId;
+
+  const options = generateOptions("Basis");
 
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
