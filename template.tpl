@@ -123,6 +123,34 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "ga4InstanceNames",
+    "displayName": "Specific Measurement ID(s) (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 (Proxy) destination, specify one or more specific Measurement IDs to deliver to (otherwise, this event will be delivered to all configured Measurement IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionId",
+    "displayName": "Conversion ID(s) (optional)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination, specify one or more specific Conversion IDs to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "fbInstanceNames",
     "displayName": "Specific Pixel ID(s) (optional)",
     "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
@@ -131,6 +159,20 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskInstanceNames",
+    "displayName": "Specific Advertiser ID(s) (optional)",
+    "help": "If multiple Advertiser IDs are configured for theTradeDesk destination, specify one or more specific Advertiser IDs to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       },
     ],
@@ -177,20 +219,6 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
-  },
-  {
-    "type": "TEXT",
-    "name": "commonDestConfigNames",
-    "displayName": "Freshpaint Config Name(s) (optional)",
-    "help": "To deliver using a configuration other than the primary Freshpaint configuration, specify one or more configuration names, comma-delimited if two or more",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ],
   },
   {
     "type": "TEXT",
@@ -243,20 +271,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsCallConversionsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsConversionId",
-    "displayName": "Conversion ID (optional)",
-    "help": "This is needed only if the Conversion ID differs from the one configured in the Freshpaint Destination",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -2064,13 +2078,13 @@ const processFBPixelEvent = () => {
           data.fbVariableEventName : data.fbStandardEventName
       );
   const objectProps =
-    data.fbObjectPropertyList && data.fbObjectPropertyList.length ? 
+    data.fbObjectPropertyList && data.fbObjectPropertyList.length ?
       makeTableMap(data.fbObjectPropertyList, "name", "value") : {};
   const objectPropsFromVar =
-    getType(data.fbObjectPropertiesFromVariable) === "object" ? 
+    getType(data.fbObjectPropertiesFromVariable) === "object" ?
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-  
+
   if (data.commonDestConfigNames) {
     mergedObjectProps.dest_config_names = data.commonDestConfigNames;
   }
@@ -2093,17 +2107,17 @@ const processTwitterEvent = () => {
 
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
-  
+
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
 
     data.gtmOnSuccess();
     return;
-  } 
-  
+  }
+
   // make required track call
   let eventName;
-  const props = { tpp: "1" }; 
+  const props = { tpp: "1" };
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
       const dataKey = mapping[propKey];
@@ -2112,7 +2126,7 @@ const processBingEvent = () => {
       }
     }
   };
-  
+
   if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
@@ -2139,7 +2153,7 @@ const processBingEvent = () => {
     eventName = action;
     props.action = action;
     props.label = "";
-    
+
     if (data.bingEventType === "ecommerce") {
       includePropsFromData({
         product_id: "bingEcommProdId",
@@ -2173,8 +2187,8 @@ const processBingEvent = () => {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.label = "";
-  } 
-  
+  }
+
   track(eventName, props, options);
 
   data.gtmOnSuccess();
