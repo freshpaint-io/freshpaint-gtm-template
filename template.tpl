@@ -1984,6 +1984,32 @@ const generateOptions = (integration) => {
   };
 };
 
+const generateOptionsFromInstances = (integration, instanceNames) => {
+const integrations = {
+    All: false,
+  };
+
+  let instanceNamesToUse
+  if (instanceNames) {
+    instanceNamesToUse = instanceNames.replaceAll(' ', '');
+  }
+
+  if (instanceNamesToUse) {
+    instanceNamesToUse = instanceNamesToUse.split(",");
+    for (let i = 0; i < instanceNamesToUse.length; i++) {
+      const instanceDelimiter = '::';
+      integrations[integration + instanceDelimiter + instanceNamesToUse[i]] = true;
+
+      return {
+        integrations: integrations,
+      };
+    }
+  } else {
+    return generateOptions(integration);
+  }
+};
+
+
 const processInit = () => {
   // Init handled upstream
   data.gtmOnSuccess();
@@ -2055,7 +2081,7 @@ const mergeObj = (obj, obj2) => {
 };
 
 const processFBPixelEvent = () => {
-  const options = generateOptions("Facebook Conversions API");
+  let options = generateOptions("Facebook Conversions API");
 
   const eventName =
     data.fbEventName === "custom" ?
@@ -2070,8 +2096,10 @@ const processFBPixelEvent = () => {
     getType(data.fbObjectPropertiesFromVariable) === "object" ? 
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-  
-  if (data.commonDestConfigNames) {
+
+  if (data.fbInstanceNames) {
+    options = generateOptionsFromInstances("Facebook Conversions API", data.fbInstanceNames);
+  } else if (data.commonDestConfigNames) {
     mergedObjectProps.dest_config_names = data.commonDestConfigNames;
   }
 
