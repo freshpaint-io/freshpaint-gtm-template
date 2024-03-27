@@ -798,25 +798,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "TEXT",
-    "name": "basisAuctionId",
-    "displayName": "Auction ID",
-    "help": "This is the value of the \"cntr_auctionId=\" parameter.",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "basisEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "SELECT",
     "name": "bingEventType",
     "displayName": "Track Type",
@@ -1867,6 +1848,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -2085,13 +2071,13 @@ const processFBPixelEvent = () => {
           data.fbVariableEventName : data.fbStandardEventName
       );
   const objectProps =
-    data.fbObjectPropertyList && data.fbObjectPropertyList.length ? 
+    data.fbObjectPropertyList && data.fbObjectPropertyList.length ?
       makeTableMap(data.fbObjectPropertyList, "name", "value") : {};
   const objectPropsFromVar =
-    getType(data.fbObjectPropertiesFromVariable) === "object" ? 
+    getType(data.fbObjectPropertiesFromVariable) === "object" ?
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-  
+
   if (data.commonDestConfigNames) {
     mergedObjectProps.dest_config_names = data.commonDestConfigNames;
   }
@@ -2114,17 +2100,17 @@ const processTwitterEvent = () => {
 
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
-  
+
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
 
     data.gtmOnSuccess();
     return;
-  } 
-  
+  }
+
   // make required track call
   let eventName;
-  const props = { tpp: "1" }; 
+  const props = { tpp: "1" };
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
       const dataKey = mapping[propKey];
@@ -2133,7 +2119,7 @@ const processBingEvent = () => {
       }
     }
   };
-  
+
   if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
@@ -2160,7 +2146,7 @@ const processBingEvent = () => {
     eventName = action;
     props.action = action;
     props.label = "";
-    
+
     if (data.bingEventType === "ecommerce") {
       includePropsFromData({
         product_id: "bingEcommProdId",
@@ -2194,8 +2180,8 @@ const processBingEvent = () => {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.label = "";
-  } 
-  
+  }
+
   track(eventName, props, options);
 
   data.gtmOnSuccess();
@@ -2383,14 +2369,8 @@ const processBasisEvent = () => {
     data.gtmOnFailure();
     return;
   }
-  if (!data.basisAuctionId) {
-    log("ERROR: Freshpaint Basis GTM Template missing Auction ID");
-    data.gtmOnFailure();
-    return;
-  }
 
-  const props = {};
-  props.cntr_auctionId = data.basisAuctionId;
+  const props = parseSimpleTable(data.commonEventProperties || []);
 
   const options = generateOptions("Basis");
 
