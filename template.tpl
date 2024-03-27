@@ -1989,7 +1989,7 @@ const integrations = {
     All: false,
   };
 
-  let instanceNamesToUse
+  let instanceNamesToUse;
   if (instanceNames) {
     instanceNamesToUse = instanceNames.replaceAll(' ', '');
   }
@@ -1999,11 +1999,10 @@ const integrations = {
     for (let i = 0; i < instanceNamesToUse.length; i++) {
       const instanceDelimiter = '::';
       integrations[integration + instanceDelimiter + instanceNamesToUse[i]] = true;
-
-      return {
-        integrations: integrations,
-      };
     }
+    return {
+      integrations: integrations,
+    };
   } else {
     return generateOptions(integration);
   }
