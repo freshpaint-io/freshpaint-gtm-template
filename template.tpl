@@ -1898,10 +1898,13 @@ function parseSimpleTable(inputProps) {
   return props;
 }
 
-function parseParamTable(inputProps) {
+function parseParamTable(inputProps, overrides) {
+  const keyName = (overrides && overrides.keyColumnName) || "param_table_key_column";
+  const valueName = (overrides && overrides.valueColumnName) || "param_table_value_column";
+
   const props = {};
   for (let prop of inputProps) {
-    props[prop.param_table_key_column] = prop.param_table_value_column;
+    props[prop[keyName]] = prop[valueName];
   }
   return props;
 }
@@ -2336,7 +2339,7 @@ const processFloodlightEvent = () => {
     return;
   }
 
-  const props = parseParamTable(data.floodlightCustomVariables || []);
+  const props = parseParamTable(data.floodlightCustomVariables || [], {keyColumnName: "key", valueColumnName: "value"});
   props.group_tag_string = data.floodlightGroupTagString;
   props.activity_tag_string = data.floodlightActivityTagString;
   props.counting_method = data.floodlightCountingMethod.toLowerCase();
