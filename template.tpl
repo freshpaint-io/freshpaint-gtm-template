@@ -123,6 +123,34 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "googleAdsInstanceName",
+    "displayName": "Specific Configuration ID (optional)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "ga4InstanceNames",
+    "displayName": "Specific Measurement ID(s) (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "fbInstanceNames",
     "displayName": "Specific Pixel ID(s) (optional)",
     "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
@@ -243,20 +271,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsCallConversionsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsConversionId",
-    "displayName": "Conversion ID (optional)",
-    "help": "This is needed only if the Conversion ID differs from the one configured in the Freshpaint Destination",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
     ]
