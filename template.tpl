@@ -123,6 +123,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "fbInstanceNames",
+    "displayName": "Specific Pixel ID(s) (optional)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "commonEventName",
     "displayName": "Freshpaint Event Name",
     "simpleValueType": true,
@@ -171,11 +185,6 @@ ___TEMPLATE_PARAMETERS___
     "help": "To deliver using a configuration other than the primary Freshpaint configuration, specify one or more configuration names, comma-delimited if two or more",
     "simpleValueType": true,
     "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "fbPixelEvent",
-        "type": "EQUALS"
-      },
       {
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
@@ -1978,6 +1987,32 @@ const generateOptions = (integration) => {
   };
 };
 
+const generateOptionsFromInstances = (integration, instanceNames) => {
+const integrations = {
+    All: false,
+  };
+
+  let instanceNamesToUse;
+  if (instanceNames) {
+    instanceNamesToUse = instanceNames.trim();
+  }
+
+  if (instanceNamesToUse) {
+    instanceNamesToUse = instanceNamesToUse.split(',');
+    for (let i = 0; i < instanceNamesToUse.length; i++) {
+      const instanceDelimiter = '::';
+      integrations[integration + instanceDelimiter + instanceNamesToUse[i].toString()] = true;
+    }
+
+    return {
+      integrations: integrations,
+    };
+  } else {
+    return generateOptions(integration);
+  }
+};
+
+
 const processInit = () => {
   // Init handled upstream
   data.gtmOnSuccess();
@@ -2049,7 +2084,7 @@ const mergeObj = (obj, obj2) => {
 };
 
 const processFBPixelEvent = () => {
-  const options = generateOptions("Facebook Conversions API");
+  let options = generateOptions("Facebook Conversions API");
 
   const eventName =
     data.fbEventName === "custom" ?
@@ -2064,8 +2099,10 @@ const processFBPixelEvent = () => {
     getType(data.fbObjectPropertiesFromVariable) === "object" ? 
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
-  
-  if (data.commonDestConfigNames) {
+
+  if (data.fbInstanceNames) {
+    options = generateOptionsFromInstances("Facebook Conversions API", data.fbInstanceNames);
+  } else if (data.commonDestConfigNames) {
     mergedObjectProps.dest_config_names = data.commonDestConfigNames;
   }
 
