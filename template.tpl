@@ -1991,15 +1991,16 @@ const integrations = {
 
   let instanceNamesToUse;
   if (instanceNames) {
-    instanceNamesToUse = instanceNames.replaceAll(' ', '');
+    instanceNamesToUse = instanceNames.trim();
   }
 
   if (instanceNamesToUse) {
-    instanceNamesToUse = instanceNamesToUse.split(",");
+    instanceNamesToUse = instanceNamesToUse.split(',');
     for (let i = 0; i < instanceNamesToUse.length; i++) {
       const instanceDelimiter = '::';
-      integrations[integration + instanceDelimiter + instanceNamesToUse[i]] = true;
+      integrations[integration + instanceDelimiter + instanceNamesToUse[i].toString()] = true;
     }
+
     return {
       integrations: integrations,
     };
