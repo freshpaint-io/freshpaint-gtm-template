@@ -2001,7 +2001,7 @@ const generateOptions = (integration) => {
   };
 };
 
-const generateOptionsFromInstances = (integration, instanceNames) => {
+const generateOptionsFromInstances = (integration, instanceNames, supportMulti) => {
 const integrations = {
     All: false,
   };
@@ -2013,9 +2013,13 @@ const integrations = {
 
   if (instanceNamesToUse) {
     instanceNamesToUse = instanceNamesToUse.split(',');
+    if (instanceNamesToUse.length > 1 && !supportMulti) {
+      // Indicate to caller this isn't supported
+      return undefined;
+    }
     for (let i = 0; i < instanceNamesToUse.length; i++) {
       const instanceDelimiter = '::';
-      integrations[integration + instanceDelimiter + instanceNamesToUse[i].toString()] = true;
+      integrations[integration + instanceDelimiter + instanceNamesToUse[i].toString().trim()] = true;
     }
 
     return {
@@ -2070,7 +2074,13 @@ const processAddEventProperties = () => {
 };
 
 const processGA4Event = () => {
-  const options = generateOptions("Google Analytics 4 Proxy");
+  const ga4ProxySDKKey = "Google Analytics 4 Proxy";
+  let options = generateOptions(ga4ProxySDKKey);
+
+  const instanceNamesToUse = data.fbInstanceNames.trim();
+  if (instanceNamesToUse) {
+    options = generateOptionsFromInstances(ga4ProxySDKKey, instanceNamesToUse, true);
+  }
 
   if (data.commonUserProperties) {
     const props = parseSimpleTable(data.commonUserProperties || []);
@@ -2098,7 +2108,8 @@ const mergeObj = (obj, obj2) => {
 };
 
 const processFBPixelEvent = () => {
-  let options = generateOptions("Facebook Conversions API");
+  const facebookCAPISDKKey = "Facebook Conversions API";
+  let options = generateOptions(facebookCAPISDKKey);
 
   const eventName =
     data.fbEventName === "custom" ?
@@ -2114,9 +2125,11 @@ const processFBPixelEvent = () => {
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
-  if (data.fbInstanceNames) {
-    options = generateOptionsFromInstances("Facebook Conversions API", data.fbInstanceNames);
+  const instanceNamesToUse = data.fbInstanceNames.trim();
+  if (instanceNamesToUse) {
+    options = generateOptionsFromInstances(facebookCAPISDKKey, instanceNamesToUse, true);
   } else if (data.commonDestConfigNames) {
+    // Support legacy commonDestConfigNames when fbInstanceNames not specified
     mergedObjectProps.dest_config_names = data.commonDestConfigNames;
   }
 
@@ -2256,7 +2269,8 @@ const processImpactEvent = () => {
 };
 
 const processGoogleAdsEvent = () => {
-  const options = generateOptions("Google AdWords New");
+  const googleAdsSDKKey = "Google AdWords New";
+  let options = generateOptions(googleAdsSDKKey);
 
   // make track call
 
@@ -2265,8 +2279,16 @@ const processGoogleAdsEvent = () => {
 
     props.conversion_label = data.googleAdsConversionLabel;
 
-    // conversion_id is optional override to freshpaint-configured one for destination
-    if (data.googleAdsConversionId) {
+    const instanceNameToUse = data.googleAdsInstanceName.trim();
+    if (instanceNameToUse) {
+      options = generateOptionsFromInstances(googleAdsSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Google Ads Conversion IDs not supported");
+        data.gtmOnFailure();
+        return;
+      }
+    } else if (data.googleAdsConversionId) {
+        // Support legacy googleAdsConversionId when googleAdsConversionId not specified
         props.conversion_id = data.googleAdsConversionId;
     }
 
