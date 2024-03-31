@@ -2093,7 +2093,10 @@ const processGA4Event = () => {
   const ga4ProxySDKKey = "Google Analytics 4 Proxy";
   let options = generateOptions(ga4ProxySDKKey);
 
-  const instanceNamesToUse = data.fbInstanceNames.trim();
+  let instanceNamesToUse;
+  if (data.ga4InstanceNames) {
+    instanceNamesToUse = data.ga4InstanceNames.trim();
+  }
   if (instanceNamesToUse) {
     options = generateOptionsFromInstances(ga4ProxySDKKey, instanceNamesToUse, true);
   }
@@ -2141,7 +2144,10 @@ const processFBPixelEvent = () => {
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
-  const instanceNamesToUse = data.fbInstanceNames.trim();
+  let instanceNamesToUse;
+  if (data.fbInstanceNames) {
+    instanceNamesToUse = data.fbInstanceNames.trim();
+  }
   if (instanceNamesToUse) {
     options = generateOptionsFromInstances(facebookCAPISDKKey, instanceNamesToUse, true);
   } else if (data.commonDestConfigNames) {
@@ -2295,11 +2301,14 @@ const processGoogleAdsEvent = () => {
 
     props.conversion_label = data.googleAdsConversionLabel;
 
-    const instanceNameToUse = data.googleAdsInstanceName.trim();
+    let instanceNameToUse;
+    if (data.googleAdsInstanceName) {
+      instanceNameToUse = data.googleAdsInstanceName.trim();
+    }
     if (instanceNameToUse) {
       options = generateOptionsFromInstances(googleAdsSDKKey, instanceNameToUse, false);
       if (options === undefined) {
-        log("ERROR: Multiple Google Ads Conversion IDs not supported");
+        log("ERROR: Multiple Google Ads Conversion IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
@@ -2337,18 +2346,21 @@ const processGoogleAdsCallConversionsEvent = () => {
 
 const processTheTradeDeskEvent = () => {
   const theTradeDeskSDKKey = "theTradeDesk";
-  const options = generateOptions(theTradeDeskSDKKey);
+  let options = generateOptions(theTradeDeskSDKKey);
 
   // make track call
 
   if (data.commonEventName && data.theTradeDeskTrackerOrUPixelIDValue) {
     const props = parseParamTable(data.theTradeDeskTDEventParameters || []);
 
-    const instanceNameToUse = data.theTradeDeskInstanceName.trim();
+    let instanceNameToUse;
+    if (data.theTradeDeskInstanceName) {
+      instanceNameToUse = data.theTradeDeskInstanceName.trim();
+    }
     if (instanceNameToUse) {
       options = generateOptionsFromInstances(theTradeDeskSDKKey, instanceNameToUse, false);
       if (options === undefined) {
-        log("ERROR: Multiple theTradeDesk Advertiser IDs not supported");
+        log("ERROR: Multiple theTradeDesk Advertiser IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
@@ -2644,5 +2656,6 @@ scenarios: []
 ___NOTES___
 
 Created on 29/03/2023, 15:36:11
+
 
 
