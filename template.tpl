@@ -33,24 +33,6 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "type": "TEXT",
-    "name": "envID",
-    "displayName": "Freshpaint Environment ID",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "init",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "SELECT",
     "name": "tagType",
     "displayName": "Freshpaint Tag Type",
@@ -111,10 +93,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "track",
         "displayValue": "Track"
-      },
-      {
-        "value": "init",
-        "displayValue": "Init-OBSOLETE"
       },
     ],
     "notSetText": "-",
@@ -1948,15 +1926,6 @@ function parseParamTable(inputProps, overrides) {
 
 const processEvent = () => {
   let envID = undefined;
-  if (data.tagType === "init") {
-    if (!data.envID) {
-      log("[freshpaint-GTM] environment ID is required for init tag");
-      data.gtmOnFailure();
-      return;
-    }
-
-    envID = data.envID;
-  }
 
   // initialize environment
   // if already done before then this is a no-op
@@ -2519,7 +2488,7 @@ const addEventProperties = (props) => {
 
 const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
   callFreshpaintProxy("apply", {
-    envID: data.envID,
+    envID: undefined,
     methodName: "registerCallConversion",
     methodArgs: [tagIdConversionLabel, phoneNbr],
   });
