@@ -129,7 +129,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "googleAdsInstanceName",
     "displayName": "Specific Configuration ID (optional)",
-    "help": "If multiple Conversion IDs are configured for the Google Ads destination, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -141,9 +141,23 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "theTradeDeskInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "ga4InstanceNames",
     "displayName": "Specific Measurement ID(s) (optional)",
-    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -157,7 +171,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "fbInstanceNames",
     "displayName": "Specific Pixel ID(s) (optional)",
-    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -214,20 +228,6 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
-  },
-  {
-    "type": "TEXT",
-    "name": "commonDestConfigNames",
-    "displayName": "Freshpaint Config Name(s) (optional)",
-    "help": "To deliver using a configuration other than the primary Freshpaint configuration, specify one or more configuration names, comma-delimited if two or more",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ],
   },
   {
     "type": "TEXT",
@@ -2336,12 +2336,26 @@ const processGoogleAdsCallConversionsEvent = () => {
 };
 
 const processTheTradeDeskEvent = () => {
-  const options = generateOptions("theTradeDesk");
+  const theTradeDeskSDKKey = "theTradeDesk";
+  const options = generateOptions(theTradeDeskSDKKey);
 
   // make track call
 
   if (data.commonEventName && data.theTradeDeskTrackerOrUPixelIDValue) {
     const props = parseParamTable(data.theTradeDeskTDEventParameters || []);
+
+    const instanceNameToUse = data.theTradeDeskInstanceName.trim();
+    if (instanceNameToUse) {
+      options = generateOptionsFromInstances(theTradeDeskSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple theTradeDesk Advertiser IDs not supported");
+        data.gtmOnFailure();
+        return;
+      }
+    } else if (data.commonDestConfigNames) {
+        // Support legacy commonDestConfigNames when theTradeDeskInstanceName not specified
+        props.dest_config_names = data.commonDestConfigNames;
+    }
 
     if (data.theTradeDeskTrackerOrUPixel === "tracker_id") {
       props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
@@ -2364,10 +2378,6 @@ const processTheTradeDeskEvent = () => {
 
     if (data.theTradeDeskOrderId) {
       props.order_id = data.theTradeDeskOrderId;
-    }
-
-    if (data.commonDestConfigNames) {
-      props.dest_config_names = data.commonDestConfigNames;
     }
 
     if (data.theTradeDeskItems) {
