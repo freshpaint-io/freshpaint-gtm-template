@@ -77,6 +77,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Floodlight"
       },
       {
+        "value": "basisEvent",
+        "displayValue": "Basis"
+      },
+      {
         "value": "bingAdsEvent",
         "displayValue": "Bing Ads"
       },
@@ -202,6 +206,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
         "type": "EQUALS"
       }
     ]
@@ -1862,6 +1871,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -1984,6 +1998,8 @@ const processEvent = () => {
     processStackAdaptEvent();
   } else if (data.tagType === "floodlightEvent") {
     processFloodlightEvent();
+  } else if (data.tagType === "basisEvent") {
+    processBasisEvent();
   } else {
     log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
     data.gtmOnFailure();
@@ -2118,10 +2134,10 @@ const processFBPixelEvent = () => {
           data.fbVariableEventName : data.fbStandardEventName
       );
   const objectProps =
-    data.fbObjectPropertyList && data.fbObjectPropertyList.length ? 
+    data.fbObjectPropertyList && data.fbObjectPropertyList.length ?
       makeTableMap(data.fbObjectPropertyList, "name", "value") : {};
   const objectPropsFromVar =
-    getType(data.fbObjectPropertiesFromVariable) === "object" ? 
+    getType(data.fbObjectPropertiesFromVariable) === "object" ?
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
@@ -2151,17 +2167,17 @@ const processTwitterEvent = () => {
 
 const processBingEvent = () => {
   const options = generateOptions("Bing Ads");
-  
+
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
 
     data.gtmOnSuccess();
     return;
-  } 
-  
+  }
+
   // make required track call
   let eventName;
-  const props = { tpp: "1" }; 
+  const props = { tpp: "1" };
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
       const dataKey = mapping[propKey];
@@ -2170,7 +2186,7 @@ const processBingEvent = () => {
       }
     }
   };
-  
+
   if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
@@ -2197,7 +2213,7 @@ const processBingEvent = () => {
     eventName = action;
     props.action = action;
     props.label = "";
-    
+
     if (data.bingEventType === "ecommerce") {
       includePropsFromData({
         product_id: "bingEcommProdId",
@@ -2231,8 +2247,8 @@ const processBingEvent = () => {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
     props.label = "";
-  } 
-  
+  }
+
   track(eventName, props, options);
 
   data.gtmOnSuccess();
@@ -2418,6 +2434,21 @@ const processFloodlightEvent = () => {
   props.counting_method = data.floodlightCountingMethod.toLowerCase();
 
   const options = generateOptions("Floodlight");
+
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processBasisEvent = () => {
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Basis GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+
+  const options = generateOptions("Basis");
 
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
