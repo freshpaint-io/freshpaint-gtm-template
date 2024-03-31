@@ -128,7 +128,7 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "googleAdsInstanceName",
-    "displayName": "Specific Configuration ID (optional)",
+    "displayName": "Specific Conversion ID (optional)",
     "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
     "simpleValueType": true,
     "enablingConditions": [
