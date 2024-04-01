@@ -2438,10 +2438,15 @@ const processFloodlightEvent = () => {
     props.enhanced_conversions_enabled = true;
 
     const ecUserData = data.floodlightEnhancedConversionsUserDataVariable;
-    if (ecUserData && typeof ecUserData === "object")
-      props.enhanced_conversions = ecUserData;
+    if (ecUserData && typeof ecUserData === "object") {
+      if (ecUserData.email) {
+        props.email = ecUserData.email;
+      }
+      if (ecUserData.phone_number) {
+        props.phone_number = ecUserData.phone_number;
+      }
       if (ecUserData.address && typeof ecUserData.address === "object" && ecUserData.address[0] && typeof ecUserData.address[0] === "object") {
-        props.enhanced_conversions.address = ecUserData.address[0];
+        props.address = ecUserData.address[0];
       }
     }
   }
