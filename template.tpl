@@ -2429,13 +2429,15 @@ const processFloodlightEvent = () => {
     return;
   }
 
+  const options = generateOptions("Floodlight");
+
   const props = parseParamTable(data.floodlightCustomVariables || [], {keyColumnName: "key", valueColumnName: "value"});
   props.group_tag_string = data.floodlightGroupTagString;
   props.activity_tag_string = data.floodlightActivityTagString;
   props.counting_method = data.floodlightCountingMethod.toLowerCase();
 
   if (data.floodlightEnhancedConversionsCheckbox) {
-    props.enhanced_conversions_enabled = true;
+    options.enhanced_conversions_enabled = true;
 
     const ecUserData = data.floodlightEnhancedConversionsUserDataVariable;
     if (ecUserData && typeof ecUserData === "object") {
@@ -2450,8 +2452,6 @@ const processFloodlightEvent = () => {
       }
     }
   }
-
-  const options = generateOptions("Floodlight");
 
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
