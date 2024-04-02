@@ -681,6 +681,43 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "GROUP",
+    "name": "floodlightEnhancedConversionsGroup",
+    "displayName": "Enhanced Conversions",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "CHECKBOX",
+        "name": "floodlightEnhancedConversionsCheckbox",
+        "checkboxText": "Include user-provided data from your website",
+        "simpleValueType": true,
+        "help": "User-provided data allows you to improve the accuracy of your measurement by sending hashed first party user-provided data from your website. You will need to agree to the user-provided data terms and policies in your Search Ads 360 account first.",
+        "enablingConditions": [
+          {
+            "paramName": "tagType",
+            "type": "EQUALS",
+            "paramValue": "floodlightEvent"
+          }
+        ]
+      },
+      {
+        "type": "SELECT",
+        "name": "floodlightEnhancedConversionsUserDataVariable",
+        "displayName": "User-provided Data Variable",
+        "macrosInSelect": true,
+        "selectItems": [],
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "floodlightEnhancedConversionsCheckbox",
+            "type": "EQUALS",
+            "paramValue": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "twitterEventName",
     "displayName": "Select tag event:",
@@ -2402,12 +2439,29 @@ const processFloodlightEvent = () => {
     return;
   }
 
+  const options = generateOptions("Floodlight");
+
   const props = parseParamTable(data.floodlightCustomVariables || [], {keyColumnName: "key", valueColumnName: "value"});
   props.group_tag_string = data.floodlightGroupTagString;
   props.activity_tag_string = data.floodlightActivityTagString;
   props.counting_method = data.floodlightCountingMethod.toLowerCase();
 
-  const options = generateOptions("Floodlight");
+  if (data.floodlightEnhancedConversionsCheckbox) {
+    options.enhanced_conversions_enabled = true;
+
+    const ecUserData = data.floodlightEnhancedConversionsUserDataVariable;
+    if (ecUserData && typeof ecUserData === "object") {
+      if (ecUserData.email) {
+        props.email = ecUserData.email;
+      }
+      if (ecUserData.phone_number) {
+        props.phone_number = ecUserData.phone_number;
+      }
+      if (ecUserData.address && typeof ecUserData.address === "object" && ecUserData.address[0] && typeof ecUserData.address[0] === "object") {
+        props.address = ecUserData.address[0];
+      }
+    }
+  }
 
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
