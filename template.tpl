@@ -2455,6 +2455,7 @@ const identify = (userID, props, options) => {
     args = [userID].concat(args);
   }
   callFreshpaintProxy("apply", {
+    // envID is no longer used, left in for backward compatibility
     envID: undefined,
     methodName: "identify",
     methodArgs: args,
