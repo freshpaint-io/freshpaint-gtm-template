@@ -81,6 +81,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Basis"
       },
       {
+        "value": "linkedInAdsEvent",
+        "displayValue": "LinkedIn Ads"
+      },
+      {
         "value": "bingAdsEvent",
         "displayValue": "Bing Ads"
       },
@@ -184,6 +188,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "basisEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -212,6 +221,25 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "identify",
         "type": "EQUALS"
       }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "linkedInAdsConversionIds",
+    "displayName": "Conversion ID(s) (max. 3)",
+    "help": "Enter 1-3 conversion ids separated by a comma.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsEvent",
+        "type": "EQUALS"
+      },
     ]
   },
   {
@@ -2005,6 +2033,8 @@ const processEvent = () => {
     processGA4Event();
   } else if (data.tagType === "fbPixelEvent") {
     processFBPixelEvent();
+  } else if (data.tagType === "linkedInAdsEvent") {
+    processLinkedInAdsEvent();
   } else if (data.tagType === "twitterAdsEvent") {
     processTwitterEvent();
   } else if (data.tagType === "bingAdsEvent") {
@@ -2346,6 +2376,33 @@ const processGoogleAdsCallConversionsEvent = () => {
   data.gtmOnSuccess();
 };
 
+const processLinkedInAdsEvent = () => {
+  const options = generateOptions("linkedin-ads");
+
+  const conversionIdsToUse = data.linkedInAdsConversionIds.trim();
+  const conversionIds = conversionIdsToUse.split(',');
+
+  if (conversionIds.length === 0) {
+    log("ERROR: Freshpaint LinkedIn Ads GTM Template missing Conversion ID(s): " + data.commonEventName);
+    data.gtmOnFailure();
+    return;
+  } else if (conversionIds.length > 3) {
+    log("ERROR: Freshpaint LinkedIn Ads GTM Template supports only up to 3 Conversion IDs: " + data.commonEventName);
+    data.gtmOnFailure();
+    return;
+  }
+
+  // make track call(s) for each conversionId
+  conversionIds.forEach(id => {
+    const props = {};
+    props.conversion_id = id.trim();
+
+    track(data.commonEventName, props, options);
+  });
+
+  data.gtmOnSuccess();
+};
+
 const processTheTradeDeskEvent = () => {
   const options = generateOptions("theTradeDesk");
 
@@ -2395,7 +2452,7 @@ const processTheTradeDeskEvent = () => {
 
     data.gtmOnSuccess();
   } else {
-    log("ERROR: Freshpaint theTradeDesk GTM Template missing eventNme and / or trackerOrUPixelIDValue");
+    log("ERROR: Freshpaint theTradeDesk GTM Template missing eventName and / or trackerOrUPixelIDValue");
     data.gtmOnFailure();
   }
 };
