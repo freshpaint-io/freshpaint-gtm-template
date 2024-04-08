@@ -33,24 +33,6 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "type": "TEXT",
-    "name": "envID",
-    "displayName": "Freshpaint Environment ID",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "init",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "SELECT",
     "name": "tagType",
     "displayName": "Freshpaint Tag Type",
@@ -116,10 +98,6 @@ ___TEMPLATE_PARAMETERS___
         "value": "track",
         "displayValue": "Track"
       },
-      {
-        "value": "init",
-        "displayValue": "Init-OBSOLETE"
-      },
     ],
     "notSetText": "-",
     "simpleValueType": true,
@@ -131,9 +109,51 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "googleAdsInstanceName",
+    "displayName": "Specific Conversion ID (optional)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "ga4InstanceNames",
+    "displayName": "Specific Measurement ID(s) (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "fbInstanceNames",
     "displayName": "Specific Pixel ID(s) (optional)",
-    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -195,20 +215,6 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
-  },
-  {
-    "type": "TEXT",
-    "name": "commonDestConfigNames",
-    "displayName": "Freshpaint Config Name(s) (optional)",
-    "help": "To deliver using a configuration other than the primary Freshpaint configuration, specify one or more configuration names, comma-delimited if two or more",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ],
   },
   {
     "type": "TEXT",
@@ -280,20 +286,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsCallConversionsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsConversionId",
-    "displayName": "Conversion ID (optional)",
-    "help": "This is needed only if the Conversion ID differs from the one configured in the Freshpaint Destination",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -2006,15 +1998,6 @@ function parseParamTable(inputProps, overrides) {
 
 const processEvent = () => {
   let envID = undefined;
-  if (data.tagType === "init") {
-    if (!data.envID) {
-      log("[freshpaint-GTM] environment ID is required for init tag");
-      data.gtmOnFailure();
-      return;
-    }
-
-    envID = data.envID;
-  }
 
   // initialize environment
   // if already done before then this is a no-op
@@ -2150,7 +2133,16 @@ const processAddEventProperties = () => {
 };
 
 const processGA4Event = () => {
-  const options = generateOptions("Google Analytics 4 Proxy");
+  const ga4ProxySDKKey = "Google Analytics 4 Proxy";
+  let options = generateOptions(ga4ProxySDKKey);
+
+  let instanceNamesToUse;
+  if (data.ga4InstanceNames) {
+    instanceNamesToUse = data.ga4InstanceNames.trim();
+  }
+  if (instanceNamesToUse) {
+    options = generateOptionsFromInstances(ga4ProxySDKKey, instanceNamesToUse, true);
+  }
 
   if (data.commonUserProperties) {
     const props = parseSimpleTable(data.commonUserProperties || []);
@@ -2342,7 +2334,8 @@ const processImpactEvent = () => {
 };
 
 const processGoogleAdsEvent = () => {
-  const options = generateOptions("Google AdWords New");
+  const googleAdsSDKKey = "Google AdWords New";
+  let options = generateOptions(googleAdsSDKKey);
 
   // make track call
 
@@ -2351,8 +2344,19 @@ const processGoogleAdsEvent = () => {
 
     props.conversion_label = data.googleAdsConversionLabel;
 
-    // conversion_id is optional override to freshpaint-configured one for destination
-    if (data.googleAdsConversionId) {
+    let instanceNameToUse;
+    if (data.googleAdsInstanceName) {
+      instanceNameToUse = data.googleAdsInstanceName.trim();
+    }
+    if (instanceNameToUse) {
+      options = generateOptionsFromInstances(googleAdsSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Google Ads Conversion IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    } else if (data.googleAdsConversionId) {
+        // Support legacy googleAdsConversionId when googleAdsConversionId not specified
         props.conversion_id = data.googleAdsConversionId;
     }
 
@@ -2411,12 +2415,29 @@ const processLinkedInAdsEvent = () => {
 };
 
 const processTheTradeDeskEvent = () => {
-  const options = generateOptions("theTradeDesk");
+  const theTradeDeskSDKKey = "theTradeDesk";
+  let options = generateOptions(theTradeDeskSDKKey);
 
   // make track call
 
   if (data.commonEventName && data.theTradeDeskTrackerOrUPixelIDValue) {
     const props = parseParamTable(data.theTradeDeskTDEventParameters || []);
+
+    let instanceNameToUse;
+    if (data.theTradeDeskInstanceName) {
+      instanceNameToUse = data.theTradeDeskInstanceName.trim();
+    }
+    if (instanceNameToUse) {
+      options = generateOptionsFromInstances(theTradeDeskSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple theTradeDesk Advertiser IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    } else if (data.commonDestConfigNames) {
+        // Support legacy commonDestConfigNames when theTradeDeskInstanceName not specified
+        props.dest_config_names = data.commonDestConfigNames;
+    }
 
     if (data.theTradeDeskTrackerOrUPixel === "tracker_id") {
       props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
@@ -2439,10 +2460,6 @@ const processTheTradeDeskEvent = () => {
 
     if (data.theTradeDeskOrderId) {
       props.order_id = data.theTradeDeskOrderId;
-    }
-
-    if (data.commonDestConfigNames) {
-      props.dest_config_names = data.commonDestConfigNames;
     }
 
     if (data.theTradeDeskItems) {
@@ -2556,6 +2573,7 @@ const identify = (userID, props, options) => {
     args = [userID].concat(args);
   }
   callFreshpaintProxy("apply", {
+    // envID is no longer used, left in for backward compatibility
     envID: undefined,
     methodName: "identify",
     methodArgs: args,
@@ -2589,7 +2607,7 @@ const addEventProperties = (props) => {
 
 const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
   callFreshpaintProxy("apply", {
-    envID: data.envID,
+    envID: undefined,
     methodName: "registerCallConversion",
     methodArgs: [tagIdConversionLabel, phoneNbr],
   });
@@ -2726,5 +2744,6 @@ scenarios: []
 ___NOTES___
 
 Created on 29/03/2023, 15:36:11
+
 
 
