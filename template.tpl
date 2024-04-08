@@ -685,6 +685,13 @@ ___TEMPLATE_PARAMETERS___
     "name": "floodlightEnhancedConversionsGroup",
     "displayName": "Enhanced Conversions",
     "groupStyle": "ZIPPY_CLOSED",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "type": "EQUALS",
+        "paramValue": "floodlightEvent"
+      }
+    ],
     "subParams": [
       {
         "type": "CHECKBOX",
