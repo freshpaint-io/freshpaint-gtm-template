@@ -343,6 +343,44 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "GROUP",
+    "name": "googleAdsEnhancedConversionsGroup",
+    "displayName": "Enhanced Conversions",
+    "groupStyle": "ZIPPY_CLOSED",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "type": "EQUALS",
+        "paramValue": "googleAdsEvent"
+      }
+    ],
+    "subParams": [
+      {
+        "type": "CHECKBOX",
+        "name": "googleAdsEnhancedConversionsCheckbox",
+        "checkboxText": "Include user-provided data from your website",
+        "simpleValueType": true,
+        "help": "Improve measurement and get more insights with data people provide to your website. You will need to agree to the user-provided data terms and policies in your Google Ads account first.",
+      },
+      {
+        "type": "SELECT",
+        "name": "googleAdsEnhancedConversionsUserDataVariable",
+        "displayName": "User-provided Data Variable",
+        "help": "The selected variable should be of type 'User-Provided Data'",
+        "macrosInSelect": true,
+        "selectItems": [],
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "googleAdsEnhancedConversionsCheckbox",
+            "type": "EQUALS",
+            "paramValue": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "fbEventName",
     "radioItems": [
@@ -719,18 +757,12 @@ ___TEMPLATE_PARAMETERS___
         "checkboxText": "Include user-provided data from your website",
         "simpleValueType": true,
         "help": "User-provided data allows you to improve the accuracy of your measurement by sending hashed first party user-provided data from your website. You will need to agree to the user-provided data terms and policies in your Search Ads 360 account first.",
-        "enablingConditions": [
-          {
-            "paramName": "tagType",
-            "type": "EQUALS",
-            "paramValue": "floodlightEvent"
-          }
-        ]
       },
       {
         "type": "SELECT",
         "name": "floodlightEnhancedConversionsUserDataVariable",
         "displayName": "User-provided Data Variable",
+        "help": "The selected variable should be of type 'User-Provided Data'",
         "macrosInSelect": true,
         "selectItems": [],
         "simpleValueType": true,
@@ -2333,6 +2365,22 @@ const processImpactEvent = () => {
   data.gtmOnSuccess();
 };
 
+const constructECUserDataProps = (ecUserData) => {
+  const props = {};
+  if (ecUserData && typeof ecUserData === "object") {
+    if (ecUserData.email) {
+      props.email = ecUserData.email;
+    }
+    if (ecUserData.phone_number) {
+      props.phone_number = ecUserData.phone_number;
+    }
+    if (ecUserData.address && typeof ecUserData.address === "object" && ecUserData.address[0] && typeof ecUserData.address[0] === "object") {
+      props.address = ecUserData.address[0];
+    }
+  }
+  return props;
+};
+
 const processGoogleAdsEvent = () => {
   const googleAdsSDKKey = "Google AdWords New";
   let options = generateOptions(googleAdsSDKKey);
@@ -2340,7 +2388,7 @@ const processGoogleAdsEvent = () => {
   // make track call
 
   if (data.commonEventName && data.googleAdsConversionLabel) {
-    const props = {};
+    let props = {};
 
     props.conversion_label = data.googleAdsConversionLabel;
 
@@ -2368,6 +2416,13 @@ const processGoogleAdsEvent = () => {
     }
     if (data.googleAdsCurrencyCode) {
         props.currency = data.googleAdsCurrencyCode;
+    }
+    if (data.googleAdsEnhancedConversionsCheckbox) {
+      options.enhanced_conversions_enabled = true;
+
+      const ecUserData = data.googleAdsEnhancedConversionsUserDataVariable;
+      const ecProps = constructECUserDataProps(ecUserData);
+      props = mergeObj(props, ecProps);
     }
 
     track(data.commonEventName, props, options);
@@ -2522,7 +2577,8 @@ const processFloodlightEvent = () => {
 
   const options = generateOptions("Floodlight");
 
-  const props = parseParamTable(data.floodlightCustomVariables || [], {keyColumnName: "key", valueColumnName: "value"});
+  let props = parseParamTable(data.floodlightCustomVariables || [], {keyColumnName: "key", valueColumnName: "value"});
+
   props.group_tag_string = data.floodlightGroupTagString;
   props.activity_tag_string = data.floodlightActivityTagString;
   props.counting_method = data.floodlightCountingMethod.toLowerCase();
@@ -2531,17 +2587,8 @@ const processFloodlightEvent = () => {
     options.enhanced_conversions_enabled = true;
 
     const ecUserData = data.floodlightEnhancedConversionsUserDataVariable;
-    if (ecUserData && typeof ecUserData === "object") {
-      if (ecUserData.email) {
-        props.email = ecUserData.email;
-      }
-      if (ecUserData.phone_number) {
-        props.phone_number = ecUserData.phone_number;
-      }
-      if (ecUserData.address && typeof ecUserData.address === "object" && ecUserData.address[0] && typeof ecUserData.address[0] === "object") {
-        props.address = ecUserData.address[0];
-      }
-    }
+    const userDataProps = constructECUserDataProps(ecUserData);
+    props = mergeObj(props, userDataProps);
   }
 
   track(data.commonEventName, props, options);
