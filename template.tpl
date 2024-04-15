@@ -2404,7 +2404,7 @@ const processGoogleAdsEvent = () => {
         return;
       }
     } else if (data.googleAdsConversionId) {
-        // Support legacy googleAdsConversionId when googleAdsConversionId not specified
+        // Support legacy googleAdsConversionId when googleAdsInstanceName not specified
         props.conversion_id = data.googleAdsConversionId;
     }
 
