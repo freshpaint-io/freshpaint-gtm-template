@@ -137,6 +137,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "basisInstanceName",
+    "displayName": "Specific Pixel ID (optional)",
+    "help": "If multiple Pixel IDs are configured for the Basis destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "ga4InstanceNames",
     "displayName": "Specific Measurement ID(s) (optional)",
     "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
@@ -2596,15 +2610,26 @@ const processFloodlightEvent = () => {
 };
 
 const processBasisEvent = () => {
+  const basisSDKKey = "Basis";
+
   if (!data.commonEventName) {
     log("ERROR: Freshpaint Basis GTM Template missing Freshpaint Event Name");
     data.gtmOnFailure();
     return;
   }
 
-  const props = parseSimpleTable(data.commonEventProperties || []);
+  let options = generateOptions(basisSDKKey);
+  if (data.basisInstanceName) {
+    const instanceNameToUse = data.basisInstanceName.trim();
+    options = generateOptionsFromInstances(basisSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Basis Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
-  const options = generateOptions("Basis");
+  const props = parseSimpleTable(data.commonEventProperties || []);
 
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
