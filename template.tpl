@@ -1955,11 +1955,6 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
@@ -1971,6 +1966,33 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "basisEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventPropertiesJSONValue",
+    "displayName": "Event Properties",
+    "help": "If the value is intended to be converted to a JSON object, it must have a leading '[' or '{', and keys must be quoted.",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
         "type": "EQUALS"
       }
     ]
@@ -2005,6 +2027,133 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ]
+  },
+  {
+    "type": "RADIO",
+    "name": "commonOptinOptOut",
+    "displayName": "Opt-in / Opt-out",
+    "radioItems": [
+      {
+        "value": "OPTIN",
+        "displayValue": "Opt-in",
+        "help": "Deliver only to destination types / instances specified"
+      },
+      {
+        "value": "OPTOUT",
+        "displayValue": "Opt-out",
+        "help": "Deliver to all but the destination types / instances specified"
+      },
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "commonOptinOptOutInstances",
+    "displayName": "Specific Destination Types / Instance IDs",
+    "help": "An Instance ID is required only when there are multiple instances configured for the destination type, and you don't want to deliver to all.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Destination Type",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Google Analytics 4",
+              "displayValue": "Google Analytics 4 (Server-Side)"
+            },
+            {
+              "value": "Google AdWords New",
+              "displayValue": "Google Ads"
+            },
+            {
+              "value": "Google Ads Conversion API",
+              "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Facebook Conversions API",
+              "displayValue": "Facebook Conversions API"
+            },
+            {
+              "value": "Amplitude",
+              "displayValue": "Amplitude"
+            },
+            {
+              "value": "Basis",
+              "displayValue": "Basis"
+            },
+            {
+              "value": "Bing Ads",
+              "displayValue": "Bing Ads"
+            },
+            {
+              "value": "Floodlight",
+              "displayValue": "Floodlight"
+            },
+            {
+              "value": "impactdotcom",
+              "displayValue": "impact.com"
+            },
+            {
+              "value": "linkedin-ads",
+              "displayValue": "LinkedIn Ads"
+            },
+            {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
+              "value": "StackAdapt",
+              "displayValue": "StackAdapt"
+            },
+            {
+              "value": "theTradeDesk",
+              "displayValue": "theTradeDesk"
+            },
+            {
+              "value": "Twitter Ads",
+              "displayValue": "Twitter Ads"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Instance ID (optional)",
+          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ]
   }
 ]
 
@@ -2031,6 +2180,27 @@ function parseSimpleTable(inputProps) {
   return props;
 }
 
+function parseSimpleTableAndParseJSONValues(inputProps, destType) {
+  const props = {};
+  for (let prop of inputProps) {
+    // If value is json, attempt to convert to object or object array
+    let val = prop.value;
+    if (val) {
+      const firstChr = val.charAt(0);
+      if (firstChr === '[' || firstChr === '{') {
+        val = JSON.parse(val);
+        if (!val) {
+          val = prop.value;
+          log("WARNING: Freshpaint " + destType + " GTM Template parsing json, leaving as string: " + val);
+        }
+      }
+    }
+
+    props[prop.name] = val;
+  }
+  return props;
+}
+
 function parseParamTable(inputProps, overrides) {
   const keyName = (overrides && overrides.keyColumnName) || "param_table_key_column";
   const valueName = (overrides && overrides.valueColumnName) || "param_table_value_column";
@@ -2038,6 +2208,17 @@ function parseParamTable(inputProps, overrides) {
   const props = {};
   for (let prop of inputProps) {
     props[prop[keyName]] = prop[valueName];
+  }
+  return props;
+}
+
+function parseParamTableToArray(inputProps, overrides) {
+  const keyName = (overrides && overrides.keyColumnName) || "param_table_key_column";
+  const valueName = (overrides && overrides.valueColumnName) || "param_table_value_column";
+
+  const props = [];
+  for (let prop of inputProps) {
+    props.push(prop);
   }
   return props;
 }
@@ -2107,7 +2288,7 @@ const generateOptions = (integration) => {
 };
 
 const generateOptionsFromInstances = (integration, instanceNames, supportMulti) => {
-const integrations = {
+  const integrations = {
     All: false,
   };
 
@@ -2135,6 +2316,35 @@ const integrations = {
   }
 };
 
+const generateOptionsFromParamTable = (optInOptOut, paramTable) => {
+  const props = parseParamTableToArray(paramTable || []);
+  if (props === undefined) {
+        return props;
+  }
+
+  if (props.length === 0) {
+    return {};
+  }
+
+  const optIn = (optInOptOut === "OPTIN");
+  const integrations = {
+    All: !optIn,
+  };
+
+  for (const prop of props) {
+    let specifier = prop["param_table_key_column"];
+    if (prop["param_table_value_column"] != "") {
+      const instanceDelimiter = '::';
+      specifier = specifier + instanceDelimiter + prop["param_table_value_column"] ;
+    }
+
+    integrations[specifier] = optIn;
+  }
+
+  return {
+    integrations: integrations,
+  };
+};
 
 const processInit = () => {
   // Init handled upstream
@@ -2142,10 +2352,11 @@ const processInit = () => {
 };
 
 const processTrack = () => {
-  const options = {};
-
   if (data.commonEventName) {
-    const props = parseSimpleTable(data.commonEventProperties || []);
+    const props = parseSimpleTableAndParseJSONValues(data.commonEventPropertiesJSONValue || [], "track");
+
+    const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.commonOptinOptOutInstances);
+
     track(data.commonEventName, props, options);
 
     data.gtmOnSuccess();
@@ -2156,8 +2367,12 @@ const processTrack = () => {
 };
 
 const processIdentify = () => {
-    // Send identify to all enabled destinations
-    const options = {};
+    const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.commonOptinOptOutInstances);
+    if (options === undefined) {
+        // log msg occurred in generateOptionsFromParamTable above
+        data.gtmOnFailure();
+        return;
+    }
 
     let identifier = undefined;
     if (data.identifyIdentifier) {
