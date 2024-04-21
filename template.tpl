@@ -1974,7 +1974,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SIMPLE_TABLE",
     "name": "commonEventPropertiesJSONValue",
     "displayName": "Event Properties",
-    "help": "Props named value, quantity, price, total, revenue, and num_items will be converted to numeric if possible. If the value is intended to be a JSON object, it must have a leading '[' or '{', and keys must be quoted.",
+    "help": "Props named value, quantity, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -2189,24 +2189,21 @@ function parseSimpleTable(inputProps) {
 function parseSimpleTableAndParseNumericAndJSONValues(inputProps, destType) {
   const props = {};
   for (let prop of inputProps) {
-    // if prop name is one of the designated numeric prop names, attempt to cast to number, with warning on cast error
     let val = prop.value;
     if (val) {
       if (prop.name === "value" || prop.name === "quantity" || prop.name === "price" || prop.name === "total" || prop.name === "revenue" || prop.name === "num_items") {
+        // prop name is one of the designated numeric prop names, attempt to cast to number, with warning on cast error
         val = makeNumber(val);
         if (val !== val) { // Check for NaN
           val = prop.value;
           log("WARNING: Freshpaint " + destType + " GTM Template could not parse prop '" + prop.name + "' as numeric, leaving as string: " + val);
         }
-      } else {
-        // If value appears to be json, attempt to convert to object or object array, with warning on parse error
-        const firstChr = val.charAt(0);
-        if (firstChr === '[' || firstChr === '{') {
-          val = JSON.parse(val);
-          if (!val) {
-            val = prop.value;
-            log("WARNING: Freshpaint " + destType + " GTM Template could not parse prop '" + prop.name + "' as JSON, leaving as string: " + val);
-          }
+      } else if (prop.name === "contents" || prop.name === "products" || prop.name === "items") {
+        // prop name is one of the designated json object or array names, attempt to parse to JSON, with warning parse error
+        val = JSON.parse(val);
+        if (!val) {
+          val = prop.value;
+          log("WARNING: Freshpaint " + destType + " GTM Template could not parse prop '" + prop.name + "' as JSON, leaving as string: " + val);
         }
       }
     }
@@ -2463,6 +2460,29 @@ const processFBPixelEvent = () => {
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
+  // Convert value, num_items to numeric; contents / products to JSON if present
+  for (let propKey in mergedObjectProps) {
+    let propValue = mergedObjectProps[propKey];
+    if (propValue) {
+      if (propKey === "value" || propKey === "num_items") {
+        let val = makeNumber(propValue);
+        if (val !== val) { // Check for NaN
+          val = propValue;
+          log("WARNING: Freshpaint Facebook Conversions API GTM Template could not parse prop '" + propKey + "' as numeric, leaving as string: " + propValue);
+        }
+        mergedObjectProps[propKey] = val;
+      } else if (propKey === "contents" || propKey === "products") {
+        let val = JSON.parse(propValue);
+        if (!val) {
+          log("WARNING: Freshpaint Facebook Conversions API GTM Template could not parse '" + propKey + "' json, leaving as string: " + propValue);
+          val = propValue;
+        }
+        mergedObjectProps[propKey] = val;
+      }
+    }
+  }
+
+  // Process instanceNames
   let instanceNamesToUse;
   if (data.fbInstanceNames) {
     instanceNamesToUse = data.fbInstanceNames.trim();
