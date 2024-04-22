@@ -1974,7 +1974,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SIMPLE_TABLE",
     "name": "commonEventPropertiesJSONValue",
     "displayName": "Event Properties",
-    "help": "If the value is intended to be converted to a JSON object, it must have a leading '[' or '{', and keys must be quoted.",
+    "help": "Props named value, quantity, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -2174,6 +2174,7 @@ const callInWindow = require("callInWindow");
 const injectScript = require("injectScript");
 const log = require("logToConsole");
 const makeTableMap = require("makeTableMap");
+const makeNumber = require("makeNumber");
 const getType = require("getType");
 const JSON = require('JSON');
 
@@ -2185,18 +2186,24 @@ function parseSimpleTable(inputProps) {
   return props;
 }
 
-function parseSimpleTableAndParseJSONValues(inputProps, destType) {
+function parseSimpleTableAndParseNumericAndJSONValues(inputProps, destType) {
   const props = {};
   for (let prop of inputProps) {
-    // If value is json, attempt to convert to object or object array
     let val = prop.value;
     if (val) {
-      const firstChr = val.charAt(0);
-      if (firstChr === '[' || firstChr === '{') {
+      if (prop.name === "value" || prop.name === "quantity" || prop.name === "price" || prop.name === "total" || prop.name === "revenue" || prop.name === "num_items") {
+        // prop name is one of the designated numeric prop names, attempt to cast to number, with warning on cast error
+        val = makeNumber(val);
+        if (val !== val) { // Check for NaN
+          val = prop.value;
+          log("WARNING: Freshpaint " + destType + " GTM Template could not parse prop '" + prop.name + "' as numeric, leaving as string: " + val);
+        }
+      } else if (prop.name === "contents" || prop.name === "products" || prop.name === "items") {
+        // prop name is one of the designated json object or array names, attempt to parse to JSON, with warning parse error
         val = JSON.parse(val);
         if (!val) {
           val = prop.value;
-          log("WARNING: Freshpaint " + destType + " GTM Template parsing json, leaving as string: " + val);
+          log("WARNING: Freshpaint " + destType + " GTM Template could not parse prop '" + prop.name + "' as JSON, leaving as string: " + val);
         }
       }
     }
@@ -2358,7 +2365,7 @@ const processInit = () => {
 
 const processTrack = () => {
   if (data.commonEventName) {
-    const props = parseSimpleTableAndParseJSONValues(data.commonEventPropertiesJSONValue || [], "track");
+    const props = parseSimpleTableAndParseNumericAndJSONValues(data.commonEventPropertiesJSONValue || [], "track");
 
     const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.commonOptinOptOutInstances);
 
@@ -2453,6 +2460,29 @@ const processFBPixelEvent = () => {
       data.fbObjectPropertiesFromVariable : {};
   const mergedObjectProps = mergeObj(objectPropsFromVar, objectProps);
 
+  // Convert value, num_items to numeric; contents / products to JSON if present
+  for (let propKey in mergedObjectProps) {
+    let propValue = mergedObjectProps[propKey];
+    if (propValue) {
+      if (propKey === "value" || propKey === "num_items") {
+        let val = makeNumber(propValue);
+        if (val !== val) { // Check for NaN
+          val = propValue;
+          log("WARNING: Freshpaint Facebook Conversions API GTM Template could not parse prop '" + propKey + "' as numeric, leaving as string: " + propValue);
+        }
+        mergedObjectProps[propKey] = val;
+      } else if (propKey === "contents" || propKey === "products") {
+        let val = JSON.parse(propValue);
+        if (!val) {
+          log("WARNING: Freshpaint Facebook Conversions API GTM Template could not parse '" + propKey + "' json, leaving as string: " + propValue);
+          val = propValue;
+        }
+        mergedObjectProps[propKey] = val;
+      }
+    }
+  }
+
+  // Process instanceNames
   let instanceNamesToUse;
   if (data.fbInstanceNames) {
     instanceNamesToUse = data.fbInstanceNames.trim();
@@ -2584,14 +2614,15 @@ const processImpactEvent = () => {
   props.order_id = data.impactOrderId;
 
   // Convert items, if any, to json object
-  if (props.items) {
-    props.items = JSON.parse(props.items);
-    if (!props.items) {
-      log("ERROR: Freshpaint impact.com GTM Template parsing items json: " + props.items);
-
-      data.gtmOnFailure();
-      return;
+  let itemsVal = props.items;
+  if (itemsVal) {
+    itemsVal = JSON.parse(itemsVal);
+    if (!itemsVal) {
+      log("WARNING: Freshpaint impact.com GTM Template parsing items json, leaving as string: " + props.items);
+      itemsVal = props.items;
     }
+
+    props.items = itemsVal;
   }
 
   track(data.impactEventTypeIdOrCode, props, options);
@@ -2740,7 +2771,14 @@ const processTheTradeDeskEvent = () => {
     }
 
     if (data.theTradeDeskValue) {
-      props.value = data.theTradeDeskValue;
+      let val = data.theTradeDeskValue;
+      val = makeNumber(val);
+      if (val !== val) { // Check for NaN
+        val = data.theTradeDeskValue;
+        log("WARNING: Freshpaint theTradeDesk GTM Template could not parse prop value as numeric, leaving as string: " + val);
+      }
+
+      props.value = val;
     }
 
     if (data.theTradeDeskCurrency) {
@@ -2752,12 +2790,14 @@ const processTheTradeDeskEvent = () => {
     }
 
     if (data.theTradeDeskItems) {
-      props.items = JSON.parse(data.theTradeDeskItems);
-      if (!props.items) {
-        log("ERROR: Freshpaint theTradeDesk GTM Template parsing items json: " + data.theTradeDeskItems);
-
-        data.gtmOnFailure();
-        return;
+      let itemsVal = data.theTradeDeskItems;
+      if (itemsVal) {
+        itemsVal = JSON.parse(itemsVal);
+        if (!itemsVal) {
+          log("WARNING: Freshpaint theTradeDesk GTM Template parsing items json, leaving as string: " + data.theTradeDeskItems);
+          itemsVal = data.theTradeDeskItems;
+        }
+        props.items = itemsVal;
       }
     }
 
