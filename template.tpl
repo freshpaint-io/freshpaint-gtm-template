@@ -2249,42 +2249,59 @@ const processEvent = () => {
     },
   });
 
-  // actually process the event
-  if (data.tagType === "init") {
-    processInit();
-  } else if (data.tagType === "track") {
-    processTrack();
-  } else if (data.tagType === "identify") {
-    processIdentify();
-  } else if (data.tagType === "addEventProperties") {
-    processAddEventProperties();
-  } else if (data.tagType === "ga4Event") {
-    processGA4Event();
-  } else if (data.tagType === "fbPixelEvent") {
-    processFBPixelEvent();
-  } else if (data.tagType === "linkedInAdsEvent") {
-    processLinkedInAdsEvent();
-  } else if (data.tagType === "twitterAdsEvent") {
-    processTwitterEvent();
-  } else if (data.tagType === "bingAdsEvent") {
-    processBingEvent();
-  } else if (data.tagType === "impactEvent") {
-    processImpactEvent();
-  } else if (data.tagType === "googleAdsEvent") {
-    processGoogleAdsEvent();
-  } else if (data.tagType === "googleAdsCallConversionsEvent") {
-    processGoogleAdsCallConversionsEvent();
-  } else if (data.tagType === "theTradeDeskEvent") {
-    processTheTradeDeskEvent();
-  } else if (data.tagType === "stackAdaptEvent") {
-    processStackAdaptEvent();
-  } else if (data.tagType === "floodlightEvent") {
-    processFloodlightEvent();
-  } else if (data.tagType === "basisEvent") {
-    processBasisEvent();
-  } else {
-    log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
-    data.gtmOnFailure();
+  switch (data.tagType) {
+    case "init":
+      processInit();
+      break;
+    case "track":
+      processTrack();
+      break;
+    case "identify":
+      processIdentify();
+      break;
+    case "addEventProperties":
+      processAddEventProperties();
+      break;
+    case "ga4Event":
+      processGA4Event();
+      break;
+    case "fbPixelEvent":
+      processFBPixelEvent();
+      break;
+    case "linkedInAdsEvent":
+      processLinkedInAdsEvent();
+      break;
+    case "twitterAdsEvent":
+      processTwitterEvent();
+      break;
+    case "bingAdsEvent":
+      processBingEvent();
+      break;
+    case "impactEvent":
+      processImpactEvent();
+      break;
+    case "googleAdsEvent":
+      processGoogleAdsEvent();
+      break;
+    case "googleAdsCallConversionsEvent":
+      processGoogleAdsCallConversionsEvent();
+      break;
+    case "theTradeDeskEvent":
+      processTheTradeDeskEvent();
+      break;
+    case "stackAdaptEvent":
+      processStackAdaptEvent();
+      break;
+    case "floodlightEvent":
+      processFloodlightEvent();
+      break;
+    case "basisEvent":
+      processBasisEvent();
+      break;
+    default:
+      log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
+      data.gtmOnFailure();
+      break;
   }
 };
 
