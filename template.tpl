@@ -123,6 +123,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "floodlightInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Floodlight destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "theTradeDeskInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -2866,7 +2880,21 @@ const processFloodlightEvent = () => {
     return;
   }
 
-  const options = generateOptions("Floodlight");
+  const floodlightSDKKey = "Floodlight";
+  let options = generateOptions(floodlightSDKKey);
+
+  let instanceNameToUse;
+  if (data.floodlightInstanceName) {
+    instanceNameToUse = data.floodlightInstanceName.trim();
+  }
+  if (instanceNameToUse) {
+    options = generateOptionsFromInstances(floodlightSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Floodlight Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
   let props = parseParamTable(data.floodlightCustomVariables || [], {keyColumnName: "key", valueColumnName: "value"});
 
