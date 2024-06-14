@@ -1491,45 +1491,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "GROUP",
-    "name": "bingCustomParamTableGroup",
-    "displayName": "Define your own event parameters",
-    "groupStyle": "NO_ZIPPY",
-    "subParams": [
-      {
-        "type": "LABEL",
-        "name": "bingCustomPropsLabel",
-        "displayName": "Explicit parameters given a value above may be overridden by parameters given in this table. You can use either way to pass parameters."
-      },
-      {
-        "type": "SIMPLE_TABLE",
-        "name": "bingCustomParamTable",
-        "displayName": "Event Properties",
-        "simpleTableColumns": [
-          {
-            "defaultValue": "",
-            "displayName": "Name",
-            "name": "customParamName",
-            "type": "TEXT"
-          },
-          {
-            "defaultValue": "",
-            "displayName": "Value",
-            "name": "customParamValue",
-            "type": "TEXT"
-          }
-        ]
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "bingAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
