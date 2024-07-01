@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
-documentation: "https://documentation.freshpaint.io/"
+documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 26c8656189ad8b18acfa0b98aebbfe31ef6947b6
-    changeNotes: Add Floodlight destination support.
+  - sha: 1614161e1903019c66a2d3e8e40edeea2b7b902b
+    changeNotes: remove unused bing custom params table
