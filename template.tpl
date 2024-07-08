@@ -2103,8 +2103,16 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "theTradeDesk"
             },
             {
+              "value": "TikTok Ads",
+              "displayValue": "TikTok Ads"
+            },
+            {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
             }
           ],
           "simpleValueType": true
@@ -2127,7 +2135,59 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "track",
         "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "identifyOptinOptOutInstances",
+    "displayName": "Specific Destination Types / Instance IDs",
+    "help": "An Instance ID is required only when there are multiple instances configured for the destination type, and you don't want to deliver to all.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Destination Type",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Amplitude",
+              "displayValue": "Amplitude"
+            },
+            {
+              "value": "impactdotcom",
+              "displayValue": "impact.com"
+            },
+            {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": false
       },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Instance ID (optional)",
+          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "identify",
@@ -2371,7 +2431,7 @@ const processTrack = () => {
 };
 
 const processIdentify = () => {
-    const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.commonOptinOptOutInstances);
+    const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.identifyOptinOptOutInstances);
     if (options === undefined) {
         // log msg occurred in generateOptionsFromParamTable above
         data.gtmOnFailure();
