@@ -2066,7 +2066,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "PARAM_TABLE",
     "name": "commonOptinOptOutInstances",
     "displayName": "Specific Destination Types / Instance IDs",
-    "help": "An Instance ID is required only when there are multiple instances configured for the destination type, and you don't want to deliver to all.",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
     "paramTableColumns": [
       {
         "param": {
@@ -2171,7 +2171,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "PARAM_TABLE",
     "name": "identifyOptinOptOutInstances",
     "displayName": "Specific Destination Types / Instance IDs",
-    "help": "An Instance ID is required only when there are multiple instances configured for the destination type, and you don't want to deliver to all.",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
     "paramTableColumns": [
       {
         "param": {
