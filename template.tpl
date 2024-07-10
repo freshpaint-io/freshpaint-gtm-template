@@ -83,6 +83,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "theTradeDesk"
       },
       {
+        "value": "tikTokAdsEvent",
+        "displayValue": "TikTok Ads"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
@@ -408,6 +412,26 @@ ___TEMPLATE_PARAMETERS___
       }
     ]
   },
+  {
+    "type": "TEXT",
+    "name": "tikTokAdsEventName",
+    "displayName": "TikTok Event Name",
+    "help": "Enter the name of the TikTok event you want to track. This can be a standard event name or a custom event name.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+
   {
     "type": "RADIO",
     "name": "fbEventName",
@@ -1942,6 +1966,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "basisEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -2303,6 +2332,9 @@ const processEvent = () => {
     case "fbPixelEvent":
       processFBPixelEvent();
       break;
+    case "tikTokAdsEvent":
+      processTikTokAdsEvent();
+      break;
     case "linkedInAdsEvent":
       processLinkedInAdsEvent();
       break;
@@ -2547,6 +2579,43 @@ const processFBPixelEvent = () => {
   }
 
   track(eventName, mergedObjectProps, options);
+
+  data.gtmOnSuccess();
+};
+
+const processTikTokAdsEvent = () => {
+  const tikTokSDKKey = "TikTok Ads";
+  let options = generateOptions(tikTokSDKKey);
+
+  const eventName = data.tikTokAdsEventName;
+
+  const objectProps =
+    data.commonEventProperties && data.commonEventProperties.length ?
+      makeTableMap(data.commonEventProperties, "name", "value") : {};
+
+  // Convert value to numeric; contents / products to JSON if present
+  for (let propKey in objectProps) {
+    let propValue = objectProps[propKey];
+    if (propValue) {
+      if (propKey === "value") {
+        let val = makeNumber(propValue);
+        if (val !== val) { // Check for NaN
+          val = propValue;
+          log("WARNING: Freshpaint TikTok Ads GTM Template could not parse prop '" + propKey + "' as numeric, leaving as string: " + propValue);
+        }
+        objectProps[propKey] = val;
+      } else if (propKey === "contents" || propKey === "products") {
+        let val = JSON.parse(propValue);
+        if (!val) {
+          log("WARNING: Freshpaint TikTok Ads GTM Template could not parse '" + propKey + "' json, leaving as string: " + propValue);
+          val = propValue;
+        }
+        objectProps[propKey] = val;
+      }
+    }
+  }
+
+  track(eventName, objectProps, options);
 
   data.gtmOnSuccess();
 };
