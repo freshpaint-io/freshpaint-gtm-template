@@ -83,6 +83,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "theTradeDesk"
       },
       {
+        "value": "tikTokAdsEvent",
+        "displayValue": "TikTok Ads"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
@@ -408,6 +412,26 @@ ___TEMPLATE_PARAMETERS___
       }
     ]
   },
+  {
+    "type": "TEXT",
+    "name": "tikTokAdsEventName",
+    "displayName": "TikTok Event Name",
+    "help": "Enter the name of the TikTok event you want to track. This can be a standard event name or a custom event name.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+
   {
     "type": "RADIO",
     "name": "fbEventName",
@@ -1942,6 +1966,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "basisEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -2037,7 +2066,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "PARAM_TABLE",
     "name": "commonOptinOptOutInstances",
     "displayName": "Specific Destination Types / Instance IDs",
-    "help": "An Instance ID is required only when there are multiple instances configured for the destination type, and you don't want to deliver to all.",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
     "paramTableColumns": [
       {
         "param": {
@@ -2103,8 +2132,16 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "theTradeDesk"
             },
             {
+              "value": "TikTok Ads",
+              "displayValue": "TikTok Ads"
+            },
+            {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
             }
           ],
           "simpleValueType": true
@@ -2127,7 +2164,59 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "track",
         "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "identifyOptinOptOutInstances",
+    "displayName": "Specific Destination Types / Instance IDs",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Destination Type",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Amplitude",
+              "displayValue": "Amplitude"
+            },
+            {
+              "value": "impactdotcom",
+              "displayValue": "impact.com"
+            },
+            {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": false
       },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Instance ID (optional)",
+          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "identify",
@@ -2242,6 +2331,9 @@ const processEvent = () => {
       break;
     case "fbPixelEvent":
       processFBPixelEvent();
+      break;
+    case "tikTokAdsEvent":
+      processTikTokAdsEvent();
       break;
     case "linkedInAdsEvent":
       processLinkedInAdsEvent();
@@ -2371,7 +2463,7 @@ const processTrack = () => {
 };
 
 const processIdentify = () => {
-    const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.commonOptinOptOutInstances);
+    const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.identifyOptinOptOutInstances);
     if (options === undefined) {
         // log msg occurred in generateOptionsFromParamTable above
         data.gtmOnFailure();
@@ -2487,6 +2579,43 @@ const processFBPixelEvent = () => {
   }
 
   track(eventName, mergedObjectProps, options);
+
+  data.gtmOnSuccess();
+};
+
+const processTikTokAdsEvent = () => {
+  const tikTokSDKKey = "TikTok Ads";
+  let options = generateOptions(tikTokSDKKey);
+
+  const eventName = data.tikTokAdsEventName;
+
+  const objectProps =
+    data.commonEventProperties && data.commonEventProperties.length ?
+      makeTableMap(data.commonEventProperties, "name", "value") : {};
+
+  // Convert value to numeric; contents / products to JSON if present
+  for (let propKey in objectProps) {
+    let propValue = objectProps[propKey];
+    if (propValue) {
+      if (propKey === "value") {
+        let val = makeNumber(propValue);
+        if (val !== val) { // Check for NaN
+          val = propValue;
+          log("WARNING: Freshpaint TikTok Ads GTM Template could not parse prop '" + propKey + "' as numeric, leaving as string: " + propValue);
+        }
+        objectProps[propKey] = val;
+      } else if (propKey === "contents" || propKey === "products") {
+        let val = JSON.parse(propValue);
+        if (!val) {
+          log("WARNING: Freshpaint TikTok Ads GTM Template could not parse '" + propKey + "' json, leaving as string: " + propValue);
+          val = propValue;
+        }
+        objectProps[propKey] = val;
+      }
+    }
+  }
+
+  track(eventName, objectProps, options);
 
   data.gtmOnSuccess();
 };
