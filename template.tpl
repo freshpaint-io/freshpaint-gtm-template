@@ -133,7 +133,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "googleCM360InstanceName",
     "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 Conversions API destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
     "simpleValueType": true,
     "enablingConditions": [
       {
