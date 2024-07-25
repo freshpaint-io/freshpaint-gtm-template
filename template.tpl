@@ -51,6 +51,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads Call Conversions"
       },
       {
+        "value": "googleCM360Event",
+        "displayValue": "Google Campaign Manager 360 Conversions API"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
       },
@@ -121,6 +125,20 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
+    "name": "googleCM360InstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 Conversions API destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
         "type": "EQUALS"
       },
     ],
@@ -219,6 +237,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
         "type": "EQUALS"
       },
       {
@@ -825,6 +848,25 @@ ___TEMPLATE_PARAMETERS___
             "paramValue": true
           }
         ]
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleCM360ActivityIDString",
+    "displayName": "Activity ID String",
+    "help": "This is the Floodlight Activity ID that conversions will be associated with",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
       }
     ]
   },
@@ -1976,6 +2018,33 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SIMPLE_TABLE",
+    "name": "googleCM360EventProperties",
+    "displayName": "Event Properties",
+    "help": "Google Campaign Manager 360 Conversions API accepts custom variables of the form u1, u2, etc (up to u100), as well as several additional fields. See Freshpaint documentation for a detailed list of accepted properties.",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
     "name": "commonEventPropertiesJSONValue",
     "displayName": "Event Properties",
     "help": "Props named value, quantity, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
@@ -2090,6 +2159,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Google Ads Conversion API",
               "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Google Campaign Manager 360 Conversions API",
+              "displayValue": "Google Campaign Manager 360 Conversions API"
             },
             {
               "value": "Facebook Conversions API",
@@ -2364,6 +2437,9 @@ const processEvent = () => {
       break;
     case "basisEvent":
       processBasisEvent();
+      break;
+    case "googleCM360Event":
+      processGoogleCM360Event();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3025,6 +3101,38 @@ const processBasisEvent = () => {
   }
 
   const props = parseSimpleTable(data.commonEventProperties || []);
+
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processGoogleCM360Event = () => {
+  const googleCM360SDKKey = "Google Campaign Manager 360 Conversions API";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint CM360 GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.googleCM360ActivityIDString) {
+    log("ERROR: CM360 requires a Floodlight activity ID");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(googleCM360SDKKey);
+  if (data.googleCM360InstanceName) {
+    const instanceNameToUse = data.googleCM360InstanceName.trim();
+    options = generateOptionsFromInstances(googleCM360SDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple CM360 Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.googleCM360EventProperties || []);
+  props.activity_id = data.googleCM360ActivityIDString;
 
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
