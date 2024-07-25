@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: f941f602bac7aabd0b8ed6e1a96b8a3fe87152a8
-    changeNotes: reword description
+  - sha: 3fe61d6b17d9c4535ff9470a320c39e02a901e22
+    changeNotes: Publish Google Campaign Manager 360 Conversions API tag
