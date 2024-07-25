@@ -2020,7 +2020,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SIMPLE_TABLE",
     "name": "googleCM360EventProperties",
     "displayName": "Event Properties",
-    "help": "CM360 accepts custom variables of the form u1, u2, etc (up to u100), as well as several additional fields. See Freshpaint documentation ",
+    "help": "Google Campaign Manager 360 Conversions API accepts custom variables of the form u1, u2, etc (up to u100), as well as several additional fields. See Freshpaint documentation for a detailed list of accepted properties.",
     "simpleTableColumns": [
       {
         "defaultValue": "",
