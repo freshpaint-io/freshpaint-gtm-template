@@ -60,7 +60,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "value": "floodlightEvent",
-        "displayValue": "Floodlight"
+        "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
       },
       {
         "value": "basisEvent",
@@ -717,78 +717,6 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "u2",
               "displayValue": "u2"
-            },
-            {
-              "value": "u3",
-              "displayValue": "u3"
-            },
-            {
-              "value": "u4",
-              "displayValue": "u4"
-            },
-            {
-              "value": "u5",
-              "displayValue": "u5"
-            },
-            {
-              "value": "u6",
-              "displayValue": "u6"
-            },
-            {
-              "value": "u7",
-              "displayValue": "u7"
-            },
-            {
-              "value": "u8",
-              "displayValue": "u8"
-            },
-            {
-              "value": "u9",
-              "displayValue": "u9"
-            },
-            {
-              "value": "u10",
-              "displayValue": "u10"
-            },
-            {
-              "value": "u11",
-              "displayValue": "u11"
-            },
-            {
-              "value": "u12",
-              "displayValue": "u12"
-            },
-            {
-              "value": "u13",
-              "displayValue": "u13"
-            },
-            {
-              "value": "u14",
-              "displayValue": "u14"
-            },
-            {
-              "value": "u15",
-              "displayValue": "u15"
-            },
-            {
-              "value": "u16",
-              "displayValue": "u16"
-            },
-            {
-              "value": "u17",
-              "displayValue": "u17"
-            },
-            {
-              "value": "u18",
-              "displayValue": "u18"
-            },
-            {
-              "value": "u19",
-              "displayValue": "u19"
-            },
-            {
-              "value": "u20",
-              "displayValue": "u20"
             }
           ],
           "simpleValueType": true
@@ -854,8 +782,8 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "googleCM360ActivityIDString",
-    "displayName": "Activity ID String",
-    "help": "This is the Floodlight Activity ID that conversions will be associated with",
+    "displayName": "Activity ID",
+    "help": "This is the Floodlight Activity ID (typically numeric) that conversions will be associated with. It differs from the Floodlight Activity tag string used by the native Floodlight Counter tag.",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -1695,29 +1623,10 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "RADIO",
-    "name": "theTradeDeskTrackerOrUPixel",
-    "displayName": "Use Event Tracker ID vs. Universal Pixel ID",
-    "help": "Universal Pixel ID not currently supported",
-    "radioItems": [
-      {
-        "value": "tracker_id",
-        "displayValue": "Event Tracker ID"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ],
-  },
-  {
     "type": "TEXT",
     "name": "theTradeDeskTrackerOrUPixelIDValue",
-    "displayName": "Event Tracker ID / Universal Pixel ID Value",
-    "help": "Universal Pixel ID not currently supported",
+    "displayName": "Event Tracker ID",
+    "help": "(a.k.a. Tracking Tag ID as used in the Static Tracking Tag)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -1733,72 +1642,10 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "SELECT",
-    "name": "theTradeDeskEventName",
-    "displayName": "Event Name (optional)",
-    "selectItems": [
-      {
-        "value": "addtocart",
-        "displayValue": "addtocart"
-      },
-      {
-        "value": "purchase",
-        "displayValue": "purchase"
-      },
-      {
-        "value": "viewitem",
-        "displayValue": "viewitem"
-      },
-      {
-        "value": "searchitem",
-        "displayValue": "searchitem"
-      },
-      {
-        "value": "searchcategory",
-        "displayValue": "searchcategory"
-      },
-      {
-        "value": "login",
-        "displayValue": "login"
-      },
-      {
-        "value": "messagebusiness",
-        "displayValue": "messagebusiness"
-      },
-      {
-        "value": "direction",
-        "displayValue": "direction"
-      },
-      {
-        "value": "startcheckout",
-        "displayValue": "startcheckout"
-      },
-      {
-        "value": "viewcart",
-        "displayValue": "viewcart"
-      },
-      {
-        "value": "sitevisit",
-        "displayValue": "sitevisit"
-      },
-      {
-        "value": "wishlistitem",
-        "displayValue": "wishlistitem"
-      }
-    ],
-    "notSetText": "-",
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "TEXT",
-    "name": "theTradeDeskValue",
-    "displayName": "value (required only for purchase events)",
+    "name": "theTradeDeskPrivacySettings",
+    "displayName": "Privacy Settings array (optional)",
+    "help": "Privacy Settings array object",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -1810,110 +1657,10 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "theTradeDeskCurrency",
-    "displayName": "currency (optional)",
+    "name": "theTradeDeskDataProcessingOption",
+    "displayName": "Data Processing Option (optional)",
+    "help": "Data Processing Option object",
     "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "theTradeDeskOrderId",
-    "displayName": "order_id (optional)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "theTradeDeskItems",
-    "displayName": "items (optional object array)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "PARAM_TABLE",
-    "name": "theTradeDeskTDEventParameters",
-    "displayName": "td1 - td10 properties (optional)",
-    "paramTableColumns": [
-      {
-        "param": {
-          "type": "SELECT",
-          "name": "param_table_key_column",
-          "displayName": "property",
-          "macrosInSelect": false,
-          "selectItems": [
-            {
-              "value": "td1",
-              "displayValue": "td1"
-            },
-            {
-              "value": "td2",
-              "displayValue": "td2"
-            },
-            {
-              "value": "td3",
-              "displayValue": "td3"
-            },
-            {
-              "value": "td4",
-              "displayValue": "td4"
-            },
-            {
-              "value": "td5",
-              "displayValue": "td5"
-            },
-            {
-              "value": "td6",
-              "displayValue": "td6"
-            },
-            {
-              "value": "td7",
-              "displayValue": "td7"
-            },
-            {
-              "value": "td8",
-              "displayValue": "td8"
-            },
-            {
-              "value": "td9",
-              "displayValue": "td9"
-            },
-            {
-              "value": "td10",
-              "displayValue": "td10"
-            }
-          ],
-          "simpleValueType": true
-        },
-        "isUnique": true
-      },
-      {
-        "param": {
-          "type": "TEXT",
-          "name": "param_table_value_column",
-          "displayName": "Value",
-          "simpleValueType": true
-        },
-        "isUnique": false
-      }
-    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -2020,7 +1767,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SIMPLE_TABLE",
     "name": "googleCM360EventProperties",
     "displayName": "Event Properties",
-    "help": "Google Campaign Manager 360 Conversions API accepts custom variables of the form u1, u2, etc (up to u100), as well as several additional fields. See Freshpaint documentation for a detailed list of accepted properties.",
+    "help": "Google Campaign Manager 360 Conversions API accepts custom properties of the form u1, u2, etc (up to u100), as well as several additional properties. See Freshpaint documentation for a detailed list of accepted properties.",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -2182,7 +1929,7 @@ ___TEMPLATE_PARAMETERS___
             },
             {
               "value": "Floodlight",
-              "displayValue": "Floodlight"
+              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
             },
             {
               "value": "impactdotcom",
@@ -2938,7 +2685,7 @@ const processTheTradeDeskEvent = () => {
   // make track call
 
   if (data.commonEventName && data.theTradeDeskTrackerOrUPixelIDValue) {
-    const props = parseParamTable(data.theTradeDeskTDEventParameters || []);
+    const props = [];
 
     let instanceNameToUse;
     if (data.theTradeDeskInstanceName) {
@@ -2956,46 +2703,28 @@ const processTheTradeDeskEvent = () => {
         props.dest_config_names = data.commonDestConfigNames;
     }
 
-    if (data.theTradeDeskTrackerOrUPixel === "tracker_id") {
-      props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
-    } else {
-      // Not currently exercised since upixel_id is disabled from UI control, for now
-      props.upixel_id = data.theTradeDeskTrackerOrUPixelIDValue;
-    }
+    props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
 
-    if (data.theTradeDeskEventName) {
-      props.ttd_event_name = data.theTradeDeskEventName;
-    }
+    // Convert object values to object if specified
 
-    if (data.theTradeDeskValue) {
-      let val = data.theTradeDeskValue;
-      val = makeNumber(val);
-      if (val !== val) { // Check for NaN
-        val = data.theTradeDeskValue;
-        log("WARNING: Freshpaint theTradeDesk GTM Template could not parse prop value as numeric, leaving as string: " + val);
-      }
-
-      props.value = val;
-    }
-
-    if (data.theTradeDeskCurrency) {
-      props.currency = data.theTradeDeskCurrency;
-    }
-
-    if (data.theTradeDeskOrderId) {
-      props.order_id = data.theTradeDeskOrderId;
-    }
-
-    if (data.theTradeDeskItems) {
-      let itemsVal = data.theTradeDeskItems;
-      if (itemsVal) {
-        itemsVal = JSON.parse(itemsVal);
-        if (!itemsVal) {
-          log("WARNING: Freshpaint theTradeDesk GTM Template parsing items json, leaving as string: " + data.theTradeDeskItems);
-          itemsVal = data.theTradeDeskItems;
+    if (data.theTradeDeskPrivacySettings) {
+        let val = JSON.parse(data.theTradeDeskPrivacySettings);
+        if (!val) {
+          val = data.theTradeDeskPrivacySettings;
+          log("WARNING: Freshpaint " + theTradeDeskSDKKey + " GTM Template could not parse prop '" + data.theTradeDeskPrivacySettings + "' as JSON, leaving as string: " + val);
         }
-        props.items = itemsVal;
-      }
+
+        props.privacy_settings = val;
+    }
+
+    if (data.theTradeDeskDataProcessingOption) {
+        let val = JSON.parse(data.theTradeDeskDataProcessingOption);
+        if (!val) {
+          val = data.theTradeDeskDataProcessingOption;
+          log("WARNING: Freshpaint " + theTradeDeskSDKKey + " GTM Template could not parse prop '" + data.theTradeDeskDataProcessingOption + "' as JSON, leaving as string: " + val);
+        }
+
+        props.data_processing_option = val;
     }
 
     track(data.commonEventName, props, options);
