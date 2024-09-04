@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 3fe61d6b17d9c4535ff9470a320c39e02a901e22
-    changeNotes: Publish Google Campaign Manager 360 Conversions API tag
+  - sha: 4ee887f3d5ce66b9dedef15b15d87cd5c5c96ffa
+    changeNotes: Remove theTradeDesk obsolete props, clarify CM360 help text
