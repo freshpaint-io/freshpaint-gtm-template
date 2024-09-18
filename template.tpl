@@ -2378,7 +2378,7 @@ const processFBPixelEvent = () => {
           log("WARNING: Freshpaint Facebook Conversions API GTM Template could not parse prop '" + propKey + "' as numeric, leaving as string: " + propValue);
         }
         mergedObjectProps[propKey] = val;
-      } else if (propKey === "contents" || propKey === "products") {
+      } else if (propKey === "contents" || propKey === "products" || propKey == "content_ids") {
         let val = JSON.parse(propValue);
         if (!val) {
           log("WARNING: Freshpaint Facebook Conversions API GTM Template could not parse '" + propKey + "' json, leaving as string: " + propValue);
