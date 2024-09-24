@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 9eb0c58e1457ccebbaa1497057173d0c9e67f6af
-    changeNotes: Add json parsing for FB content_ids
+  - sha: ab7b5bfe81870f79d4dfb93dc650de04cf31dafe
+    changeNotes: Add Multi-Config support for Bing Ads
