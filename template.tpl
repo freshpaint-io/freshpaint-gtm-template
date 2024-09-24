@@ -187,6 +187,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "bingAdsInstanceName",
+    "displayName": "Specific Tag ID (optional)",
+    "help": "If multiple Tag IDs are configured for the Bing Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Tag IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "ga4InstanceNames",
     "displayName": "Specific Measurement ID(s) (optional)",
     "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
@@ -2455,7 +2469,18 @@ const processTwitterEvent = () => {
 };
 
 const processBingEvent = () => {
-  const options = generateOptions("Bing Ads");
+  const bingAdsSDKKey = "Bing Ads"
+
+  let options = generateOptions(bingAdsSDKKey);
+  if (data.bingAdsInstanceName) {
+    const instanceNameToUse = data.bingAdsInstanceName.trim();
+    options = generateOptionsFromInstances(bingAdsSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Bing Ads Tag IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
   if (data.bingEventType === "PAGE_LOAD") {
     page({}, options);
