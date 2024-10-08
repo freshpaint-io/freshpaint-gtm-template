@@ -943,10 +943,11 @@ ___TEMPLATE_PARAMETERS___
     "name": "bingEventType",
     "displayName": "Track Type",
     "macrosInSelect": false,
+    "notSetText": "-",
     "selectItems": [
       {
-        "value": "PAGE_LOAD",
-        "displayValue": "page view"
+        "value": "CUSTOM_PAGE_LOAD",
+        "displayValue": "Page View"
       },
       {
         "value": "VARIABLE_REVENUE",
@@ -2469,7 +2470,7 @@ const processTwitterEvent = () => {
 };
 
 const processBingEvent = () => {
-  const bingAdsSDKKey = "Bing Ads"
+  const bingAdsSDKKey = "Bing Ads";
 
   let options = generateOptions(bingAdsSDKKey);
   if (data.bingAdsInstanceName) {
@@ -2482,8 +2483,8 @@ const processBingEvent = () => {
     }
   }
 
-  if (data.bingEventType === "PAGE_LOAD") {
-    page({}, options);
+  if (data.bingEventType === "CUSTOM_PAGE_LOAD") {
+    track("page_view", {}, options);
 
     data.gtmOnSuccess();
     return;
