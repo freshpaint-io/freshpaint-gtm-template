@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: ab7b5bfe81870f79d4dfb93dc650de04cf31dafe
-    changeNotes: Add Multi-Config support for Bing Ads
+  - sha: 9b153e3f8639202da1d62c79516c5aacae68afbf
+    changeNotes: Custom page view tracking for Bing Ads
