@@ -2293,7 +2293,7 @@ const processTrack = () => {
 
     track(data.commonEventName, props, options);
 
-    data.gtmOnSuccess();
+      data.gtmOnSuccess();
   } else {
       log("ERROR: Freshpaint Track GTM Template missing eventName");
       data.gtmOnFailure();
@@ -2348,7 +2348,7 @@ const processGA4Event = () => {
     const props = parseSimpleTable(data.commonEventProperties || []);
     track(data.commonEventName, props, options);
 
-    data.gtmOnSuccess();
+      data.gtmOnSuccess();
   } else {
       log("ERROR: Freshpaint Google Analytics 4 Proxy GTM Template missing eventName");
       data.gtmOnFailure();
@@ -2483,6 +2483,13 @@ const processBingEvent = () => {
     }
   }
 
+  // Check for deprecated page-load tag, nop if so
+  if (data.bingEventType === "PAGE_LOAD") {
+    data.gtmOnSuccess();
+    return;
+  }
+
+  // Check for custom page-load tag
   if (data.bingEventType === "CUSTOM_PAGE_LOAD") {
     track("page_view", {}, options);
 
@@ -2490,7 +2497,7 @@ const processBingEvent = () => {
     return;
   }
 
-  // make required track call
+  // Proceed with non-page-load tag
   let eventName;
   const props = { tpp: "1" };
   const includePropsFromData = (mapping) => {
@@ -2910,20 +2917,20 @@ const identify = (userID, props, options) => {
   });
 };
 
+// track returns true if valid (truthy) event name, false otherwise
+//  optional for caller to check return value - this is mainly to avoid invalid sdk track calls
 const track = (eventName, props, options) => {
+  if (!eventName) {
+    return false;
+  }
+
   callFreshpaintProxy("apply", {
     envID: undefined,
     methodName: "track",
     methodArgs: [eventName, props, options],
   });
-};
 
-const page = (pageProps, options) => {
-  callFreshpaintProxy("apply", {
-    envID: undefined,
-    methodName: "page",
-    methodArgs: [pageProps, options],
-  });
+  return true;
 };
 
 const addEventProperties = (props) => {
