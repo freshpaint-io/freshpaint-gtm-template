@@ -942,8 +942,14 @@ ___TEMPLATE_PARAMETERS___
     "type": "SELECT",
     "name": "bingEventType",
     "displayName": "Track Type",
+    "help": "Select 'Page View' only when your Freshpaint Bing Ads configuration has 'Automatically Send Page View Events' unchecked",
     "macrosInSelect": false,
     "notSetText": "-",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
     "selectItems": [
       {
         "value": "CUSTOM_PAGE_LOAD",
