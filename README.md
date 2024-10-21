@@ -6,14 +6,17 @@ As described in the [Freshpaint documentation](https://documentation.freshpaint.
   * Google Analytics 4 (proxy)
   * Google Ads
   * Google Ads Call Conversion
+  * Google Campaign Manager 360 API
   * Facebook Conversions API
-  * Floodlight
   * Basis
-  * LinkedIn Ads
-  * Bing Ads
-  * Impact.com
-  * Stackadapt
   * theTradeDesk
+  * Stackadapt
+  * Bing Ads
+  * TikTok Ads
+  * Impact.com
+  * LinkedIn Ads
+  * Reddit Ads
+  * Pinterest Ads
   * Twitter Ads
 * track
 * identify
