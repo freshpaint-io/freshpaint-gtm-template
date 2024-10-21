@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 9b153e3f8639202da1d62c79516c5aacae68afbf
-    changeNotes: Custom page view tracking for Bing Ads
+  - sha: 15fb119ca3a75d676a878132fd1ff7fd1e329c21
+    changeNotes: Add Reddit Ads, Pinterest Ads
