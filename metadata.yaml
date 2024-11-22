@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 15fb119ca3a75d676a878132fd1ff7fd1e329c21
-    changeNotes: Add Reddit Ads, Pinterest Ads
+  - sha: 4240f83b516fabd5dded709ba85ff9ccbab3895c
+    changeNotes: Support for Viant
