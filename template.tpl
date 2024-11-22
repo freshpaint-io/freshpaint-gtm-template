@@ -2936,7 +2936,7 @@ const processGoogleCM360Event = () => {
   data.gtmOnSuccess();
 };
 
-const processViantEvent = () = {
+const processViantEvent = () => {
   const viantSDKKey = "viant";
 
   if (!data.commonEventName) {
