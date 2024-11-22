@@ -95,6 +95,14 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "TikTok Ads"
       },
       {
+        "value": "pinterestAdsEvent",
+        "displayValue": "Pinterest Ads"
+      },
+      {
+        "value": "redditAdsEvent",
+        "displayValue": "Reddit Ads"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
@@ -300,6 +308,17 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "linkedInAdsEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      }
       },
       {
         "paramName": "tagType",
@@ -1732,6 +1751,20 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "redditAdsInstanceName",
+    "displayName": "Specific Account ID (optional)",
+    "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
     "type": "SIMPLE_TABLE",
     "name": "addEventPropertiesSharedProperties",
     "displayName": "Shared Event Properties",
@@ -1797,6 +1830,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "basisEvent",
         "type": "EQUALS"
       },
@@ -1838,7 +1876,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SIMPLE_TABLE",
     "name": "commonEventPropertiesJSONValue",
     "displayName": "Event Properties",
-    "help": "Props named value, quantity, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
+    "help": "Props named value, quantity, item_count, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -1857,6 +1895,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -2000,6 +2043,14 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "TikTok Ads"
             },
             {
+              "value": "reddit-ads",
+              "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "pinterest-ads",
+              "displayValue": "Pinterest Ads"
+            },
+            {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
             },
@@ -2123,7 +2174,7 @@ function parseSimpleTableAndParseNumericAndJSONValues(inputProps, destType) {
   for (let prop of inputProps) {
     let val = prop.value;
     if (val) {
-      if (prop.name === "value" || prop.name === "quantity" || prop.name === "price" || prop.name === "total" || prop.name === "revenue" || prop.name === "num_items") {
+      if (prop.name === "value" || prop.name === "quantity" || prop.name === "item_count" || prop.name === "price" || prop.name === "total" || prop.name === "revenue" || prop.name === "num_items") {
         // prop name is one of the designated numeric prop names, attempt to cast to number, with warning on cast error
         val = makeNumber(val);
         if (val !== val) { // Check for NaN
@@ -2226,6 +2277,12 @@ const processEvent = () => {
       break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
+      break;
+    case "pinterestAdsEvent":
+      processPinterestAdsEvent();
+      break;
+    case "redditAdsEvent":
+      processRedditAdsEvent();
       break;
     case "floodlightEvent":
       processFloodlightEvent();
@@ -2818,6 +2875,52 @@ const processStackAdaptEvent = () => {
     data.gtmOnSuccess();
   } else {
     log("ERROR: Freshpaint StackAdapt GTM Template missing eventName and / or stackAdaptConversionEventID");
+    data.gtmOnFailure();
+  }
+};
+
+const processPinterestAdsEvent = () => {
+  const pinterestSDKKey = "pinterest-ads";
+  let options = generateOptions(pinterestSDKKey);
+
+  if (data.commonEventName) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Pinterest Ads GTM Template missing eventName");
+    data.gtmOnFailure();
+  }
+};
+
+const processRedditAdsEvent = () => {
+  const redditSDKKey = "reddit-ads";
+  let options = generateOptions(redditSDKKey);
+
+  if (data.commonEventName) {
+    // TODO: Add bool parse support to either backend for string or here to cast to bool, for: test_mode, opt_out props if present
+    const props = parseSimpleTableAndParseNumericAndJSONValues(data.commonEventPropertiesJSONValue || []);
+
+    let instanceNameToUse;
+    if (data.redditAdsInstanceName) {
+      instanceNameToUse = data.redditAdsInstanceName.trim();
+    }
+    if (instanceNameToUse) {
+      options = generateOptionsFromInstances(redditSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Reddit Account IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Reddit Ads GTM Template missing eventName");
     data.gtmOnFailure();
   }
 };
