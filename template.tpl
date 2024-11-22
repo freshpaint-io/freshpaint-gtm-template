@@ -318,7 +318,6 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
         "type": "EQUALS"
-      }
       },
       {
         "paramName": "tagType",
