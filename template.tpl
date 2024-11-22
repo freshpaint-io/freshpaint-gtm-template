@@ -67,6 +67,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Basis"
       },
       {
+        "value": "viantEvent",
+        "displayValue": "Viant"
+      },
+      {
         "value": "linkedInAdsEvent",
         "displayValue": "LinkedIn Ads"
       },
@@ -195,6 +199,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "viantInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Viant destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+      "paramName": "tagType",
+      "paramValue": "viantEvent",
+      "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "bingAdsInstanceName",
     "displayName": "Specific Tag ID (optional)",
     "help": "If multiple Tag IDs are configured for the Bing Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Tag IDs)",
@@ -300,7 +318,12 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
         "type": "EQUALS"
-      }
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "viantEvent",
+        "type": "EQUALS"
+      },
     ]
   },
   {
@@ -2031,6 +2054,10 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Twitter Ads"
             },
             {
+              "value": "viant",
+              "displayValue": "Viant"
+            },
+            {
               "value": "Webhooks",
               "displayValue": "Webhooks"
             }
@@ -2264,6 +2291,9 @@ const processEvent = () => {
       break;
     case "googleCM360Event":
       processGoogleCM360Event();
+      break;
+    case "viantEvent":
+      processViantEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3005,6 +3035,30 @@ const processGoogleCM360Event = () => {
   props.activity_id = data.googleCM360ActivityIDString;
 
   track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processViantEvent = () => {
+  const viantSDKKey = "viant";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Viant GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(viantSDKKey);
+  if (data.viantInstanceName) {
+    const instanceNameToUse = data.viantInstanceName.trim();
+    options = generateOptionsFromInstances(viantSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Viant Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  track(data.commonEventName, {}, options);
   data.gtmOnSuccess();
 };
 
