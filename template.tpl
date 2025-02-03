@@ -3067,15 +3067,11 @@ const callFreshpaintProxy = (cmdName, args) => {
 };
 
 const identify = (userID, props, options) => {
-  let args = [props, options];
-  if (userID) {
-    args = [userID].concat(args);
-  }
   callFreshpaintProxy("apply", {
     // envID is no longer used, left in for backward compatibility
     envID: undefined,
     methodName: "identify",
-    methodArgs: args,
+    methodArgs: [userID, props, options],
   });
 };
 
