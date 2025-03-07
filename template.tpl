@@ -199,6 +199,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "pinterestAdsInstanceName",
+    "displayName": "Pinterest Ad Account ID (optional)",
+    "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+    ],
+  },
+  {
+    "type": "TEXT",
     "name": "viantInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for the Viant destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -2882,16 +2896,27 @@ const processPinterestAdsEvent = () => {
   const pinterestSDKKey = "pinterest-ads";
   let options = generateOptions(pinterestSDKKey);
 
-  if (data.commonEventName) {
-    const props = parseSimpleTable(data.commonEventProperties || []);
-
-    track(data.commonEventName, props, options);
-
-    data.gtmOnSuccess();
-  } else {
+  if (!data.commonEventName) {
     log("ERROR: Freshpaint Pinterest Ads GTM Template missing eventName");
     data.gtmOnFailure();
+    return;
   }
+
+  if (data.pinterestAdsInstanceName) {
+    const instanceNameToUse = data.pinterestAdsInstanceName.trim();
+    options = generateOptionsFromInstances(pinterestSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Pinterest Ads Tag IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+
+  track(data.commonEventName, props, options);
+
+  data.gtmOnSuccess();
 };
 
 const processRedditAdsEvent = () => {
