@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 82fb4dfd6a47e69991885d0e669385a1f760f0af
+  - sha: e19dc45cb7290e977b3517b834db32da182e34cb
     changeNotes: Add multi-config support for Pinterest Ads
