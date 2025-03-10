@@ -1,6 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 8946c747e94e2dc3fd4a4ac3e128fd639e9d99e5
-    changeNotes: |
-      Fix bug: identify events were sending to all destinations instead of just those specified in the integrations object
+  - sha: 82fb4dfd6a47e69991885d0e669385a1f760f0af
+    changeNotes: Add multi-config support for Pinterest Ads
