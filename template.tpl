@@ -271,6 +271,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "commonEventName",
     "displayName": "Freshpaint Event Name",
+    "help": "This will be the event name that you see in Freshpaint - it is sent to only certain destinations, including Google Analytics 4 (Proxy).",
     "simpleValueType": true,
     "valueValidators": [
       {
