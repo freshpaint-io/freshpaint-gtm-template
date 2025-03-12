@@ -2,4 +2,4 @@ homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
   - sha: 30cd103e7163681c0e1d5dba1b9cebe66fbf1a61
-    changeNotes: Add Freshpaint Event Name helptext
+    changeNotes: Add Freshpaint Event Name help text
