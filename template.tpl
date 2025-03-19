@@ -1633,6 +1633,10 @@ ___TEMPLATE_PARAMETERS___
           "macrosInSelect": false,
           "selectItems": [
             {
+              "value": "amount",
+              "displayValue": "amount"
+            },
+            {
               "value": "currency",
               "displayValue": "currency"
             },
@@ -1666,7 +1670,7 @@ ___TEMPLATE_PARAMETERS___
             },
             {
               "value": "order_revenue",
-              "displayValue": "order_revenue"
+              "displayValue": "order_revenue (amount)"
             },
             {
               "value": "order_shipping",
@@ -2683,6 +2687,16 @@ const processBingEvent = () => {
   data.gtmOnSuccess();
 };
 
+const impactNumericKeys = {
+  "amount": true,
+  "discount": true,
+  "latitude": true,
+  "longitude": true,
+  "order_revenue": true,
+  "order_shipping": true,
+  "order_tax": true,
+};
+
 const processImpactEvent = () => {
   const options = generateOptions("impactdotcom");
 
@@ -2693,6 +2707,18 @@ const processImpactEvent = () => {
     props.event_type_code = data.impactEventTypeIdOrCode;
   } else {
     props.event_type_id = data.impactEventTypeIdOrCode;
+  }
+
+  // Convert any potentially numeric values to numbers
+  for (let key in props) {
+    if (!impactNumericKeys[key]) {
+      continue;
+    }
+
+    props[key] = makeNumber(props[key]);
+    if (props[key] !== props[key]) { // Check for NaN
+      log("WARNING: Freshpaint impact.com GTM Template could not parse prop '" + key + "' as numeric, leaving as string: " + props[key]);
+    }
   }
 
   props.order_id = data.impactOrderId;
