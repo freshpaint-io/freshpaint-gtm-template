@@ -1891,6 +1891,36 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+      "type": "RADIO",
+      "name": "googleCM360FloodlightCountingMethod",
+      "displayName": "Counting Method",
+      "radioItems": [
+        {
+          "value": "STANDARD",
+          "displayValue": "Standard",
+          "help": "Count every conversion."
+        },
+        {
+          "value": "UNIQUE",
+          "displayValue": "Unique",
+          "help": "Count the first conversion for each unique user during each 24-hour day, from midnight to midnight, Eastern Time (US)."
+        },
+        {
+          "value": "SESSION",
+          "displayValue": "Per Session",
+          "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
+        }
+      ],
+      "simpleValueType": true,
+      "enablingConditions": [
+        {
+          "paramName": "tagType",
+          "paramValue": "googleCM360Event",
+          "type": "EQUALS"
+        }
+      ]
+    },
+  {
     "type": "SIMPLE_TABLE",
     "name": "commonEventPropertiesJSONValue",
     "displayName": "Event Properties",
@@ -3071,6 +3101,11 @@ const processGoogleCM360Event = () => {
     data.gtmOnFailure();
     return;
   }
+  if (!data.googleCM360FloodlightCountingMethod) {
+    log("ERROR: Freshpaint CM360 Floodlight Counter GTM Template missing Counting Method");
+    data.gtmOnFailure();
+    return;
+  }
 
   let options = generateOptions(googleCM360SDKKey);
   if (data.googleCM360InstanceName) {
@@ -3085,6 +3120,7 @@ const processGoogleCM360Event = () => {
 
   const props = parseSimpleTable(data.googleCM360EventProperties || []);
   props.activity_id = data.googleCM360ActivityIDString;
+  props.counting_method = data.googleCM360FloodlightCountingMethod.toLowerCase();
 
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
