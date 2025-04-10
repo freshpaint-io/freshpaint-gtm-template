@@ -1736,19 +1736,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-     "type": "TEXT",
-     "name": "theTradeDeskCurrency",
-     "displayName": "currency",
-     "simpleValueType": true,
-     "enablingConditions": [
-       {
-         "paramName": "tagType",
-         "paramValue": "theTradeDeskEvent",
-         "type": "EQUALS"
-       }
-    ]
-  },
-  {
     "type": "TEXT",
     "name": "theTradeDeskPrivacySettings",
     "displayName": "Privacy Settings array (optional)",
@@ -2933,10 +2920,6 @@ const processTheTradeDeskEvent = () => {
          log("WARNING: Freshpaint theTradeDesk GTM Template could not parse prop value as numeric, leaving as string: " + val);
        }
        props.value = val;
-    }
-
-    if (data.theTradeDeskCurrency) {
-      props.currency = data.theTradeDeskCurrency;
     }
 
     props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
