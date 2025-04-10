@@ -1723,6 +1723,32 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+     "type": "TEXT",
+     "name": "theTradeDeskValue",
+     "displayName": "value",
+     "simpleValueType": true,
+     "enablingConditions": [
+       {
+         "paramName": "tagType",
+         "paramValue": "theTradeDeskEvent",
+         "type": "EQUALS"
+       }
+    ]
+  },
+  {
+     "type": "TEXT",
+     "name": "theTradeDeskCurrency",
+     "displayName": "currency",
+     "simpleValueType": true,
+     "enablingConditions": [
+       {
+         "paramName": "tagType",
+         "paramValue": "theTradeDeskEvent",
+         "type": "EQUALS"
+       }
+    ]
+  },
+  {
     "type": "TEXT",
     "name": "theTradeDeskPrivacySettings",
     "displayName": "Privacy Settings array (optional)",
@@ -2897,6 +2923,20 @@ const processTheTradeDeskEvent = () => {
     } else if (data.commonDestConfigNames) {
         // Support legacy commonDestConfigNames when theTradeDeskInstanceName not specified
         props.dest_config_names = data.commonDestConfigNames;
+    }
+
+    if (data.theTradeDeskValue) {
+       let val = data.theTradeDeskValue;
+       val = makeNumber(val);
+       if (val !== val) { // Check for NaN
+         val = data.theTradeDeskValue;
+         log("WARNING: Freshpaint theTradeDesk GTM Template could not parse prop value as numeric, leaving as string: " + val);
+       }
+       props.value = val;
+    }
+
+    if (data.theTradeDeskCurrency) {
+      props.currency = data.theTradeDeskCurrency;
     }
 
     props.tracker_id = data.theTradeDeskTrackerOrUPixelIDValue;
