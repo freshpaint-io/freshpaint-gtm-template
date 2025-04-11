@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: e0a8b50af4c8a98a90073789c9321c8e3397871c
-    changeNotes: Support "unique" and "session" floodlight counting methods
+  - sha: 5487734ef25581afd18eed53d90b06abfba06d9e
+    changeNotes: Adds value back to TTD
