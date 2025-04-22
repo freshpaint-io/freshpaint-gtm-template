@@ -1679,6 +1679,46 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "order_tax",
               "displayValue": "order_tax"
+            },
+            {
+              "value": "text1",
+              "displayValue": "text1"
+            },
+            {
+              "value": "text2",
+              "displayValue": "text2"
+            },
+            {
+              "value": "text3",
+              "displayValue": "text3"
+            },
+            {
+              "value": "text4",
+              "displayValue": "text4"
+            },
+            {
+              "value": "text5",
+              "displayValue": "text5"
+            },
+            {
+              "value": "text6",
+              "displayValue": "text6"
+            },
+            {
+              "value": "text7",
+              "displayValue": "text7"
+            },
+            {
+              "value": "text8",
+              "displayValue": "text8"
+            },
+            {
+              "value": "text9",
+              "displayValue": "text9"
+            },
+            {
+              "value": "text10",
+              "displayValue": "text10"
             }
           ],
           "simpleValueType": true
