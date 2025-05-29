@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 008fbff2bc783fa04d67d19132c908f90a7c3d6d
-    changeNotes: Adds text1-10 to impact parameters
+  - sha: f229a218a327fd5943242ad51d5b2809a39652e9
+    changeNotes: Sets standard counting method as default for CM360 if unset
