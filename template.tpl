@@ -3165,9 +3165,7 @@ const processGoogleCM360Event = () => {
     return;
   }
   if (!data.googleCM360FloodlightCountingMethod) {
-    log("ERROR: Freshpaint CM360 Floodlight Counter GTM Template missing Counting Method");
-    data.gtmOnFailure();
-    return;
+    data.googleCM360FloodlightCountingMethod = "standard";
   }
 
   let options = generateOptions(googleCM360SDKKey);
