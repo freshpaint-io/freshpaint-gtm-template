@@ -37,4 +37,6 @@ After a new template version is merged to main, a separate change must be made t
 * sha: sha of the just-pushed version
 * changeNotes: description of the changes in the new version
 
+The simplest way to check if the change is "seen" by the gallery is by checking "Updated Date" [here]([url](https://tagmanager.google.com/gallery/#/owners/freshpaint-io/templates/freshpaint-gtm-template)).
+
 For more info, including how multiple versions may be maintained, see [here](https://developers.google.com/tag-platform/tag-manager/templates/gallery#update_your_template)
