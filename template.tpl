@@ -420,6 +420,11 @@ ___TEMPLATE_PARAMETERS___
     "name": "googleAdsCallConversionsConversionId",
     "displayName": "Conversion ID",
     "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
