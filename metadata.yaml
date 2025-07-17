@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: f229a218a327fd5943242ad51d5b2809a39652e9
-    changeNotes: Sets standard counting method as default for CM360 if unset
+  - sha: 7b3fedb1bb44a7b0f8a05dc8b5f05da79a8050a9
+    changeNotes: Make conversion ID field required for Google Call Conversions tag type
