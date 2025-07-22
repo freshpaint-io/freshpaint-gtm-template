@@ -3002,12 +3002,6 @@ const processMntnEvent = () => {
     }
   }
 
-  if (orderId.length === 0) {
-    log("ERROR: Freshpaint MNTN GTM Template missing Order ID: " + data.commonEventName);
-    data.gtmOnFailure();
-    return;
-  }
-
   const props = parseSimpleTable(data.commonEventProperties || []);
   props.order_id = orderId;
   track(data.commonEventName, props, options);
