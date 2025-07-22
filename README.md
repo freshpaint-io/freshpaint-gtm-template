@@ -3,21 +3,22 @@
 ## Overview
 As described in the [Freshpaint documentation](https://documentation.freshpaint.io/integrations/google-tag-manager-integration), this template is used to send events to Freshpaint including:
 * Server-side destinations
-  * Google Analytics 4 (proxy)
+  * Basis
+  * Bing Ads
+  * Facebook Conversions API
   * Google Ads
   * Google Ads Call Conversion
+  * Google Analytics 4 (proxy)
   * Google Campaign Manager 360 API
-  * Facebook Conversions API
-  * Basis
-  * theTradeDesk
-  * Stackadapt
-  * Bing Ads
-  * TikTok Ads
   * Impact.com
   * LinkedIn Ads
-  * Reddit Ads
+  * MNTN
   * Pinterest Ads
+  * Reddit Ads
+  * Stackadapt
+  * TikTok Ads
   * Twitter Ads
+  * theTradeDesk
 * track
 * identify
 

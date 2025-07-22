@@ -75,6 +75,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "LinkedIn Ads"
       },
       {
+        "value": "mntnEvent",
+        "displayValue": "MNTN"
+      },
+      {
         "value": "bingAdsEvent",
         "displayValue": "Bing Ads"
       },
@@ -267,6 +271,20 @@ ___TEMPLATE_PARAMETERS___
       },
     ],
   },
+    {
+      "type": "TEXT",
+      "name": "mntnInstanceName",
+      "displayName": "Specific Advertiser ID (optional)",
+      "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+      "simpleValueType": true,
+      "enablingConditions": [
+        {
+          "paramName": "tagType",
+          "paramValue": "mntnEvent",
+          "type": "EQUALS"
+        },
+      ],
+    },
   {
     "type": "TEXT",
     "name": "commonEventName",
@@ -326,6 +344,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
         "type": "EQUALS"
       },
@@ -369,6 +392,25 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsEvent",
+        "type": "EQUALS"
+      },
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "mntnOrderId",
+    "displayName": "Order ID",
+    "help": "Order ID for conversion event",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
         "type": "EQUALS"
       },
     ]
@@ -1918,7 +1960,12 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
-      }
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
     ]
   },
   {
@@ -2131,6 +2178,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "linkedin-ads",
               "displayValue": "LinkedIn Ads"
+            },
+            {
+              "value": "MNTN",
+              "displayValue": "MNTN"
             },
             {
               "value": "Mixpanel",
@@ -2362,6 +2413,9 @@ const processEvent = () => {
       break;
     case "linkedInAdsEvent":
       processLinkedInAdsEvent();
+      break;
+    case "mntnEvent":
+      processMntnEvent();
       break;
     case "twitterAdsEvent":
       processTwitterEvent();
@@ -2928,6 +2982,35 @@ const processLinkedInAdsEvent = () => {
 
     track(data.commonEventName, props, options);
   });
+
+  data.gtmOnSuccess();
+};
+
+const processMntnEvent = () => {
+  const mntnSDKKey = "MNTN";
+
+  const orderId = data.mntnOrderId.trim();
+
+  let options = generateOptions(mntnSDKKey);
+  if (data.mntnInstanceName) {
+    const instanceNameToUse = data.mntnInstanceName.trim();
+    options = generateOptionsFromInstances(mntnSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple MNTN Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  if (orderId.length === 0) {
+    log("ERROR: Freshpaint MNTN GTM Template missing Order ID: " + data.commonEventName);
+    data.gtmOnFailure();
+    return;
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  props.order_id = orderId;
+  track(data.commonEventName, props, options);
 
   data.gtmOnSuccess();
 };
