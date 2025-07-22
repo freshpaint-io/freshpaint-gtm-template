@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 7b3fedb1bb44a7b0f8a05dc8b5f05da79a8050a9
-    changeNotes: Make conversion ID field required for Google Call Conversions tag type
+  - sha: 5d17687c04660b9aebe5faedca93747275ac3644
+    changeNotes: Support MNTN Destination
