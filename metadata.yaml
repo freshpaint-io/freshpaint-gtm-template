@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 5d17687c04660b9aebe5faedca93747275ac3644
-    changeNotes: Support MNTN Destination
+  - sha: 36f7ee4ca6150b92a836117c99b0c631b93dc58c
+    changeNotes: Make order ID optional for MNTN
