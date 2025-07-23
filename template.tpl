@@ -398,25 +398,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "mntnOrderId",
-    "displayName": "Order ID",
-    "help": "Order ID for conversion event",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "mntnEvent",
-        "type": "EQUALS"
-      },
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "googleAdsCallConversionsDisplayedPhoneNbr",
     "displayName": "Displayed Phone Number to Replace",
     "help": "The phone number you enter needs to have the exact digits it has on your website. For example, if the number on your website has a country code, include the country code here. If the number on your website does not have a country code, do not include the country code here.",
@@ -2989,8 +2970,6 @@ const processLinkedInAdsEvent = () => {
 const processMntnEvent = () => {
   const mntnSDKKey = "MNTN";
 
-  const orderId = data.mntnOrderId.trim();
-
   let options = generateOptions(mntnSDKKey);
   if (data.mntnInstanceName) {
     const instanceNameToUse = data.mntnInstanceName.trim();
@@ -3003,7 +2982,6 @@ const processMntnEvent = () => {
   }
 
   const props = parseSimpleTable(data.commonEventProperties || []);
-  props.order_id = orderId;
   track(data.commonEventName, props, options);
 
   data.gtmOnSuccess();
