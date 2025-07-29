@@ -75,6 +75,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "LinkedIn Ads"
       },
       {
+        "value": "linkedInAdsCAPIEvent",
+        "displayValue": "LinkedIn Ads Conversions API"
+      },
+      {
         "value": "mntnEvent",
         "displayValue": "MNTN"
       },
@@ -344,6 +348,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "mntnEvent",
         "type": "EQUALS"
       },
@@ -392,6 +401,25 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsEvent",
+        "type": "EQUALS"
+      },
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "linkedInAdsCAPIConversionIds",
+    "displayName": "Conversion ID(s) (max. 3)",
+    "help": "Enter 1-3 conversion ids separated by a comma.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
         "type": "EQUALS"
       },
     ]
@@ -2161,6 +2189,10 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "LinkedIn Ads"
             },
             {
+              "value": "LinkedIn Ads Conversions API",
+              "displayValue": "LinkedIn Ads Conversions API"
+            },
+            {
               "value": "MNTN",
               "displayValue": "MNTN"
             },
@@ -2394,6 +2426,9 @@ const processEvent = () => {
       break;
     case "linkedInAdsEvent":
       processLinkedInAdsEvent();
+      break;
+    case "linkedInAdsCAPIEvent":
+      processLinkedInAdsCAPIEvent();
       break;
     case "mntnEvent":
       processMntnEvent();
@@ -2952,6 +2987,34 @@ const processLinkedInAdsEvent = () => {
     return;
   } else if (conversionIds.length > 3) {
     log("ERROR: Freshpaint LinkedIn Ads GTM Template supports only up to 3 Conversion IDs: " + data.commonEventName);
+    data.gtmOnFailure();
+    return;
+  }
+
+  // make track call(s) for each conversionId
+  conversionIds.forEach(id => {
+    const props = {};
+    props.conversion_id = id.trim();
+
+    track(data.commonEventName, props, options);
+  });
+
+  data.gtmOnSuccess();
+};
+
+const processLinkedInAdsCAPIEvent = () => {
+  const linkedInCAPISDKKey = "LinkedIn Ads Conversions API";
+  const options = generateOptions(linkedInCAPISDKKey);
+
+  const conversionIdsToUse = data.linkedInAdsCAPIConversionIds.trim();
+  const conversionIds = conversionIdsToUse.split(',');
+
+  if (conversionIds.length === 0) {
+    log("ERROR: Freshpaint LinkedIn Ads Conversions API GTM Template missing Conversion ID(s): " + data.commonEventName);
+    data.gtmOnFailure();
+    return;
+  } else if (conversionIds.length > 3) {
+    log("ERROR: Freshpaint LinkedIn Ads Conversions API GTM Template supports only up to 3 Conversion IDs: " + data.commonEventName);
     data.gtmOnFailure();
     return;
   }

@@ -12,6 +12,7 @@ As described in the [Freshpaint documentation](https://documentation.freshpaint.
   * Google Campaign Manager 360 API
   * Impact.com
   * LinkedIn Ads
+  * LinkedIn Ads Conversions API
   * MNTN
   * Pinterest Ads
   * Reddit Ads
