@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: 36f7ee4ca6150b92a836117c99b0c631b93dc58c
-    changeNotes: Make order ID optional for MNTN
+  - sha: f18e5220ea6c6bfe1a3ba97e53aa28fd42441b4d
+    changeNotes: Support LinkedIn Ads Conversions API Integration
