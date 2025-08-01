@@ -1927,6 +1927,20 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "ga4EventPropsVariable",
+    "displayName": "Event Properties Variable",
+    "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
+    "simpleValueType": true,
+    "enablingConditions":  [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "SIMPLE_TABLE",
     "name": "commonEventProperties",
     "displayName": "Event Properties",
@@ -2613,9 +2627,14 @@ const processGA4Event = () => {
     identify(undefined, props, options);
   }
 
+  const eventPopsFromVar =
+    getType(data.ga4EventPropsVariable) === "object" ?
+      data.ga4EventPropsVariable : {};
+
   if (data.commonEventName) {
     const props = parseSimpleTable(data.commonEventProperties || []);
-    track(data.commonEventName, props, options);
+
+    track(data.commonEventName, mergeObj(eventPopsFromVar, props), options);
 
       data.gtmOnSuccess();
   } else {
