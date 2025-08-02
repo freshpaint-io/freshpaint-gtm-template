@@ -2402,6 +2402,54 @@ function parseParamTableToArray(inputProps, overrides) {
   return props;
 }
 
+function getEventPropsFromGoogEventSettingsVar(inputProps) {
+  if (getType(inputProps) !== "object") {
+    return {};
+  }
+
+  let eventProps = {};
+
+  for (let key in inputProps) {
+    if (key === "user_properties") {
+      continue;
+    }
+
+    eventProps[key] = inputProps[key];
+}
+
+  return eventProps;
+}
+
+function getUserPropsFromGoogEventSettingsVar(inputProps) {
+  if (getType(inputProps) !== "object") {
+    return {};
+  }
+
+  let userProps = {};
+
+  for (let key in inputProps) {
+    if (key === "user_properties") {
+      for (let userKey in inputProps[key]) {
+        userProps[userKey] = inputProps[key][userKey];
+      }
+    }
+  }
+
+  return userProps;
+}
+
+function objectIsEmpty(inputProps) {
+  if (getType(inputProps) !== "object") {
+    return true;
+  }
+
+  for (let key in inputProps) {
+    return false;
+  }
+
+  return true;
+}
+
 const processEvent = () => {
   let envID = undefined;
 
@@ -2622,24 +2670,24 @@ const processGA4Event = () => {
     options = generateOptionsFromInstances(ga4ProxySDKKey, instanceNamesToUse, true);
   }
 
-  if (data.commonUserProperties) {
-    const props = parseSimpleTable(data.commonUserProperties || []);
-    identify(undefined, props, options);
+  const userPropsFromVar = getUserPropsFromGoogEventSettingsVar(data.ga4EventPropsVariable);
+  const userProps = parseSimpleTable(data.commonUserProperties || []);
+  const allUserProps = mergeObj(userPropsFromVar, userProps);
+  if (!objectIsEmpty(allUserProps)) {
+    identify(undefined, allUserProps, options);
   }
 
-  const eventPopsFromVar =
-    getType(data.ga4EventPropsVariable) === "object" ?
-      data.ga4EventPropsVariable : {};
+  const eventPropsFromVar = getEventPropsFromGoogEventSettingsVar(data.ga4EventPropsVariable);
 
   if (data.commonEventName) {
     const props = parseSimpleTable(data.commonEventProperties || []);
 
-    track(data.commonEventName, mergeObj(eventPopsFromVar, props), options);
+    track(data.commonEventName, mergeObj(eventPropsFromVar, props), options);
 
-      data.gtmOnSuccess();
+    data.gtmOnSuccess();
   } else {
-      log("ERROR: Freshpaint Google Analytics 4 Proxy GTM Template missing eventName");
-      data.gtmOnFailure();
+    log("ERROR: Freshpaint Google Analytics 4 Proxy GTM Template missing eventName");
+    data.gtmOnFailure();
   }
 };
 
