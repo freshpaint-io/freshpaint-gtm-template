@@ -59,20 +59,12 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Facebook Conversions API"
       },
       {
-        "value": "floodlightEvent",
-        "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
-      },
-      {
         "value": "basisEvent",
         "displayValue": "Basis"
       },
       {
         "value": "viantEvent",
         "displayValue": "Viant"
-      },
-      {
-        "value": "linkedInAdsEvent",
-        "displayValue": "LinkedIn Ads"
       },
       {
         "value": "linkedInAdsCAPIEvent",
@@ -125,6 +117,14 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "track",
         "displayValue": "Track"
+      },
+      {
+        "value": "linkedInAdsEvent",
+        "displayValue": "LinkedIn Ads- DEPRECATED - instead use LinkedIn Ads Conversions API"
+      },
+      {
+        "value": "floodlightEvent",
+        "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
       },
     ],
     "notSetText": "-",
@@ -1989,6 +1989,11 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "mntnEvent",
         "type": "EQUALS"
       },
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      }
     ]
   },
   {
@@ -2191,16 +2196,8 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Bing Ads"
             },
             {
-              "value": "Floodlight",
-              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
-            },
-            {
               "value": "impactdotcom",
               "displayValue": "impact.com"
-            },
-            {
-              "value": "linkedin-ads",
-              "displayValue": "LinkedIn Ads"
             },
             {
               "value": "LinkedIn Ads Conversions API",
@@ -2245,6 +2242,14 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Webhooks",
               "displayValue": "Webhooks"
+            },
+            {
+              "value": "linkedin-ads",
+              "displayValue": "LinkedIn Ads - DEPRECATED - instead use LinkedIn Ads Conversions API"
+            },
+            {
+              "value": "Floodlight",
+              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
             }
           ],
           "simpleValueType": true
@@ -3088,7 +3093,7 @@ const processLinkedInAdsCAPIEvent = () => {
 
   // make track call(s) for each conversionId
   conversionIds.forEach(id => {
-    const props = {};
+    const props = parseSimpleTable(data.commonEventProperties || []);
     props.conversion_id = id.trim();
 
     track(data.commonEventName, props, options);
