@@ -120,7 +120,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "value": "linkedInAdsEvent",
-        "displayValue": "LinkedIn Ads- DEPRECATED - instead use LinkedIn Ads Conversions API"
+        "displayValue": "LinkedIn Ads"
       },
       {
         "value": "floodlightEvent",
@@ -2245,7 +2245,7 @@ ___TEMPLATE_PARAMETERS___
             },
             {
               "value": "linkedin-ads",
-              "displayValue": "LinkedIn Ads - DEPRECATED - instead use LinkedIn Ads Conversions API"
+              "displayValue": "LinkedIn Ads"
             },
             {
               "value": "Floodlight",
