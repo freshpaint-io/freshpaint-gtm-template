@@ -59,20 +59,12 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Facebook Conversions API"
       },
       {
-        "value": "floodlightEvent",
-        "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
-      },
-      {
         "value": "basisEvent",
         "displayValue": "Basis"
       },
       {
         "value": "viantEvent",
         "displayValue": "Viant"
-      },
-      {
-        "value": "linkedInAdsEvent",
-        "displayValue": "LinkedIn Ads"
       },
       {
         "value": "linkedInAdsCAPIEvent",
@@ -125,6 +117,14 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "track",
         "displayValue": "Track"
+      },
+      {
+        "value": "linkedInAdsEvent",
+        "displayValue": "LinkedIn Ads"
+      },
+      {
+        "value": "floodlightEvent",
+        "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
       },
     ],
     "notSetText": "-",
@@ -1927,6 +1927,20 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "ga4EventPropsVariable",
+    "displayName": "Event Properties Variable",
+    "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
+    "simpleValueType": true,
+    "enablingConditions":  [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "SIMPLE_TABLE",
     "name": "commonEventProperties",
     "displayName": "Event Properties",
@@ -1975,6 +1989,11 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "mntnEvent",
         "type": "EQUALS"
       },
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      }
     ]
   },
   {
@@ -2177,16 +2196,8 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Bing Ads"
             },
             {
-              "value": "Floodlight",
-              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
-            },
-            {
               "value": "impactdotcom",
               "displayValue": "impact.com"
-            },
-            {
-              "value": "linkedin-ads",
-              "displayValue": "LinkedIn Ads"
             },
             {
               "value": "LinkedIn Ads Conversions API",
@@ -2231,6 +2242,14 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Webhooks",
               "displayValue": "Webhooks"
+            },
+            {
+              "value": "linkedin-ads",
+              "displayValue": "LinkedIn Ads"
+            },
+            {
+              "value": "Floodlight",
+              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
             }
           ],
           "simpleValueType": true
@@ -2386,6 +2405,54 @@ function parseParamTableToArray(inputProps, overrides) {
     props.push(prop);
   }
   return props;
+}
+
+function getEventPropsFromGoogEventSettingsVar(inputProps) {
+  if (getType(inputProps) !== "object") {
+    return {};
+  }
+
+  let eventProps = {};
+
+  for (let key in inputProps) {
+    if (key === "user_properties") {
+      continue;
+    }
+
+    eventProps[key] = inputProps[key];
+  }
+
+  return eventProps;
+}
+
+function getUserPropsFromGoogEventSettingsVar(inputProps) {
+  if (getType(inputProps) !== "object") {
+    return {};
+  }
+
+  let userProps = {};
+
+  for (let key in inputProps) {
+    if (key === "user_properties") {
+      for (let userKey in inputProps[key]) {
+        userProps[userKey] = inputProps[key][userKey];
+      }
+    }
+  }
+
+  return userProps;
+}
+
+function objectIsEmpty(inputProps) {
+  if (getType(inputProps) !== "object") {
+    return true;
+  }
+
+  for (let key in inputProps) {
+    return false;
+  }
+
+  return true;
 }
 
 const processEvent = () => {
@@ -2608,19 +2675,24 @@ const processGA4Event = () => {
     options = generateOptionsFromInstances(ga4ProxySDKKey, instanceNamesToUse, true);
   }
 
-  if (data.commonUserProperties) {
-    const props = parseSimpleTable(data.commonUserProperties || []);
-    identify(undefined, props, options);
+  const userPropsFromVar = getUserPropsFromGoogEventSettingsVar(data.ga4EventPropsVariable);
+  const userProps = parseSimpleTable(data.commonUserProperties || []);
+  const allUserProps = mergeObj(userPropsFromVar, userProps);
+  if (!objectIsEmpty(allUserProps)) {
+    identify(undefined, allUserProps, options);
   }
+
+  const eventPropsFromVar = getEventPropsFromGoogEventSettingsVar(data.ga4EventPropsVariable);
 
   if (data.commonEventName) {
     const props = parseSimpleTable(data.commonEventProperties || []);
-    track(data.commonEventName, props, options);
 
-      data.gtmOnSuccess();
+    track(data.commonEventName, mergeObj(eventPropsFromVar, props), options);
+
+    data.gtmOnSuccess();
   } else {
-      log("ERROR: Freshpaint Google Analytics 4 Proxy GTM Template missing eventName");
-      data.gtmOnFailure();
+    log("ERROR: Freshpaint Google Analytics 4 Proxy GTM Template missing eventName");
+    data.gtmOnFailure();
   }
 };
 
@@ -3021,7 +3093,7 @@ const processLinkedInAdsCAPIEvent = () => {
 
   // make track call(s) for each conversionId
   conversionIds.forEach(id => {
-    const props = {};
+    const props = parseSimpleTable(data.commonEventProperties || []);
     props.conversion_id = id.trim();
 
     track(data.commonEventName, props, options);
