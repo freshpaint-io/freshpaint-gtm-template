@@ -2420,7 +2420,7 @@ function getEventPropsFromGoogEventSettingsVar(inputProps) {
     }
 
     eventProps[key] = inputProps[key];
-}
+  }
 
   return eventProps;
 }
