@@ -1,5 +1,5 @@
 homepage: "https://freshpaint.io"
 documentation: "https://documentation.freshpaint.io/integrations/google-tag-manager-integration"
 versions:
-  - sha: f18e5220ea6c6bfe1a3ba97e53aa28fd42441b4d
-    changeNotes: Support LinkedIn Ads Conversions API Integration
+  - sha: 478ffaa7602be2b1fb3488e3338ca8e5d5fcbb0c
+    changeNotes: Add ga4 shared ev prop, LinkedIn cAPI props
