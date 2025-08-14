@@ -125,6 +125,7 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "simpleValueType": true,
+    "defaultValue": "",
     "enablingConditions": [],
     "notSetText": "-",
     "valueValidators": [
@@ -221,7 +222,8 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "googleCM360Event",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "newRowButtonText": ""
   },
   {
     "type": "RADIO",
@@ -250,6 +252,217 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "googleCM360Event",
         "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "fbInstanceNames",
+    "displayName": "Specific Pixel ID(s) (optional)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "fbEventName",
+    "displayName": "Facebook Event Name",
+    "simpleValueType": true,
+    "radioItems": [
+      {
+        "value": "standard",
+        "displayValue": "Standard",
+        "subParams": [
+          {
+            "type": "SELECT",
+            "name": "fbStandardEventName",
+            "displayName": "",
+            "help": "",
+            "macrosInSelect": false,
+            "selectItems": [
+              {
+                "value": "PageView",
+                "displayValue": "PageView"
+              },
+              {
+                "value": "AddPaymentInfo",
+                "displayValue": "AddPaymentInfo"
+              },
+              {
+                "value": "AddToCart",
+                "displayValue": "AddToCart"
+              },
+              {
+                "value": "AddToWishlist",
+                "displayValue": "AddToWishlist"
+              },
+              {
+                "value": "CompleteRegistration",
+                "displayValue": "CompleteRegistration"
+              },
+              {
+                "value": "Contact",
+                "displayValue": "Contact"
+              },
+              {
+                "value": "CustomizeProduct",
+                "displayValue": "CustomizeProduct"
+              },
+              {
+                "value": "Donate",
+                "displayValue": "Donate"
+              },
+              {
+                "value": "FindLocation",
+                "displayValue": "FindLocation"
+              },
+              {
+                "value": "InitiateCheckout",
+                "displayValue": "InitiateCheckout"
+              },
+              {
+                "value": "Lead",
+                "displayValue": "Lead"
+              },
+              {
+                "value": "Purchase",
+                "displayValue": "Purchase"
+              },
+              {
+                "value": "Schedule",
+                "displayValue": "Schedule"
+              },
+              {
+                "value": "Search",
+                "displayValue": "Search"
+              },
+              {
+                "value": "StartTrial",
+                "displayValue": "StartTrial"
+              },
+              {
+                "value": "SubmitApplication",
+                "displayValue": "SubmitApplication"
+              },
+              {
+                "value": "Subscribe",
+                "displayValue": "Subscribe"
+              },
+              {
+                "value": "ViewContent",
+                "displayValue": "ViewContent"
+              }
+            ],
+            "simpleValueType": true,
+            "defaultValue": "PageView",
+            "enablingConditions": [],
+            "notSetText": "-",
+            "valueValidators": []
+          }
+        ]
+      },
+      {
+        "value": "custom",
+        "displayValue": "Custom",
+        "subParams": [
+          {
+            "type": "TEXT",
+            "name": "fbCustomEventName",
+            "displayName": "",
+            "help": "",
+            "simpleValueType": true,
+            "valueValidators": [],
+            "enablingConditions": []
+          }
+        ]
+      },
+      {
+        "value": "variable",
+        "displayValue": "Variable",
+        "subParams": [
+          {
+            "type": "SELECT",
+            "name": "fbVariableEventName",
+            "displayName": "",
+            "help": "",
+            "macrosInSelect": true,
+            "selectItems": [],
+            "simpleValueType": true,
+            "defaultValue": "",
+            "enablingConditions": [],
+            "notSetText": "-",
+            "valueValidators": []
+          }
+        ]
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "fbGroupParams",
+    "displayName": "Object Properties",
+    "groupStyle": "ZIPPY_CLOSED",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "subParams": [
+      {
+        "type": "SELECT",
+        "name": "fbObjectPropertiesFromVariable",
+        "displayName": "Load Properties From Variable",
+        "help": "You can use a variable that returns a JavaScript object with the properties you want to use. This object will be merged with any additional properties you add via the table below. Any conflicts will be resolved in favor of the properties you add to the table.",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": false,
+            "displayValue": "False"
+          }
+        ],
+        "simpleValueType": true,
+        "defaultValue": "",
+        "enablingConditions": [],
+        "notSetText": "-",
+        "valueValidators": []
+      },
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "fbObjectPropertyList",
+        "displayName": "",
+        "help": "",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Property Name",
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Property Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "enablingConditions": [],
+        "newRowButtonText": "Add property"
       }
     ]
   },
@@ -308,7 +521,8 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "ga4Event",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "newRowButtonText": ""
   },
   {
     "type": "SIMPLE_TABLE",
@@ -335,7 +549,8 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "ga4Event",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "newRowButtonText": ""
   },
   {
     "type": "TEXT",
@@ -487,6 +702,7 @@ ___TEMPLATE_PARAMETERS___
         "macrosInSelect": true,
         "selectItems": [],
         "simpleValueType": true,
+        "defaultValue": "",
         "enablingConditions": [
           {
             "paramName": "googleAdsEnhancedConversionsCheckbox",

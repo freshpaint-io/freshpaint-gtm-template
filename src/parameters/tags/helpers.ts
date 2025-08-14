@@ -26,14 +26,14 @@ type TextArgs = {
   help?: string;
   simpleValueType?: boolean;
   valueValidators?: Array<any>;
-  enablingConditions: Array<EnablingCondition>;
+  enablingConditions?: Array<EnablingCondition>;
 };
 
 type TextParam = {
   type: 'TEXT';
   name: string;
   displayName: string;
-  enablingConditions: Array<EnablingCondition>;
+  enablingConditions?: Array<EnablingCondition>;
   help?: string;
   simpleValueType?: boolean;
   valueValidators?: Array<any>;
@@ -47,7 +47,7 @@ export function text(args: TextArgs): TextParam {
     help: args.help || '',
     simpleValueType: args.simpleValueType || true,
     valueValidators: args.valueValidators || [],
-    enablingConditions: args.enablingConditions,
+    enablingConditions: args.enablingConditions || [],
   };
 }
 
@@ -77,32 +77,35 @@ export function checkbox(args: CheckboxArgs): CheckboxParam {
 }
 
 type SelectableItem = {
-  value: string;
+  value: any;
   displayValue: string;
   help?: string;
+  subParams?: Array<any>;
 };
 
 type SelectArgs = {
   name: string;
-  displayName: string;
+  displayName?: string;
   help?: string;
   macrosInSelect?: boolean;
   selectItems?: Array<SelectableItem>;
   simpleValueType?: boolean;
   notSetText?: string;
-  enablingConditions: Array<EnablingCondition>;
+  defaultValue?: string;
+  enablingConditions?: Array<EnablingCondition>;
   valueValidators?: Array<any>;
 };
 
 type SelectParam = {
   type: 'SELECT';
   name: string;
-  displayName: string;
+  displayName?: string;
   help?: string;
   macrosInSelect?: boolean;
   selectItems: Array<SelectableItem>;
   simpleValueType?: boolean;
-  enablingConditions: Array<EnablingCondition>;
+  enablingConditions?: Array<EnablingCondition>;
+  defaultValue?: string;
   notSetText?: string;
   valueValidators?: Array<any>;
 };
@@ -111,12 +114,13 @@ export function select(args: SelectArgs): SelectParam {
   return {
     type: 'SELECT',
     name: args.name,
-    displayName: args.displayName,
+    displayName: args.displayName || '',
     help: args.help || '',
     macrosInSelect: args.macrosInSelect || false,
     selectItems: args.selectItems || [],
     simpleValueType: args.simpleValueType || true,
-    enablingConditions: args.enablingConditions,
+    defaultValue: args.defaultValue || '',
+    enablingConditions: args.enablingConditions || [],
     notSetText: args.notSetText || '-',
     valueValidators: args.valueValidators || [],
   };
@@ -177,28 +181,31 @@ const propertyValueTableColumn = {
 
 type SimpleTableArgs = {
   name: string;
-  displayName: string;
+  displayName?: string;
   help?: string;
-  enablingConditions: Array<EnablingCondition>;
+  enablingConditions?: Array<EnablingCondition>;
+  newRowButtonText?: string;
 };
 
 export type SimpleTableParam = {
   type: 'SIMPLE_TABLE';
   name: string;
-  displayName: string;
+  displayName?: string;
   help?: string;
   simpleTableColumns: Array<any>;
-  enablingConditions: Array<EnablingCondition>;
+  enablingConditions?: Array<EnablingCondition>;
+  newRowButtonText?: string;
 };
 
 export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
   return {
     type: 'SIMPLE_TABLE',
     name: args.name,
-    displayName: args.displayName,
+    displayName: args.displayName || '',
     help: args.help || '',
     simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
     enablingConditions: args.enablingConditions || [],
+    newRowButtonText: args.newRowButtonText || '',
   };
 }
 
