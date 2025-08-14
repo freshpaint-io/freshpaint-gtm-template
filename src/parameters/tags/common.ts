@@ -14,6 +14,9 @@ export const nonEmpty = () => ({
   type: 'NON_EMPTY',
 });
 
+// TODO: fill this out to DRY up the param types
+type Param = {};
+
 type TextArgs = {
   name: string;
   displayName: string;
@@ -163,22 +166,42 @@ const propertyValueTableColumn = {
   type: 'TEXT',
 };
 
-export const commonEventProperties = (enablingConditions: Array<EnablingCondition> = []) => {
+type SimpleTableArgs = {
+  name: string;
+  displayName: string;
+  enablingConditions: Array<EnablingCondition>;
+};
+
+export type SimpleTableParam = {
+  type: 'SIMPLE_TABLE';
+  name: string;
+  displayName: string;
+  simpleTableColumns: Array<any>;
+  enablingConditions: Array<EnablingCondition>;
+};
+
+export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
   return {
     type: 'SIMPLE_TABLE',
+    name: args.name,
+    displayName: args.displayName,
+    simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
+    enablingConditions: args.enablingConditions || [],
+  };
+}
+
+export const commonEventProperties = (enablingConditions: Array<EnablingCondition> = []) => {
+  return simpleTable({
     name: 'commonEventProperties',
     displayName: 'Event Properties',
-    simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
     enablingConditions,
-  };
+  });
 };
 
 export const commonUserProperties = (enablingConditions: Array<EnablingCondition> = []) => {
-  return {
-    type: 'SIMPLE_TABLE',
+  return simpleTable({
     name: 'commonUserProperties',
     displayName: 'User Properties',
-    simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
     enablingConditions,
-  };
+  });
 };
