@@ -240,6 +240,7 @@ type ParamTableColumn = {
 type ParamTableArgs = {
   name: string;
   displayName: string;
+  help?: string;
   paramTableColumns: Array<ParamTableColumn>;
   enablingConditions: Array<EnablingCondition>;
 };
@@ -248,6 +249,7 @@ type ParamTableParam = {
   type: 'PARAM_TABLE';
   name: string;
   displayName: string;
+  help?: string;
   paramTableColumns: Array<ParamTableColumn>;
   enablingConditions: Array<EnablingCondition>;
 };
@@ -256,6 +258,7 @@ export function paramTable(args: ParamTableArgs): ParamTableParam {
     type: 'PARAM_TABLE',
     name: args.name,
     displayName: args.displayName,
+    help: args.help || '',
     paramTableColumns: args.paramTableColumns,
     enablingConditions: args.enablingConditions,
   };
