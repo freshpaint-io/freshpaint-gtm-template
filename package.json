@@ -1,6 +1,10 @@
 {
   "type": "module",
   "scripts": {
-    "build": "node build.js"
+    "build": "npm run build:params && node scripts/buildTemplate.js",
+    "build:params": "npx tsx scripts/buildParameters.js"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.4"
   }
 }

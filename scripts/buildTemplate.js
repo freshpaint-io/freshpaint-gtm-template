@@ -18,5 +18,6 @@ for (const [header, filename] of SECTIONS) {
   out += header + "\n\n" + content + "\n\n\n";
 }
 
-await fs.writeFile('template_built.tpl', out, "utf8");
-console.log(`wrote 'template_built.tpl'`);
+const outputPath = 'template.tpl';
+await fs.writeFile(outputPath, out, "utf8");
+console.log(`wrote '${outputPath}'`);

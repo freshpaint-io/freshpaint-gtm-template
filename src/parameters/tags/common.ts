@@ -80,7 +80,9 @@ type SelectArgs = {
     macrosInSelect?: boolean;
     selectItems?: Array<{ value: string; displayValue: string; help?: string }>;
     simpleValueType?: boolean;
+    notSetText?: string;
     enablingConditions: Array<EnablingCondition>;
+    valueValidators?: Array<any>;
 }
 
 type SelectParam = {
@@ -92,6 +94,8 @@ type SelectParam = {
     selectItems: Array<{ value: string; displayValue: string; help?: string }>;
     simpleValueType?: boolean;
     enablingConditions: Array<EnablingCondition>;
+    notSetText?: string;
+    valueValidators?: Array<any>;
 }
 
 export function select(args: SelectArgs): SelectParam {
@@ -104,6 +108,8 @@ export function select(args: SelectArgs): SelectParam {
         selectItems: args.selectItems || [],
         simpleValueType: args.simpleValueType || true,
         enablingConditions: args.enablingConditions,
+        notSetText: args.notSetText || "-",
+        valueValidators: args.valueValidators || [],
     };
 }
 

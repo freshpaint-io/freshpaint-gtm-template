@@ -6,7 +6,7 @@ import {
     nonEmpty,
     select,
     text
-} from "./common";
+} from "../common";
 
 const isGoogleAdsEvent = equals("tagType", "googleAdsEvent");
 const onlyForGoogleAds = [isGoogleAdsEvent];
