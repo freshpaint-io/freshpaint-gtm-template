@@ -6,7 +6,7 @@ import {
   text,
 } from '../helpers';
 
-export default function buildParams() {
+export default function ga4Params() {
   const isGA4Event = equals('tagType', 'ga4Event');
   const onlyForGA4 = [isGA4Event];
 

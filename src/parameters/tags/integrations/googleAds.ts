@@ -1,6 +1,14 @@
-import { checkbox, commonEventName, equals, group, nonEmpty, select, text } from '../helpers';
+import {
+  checkbox,
+  commonEventName,
+  commonGoogleAdsConversionLabel,
+  equals,
+  group,
+  select,
+  text,
+} from '../helpers';
 
-export default function buildParams() {
+export default function GoogleAdsParams() {
   const isGoogleAdsEvent = equals('tagType', 'googleAdsEvent');
   const onlyForGoogleAds = [isGoogleAdsEvent];
 
@@ -31,12 +39,7 @@ export default function buildParams() {
       enablingConditions: onlyForGoogleAds,
     }),
     commonEventName(onlyForGoogleAds),
-    text({
-      name: 'googleAdsConversionLabel',
-      displayName: 'Conversion Label',
-      valueValidators: [nonEmpty()],
-      enablingConditions: onlyForGoogleAds,
-    }),
+    commonGoogleAdsConversionLabel(onlyForGoogleAds),
     text({
       name: 'googleAdsConversionValue',
       displayName: 'Conversion Value (optional)',

@@ -76,12 +76,18 @@ export function checkbox(args: CheckboxArgs): CheckboxParam {
   };
 }
 
+type SelectableItem = {
+  value: string;
+  displayValue: string;
+  help?: string;
+};
+
 type SelectArgs = {
   name: string;
   displayName: string;
   help?: string;
   macrosInSelect?: boolean;
-  selectItems?: Array<{ value: string; displayValue: string; help?: string }>;
+  selectItems?: Array<SelectableItem>;
   simpleValueType?: boolean;
   notSetText?: string;
   enablingConditions: Array<EnablingCondition>;
@@ -94,7 +100,7 @@ type SelectParam = {
   displayName: string;
   help?: string;
   macrosInSelect?: boolean;
-  selectItems: Array<{ value: string; displayValue: string; help?: string }>;
+  selectItems: Array<SelectableItem>;
   simpleValueType?: boolean;
   enablingConditions: Array<EnablingCondition>;
   notSetText?: string;
@@ -172,6 +178,7 @@ const propertyValueTableColumn = {
 type SimpleTableArgs = {
   name: string;
   displayName: string;
+  help?: string;
   enablingConditions: Array<EnablingCondition>;
 };
 
@@ -179,6 +186,7 @@ export type SimpleTableParam = {
   type: 'SIMPLE_TABLE';
   name: string;
   displayName: string;
+  help?: string;
   simpleTableColumns: Array<any>;
   enablingConditions: Array<EnablingCondition>;
 };
@@ -188,6 +196,7 @@ export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
     type: 'SIMPLE_TABLE',
     name: args.name,
     displayName: args.displayName,
+    help: args.help || '',
     simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
     enablingConditions: args.enablingConditions || [],
   };
@@ -208,3 +217,43 @@ export const commonUserProperties = (enablingConditions: Array<EnablingCondition
     enablingConditions,
   });
 };
+
+export const commonGoogleAdsConversionLabel = (
+  enablingConditions: Array<EnablingCondition> = [],
+) => {
+  return text({
+    name: 'googleAdsConversionLabel',
+    displayName: 'Conversion Label',
+    simpleValueType: true,
+    valueValidators: [nonEmpty()],
+    enablingConditions,
+  });
+};
+
+type RadioArgs = {
+  name: string;
+  displayName: string;
+  simpleValueType?: boolean;
+  radioItems: Array<SelectableItem>;
+  enablingConditions: Array<EnablingCondition>;
+};
+
+type RadioParam = {
+  type: 'RADIO';
+  name: string;
+  displayName: string;
+  simpleValueType?: boolean;
+  radioItems: Array<SelectableItem>;
+  enablingConditions: Array<EnablingCondition>;
+};
+
+export function radio(args: RadioArgs): RadioParam {
+  return {
+    type: 'RADIO',
+    name: args.name,
+    displayName: args.displayName,
+    simpleValueType: args.simpleValueType || true,
+    radioItems: args.radioItems,
+    enablingConditions: args.enablingConditions,
+  };
+}

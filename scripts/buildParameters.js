@@ -20,10 +20,7 @@ const allParams = [];
 async function buildParams(filePath) {
   const modUrl = pathToFileURL(filePath).href;
   const mod = await import(modUrl);
-
-  const build =
-    (typeof mod.default === 'function' && mod.default) ||
-    (typeof mod.buildParams === 'function' && mod.buildParams);
+  const build = typeof mod.default === 'function' && mod.default;
 
   // params is always a flat array of parameter objects
   const params = await build();

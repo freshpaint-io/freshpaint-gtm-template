@@ -1,6 +1,6 @@
 import { nonEmpty, select } from './helpers';
 
-export default function buildParams() {
+export default function rootParams() {
   return [
     select({
       name: 'tagType',

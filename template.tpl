@@ -135,15 +135,15 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "ga4InstanceName",
-    "displayName": "Specific Measurement ID (optional)",
-    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "name": "googleCM360InstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 Conversions API destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
     "simpleValueType": true,
     "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "ga4Event",
+        "paramValue": "googleCM360Event",
         "type": "EQUALS"
       }
     ]
@@ -162,12 +162,108 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleCM360ActivityIDString",
+    "displayName": "Activity ID",
+    "help": "This is the Floodlight Activity ID (typically numeric) that conversions will be associated with. It differs from the Floodlight Activity tag string used by the native Floodlight Counter tag.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "googleCM360EventProperties",
+    "displayName": "Event Properties",
+    "help": "Google Campaign Manager 360 Conversions API accepts custom properties of the form u1, u2, etc (up to u100), as well as several additional properties. See Freshpaint documentation for a detailed list of accepted properties.",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "googleCM360FloodlightCountingMethod",
+    "displayName": "Counting Method",
+    "simpleValueType": true,
+    "radioItems": [
+      {
+        "value": "STANDARD",
+        "displayValue": "Standard",
+        "help": "Count every conversion."
+      },
+      {
+        "value": "UNIQUE",
+        "displayValue": "Unique",
+        "help": "Count the first conversion for each unique user during each 24-hour day, from midnight to midnight, Eastern Time (US)."
+      },
+      {
+        "value": "SESSION",
+        "displayValue": "Per Session",
+        "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "ga4InstanceName",
+    "displayName": "Specific Measurement ID (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
         "type": "EQUALS"
       }
     ]
@@ -191,6 +287,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SIMPLE_TABLE",
     "name": "commonEventProperties",
     "displayName": "Event Properties",
+    "help": "",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -217,6 +314,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "SIMPLE_TABLE",
     "name": "commonUserProperties",
     "displayName": "User Properties",
+    "help": "",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -241,15 +339,19 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "googleAdsInstanceName",
-    "displayName": "Specific Conversion ID (optional)",
-    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "name": "googleAdsCallConversionsDisplayedPhoneNbr",
+    "displayName": "Displayed Phone Number to Replace",
+    "help": "The phone number you enter needs to have the exact digits it has on your website. For example, if the number on your website has a country code, include the country code here. If the number on your website does not have a country code, do not include the country code here.",
     "simpleValueType": true,
-    "valueValidators": [],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
+        "paramValue": "googleAdsCallConversionsEvent",
         "type": "EQUALS"
       }
     ]
@@ -265,6 +367,45 @@ ___TEMPLATE_PARAMETERS___
         "type": "NON_EMPTY"
       }
     ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCallConversionsConversionId",
+    "displayName": "Conversion ID",
+    "help": "",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsInstanceName",
+    "displayName": "Specific Conversion ID (optional)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",

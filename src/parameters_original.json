@@ -6,18 +6,6 @@
     "macrosInSelect": false,
     "selectItems": [
       {
-        "value": "ga4Event",
-        "displayValue": "Google Analytics 4 (Proxy)"
-      },
-      {
-        "value": "googleAdsEvent",
-        "displayValue": "Google Ads"
-      },
-      {
-        "value": "googleAdsCallConversionsEvent",
-        "displayValue": "Google Ads Call Conversions"
-      },
-      {
         "value": "googleCM360Event",
         "displayValue": "Google Campaign Manager 360 Conversions API"
       },

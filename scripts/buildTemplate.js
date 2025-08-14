@@ -3,7 +3,7 @@ import path from 'node:path';
 
 // Sections to include in order in the final .tpl file
 const SECTIONS = [
-  ['___TERMS_OF_SERVICE___', 'terms.txt'],
+  ['___TERMS_OF_SERVICE___', 'terms.md'],
   ['___INFO___', 'metadata.json'],
   ['___TEMPLATE_PARAMETERS___', 'parameters.json'],
   ['___SANDBOXED_JS_FOR_WEB_TEMPLATE___', 'web.js'],
