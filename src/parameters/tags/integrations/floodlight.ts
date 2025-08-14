@@ -1,7 +1,7 @@
 import { commonEventName } from '../common';
 import { checkbox, equals, group, nonEmpty, paramTable, radio, select, text } from '../helpers';
 
-export default function LinkedInAdsParams() {
+export default function FloodlightParams() {
   const isFloodlightEvent = equals('tagType', 'floodlightEvent');
   const onlyForFloodlight = [isFloodlightEvent];
 

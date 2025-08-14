@@ -1,4 +1,4 @@
-import { EnablingCondition, TextParam, text, nonEmpty, simpleTable } from './helpers';
+import { EnablingCondition, TextParam, text, nonEmpty, simpleTable, radio } from './helpers';
 
 export const commonEventName = (enablingConditions: Array<EnablingCondition> = []): TextParam => {
   return text({
@@ -43,6 +43,27 @@ export const commonGoogleAdsConversionLabel = (
     displayName: 'Conversion Label',
     simpleValueType: true,
     valueValidators: [nonEmpty()],
+    enablingConditions,
+  });
+};
+
+export const commonOptinOptOut = (enablingConditions: Array<EnablingCondition> = []) => {
+  return radio({
+    name: 'commonOptinOptOut',
+    displayName: 'Opt-in / Opt-out',
+    radioItems: [
+      {
+        value: 'OPTIN',
+        displayValue: 'Opt-in',
+        help: 'Deliver only to destination types / instances specified',
+      },
+      {
+        value: 'OPTOUT',
+        displayValue: 'Opt-out',
+        help: 'Deliver to all but the destination types / instances specified',
+      },
+    ],
+    simpleValueType: true,
     enablingConditions,
   });
 };
