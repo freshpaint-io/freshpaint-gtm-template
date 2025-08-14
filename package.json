@@ -1,10 +1,12 @@
 {
   "type": "module",
   "scripts": {
+    "format": "prettier -w .",
     "build": "npm run build:params && node scripts/buildTemplate.js",
     "build:params": "npx tsx scripts/buildParameters.js"
   },
   "devDependencies": {
+    "prettier": "^3.6.2",
     "tsx": "^4.20.4"
   }
 }
