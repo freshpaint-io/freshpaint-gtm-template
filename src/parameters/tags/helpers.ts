@@ -179,6 +179,9 @@ const propertyValueTableColumn = {
   type: 'TEXT',
 };
 
+// todo: search how many times we are calling this simpleTable helper
+// and passing in the same name/ display name
+
 type SimpleTableArgs = {
   name: string;
   displayName?: string;
