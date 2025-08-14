@@ -1,3 +1,6 @@
+// TODO:
+// event names should be consts here
+
 type EnablingCondition = {
   paramName: string;
   paramValue: any;

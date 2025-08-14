@@ -4,7 +4,7 @@ import {
   commonUserProperties,
   equals,
   text,
-} from '../common';
+} from '../helpers';
 
 export default function buildParams() {
   const isGA4Event = equals('tagType', 'ga4Event');

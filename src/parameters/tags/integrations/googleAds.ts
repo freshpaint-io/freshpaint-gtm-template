@@ -1,4 +1,4 @@
-import { checkbox, commonEventName, equals, group, nonEmpty, select, text } from '../common';
+import { checkbox, commonEventName, equals, group, nonEmpty, select, text } from '../helpers';
 
 export default function buildParams() {
   const isGoogleAdsEvent = equals('tagType', 'googleAdsEvent');
