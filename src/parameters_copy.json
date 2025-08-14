@@ -15,20 +15,6 @@
   },
   {
     "type": "TEXT",
-    "name": "theTradeDeskInstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "pinterestAdsInstanceName",
     "displayName": "Pinterest Ad Account ID (optional)",
     "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
@@ -70,11 +56,6 @@
       {
         "paramName": "tagType",
         "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       },
       {
@@ -989,66 +970,6 @@
       {
         "paramName": "bingEventType",
         "paramValue": "pageViewSPA",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "theTradeDeskTrackerOrUPixelIDValue",
-    "displayName": "Event Tracker ID",
-    "help": "(a.k.a. Tracking Tag ID as used in the Static Tracking Tag)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "theTradeDeskValue",
-    "displayName": "value",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "theTradeDeskPrivacySettings",
-    "displayName": "Privacy Settings array (optional)",
-    "help": "Privacy Settings array object",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "theTradeDeskDataProcessingOption",
-    "displayName": "Data Processing Option (optional)",
-    "help": "Data Processing Option object",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
     ]
