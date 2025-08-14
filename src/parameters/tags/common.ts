@@ -148,3 +148,37 @@ export const commonEventName = (enablingConditions: Array<EnablingCondition> = [
     enablingConditions,
   });
 };
+
+const propertyNameTableColumn = {
+  defaultValue: '',
+  displayName: 'Property Name',
+  name: 'name',
+  type: 'TEXT',
+};
+
+const propertyValueTableColumn = {
+  defaultValue: '',
+  displayName: 'Property Value',
+  name: 'value',
+  type: 'TEXT',
+};
+
+export const commonEventProperties = (enablingConditions: Array<EnablingCondition> = []) => {
+  return {
+    type: 'SIMPLE_TABLE',
+    name: 'commonEventProperties',
+    displayName: 'Event Properties',
+    simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
+    enablingConditions,
+  };
+};
+
+export const commonUserProperties = (enablingConditions: Array<EnablingCondition> = []) => {
+  return {
+    type: 'SIMPLE_TABLE',
+    name: 'commonUserProperties',
+    displayName: 'User Properties',
+    simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
+    enablingConditions,
+  };
+};

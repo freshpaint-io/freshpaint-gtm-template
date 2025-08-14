@@ -106,15 +106,15 @@
   },
   {
     "type": "TEXT",
-    "name": "googleAdsInstanceName",
-    "displayName": "Specific Conversion ID (optional)",
-    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "name": "ga4InstanceName",
+    "displayName": "Specific Measurement ID (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
     "simpleValueType": true,
     "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
+        "paramValue": "ga4Event",
         "type": "EQUALS"
       }
     ]
@@ -130,6 +130,93 @@
         "type": "NON_EMPTY"
       }
     ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "ga4EventPropsVariable",
+    "displayName": "Event Properties Variable",
+    "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventProperties",
+    "displayName": "Event Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonUserProperties",
+    "displayName": "User Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsInstanceName",
+    "displayName": "Specific Conversion ID (optional)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",

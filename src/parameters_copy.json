@@ -144,11 +144,6 @@
       },
       {
         "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "googleCM360Event",
         "type": "EQUALS"
       },
@@ -1656,20 +1651,6 @@
     ]
   },
   {
-    "type": "TEXT",
-    "name": "ga4EventPropsVariable",
-    "displayName": "Event Properties Variable",
-    "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "SIMPLE_TABLE",
     "name": "commonEventProperties",
     "displayName": "Event Properties",
@@ -1688,11 +1669,6 @@
       }
     ],
     "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      },
       {
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
@@ -1836,11 +1812,6 @@
       {
         "paramName": "tagType",
         "paramValue": "identify",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
         "type": "EQUALS"
       }
     ]

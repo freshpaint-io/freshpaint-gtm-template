@@ -32,9 +32,32 @@ async function buildParams(filePath) {
 
 for (const fileName of fileNames) {
   const filePath = path.resolve('src/parameters/tags/', fileName);
-  await buildParams(filePath);
-  console.log(`built parameters from ${fileName}`);
+  try {
+    await buildParams(filePath);
+    console.log(`built parameters from ${fileName}`);
+  } catch (error) {
+    console.error(`failed to build parameters from ${fileName}: ${error}`);
+  }
 }
 
-await fs.writeFile(outputPath, JSON.stringify(allParams, null, 2) + '\n', 'utf8');
+const uniqParamMap = new Map();
+for (const param of allParams) {
+  if (uniqParamMap.has(param.name)) {
+    const existingParam = uniqParamMap.get(param.name);
+    if (param.enablingConditions) {
+      existingParam.enablingConditions = [
+        ...(existingParam.enablingConditions || []),
+        ...param.enablingConditions,
+      ];
+    }
+  } else {
+    uniqParamMap.set(param.name, param);
+  }
+}
+
+await fs.writeFile(
+  outputPath,
+  JSON.stringify(Array.from(uniqParamMap.values()), null, 2) + '\n',
+  'utf8',
+);
 console.log(`wrote ${outputPath}`);
