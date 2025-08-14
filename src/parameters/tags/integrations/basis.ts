@@ -1,4 +1,4 @@
-import { commonEventName, equals, text, simpleTable } from '../helpers';
+import { commonEventName, equals, text, simpleTable, commonEventProperties } from '../helpers';
 
 export default function BasisParams() {
   const isBasisEvent = equals('tagType', 'basisEvent');
@@ -13,10 +13,6 @@ export default function BasisParams() {
       enablingConditions: onlyForBasis,
     }),
     commonEventName(onlyForBasis),
-    simpleTable({
-      name: 'commonEventProperties',
-      displayName: 'Event Properties',
-      enablingConditions: onlyForBasis,
-    }),
+    commonEventProperties(onlyForBasis),
   ];
 }

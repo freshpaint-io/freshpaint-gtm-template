@@ -79,11 +79,6 @@
       },
       {
         "paramName": "tagType",
-        "paramValue": "stackAdaptEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "floodlightEvent",
         "type": "EQUALS"
       },
@@ -1060,24 +1055,6 @@
   },
   {
     "type": "TEXT",
-    "name": "stackAdaptConversionEventID",
-    "displayName": "StackAdapt Conversion Event Unique ID",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "stackAdaptEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "redditAdsInstanceName",
     "displayName": "Specific Account ID (optional)",
     "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
@@ -1142,11 +1119,6 @@
       }
     ],
     "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "stackAdaptEvent",
-        "type": "EQUALS"
-      },
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",

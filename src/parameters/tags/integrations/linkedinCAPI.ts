@@ -1,4 +1,11 @@
-import { commonEventName, equals, nonEmpty, simpleTable, text } from '../helpers';
+import {
+  commonEventName,
+  commonEventProperties,
+  equals,
+  nonEmpty,
+  simpleTable,
+  text,
+} from '../helpers';
 
 export default function LinkedInCAPIParams() {
   const isLinkedInCAPIEvent = equals('tagType', 'linkedInAdsCAPIEvent');
@@ -14,10 +21,6 @@ export default function LinkedInCAPIParams() {
       valueValidators: [nonEmpty()],
       enablingConditions: onlyForLinkedInCAPI,
     }),
-    simpleTable({
-      name: 'commonEventProperties',
-      displayName: 'Event Properties',
-      enablingConditions: onlyForLinkedInCAPI,
-    }),
+    commonEventProperties(onlyForLinkedInCAPI),
   ];
 }

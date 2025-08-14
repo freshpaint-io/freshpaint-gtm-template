@@ -13,10 +13,6 @@ export default function MntnParams() {
       enablingConditions: onlyForMntn,
     }),
     commonEventName(onlyForMntn),
-    simpleTable({
-      name: 'commonEventProperties',
-      displayName: 'Event Properties',
-      enablingConditions: onlyForMntn,
-    }),
+    commonEventName(onlyForMntn),
   ];
 }
