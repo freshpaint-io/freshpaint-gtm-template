@@ -177,6 +177,7 @@ type SimpleTableArgs = {
   help?: string;
   enablingConditions?: Array<EnablingCondition>;
   newRowButtonText?: string;
+  valueValidators?: Array<any>;
 };
 
 export type SimpleTableParam = {
@@ -187,6 +188,7 @@ export type SimpleTableParam = {
   simpleTableColumns: Array<any>;
   enablingConditions?: Array<EnablingCondition>;
   newRowButtonText?: string;
+  valueValidators?: Array<any>;
 };
 
 export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
@@ -198,6 +200,7 @@ export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
     simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
     enablingConditions: args.enablingConditions || [],
     newRowButtonText: args.newRowButtonText || '',
+    valueValidators: args.valueValidators || [],
   };
 }
 

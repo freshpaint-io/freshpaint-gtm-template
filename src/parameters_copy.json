@@ -579,38 +579,5 @@
         "type": "EQUALS"
       }
     ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "addEventPropertiesSharedProperties",
-    "displayName": "Shared Event Properties",
-    "help": "Any properties that should be included with all events going forward.",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "addEventProperties",
-        "type": "EQUALS"
-      }
-    ],
-    "valueValidators": [
-      {
-        "type": "TABLE_ROW_COUNT",
-        "args": [1]
-      }
-    ]
   }
 ]
