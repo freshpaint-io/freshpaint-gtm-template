@@ -18,7 +18,7 @@ export const nonEmpty = () => ({
 });
 
 // TODO: fill this out to DRY up the param types
-type Param = {};
+type Param = any;
 
 type TextArgs = {
   name: string;
@@ -243,6 +243,7 @@ export const commonGoogleAdsConversionLabel = (
 type RadioArgs = {
   name: string;
   displayName: string;
+  help?: string;
   simpleValueType?: boolean;
   radioItems: Array<SelectableItem>;
   enablingConditions: Array<EnablingCondition>;
@@ -252,6 +253,7 @@ type RadioParam = {
   type: 'RADIO';
   name: string;
   displayName: string;
+  help?: string;
   simpleValueType?: boolean;
   radioItems: Array<SelectableItem>;
   enablingConditions: Array<EnablingCondition>;
@@ -262,8 +264,38 @@ export function radio(args: RadioArgs): RadioParam {
     type: 'RADIO',
     name: args.name,
     displayName: args.displayName,
+    help: args.help || '',
     simpleValueType: args.simpleValueType || true,
     radioItems: args.radioItems,
+    enablingConditions: args.enablingConditions,
+  };
+}
+
+type ParamTableColumn = {
+  param: Param;
+  isUnique: boolean;
+};
+
+type ParamTableArgs = {
+  name: string;
+  displayName: string;
+  paramTableColumns: Array<ParamTableColumn>;
+  enablingConditions: Array<EnablingCondition>;
+};
+
+type ParamTableParam = {
+  type: 'PARAM_TABLE';
+  name: string;
+  displayName: string;
+  paramTableColumns: Array<ParamTableColumn>;
+  enablingConditions: Array<EnablingCondition>;
+};
+export function paramTable(args: ParamTableArgs): ParamTableParam {
+  return {
+    type: 'PARAM_TABLE',
+    name: args.name,
+    displayName: args.displayName,
+    paramTableColumns: args.paramTableColumns,
     enablingConditions: args.enablingConditions,
   };
 }
