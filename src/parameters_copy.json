@@ -1,122 +1,5 @@
 [
   {
-    "type": "SELECT",
-    "name": "tagType",
-    "displayName": "Freshpaint Tag Type",
-    "macrosInSelect": false,
-    "selectItems": [
-      {
-        "value": "ga4Event",
-        "displayValue": "Google Analytics 4 (Proxy)"
-      },
-      {
-        "value": "googleAdsEvent",
-        "displayValue": "Google Ads"
-      },
-      {
-        "value": "googleAdsCallConversionsEvent",
-        "displayValue": "Google Ads Call Conversions"
-      },
-      {
-        "value": "googleCM360Event",
-        "displayValue": "Google Campaign Manager 360 Conversions API"
-      },
-      {
-        "value": "fbPixelEvent",
-        "displayValue": "Facebook Conversions API"
-      },
-      {
-        "value": "basisEvent",
-        "displayValue": "Basis"
-      },
-      {
-        "value": "viantEvent",
-        "displayValue": "Viant"
-      },
-      {
-        "value": "linkedInAdsCAPIEvent",
-        "displayValue": "LinkedIn Ads Conversions API"
-      },
-      {
-        "value": "mntnEvent",
-        "displayValue": "MNTN"
-      },
-      {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
-      },
-      {
-        "value": "impactEvent",
-        "displayValue": "impact.com"
-      },
-      {
-        "value": "stackAdaptEvent",
-        "displayValue": "StackAdapt"
-      },
-      {
-        "value": "theTradeDeskEvent",
-        "displayValue": "theTradeDesk"
-      },
-      {
-        "value": "tikTokAdsEvent",
-        "displayValue": "TikTok Ads"
-      },
-      {
-        "value": "pinterestAdsEvent",
-        "displayValue": "Pinterest Ads"
-      },
-      {
-        "value": "redditAdsEvent",
-        "displayValue": "Reddit Ads"
-      },
-      {
-        "value": "twitterAdsEvent",
-        "displayValue": "Twitter Ads"
-      },
-      {
-        "value": "addEventProperties",
-        "displayValue": "AddEventProperties"
-      },
-      {
-        "value": "identify",
-        "displayValue": "Identify"
-      },
-      {
-        "value": "track",
-        "displayValue": "Track"
-      },
-      {
-        "value": "linkedInAdsEvent",
-        "displayValue": "LinkedIn Ads"
-      },
-      {
-        "value": "floodlightEvent",
-        "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
-      }
-    ],
-    "notSetText": "-",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsInstanceName",
-    "displayName": "Specific Conversion ID (optional)",
-    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "TEXT",
     "name": "googleCM360InstanceName",
     "displayName": "Specific Advertiser ID (optional)",
@@ -216,20 +99,6 @@
   },
   {
     "type": "TEXT",
-    "name": "ga4InstanceNames",
-    "displayName": "Specific Measurement ID(s) (optional)",
-    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "fbInstanceNames",
     "displayName": "Specific Pixel ID(s) (optional)",
     "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
@@ -276,11 +145,6 @@
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       },
       {
@@ -412,29 +276,6 @@
   },
   {
     "type": "TEXT",
-    "name": "googleAdsConversionLabel",
-    "displayName": "Conversion Label",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsCallConversionsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "googleAdsCallConversionsConversionId",
     "displayName": "Conversion ID",
     "simpleValueType": true,
@@ -448,83 +289,6 @@
         "paramName": "tagType",
         "paramValue": "googleAdsCallConversionsEvent",
         "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsConversionValue",
-    "displayName": "Conversion Value (optional)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsOrderId",
-    "displayName": "Transaction ID (optional)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsCurrencyCode",
-    "displayName": "Currency Code (optional)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "GROUP",
-    "name": "googleAdsEnhancedConversionsGroup",
-    "displayName": "Enhanced Conversions",
-    "groupStyle": "ZIPPY_CLOSED",
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "type": "EQUALS",
-        "paramValue": "googleAdsEvent"
-      }
-    ],
-    "subParams": [
-      {
-        "type": "CHECKBOX",
-        "name": "googleAdsEnhancedConversionsCheckbox",
-        "checkboxText": "Include user-provided data from your website",
-        "simpleValueType": true,
-        "help": "Improve measurement and get more insights with data people provide to your website. You will need to agree to the user-provided data terms and policies in your Google Ads account first."
-      },
-      {
-        "type": "SELECT",
-        "name": "googleAdsEnhancedConversionsUserDataVariable",
-        "displayName": "User-provided Data Variable",
-        "help": "The selected variable should be of type 'User-Provided Data'",
-        "macrosInSelect": true,
-        "selectItems": [],
-        "simpleValueType": true,
-        "enablingConditions": [
-          {
-            "paramName": "googleAdsEnhancedConversionsCheckbox",
-            "type": "EQUALS",
-            "paramValue": true
-          }
-        ]
       }
     ]
   },
