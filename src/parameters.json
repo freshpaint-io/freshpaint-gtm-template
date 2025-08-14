@@ -1,0 +1,2302 @@
+[
+  {
+    "type": "SELECT",
+    "name": "tagType",
+    "displayName": "Freshpaint Tag Type",
+    "macrosInSelect": false,
+    "selectItems": [
+      {
+        "value": "ga4Event",
+        "displayValue": "Google Analytics 4 (Proxy)"
+      },
+      {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads"
+      },
+      {
+        "value": "googleAdsCallConversionsEvent",
+        "displayValue": "Google Ads Call Conversions"
+      },
+      {
+        "value": "googleCM360Event",
+        "displayValue": "Google Campaign Manager 360 Conversions API"
+      },
+      {
+        "value": "fbPixelEvent",
+        "displayValue": "Facebook Conversions API"
+      },
+      {
+        "value": "basisEvent",
+        "displayValue": "Basis"
+      },
+      {
+        "value": "viantEvent",
+        "displayValue": "Viant"
+      },
+      {
+        "value": "linkedInAdsCAPIEvent",
+        "displayValue": "LinkedIn Ads Conversions API"
+      },
+      {
+        "value": "mntnEvent",
+        "displayValue": "MNTN"
+      },
+      {
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
+      },
+      {
+        "value": "impactEvent",
+        "displayValue": "impact.com"
+      },
+      {
+        "value": "stackAdaptEvent",
+        "displayValue": "StackAdapt"
+      },
+      {
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
+      },
+      {
+        "value": "tikTokAdsEvent",
+        "displayValue": "TikTok Ads"
+      },
+      {
+        "value": "pinterestAdsEvent",
+        "displayValue": "Pinterest Ads"
+      },
+      {
+        "value": "redditAdsEvent",
+        "displayValue": "Reddit Ads"
+      },
+      {
+        "value": "twitterAdsEvent",
+        "displayValue": "Twitter Ads"
+      },
+      {
+        "value": "addEventProperties",
+        "displayValue": "AddEventProperties"
+      },
+      {
+        "value": "identify",
+        "displayValue": "Identify"
+      },
+      {
+        "value": "track",
+        "displayValue": "Track"
+      },
+      {
+        "value": "linkedInAdsEvent",
+        "displayValue": "LinkedIn Ads"
+      },
+      {
+        "value": "floodlightEvent",
+        "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
+      }
+    ],
+    "notSetText": "-",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsInstanceName",
+    "displayName": "Specific Conversion ID (optional)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleCM360InstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 Conversions API destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "floodlightInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Floodlight destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "basisInstanceName",
+    "displayName": "Specific Pixel ID (optional)",
+    "help": "If multiple Pixel IDs are configured for the Basis destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "pinterestAdsInstanceName",
+    "displayName": "Pinterest Ad Account ID (optional)",
+    "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "viantInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Viant destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+      "paramName": "tagType",
+      "paramValue": "viantEvent",
+      "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingAdsInstanceName",
+    "displayName": "Specific Tag ID (optional)",
+    "help": "If multiple Tag IDs are configured for the Bing Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Tag IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "ga4InstanceNames",
+    "displayName": "Specific Measurement ID(s) (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "fbInstanceNames",
+    "displayName": "Specific Pixel ID(s) (optional)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+    {
+      "type": "TEXT",
+      "name": "mntnInstanceName",
+      "displayName": "Specific Advertiser ID (optional)",
+      "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+      "simpleValueType": true,
+      "enablingConditions": [
+        {
+          "paramName": "tagType",
+          "paramValue": "mntnEvent",
+          "type": "EQUALS"
+        }
+      ]
+    },
+  {
+    "type": "TEXT",
+    "name": "commonEventName",
+    "displayName": "Freshpaint Event Name",
+    "help": "This will be the event name that you see in Freshpaint - it is sent to only certain destinations, including Google Analytics 4 (Proxy).",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "viantEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "identifyIdentifier",
+    "displayName": "Identifier (recommended)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "linkedInAdsConversionIds",
+    "displayName": "Conversion ID(s) (max. 3)",
+    "help": "Enter 1-3 conversion ids separated by a comma.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "linkedInAdsCAPIConversionIds",
+    "displayName": "Conversion ID(s) (max. 3)",
+    "help": "Enter 1-3 conversion ids separated by a comma.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCallConversionsDisplayedPhoneNbr",
+    "displayName": "Displayed Phone Number to Replace",
+    "help": "The phone number you enter needs to have the exact digits it has on your website. For example, if the number on your website has a country code, include the country code here. If the number on your website does not have a country code, do not include the country code here.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionLabel",
+    "displayName": "Conversion Label",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCallConversionsConversionId",
+    "displayName": "Conversion ID",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsCallConversionsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionValue",
+    "displayName": "Conversion Value (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsOrderId",
+    "displayName": "Transaction ID (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsCurrencyCode",
+    "displayName": "Currency Code (optional)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "googleAdsEnhancedConversionsGroup",
+    "displayName": "Enhanced Conversions",
+    "groupStyle": "ZIPPY_CLOSED",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "type": "EQUALS",
+        "paramValue": "googleAdsEvent"
+      }
+    ],
+    "subParams": [
+      {
+        "type": "CHECKBOX",
+        "name": "googleAdsEnhancedConversionsCheckbox",
+        "checkboxText": "Include user-provided data from your website",
+        "simpleValueType": true,
+        "help": "Improve measurement and get more insights with data people provide to your website. You will need to agree to the user-provided data terms and policies in your Google Ads account first."
+      },
+      {
+        "type": "SELECT",
+        "name": "googleAdsEnhancedConversionsUserDataVariable",
+        "displayName": "User-provided Data Variable",
+        "help": "The selected variable should be of type 'User-Provided Data'",
+        "macrosInSelect": true,
+        "selectItems": [],
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "googleAdsEnhancedConversionsCheckbox",
+            "type": "EQUALS",
+            "paramValue": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "tikTokAdsEventName",
+    "displayName": "TikTok Event Name",
+    "help": "Enter the name of the TikTok event you want to track. This can be a standard event name or a custom event name.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+
+  {
+    "type": "RADIO",
+    "name": "fbEventName",
+    "radioItems": [
+      {
+        "value": "standard",
+        "displayValue": "Standard",
+        "subParams": [
+          {
+            "type": "SELECT",
+            "name": "fbStandardEventName",
+            "selectItems": [
+              {
+                "value": "PageView",
+                "displayValue": "PageView"
+              },
+              {
+                "value": "AddPaymentInfo",
+                "displayValue": "AddPaymentInfo"
+              },
+              {
+                "value": "AddToCart",
+                "displayValue": "AddToCart"
+              },
+              {
+                "value": "AddToWishlist",
+                "displayValue": "AddToWishlist"
+              },
+              {
+                "value": "CompleteRegistration",
+                "displayValue": "CompleteRegistration"
+              },
+              {
+                "value": "Contact",
+                "displayValue": "Contact"
+              },
+              {
+                "value": "CustomizeProduct",
+                "displayValue": "CustomizeProduct"
+              },
+              {
+                "value": "Donate",
+                "displayValue": "Donate"
+              },
+              {
+                "value": "FindLocation",
+                "displayValue": "FindLocation"
+              },
+              {
+                "value": "InitiateCheckout",
+                "displayValue": "InitiateCheckout"
+              },
+              {
+                "value": "Lead",
+                "displayValue": "Lead"
+              },
+              {
+                "value": "Purchase",
+                "displayValue": "Purchase"
+              },
+              {
+                "value": "Schedule",
+                "displayValue": "Schedule"
+              },
+              {
+                "value": "Search",
+                "displayValue": "Search"
+              },
+              {
+                "value": "StartTrial",
+                "displayValue": "StartTrial"
+              },
+              {
+                "value": "SubmitApplication",
+                "displayValue": "SubmitApplication"
+              },
+              {
+                "value": "Subscribe",
+                "displayValue": "Subscribe"
+              },
+              {
+                "value": "ViewContent",
+                "displayValue": "ViewContent"
+              }
+            ],
+            "simpleValueType": true,
+            "defaultValue": "PageView"
+          }
+        ]
+      },
+      {
+        "value": "custom",
+        "displayValue": "Custom",
+        "subParams": [
+          {
+            "type": "TEXT",
+            "name": "fbCustomEventName",
+            "displayName": "",
+            "simpleValueType": true
+          }
+        ]
+      },
+      {
+        "value": "variable",
+        "displayValue": "Variable",
+        "subParams": [
+          {
+            "type": "SELECT",
+            "name": "fbVariableEventName",
+            "displayName": "",
+            "macrosInSelect": true,
+            "selectItems": [],
+            "simpleValueType": true
+          }
+        ]
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "fbGroupParams",
+    "displayName": "Object Properties",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "SELECT",
+        "name": "fbObjectPropertiesFromVariable",
+        "displayName": "Load Properties From Variable",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": false,
+            "displayValue": "False"
+          }
+        ],
+        "simpleValueType": true,
+        "help": "You can use a variable that returns a JavaScript object with the properties you want to use. This object will be merged with any additional properties you add via the table below. Any conflicts will be resolved in favor of the properties you add to the table."
+      },
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "fbObjectPropertyList",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Property Name",
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Property Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "newRowButtonText": "Add property"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "floodlightGroupTagString",
+    "displayName": "Group Tag String",
+    "help": "This is the value of the \"type=\" parameter.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "floodlightActivityTagString",
+    "displayName": "Activity Tag String",
+    "help": "This is the value of the \"cat=\" parameter.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "floodlightCountingMethod",
+    "displayName": "Counting Method",
+    "radioItems": [
+      {
+        "value": "STANDARD",
+        "displayValue": "Standard",
+        "help": "Count every conversion."
+      },
+      {
+        "value": "UNIQUE",
+        "displayValue": "Unique",
+        "help": "Count the first conversion for each unique user during each 24-hour day, from midnight to midnight, Eastern Time (US)."
+      },
+      {
+        "value": "SESSION",
+        "displayValue": "Per Session",
+        "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "floodlightCustomVariables",
+    "displayName": "Custom Variables",
+    "help": "Floodlight custom variables are key-value pairs that can be used to track data that you collect about your users, for example the genre of movie that a user purchases. The keys are of the format \"u1=\", \"u2=\", etc.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "key",
+          "displayName": "Key",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "u1",
+              "displayValue": "u1"
+            },
+            {
+              "value": "u2",
+              "displayValue": "u2"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "value",
+          "displayName": "Value",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "floodlightEnhancedConversionsGroup",
+    "displayName": "Enhanced Conversions",
+    "groupStyle": "ZIPPY_CLOSED",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "type": "EQUALS",
+        "paramValue": "floodlightEvent"
+      }
+    ],
+    "subParams": [
+      {
+        "type": "CHECKBOX",
+        "name": "floodlightEnhancedConversionsCheckbox",
+        "checkboxText": "Include user-provided data from your website",
+        "simpleValueType": true,
+        "help": "User-provided data allows you to improve the accuracy of your measurement by sending hashed first party user-provided data from your website. You will need to agree to the user-provided data terms and policies in your Search Ads 360 account first."
+      },
+      {
+        "type": "SELECT",
+        "name": "floodlightEnhancedConversionsUserDataVariable",
+        "displayName": "User-provided Data Variable",
+        "help": "The selected variable should be of type 'User-Provided Data'",
+        "macrosInSelect": true,
+        "selectItems": [],
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "floodlightEnhancedConversionsCheckbox",
+            "type": "EQUALS",
+            "paramValue": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleCM360ActivityIDString",
+    "displayName": "Activity ID",
+    "help": "This is the Floodlight Activity ID (typically numeric) that conversions will be associated with. It differs from the Floodlight Activity tag string used by the native Floodlight Counter tag.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "twitterEventName",
+    "displayName": "Select tag event:",
+    "radioItems": [
+      {
+        "value": "PageView",
+        "displayValue": "PageView"
+      },
+      {
+        "value": "ViewContent",
+        "displayValue": "ViewContent"
+      },
+      {
+        "value": "Search",
+        "displayValue": "Search"
+      },
+      {
+        "value": "AddToCart",
+        "displayValue": "AddToCart"
+      },
+      {
+        "value": "AddToWishlist",
+        "displayValue": "AddToWishlist"
+      },
+      {
+        "value": "InitiateCheckout",
+        "displayValue": "InitiateCheckout"
+      },
+      {
+        "value": "AddPaymentInfo",
+        "displayValue": "AddPaymentInfo"
+      },
+      {
+        "value": "Purchase",
+        "displayValue": "Purchase"
+      },
+      {
+        "value": "Signup",
+        "displayValue": "Signup"
+      },
+      {
+        "value": "Download",
+        "displayValue": "Download"
+      },
+      {
+        "value": "CompleteRegistration",
+        "displayValue": "CompleteRegistration"
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "twitterEventParameters",
+    "displayName": "Event Parameters.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Event parameter name",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "value",
+              "displayValue": "\u0027value\u0027 - amount of an action valuable to your business, such as a purchase. Example: 12.99"
+            },
+            {
+              "value": "currency",
+              "displayValue": "\u0027currency\u0027 - use if the \u0027value\u0027 parameter is set. ISO 4217 currency code. Example: USD"
+            },
+            {
+              "value": "content_name",
+              "displayValue": "\u0027content_name\u0027 - name of the page or product. Example: Promotional User Sign-up Complete"
+            },
+            {
+              "value": "content_category",
+              "displayValue": "\u0027content_category\u0027 - category of the page or product. Example: 30day Trial"
+            },
+            {
+              "value": "content_ids",
+              "displayValue": "\u0027content_ids\u0027 - product IDs associated with the Purchase event. Example: [\u0027SKU-AB12\u0027,\u0027SKU-DE45\u0027]."
+            },
+            {
+              "value": "content_type",
+              "displayValue": "\u0027content_type\u0027 - use either \u0027product\u0027 or \u0027product_group\u0027 based on the content_ids"
+            },
+            {
+              "value": "num_items",
+              "displayValue": "\u0027num_items\u0027 - number of items associated with the conversion event. Example: 3."
+            },
+            {
+              "value": "order_id",
+              "displayValue": "\u0027order_id\u0027 - order ID associated with the user\u0027s purchase. Example: OID-8767-1"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Value for the event parameter",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "bingEventType",
+    "displayName": "Track Type",
+    "help": "Select 'Page View' only when your Freshpaint Bing Ads configuration has 'Automatically Send Page View Events' unchecked",
+    "macrosInSelect": false,
+    "notSetText": "-",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "selectItems": [
+      {
+        "value": "CUSTOM_PAGE_LOAD",
+        "displayValue": "Page View"
+      },
+      {
+        "value": "VARIABLE_REVENUE",
+        "displayValue": "Variable revenue for destination URL"
+      },
+      {
+        "value": "CUSTOM",
+        "displayValue": "Custom conversion"
+      },
+      {
+        "value": "ecommerce",
+        "displayValue": "Vertical: Ecommerce"
+      },
+      {
+        "value": "hotel",
+        "displayValue": "Vertical: Hotel"
+      },
+      {
+        "value": "travel",
+        "displayValue": "Vertical: Travel"
+      },
+      {
+        "value": "userDefined",
+        "displayValue": "Define your own"
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "bingEventAction",
+    "displayName": "Event action",
+    "macrosInSelect": true,
+    "selectItems": [
+      {
+        "value": "",
+        "displayValue": "Custom (input action name manually)"
+      },
+      {
+        "value": "add_payment_info",
+        "displayValue": "Add payment info (add_payment_info)"
+      },
+      {
+        "value": "add_to_cart",
+        "displayValue": "Add to cart (add_to_cart)"
+      },
+      {
+        "value": "add_to_wishlist",
+        "displayValue": "Add to wishlist (add_to_wishlist)"
+      },
+      {
+        "value": "begin_checkout",
+        "displayValue": "Begin checkout (begin_checkout)"
+      },
+      {
+        "value": "checkout_progress",
+        "displayValue": "Checkout progress (checkout_progress)"
+      },
+      {
+        "value": "exception",
+        "displayValue": "Exception (exception)"
+      },
+      {
+        "value": "generate_lead",
+        "displayValue": "Generate lead (generate_lead)"
+      },
+      {
+        "value": "login",
+        "displayValue": "Log in (login)"
+      },
+      {
+        "value": "purchase",
+        "displayValue": "Purchase (purchase)"
+      },
+      {
+        "value": "refund",
+        "displayValue": "Refund (refund)"
+      },
+      {
+        "value": "remove_from_cart",
+        "displayValue": "Remove from cart (remove_from_cart)"
+      },
+      {
+        "value": "screen_view",
+        "displayValue": "Screen view (screen_view)"
+      },
+      {
+        "value": "search",
+        "displayValue": "Search (search)"
+      },
+      {
+        "value": "select_content",
+        "displayValue": "Select content (select_content)"
+      },
+      {
+        "value": "set_checkout_option",
+        "displayValue": "Set checkout option (set_checkout_option)"
+      },
+      {
+        "value": "share",
+        "displayValue": "Share (share)"
+      },
+      {
+        "value": "sign_up",
+        "displayValue": "Sign up (sign_up)"
+      },
+      {
+        "value": "view_item",
+        "displayValue": "View item (view_item)"
+      },
+      {
+        "value": "view_item_list",
+        "displayValue": "View item list (view_item_list)"
+      },
+      {
+        "value": "view_promotion",
+        "displayValue": "View promotion (view_promotion)"
+      },
+      {
+        "value": "view_search_results",
+        "displayValue": "View search results (view_search_results)"
+      }
+    ],
+    "simpleValueType": true,
+    "help": "If you select \"Custom\" and then leave the \"Define your own event action\" field blank, an empty event action value will be sent",
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "ecommerce",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "hotel",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "travel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCustomEventAction",
+    "displayName": "Define your own event action",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventAction",
+        "paramValue": "",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "userDefined",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingEventCategory",
+    "displayName": "Event category",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingEventLabel",
+    "displayName": "Event label",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingEventValue",
+    "displayName": "Event value",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCurrency",
+    "displayName": "Currency",
+    "simpleValueType": true,
+    "help": "Currency value must be ISO standard currency code",
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "VARIABLE_REVENUE",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "hotel",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": "USD"
+  },
+  {
+    "type": "TEXT",
+    "name": "bingRevenue",
+    "displayName": "Revenue Value",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "VARIABLE_REVENUE",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "bingEcomParams",
+    "displayName": "Ecommerce event parameters",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "bingEcommProdId",
+        "displayName": "Retail product ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "SELECT",
+        "name": "bingEcommPagetype",
+        "displayName": "Retail page type",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": "home",
+            "displayValue": "Home"
+          },
+          {
+            "value": "searchresults",
+            "displayValue": "Search Results"
+          },
+          {
+            "value": "category",
+            "displayValue": "Category"
+          },
+          {
+            "value": "product",
+            "displayValue": "Product"
+          },
+          {
+            "value": "cart",
+            "displayValue": "Cart"
+          },
+          {
+            "value": "purchase",
+            "displayValue": "Purchase"
+          },
+          {
+            "value": "other",
+            "displayValue": "Other"
+          }
+        ],
+        "simpleValueType": true,
+        "help": "The pagetype parameter is required when you include the prodid parameter."
+      },
+      {
+        "type": "TEXT",
+        "name": "bingEcommTotalValue",
+        "displayName": "Retail total value",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingEcommCategory",
+        "displayName": "Retail category",
+        "simpleValueType": true
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "ecommerce",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "bingHotelParams",
+    "displayName": "Hotel event parameters",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "bingHctBasePrice",
+        "displayName": "Hotel base price",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHctBookingXref",
+        "displayName": "Hotel booking reference #",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHctCheckinDate",
+        "displayName": "Hotel check-in date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHctCheckoutDate",
+        "displayName": "Hotel check-out date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHctLengthOfStay",
+        "displayName": "Hotel length of stay",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHctPartnerHotelId",
+        "displayName": "Partner hotel ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingHctTotalPrice",
+        "displayName": "Hotel total price",
+        "simpleValueType": true
+      },
+      {
+        "type": "SELECT",
+        "name": "bingHctPagetype",
+        "displayName": "Hotel page type",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": "home",
+            "displayValue": "Home"
+          },
+          {
+            "value": "searchresults",
+            "displayValue": "Search Results"
+          },
+          {
+            "value": "offerdetail",
+            "displayValue": "Offer Detail"
+          },
+          {
+            "value": "conversionintent",
+            "displayValue": "Conversion Intent"
+          },
+          {
+            "value": "conversion",
+            "displayValue": "Conversion"
+          },
+          {
+            "value": "property",
+            "displayValue": "Property"
+          },
+          {
+            "value": "cart",
+            "displayValue": "Cart"
+          },
+          {
+            "value": "purchase",
+            "displayValue": "Purchase"
+          },
+          {
+            "value": "cancel",
+            "displayValue": "Cancel"
+          },
+          {
+            "value": "other",
+            "displayValue": "Other"
+          }
+        ],
+        "simpleValueType": true
+      },
+      {
+        "type": "LABEL",
+        "name": "bingHotelLabel",
+        "displayName": "The hotel total price (hct_total_price) and currency parameters are required when you include other hotel parameters."
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "hotel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "bingTravelParams",
+    "displayName": "Travel event parameters",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "bingTravelDestid",
+        "displayName": "Travel destination ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelOriginid",
+        "displayName": "Travel origin ID",
+        "simpleValueType": true
+      },
+      {
+        "type": "SELECT",
+        "name": "bingTravelPagetype",
+        "displayName": "Travel page type",
+        "macrosInSelect": true,
+        "selectItems": [
+          {
+            "value": "home",
+            "displayValue": "Home"
+          },
+          {
+            "value": "searchresults",
+            "displayValue": "Search Results"
+          },
+          {
+            "value": "offerdetail",
+            "displayValue": "Offer Detail"
+          },
+          {
+            "value": "conversionintent",
+            "displayValue": "Conversion Intent"
+          },
+          {
+            "value": "conversion",
+            "displayValue": "Conversion"
+          },
+          {
+            "value": "cancel",
+            "displayValue": "Cancel"
+          },
+          {
+            "value": "other",
+            "displayValue": "Other"
+          }
+        ],
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelStartdate",
+        "displayName": "Travel start date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelEnddate",
+        "displayName": "Travel end date",
+        "simpleValueType": true,
+        "help": "Value must be in YYYY-MM-DD date format"
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelTotalvalue",
+        "displayName": "Travel total value",
+        "simpleValueType": true
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "travel",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingPagePath",
+    "displayName": "Page path",
+    "simpleValueType": true,
+    "help": "Must start with a \u0027/\u0027, ex: \u0027/spa_page\u0027",
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "pageViewSPA",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingPageTitle",
+    "displayName": "Page title",
+    "simpleValueType": true,
+    "help": "Can leave empty to re-use document title",
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "pageViewSPA",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "impactEventTypeIdOrCodeSelector",
+    "displayName": "Use event_type_id vs. event_type_code",
+    "help": "One or the other of event_type_id or event_type_code must be specified.",
+    "radioItems": [
+      {
+        "value": "event_type_id",
+        "displayValue": "event_type_id"
+      },
+      {
+        "value": "event_type_code",
+        "displayValue": "event_type_code"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "impactEventTypeIdOrCode",
+    "displayName": "event_type_id / event_type_code (required)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "impactOrderId",
+    "displayName": "order_id (required)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "impactOtherEventParameters",
+    "displayName": "Other parameters (optional)",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "property",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "amount",
+              "displayValue": "amount"
+            },
+            {
+              "value": "currency",
+              "displayValue": "currency"
+            },
+            {
+              "value": "customer_status",
+              "displayValue": "customer_status"
+            },
+            {
+              "value": "discount",
+              "displayValue": "discount"
+            },
+            {
+              "value": "email",
+              "displayValue": "email"
+            },
+            {
+              "value": "items",
+              "displayValue": "items"
+            },
+            {
+              "value": "latitude",
+              "displayValue": "latitude"
+            },
+            {
+              "value": "longitude",
+              "displayValue": "longitude"
+            },
+            {
+              "value": "order_promo_code",
+              "displayValue": "order_promo_code"
+            },
+            {
+              "value": "order_revenue",
+              "displayValue": "order_revenue (amount)"
+            },
+            {
+              "value": "order_shipping",
+              "displayValue": "order_shipping"
+            },
+            {
+              "value": "order_tax",
+              "displayValue": "order_tax"
+            },
+            {
+              "value": "text1",
+              "displayValue": "text1"
+            },
+            {
+              "value": "text2",
+              "displayValue": "text2"
+            },
+            {
+              "value": "text3",
+              "displayValue": "text3"
+            },
+            {
+              "value": "text4",
+              "displayValue": "text4"
+            },
+            {
+              "value": "text5",
+              "displayValue": "text5"
+            },
+            {
+              "value": "text6",
+              "displayValue": "text6"
+            },
+            {
+              "value": "text7",
+              "displayValue": "text7"
+            },
+            {
+              "value": "text8",
+              "displayValue": "text8"
+            },
+            {
+              "value": "text9",
+              "displayValue": "text9"
+            },
+            {
+              "value": "text10",
+              "displayValue": "text10"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": true
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Value",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskTrackerOrUPixelIDValue",
+    "displayName": "Event Tracker ID",
+    "help": "(a.k.a. Tracking Tag ID as used in the Static Tracking Tag)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+     "type": "TEXT",
+     "name": "theTradeDeskValue",
+     "displayName": "value",
+     "simpleValueType": true,
+     "enablingConditions": [
+       {
+         "paramName": "tagType",
+         "paramValue": "theTradeDeskEvent",
+         "type": "EQUALS"
+       }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskPrivacySettings",
+    "displayName": "Privacy Settings array (optional)",
+    "help": "Privacy Settings array object",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskDataProcessingOption",
+    "displayName": "Data Processing Option (optional)",
+    "help": "Data Processing Option object",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "stackAdaptConversionEventID",
+    "displayName": "StackAdapt Conversion Event Unique ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "redditAdsInstanceName",
+    "displayName": "Specific Account ID (optional)",
+    "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "addEventPropertiesSharedProperties",
+    "displayName": "Shared Event Properties",
+    "help": "Any properties that should be included with all events going forward.",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "addEventProperties",
+        "type": "EQUALS"
+      }
+    ],
+    "valueValidators": [
+      {
+        "type": "TABLE_ROW_COUNT",
+        "args": [
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "ga4EventPropsVariable",
+    "displayName": "Event Properties Variable",
+    "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
+    "simpleValueType": true,
+    "enablingConditions":  [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventProperties",
+    "displayName": "Event Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "googleCM360EventProperties",
+    "displayName": "Event Properties",
+    "help": "Google Campaign Manager 360 Conversions API accepts custom properties of the form u1, u2, etc (up to u100), as well as several additional properties. See Freshpaint documentation for a detailed list of accepted properties.",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+      "type": "RADIO",
+      "name": "googleCM360FloodlightCountingMethod",
+      "displayName": "Counting Method",
+      "radioItems": [
+        {
+          "value": "STANDARD",
+          "displayValue": "Standard",
+          "help": "Count every conversion."
+        },
+        {
+          "value": "UNIQUE",
+          "displayValue": "Unique",
+          "help": "Count the first conversion for each unique user during each 24-hour day, from midnight to midnight, Eastern Time (US)."
+        },
+        {
+          "value": "SESSION",
+          "displayValue": "Per Session",
+          "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
+        }
+      ],
+      "simpleValueType": true,
+      "enablingConditions": [
+        {
+          "paramName": "tagType",
+          "paramValue": "googleCM360Event",
+          "type": "EQUALS"
+        }
+      ]
+    },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventPropertiesJSONValue",
+    "displayName": "Event Properties",
+    "help": "Props named value, quantity, item_count, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonUserProperties",
+    "displayName": "User Properties",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "commonOptinOptOut",
+    "displayName": "Opt-in / Opt-out",
+    "radioItems": [
+      {
+        "value": "OPTIN",
+        "displayValue": "Opt-in",
+        "help": "Deliver only to destination types / instances specified"
+      },
+      {
+        "value": "OPTOUT",
+        "displayValue": "Opt-out",
+        "help": "Deliver to all but the destination types / instances specified"
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "commonOptinOptOutInstances",
+    "displayName": "Specific Destination Types / Instance IDs",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Destination Type",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Google Analytics 4",
+              "displayValue": "Google Analytics 4 (Server-Side)"
+            },
+            {
+              "value": "Google AdWords New",
+              "displayValue": "Google Ads"
+            },
+            {
+              "value": "Google Ads Conversion API",
+              "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Google Campaign Manager 360 Conversions API",
+              "displayValue": "Google Campaign Manager 360 Conversions API"
+            },
+            {
+              "value": "Facebook Conversions API",
+              "displayValue": "Facebook Conversions API"
+            },
+            {
+              "value": "Amplitude",
+              "displayValue": "Amplitude"
+            },
+            {
+              "value": "Basis",
+              "displayValue": "Basis"
+            },
+            {
+              "value": "Bing Ads",
+              "displayValue": "Bing Ads"
+            },
+            {
+              "value": "impactdotcom",
+              "displayValue": "impact.com"
+            },
+            {
+              "value": "LinkedIn Ads Conversions API",
+              "displayValue": "LinkedIn Ads Conversions API"
+            },
+            {
+              "value": "MNTN",
+              "displayValue": "MNTN"
+            },
+            {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
+              "value": "StackAdapt",
+              "displayValue": "StackAdapt"
+            },
+            {
+              "value": "theTradeDesk",
+              "displayValue": "theTradeDesk"
+            },
+            {
+              "value": "TikTok Ads",
+              "displayValue": "TikTok Ads"
+            },
+            {
+              "value": "reddit-ads",
+              "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "pinterest-ads",
+              "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "Twitter Ads",
+              "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "viant",
+              "displayValue": "Viant"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
+            },
+            {
+              "value": "linkedin-ads",
+              "displayValue": "LinkedIn Ads"
+            },
+            {
+              "value": "Floodlight",
+              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Instance ID (optional)",
+          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "identifyOptinOptOutInstances",
+    "displayName": "Specific Destination Types / Instance IDs",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Destination Type",
+          "macrosInSelect": false,
+          "selectItems": [
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Amplitude",
+              "displayValue": "Amplitude"
+            },
+            {
+              "value": "impactdotcom",
+              "displayValue": "impact.com"
+            },
+            {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
+            }
+          ],
+          "simpleValueType": true
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Instance ID (optional)",
+          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+          "simpleValueType": true
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ]
+  }
+]
