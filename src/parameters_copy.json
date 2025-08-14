@@ -108,11 +108,6 @@
       },
       {
         "paramName": "tagType",
-        "paramValue": "linkedInAdsCAPIEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "mntnEvent",
         "type": "EQUALS"
       },
@@ -156,25 +151,6 @@
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "linkedInAdsCAPIConversionIds",
-    "displayName": "Conversion ID(s) (max. 3)",
-    "help": "Enter 1-3 conversion ids separated by a comma.",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "linkedInAdsCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -1385,11 +1361,6 @@
       {
         "paramName": "tagType",
         "paramValue": "mntnEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "linkedInAdsCAPIEvent",
         "type": "EQUALS"
       }
     ]
