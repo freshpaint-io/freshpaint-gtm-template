@@ -1,12 +1,5 @@
-import {
-  checkbox,
-  commonEventName,
-  commonGoogleAdsConversionLabel,
-  equals,
-  group,
-  select,
-  text,
-} from '../helpers';
+import { commonEventName, commonGoogleAdsConversionLabel } from '../common';
+import { checkbox, equals, group, select, text } from '../helpers';
 
 export default function GoogleAdsParams() {
   const isGoogleAdsEvent = equals('tagType', 'googleAdsEvent');

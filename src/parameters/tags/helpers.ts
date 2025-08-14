@@ -1,7 +1,7 @@
 // TODO:
 // event names should be consts here
 
-type EnablingCondition = {
+export type EnablingCondition = {
   paramName: string;
   paramValue: any;
   type: string;
@@ -29,7 +29,7 @@ type TextArgs = {
   enablingConditions?: Array<EnablingCondition>;
 };
 
-type TextParam = {
+export type TextParam = {
   type: 'TEXT';
   name: string;
   displayName: string;
@@ -154,17 +154,6 @@ export function group(args: GroupArgs): GroupParam {
   };
 }
 
-export const commonEventName = (enablingConditions: Array<EnablingCondition> = []): TextParam => {
-  return text({
-    name: 'commonEventName',
-    displayName: 'Freshpaint Event Name',
-    help: 'This will be the event name that you see in Freshpaint - it is sent to only certain destinations, including Google Analytics 4 (Proxy).',
-    simpleValueType: true,
-    valueValidators: [nonEmpty()],
-    enablingConditions,
-  });
-};
-
 const propertyNameTableColumn = {
   defaultValue: '',
   displayName: 'Property Name',
@@ -211,34 +200,6 @@ export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
     newRowButtonText: args.newRowButtonText || '',
   };
 }
-
-export const commonEventProperties = (enablingConditions: Array<EnablingCondition> = []) => {
-  return simpleTable({
-    name: 'commonEventProperties',
-    displayName: 'Event Properties',
-    enablingConditions,
-  });
-};
-
-export const commonUserProperties = (enablingConditions: Array<EnablingCondition> = []) => {
-  return simpleTable({
-    name: 'commonUserProperties',
-    displayName: 'User Properties',
-    enablingConditions,
-  });
-};
-
-export const commonGoogleAdsConversionLabel = (
-  enablingConditions: Array<EnablingCondition> = [],
-) => {
-  return text({
-    name: 'googleAdsConversionLabel',
-    displayName: 'Conversion Label',
-    simpleValueType: true,
-    valueValidators: [nonEmpty()],
-    enablingConditions,
-  });
-};
 
 type RadioArgs = {
   name: string;

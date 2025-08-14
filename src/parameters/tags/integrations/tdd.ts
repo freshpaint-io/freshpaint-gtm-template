@@ -1,4 +1,5 @@
-import { commonEventName, equals, nonEmpty, text } from '../helpers';
+import { commonEventName } from '../common';
+import { equals, nonEmpty, text } from '../helpers';
 
 export default function TddParams() {
   const isTddEvent = equals('tagType', 'theTradeDeskEvent');

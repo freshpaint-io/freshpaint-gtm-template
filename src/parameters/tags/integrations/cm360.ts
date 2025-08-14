@@ -1,4 +1,5 @@
-import { commonEventName, equals, nonEmpty, radio, select, simpleTable, text } from '../helpers';
+import { commonEventName } from '../common';
+import { equals, nonEmpty, radio, simpleTable, text } from '../helpers';
 
 export default function GoogleCM360Params() {
   const isGoogleCM360Event = equals('tagType', 'googleCM360Event');

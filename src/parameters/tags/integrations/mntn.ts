@@ -1,4 +1,5 @@
-import { commonEventName, equals, simpleTable, text } from '../helpers';
+import { commonEventName, commonEventProperties } from '../common';
+import { equals, text } from '../helpers';
 
 export default function MntnParams() {
   const isMntnEvent = equals('tagType', 'mntnEvent');
@@ -13,6 +14,6 @@ export default function MntnParams() {
       enablingConditions: onlyForMntn,
     }),
     commonEventName(onlyForMntn),
-    commonEventName(onlyForMntn),
+    commonEventProperties(onlyForMntn),
   ];
 }
