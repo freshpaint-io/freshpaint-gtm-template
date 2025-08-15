@@ -345,18 +345,19 @@ export default function BingParams() {
     }),
 
     // params that load depending on which 'Track Type' is selected
-    currencyText(),
-    revenueText(),
+    eventActionSelect(),
     customEventActionText(),
     customEventCategoryText(),
     customEventLabelText(),
     customEventValueText(),
-    pageTitleText(),
-    pagePathText(),
+    currencyText(),
+    revenueText(),
 
-    eventActionSelect(),
-    travelGroup(),
-    hotelGroup(),
     ecommerceGroup(),
+    hotelGroup(),
+    travelGroup(),
+
+    pagePathText(),
+    pageTitleText(),
   ];
 }

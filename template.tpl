@@ -716,159 +716,6 @@ ___TEMPLATE_PARAMETERS___
     "macrosInSelect": false
   },
   {
-    "type": "TEXT",
-    "name": "bingCurrency",
-    "displayName": "Currency",
-    "help": "Currency value must be ISO standard currency code",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "VARIABLE_REVENUE",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "bingEventType",
-        "paramValue": "CUSTOM",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "bingEventType",
-        "paramValue": "hotel",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": "USD"
-  },
-  {
-    "type": "TEXT",
-    "name": "bingRevenue",
-    "displayName": "Revenue Value",
-    "help": "",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "VARIABLE_REVENUE",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "bingEventType",
-        "paramValue": "CUSTOM",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "bingCustomEventAction",
-    "displayName": "Define your own event action",
-    "help": "",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "CUSTOM",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "bingEventType",
-        "paramValue": "userDefined",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "bingEventAction",
-        "paramValue": "",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "bingEventCategory",
-    "displayName": "Event category",
-    "help": "",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "CUSTOM",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "bingEventLabel",
-    "displayName": "Event label",
-    "help": "",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "CUSTOM",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "bingEventValue",
-    "displayName": "Event value",
-    "help": "",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "CUSTOM",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "bingPageTitle",
-    "displayName": "Page title",
-    "help": "Can leave empty to re-use document title",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "pageViewSPA",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "bingPagePath",
-    "displayName": "Page path",
-    "help": "Must start with a '/', ex: '/spa_page'",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "pageViewSPA",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
     "type": "SELECT",
     "name": "bingEventAction",
     "displayName": "Event action",
@@ -987,32 +834,143 @@ ___TEMPLATE_PARAMETERS___
     "macrosInSelect": true
   },
   {
+    "type": "TEXT",
+    "name": "bingCustomEventAction",
+    "displayName": "Define your own event action",
+    "help": "",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "userDefined",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventAction",
+        "paramValue": "",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "bingEventCategory",
+    "displayName": "Event category",
+    "help": "",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "bingEventLabel",
+    "displayName": "Event label",
+    "help": "",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "bingEventValue",
+    "displayName": "Event value",
+    "help": "",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "bingCurrency",
+    "displayName": "Currency",
+    "help": "Currency value must be ISO standard currency code",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "VARIABLE_REVENUE",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "hotel",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": "USD"
+  },
+  {
+    "type": "TEXT",
+    "name": "bingRevenue",
+    "displayName": "Revenue Value",
+    "help": "",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "VARIABLE_REVENUE",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "CUSTOM",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
     "type": "GROUP",
-    "name": "bingTravelParams",
-    "displayName": "Travel event parameters",
+    "name": "bingEcomParams",
+    "displayName": "Ecommerce event parameters",
     "groupStyle": "NO_ZIPPY",
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "travel",
+        "paramValue": "ecommerce",
         "type": "EQUALS"
       }
     ],
     "subParams": [
       {
         "type": "TEXT",
-        "name": "bingTravelDestid",
-        "displayName": "Travel destination ID",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
-      },
-      {
-        "type": "TEXT",
-        "name": "bingTravelOriginid",
-        "displayName": "Travel origin ID",
+        "name": "bingEcommProdId",
+        "displayName": "Retail product ID",
         "help": "",
         "simpleValueType": true,
         "valueValidators": [],
@@ -1021,9 +979,9 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "SELECT",
-        "name": "bingTravelPagetype",
-        "displayName": "Travel page type",
-        "help": "",
+        "name": "bingEcommPagetype",
+        "displayName": "Retail page type",
+        "help": "The pagetype parameter is required when you include the prodid parameter.",
         "selectItems": [
           {
             "value": "home",
@@ -1034,20 +992,20 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Search Results"
           },
           {
-            "value": "offerdetail",
-            "displayValue": "Offer Detail"
+            "value": "category",
+            "displayValue": "Category"
           },
           {
-            "value": "conversionintent",
-            "displayValue": "Conversion Intent"
+            "value": "product",
+            "displayValue": "Product"
           },
           {
-            "value": "conversion",
-            "displayValue": "Conversion"
+            "value": "cart",
+            "displayValue": "Cart"
           },
           {
-            "value": "cancel",
-            "displayValue": "Cancel"
+            "value": "purchase",
+            "displayValue": "Purchase"
           },
           {
             "value": "other",
@@ -1063,9 +1021,9 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "TEXT",
-        "name": "bingTravelStartdate",
-        "displayName": "Travel start date",
-        "help": "Value must be in YYYY-MM-DD date format",
+        "name": "bingEcommTotalValue",
+        "displayName": "Retail total value",
+        "help": "",
         "simpleValueType": true,
         "valueValidators": [],
         "enablingConditions": [],
@@ -1073,18 +1031,8 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "TEXT",
-        "name": "bingTravelEnddate",
-        "displayName": "Travel end date",
-        "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
-      },
-      {
-        "type": "TEXT",
-        "name": "bingTravelTotalvalue",
-        "displayName": "Travel total value",
+        "name": "bingEcommCategory",
+        "displayName": "Retail category",
         "help": "",
         "simpleValueType": true,
         "valueValidators": [],
@@ -1239,21 +1187,31 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "GROUP",
-    "name": "bingEcomParams",
-    "displayName": "Ecommerce event parameters",
+    "name": "bingTravelParams",
+    "displayName": "Travel event parameters",
     "groupStyle": "NO_ZIPPY",
     "enablingConditions": [
       {
         "paramName": "bingEventType",
-        "paramValue": "ecommerce",
+        "paramValue": "travel",
         "type": "EQUALS"
       }
     ],
     "subParams": [
       {
         "type": "TEXT",
-        "name": "bingEcommProdId",
-        "displayName": "Retail product ID",
+        "name": "bingTravelDestid",
+        "displayName": "Travel destination ID",
+        "help": "",
+        "simpleValueType": true,
+        "valueValidators": [],
+        "enablingConditions": [],
+        "defaultValue": ""
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelOriginid",
+        "displayName": "Travel origin ID",
         "help": "",
         "simpleValueType": true,
         "valueValidators": [],
@@ -1262,9 +1220,9 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "SELECT",
-        "name": "bingEcommPagetype",
-        "displayName": "Retail page type",
-        "help": "The pagetype parameter is required when you include the prodid parameter.",
+        "name": "bingTravelPagetype",
+        "displayName": "Travel page type",
+        "help": "",
         "selectItems": [
           {
             "value": "home",
@@ -1275,20 +1233,20 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Search Results"
           },
           {
-            "value": "category",
-            "displayValue": "Category"
+            "value": "offerdetail",
+            "displayValue": "Offer Detail"
           },
           {
-            "value": "product",
-            "displayValue": "Product"
+            "value": "conversionintent",
+            "displayValue": "Conversion Intent"
           },
           {
-            "value": "cart",
-            "displayValue": "Cart"
+            "value": "conversion",
+            "displayValue": "Conversion"
           },
           {
-            "value": "purchase",
-            "displayValue": "Purchase"
+            "value": "cancel",
+            "displayValue": "Cancel"
           },
           {
             "value": "other",
@@ -1304,9 +1262,9 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "TEXT",
-        "name": "bingEcommTotalValue",
-        "displayName": "Retail total value",
-        "help": "",
+        "name": "bingTravelStartdate",
+        "displayName": "Travel start date",
+        "help": "Value must be in YYYY-MM-DD date format",
         "simpleValueType": true,
         "valueValidators": [],
         "enablingConditions": [],
@@ -1314,8 +1272,18 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "TEXT",
-        "name": "bingEcommCategory",
-        "displayName": "Retail category",
+        "name": "bingTravelEnddate",
+        "displayName": "Travel end date",
+        "help": "Value must be in YYYY-MM-DD date format",
+        "simpleValueType": true,
+        "valueValidators": [],
+        "enablingConditions": [],
+        "defaultValue": ""
+      },
+      {
+        "type": "TEXT",
+        "name": "bingTravelTotalvalue",
+        "displayName": "Travel total value",
         "help": "",
         "simpleValueType": true,
         "valueValidators": [],
@@ -1323,6 +1291,38 @@ ___TEMPLATE_PARAMETERS___
         "defaultValue": ""
       }
     ]
+  },
+  {
+    "type": "TEXT",
+    "name": "bingPagePath",
+    "displayName": "Page path",
+    "help": "Must start with a '/', ex: '/spa_page'",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "pageViewSPA",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "bingPageTitle",
+    "displayName": "Page title",
+    "help": "Can leave empty to re-use document title",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "pageViewSPA",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
   },
   {
     "type": "TEXT",
