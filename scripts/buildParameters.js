@@ -5,13 +5,17 @@ import { pathToFileURL } from 'node:url';
 const outputPath = 'src/parameters.json';
 await fs.mkdir(path.dirname(outputPath), { recursive: true });
 
-const srcFolder = 'src/parameters/tags';
-const rootFile = path.resolve(srcFolder, 'root.ts');
+const srcFolder = 'src/parameters';
 const integrationFiles = await fs.readdir(path.resolve(srcFolder, 'integrations'), {
   withFileTypes: true,
 });
 
-const fileNames = [rootFile];
+const fileNames = [
+  path.resolve(srcFolder, 'root.ts'),
+  path.resolve(srcFolder, 'track.ts'),
+  path.resolve(srcFolder, 'identify.ts'),
+  path.resolve(srcFolder, 'addEventProperties.ts'),
+];
 fileNames.push(
   ...integrationFiles.map((file) => path.resolve(srcFolder, 'integrations', file.name)),
 );
