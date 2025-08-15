@@ -1,5 +1,5 @@
 node_modules
 tmp
-src/parameters/parameters.json
+src/parameters.json
 .DS_Store
 .idea
