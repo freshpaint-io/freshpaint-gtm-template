@@ -33,10 +33,11 @@ export const commonUserProperties = (enablingConditions: Array<EnablingCondition
     enablingConditions,
   });
 };
+
 export const commonEventPropertiesJSONValue = (
   enablingConditions: Array<EnablingCondition> = [],
 ) => {
-  return text({
+  return simpleTable({
     name: 'commonEventPropertiesJSONValue',
     displayName: 'Event Properties',
     help: 'Props named value, quantity, item_count, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).',
@@ -85,7 +86,7 @@ export const commonOptinOptOutInstances = (enablingConditions: Array<EnablingCon
     selectItems: [
       { value: 'Google Analytics 4 Proxy', displayValue: 'Google Analytics 4 (Proxy)' },
       { value: 'Google Analytics 4', displayValue: 'Google Analytics 4 (Server-Side)' },
-      { value: 'Google AdWords New', displayValue: 'Google Ads (New)' },
+      { value: 'Google AdWords New', displayValue: 'Google Ads' },
       { value: 'Google Ads Conversion API', displayValue: 'Google Ads Conversion API' },
       {
         value: 'Google Campaign Manager 360 Conversions API',

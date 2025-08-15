@@ -69,7 +69,6 @@ export default function FacebookConversionsApiParams() {
     }),
     radio({
       name: 'fbEventName',
-      displayName: 'Facebook Event Name',
       simpleValueType: true,
       enablingConditions: onlyForFbPixelEvent,
       radioItems: [

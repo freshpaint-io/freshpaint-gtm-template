@@ -308,7 +308,7 @@ export default function BingParams() {
     });
 
     return group({
-      name: 'bingEcommerceParams',
+      name: 'bingEcomParams',
       displayName: 'Ecommerce event parameters',
       groupStyle: 'NO_ZIPPY',
       subParams: [prodIdText, pageTypeSelect, totalValueText, categoryText],

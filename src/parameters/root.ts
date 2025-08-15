@@ -24,7 +24,7 @@ export default function rootParams() {
         { value: 'pinterestAdsEvent', displayValue: 'Pinterest Ads' },
         { value: 'redditAdsEvent', displayValue: 'Reddit Ads' },
         { value: 'twitterAdsEvent', displayValue: 'Twitter Ads' },
-        { value: 'addEventProperties', displayValue: 'Add Event Properties' },
+        { value: 'addEventProperties', displayValue: 'AddEventProperties' },
         { value: 'identify', displayValue: 'Identify' },
         { value: 'track', displayValue: 'Track' },
         { value: 'linkedInAdsEvent', displayValue: 'LinkedIn Ads' },

@@ -24,7 +24,7 @@ export default function TddParams() {
     }),
     text({
       name: 'theTradeDeskValue',
-      displayName: 'Value',
+      displayName: 'value',
       simpleValueType: true,
       enablingConditions: onlyForTdd,
     }),

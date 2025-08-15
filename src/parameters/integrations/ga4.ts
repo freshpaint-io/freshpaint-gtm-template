@@ -7,8 +7,8 @@ export default function ga4Params() {
 
   return [
     text({
-      name: 'ga4InstanceName',
-      displayName: 'Specific Measurement ID (optional)',
+      name: 'ga4InstanceNames',
+      displayName: 'Specific Measurement ID(s) (optional)',
       help: 'If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)',
       simpleValueType: true,
       enablingConditions: onlyForGA4,

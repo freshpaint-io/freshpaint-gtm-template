@@ -1,6 +1,13 @@
 // TODO:
 // event names should be consts here
 
+export function pickDefined<T extends Record<string, unknown>>(obj: T) {
+  return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as {
+    // drop keys whose values are possibly `undefined`
+    [K in keyof T as undefined extends T[K] ? never : K]: Exclude<T[K], undefined>;
+  };
+}
+
 export type EnablingCondition = {
   paramName: string;
   paramValue: any;
@@ -119,13 +126,15 @@ export function select(args: SelectArgs): SelectParam {
     name: args.name,
     displayName: args.displayName || '',
     help: args.help || '',
-    macrosInSelect: args.macrosInSelect || false,
     selectItems: args.selectItems || [],
     simpleValueType: args.simpleValueType || true,
     defaultValue: args.defaultValue || '',
     enablingConditions: args.enablingConditions || [],
-    notSetText: args.notSetText || '-',
+    notSetText: args.notSetText || '',
     valueValidators: args.valueValidators || [],
+    ...pickDefined({
+      macrosInSelect: args.macrosInSelect,
+    }),
   };
 }
 
@@ -209,7 +218,7 @@ export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
 
 type RadioArgs = {
   name: string;
-  displayName: string;
+  displayName?: string;
   help?: string;
   simpleValueType?: boolean;
   radioItems: Array<SelectableItem>;
@@ -219,7 +228,7 @@ type RadioArgs = {
 type RadioParam = {
   type: 'RADIO';
   name: string;
-  displayName: string;
+  displayName?: string;
   help?: string;
   simpleValueType?: boolean;
   radioItems: Array<SelectableItem>;
@@ -230,11 +239,11 @@ export function radio(args: RadioArgs): RadioParam {
   return {
     type: 'RADIO',
     name: args.name,
-    displayName: args.displayName,
+    displayName: args.displayName || '',
     help: args.help || '',
-    simpleValueType: args.simpleValueType || true,
     radioItems: args.radioItems,
     enablingConditions: args.enablingConditions,
+    ...pickDefined({ simpleValueType: args.simpleValueType }),
   };
 }
 

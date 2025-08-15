@@ -4,7 +4,6 @@
     "name": "tagType",
     "displayName": "Freshpaint Tag Type",
     "help": "",
-    "macrosInSelect": false,
     "selectItems": [
       {
         "value": "ga4Event",
@@ -76,7 +75,7 @@
       },
       {
         "value": "addEventProperties",
-        "displayValue": "Add Event Properties"
+        "displayValue": "AddEventProperties"
       },
       {
         "value": "identify",
@@ -103,7 +102,8 @@
       {
         "type": "NON_EMPTY"
       }
-    ]
+    ],
+    "macrosInSelect": false
   },
   {
     "type": "TEXT",
@@ -149,7 +149,7 @@
       },
       {
         "paramName": "tagType",
-        "paramValue": "linkedinAdsEvent",
+        "paramValue": "linkedInAdsEvent",
         "type": "EQUALS"
       },
       {
@@ -191,12 +191,24 @@
     "defaultValue": ""
   },
   {
-    "type": "TEXT",
+    "type": "SIMPLE_TABLE",
     "name": "commonEventPropertiesJSONValue",
     "displayName": "Event Properties",
     "help": "Props named value, quantity, item_count, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
-    "simpleValueType": true,
-    "valueValidators": [],
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -209,14 +221,14 @@
         "type": "EQUALS"
       }
     ],
-    "defaultValue": ""
+    "newRowButtonText": "",
+    "valueValidators": []
   },
   {
     "type": "RADIO",
     "name": "commonOptinOptOut",
     "displayName": "Opt-in / Opt-out",
     "help": "",
-    "simpleValueType": true,
     "radioItems": [
       {
         "value": "OPTIN",
@@ -240,7 +252,8 @@
         "paramValue": "identify",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "simpleValueType": true
   },
   {
     "type": "PARAM_TABLE",
@@ -254,7 +267,6 @@
           "name": "param_table_key_column",
           "displayName": "Destination Type",
           "help": "",
-          "macrosInSelect": false,
           "selectItems": [
             {
               "value": "Google Analytics 4 Proxy",
@@ -266,7 +278,7 @@
             },
             {
               "value": "Google AdWords New",
-              "displayValue": "Google Ads (New)"
+              "displayValue": "Google Ads"
             },
             {
               "value": "Google Ads Conversion API",
@@ -352,8 +364,9 @@
           "simpleValueType": true,
           "defaultValue": "",
           "enablingConditions": [],
-          "notSetText": "-",
-          "valueValidators": []
+          "notSetText": "",
+          "valueValidators": [],
+          "macrosInSelect": false
         },
         "isUnique": false
       },
@@ -441,7 +454,6 @@
           "name": "param_table_key_column",
           "displayName": "Destination Type",
           "help": "",
-          "macrosInSelect": false,
           "selectItems": [
             {
               "value": "Google Analytics 4 Proxy",
@@ -467,8 +479,9 @@
           "simpleValueType": true,
           "defaultValue": "",
           "enablingConditions": [],
-          "notSetText": "-",
-          "valueValidators": []
+          "notSetText": "",
+          "valueValidators": [],
+          "macrosInSelect": false
         },
         "isUnique": false
       },
@@ -626,7 +639,6 @@
     "name": "bingEventType",
     "displayName": "Track Type",
     "help": "Select \"Page View\" only when your Freshpaint Bing Ads configuration has \"Automatically Send Page View Events\" unchecked",
-    "macrosInSelect": false,
     "selectItems": [
       {
         "value": "CUSTOM_PAGE_LOAD",
@@ -671,7 +683,8 @@
       {
         "type": "NON_EMPTY"
       }
-    ]
+    ],
+    "macrosInSelect": false
   },
   {
     "type": "TEXT",
@@ -831,7 +844,6 @@
     "name": "bingEventAction",
     "displayName": "Event action",
     "help": "If you select \"Custom\" and then leave the \"Define your own event action\" field blank, an empty event action value will be sent",
-    "macrosInSelect": true,
     "selectItems": [
       {
         "value": "",
@@ -941,8 +953,9 @@
         "type": "EQUALS"
       }
     ],
-    "notSetText": "-",
-    "valueValidators": []
+    "notSetText": "",
+    "valueValidators": [],
+    "macrosInSelect": true
   },
   {
     "type": "GROUP",
@@ -982,7 +995,6 @@
         "name": "bingTravelPagetype",
         "displayName": "Travel page type",
         "help": "",
-        "macrosInSelect": true,
         "selectItems": [
           {
             "value": "home",
@@ -1016,8 +1028,9 @@
         "simpleValueType": true,
         "defaultValue": "",
         "enablingConditions": [],
-        "notSetText": "-",
-        "valueValidators": []
+        "notSetText": "",
+        "valueValidators": [],
+        "macrosInSelect": true
       },
       {
         "type": "TEXT",
@@ -1139,7 +1152,6 @@
         "name": "bingHctPagetype",
         "displayName": "Hotel page type",
         "help": "",
-        "macrosInSelect": true,
         "selectItems": [
           {
             "value": "home",
@@ -1185,8 +1197,9 @@
         "simpleValueType": true,
         "defaultValue": "",
         "enablingConditions": [],
-        "notSetText": "-",
-        "valueValidators": []
+        "notSetText": "",
+        "valueValidators": [],
+        "macrosInSelect": true
       },
       {
         "type": "LABEL",
@@ -1197,7 +1210,7 @@
   },
   {
     "type": "GROUP",
-    "name": "bingEcommerceParams",
+    "name": "bingEcomParams",
     "displayName": "Ecommerce event parameters",
     "groupStyle": "NO_ZIPPY",
     "enablingConditions": [
@@ -1223,7 +1236,6 @@
         "name": "bingEcommPagetype",
         "displayName": "Retail page type",
         "help": "The pagetype parameter is required when you include the prodid parameter.",
-        "macrosInSelect": true,
         "selectItems": [
           {
             "value": "home",
@@ -1257,8 +1269,9 @@
         "simpleValueType": true,
         "defaultValue": "",
         "enablingConditions": [],
-        "notSetText": "-",
-        "valueValidators": []
+        "notSetText": "",
+        "valueValidators": [],
+        "macrosInSelect": true
       },
       {
         "type": "TEXT",
@@ -1352,7 +1365,6 @@
     "name": "googleCM360FloodlightCountingMethod",
     "displayName": "Counting Method",
     "help": "",
-    "simpleValueType": true,
     "radioItems": [
       {
         "value": "STANDARD",
@@ -1376,7 +1388,8 @@
         "paramValue": "googleCM360Event",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "simpleValueType": true
   },
   {
     "type": "TEXT",
@@ -1397,9 +1410,8 @@
   {
     "type": "RADIO",
     "name": "fbEventName",
-    "displayName": "Facebook Event Name",
+    "displayName": "",
     "help": "",
-    "simpleValueType": true,
     "radioItems": [
       {
         "value": "standard",
@@ -1410,7 +1422,6 @@
             "name": "fbStandardEventName",
             "displayName": "",
             "help": "",
-            "macrosInSelect": false,
             "selectItems": [
               {
                 "value": "PageView",
@@ -1488,7 +1499,7 @@
             "simpleValueType": true,
             "defaultValue": "PageView",
             "enablingConditions": [],
-            "notSetText": "-",
+            "notSetText": "",
             "valueValidators": []
           }
         ]
@@ -1518,13 +1529,13 @@
             "name": "fbVariableEventName",
             "displayName": "",
             "help": "",
-            "macrosInSelect": true,
             "selectItems": [],
             "simpleValueType": true,
             "defaultValue": "",
             "enablingConditions": [],
-            "notSetText": "-",
-            "valueValidators": []
+            "notSetText": "",
+            "valueValidators": [],
+            "macrosInSelect": true
           }
         ]
       }
@@ -1535,7 +1546,8 @@
         "paramValue": "fbPixelEvent",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "simpleValueType": true
   },
   {
     "type": "GROUP",
@@ -1555,7 +1567,6 @@
         "name": "fbObjectPropertiesFromVariable",
         "displayName": "Load Properties From Variable",
         "help": "You can use a variable that returns a JavaScript object with the properties you want to use. This object will be merged with any additional properties you add via the table below. Any conflicts will be resolved in favor of the properties you add to the table.",
-        "macrosInSelect": true,
         "selectItems": [
           {
             "value": false,
@@ -1565,8 +1576,9 @@
         "simpleValueType": true,
         "defaultValue": "",
         "enablingConditions": [],
-        "notSetText": "-",
-        "valueValidators": []
+        "notSetText": "",
+        "valueValidators": [],
+        "macrosInSelect": true
       },
       {
         "type": "SIMPLE_TABLE",
@@ -1654,7 +1666,6 @@
     "name": "floodlightCountingMethod",
     "displayName": "Counting Method",
     "help": "",
-    "simpleValueType": true,
     "radioItems": [
       {
         "value": "STANDARD",
@@ -1678,7 +1689,8 @@
         "paramValue": "floodlightEvent",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "simpleValueType": true
   },
   {
     "type": "PARAM_TABLE",
@@ -1692,7 +1704,6 @@
           "name": "key",
           "displayName": "Key",
           "help": "",
-          "macrosInSelect": false,
           "selectItems": [
             {
               "value": "u1",
@@ -1706,8 +1717,9 @@
           "simpleValueType": true,
           "defaultValue": "",
           "enablingConditions": [],
-          "notSetText": "-",
-          "valueValidators": []
+          "notSetText": "",
+          "valueValidators": [],
+          "macrosInSelect": false
         },
         "isUnique": true
       },
@@ -1758,7 +1770,6 @@
         "name": "floodlightEnhancedConversionsUserDataVariable",
         "displayName": "User-provided Data Variable",
         "help": "The selected variable should be of type \"User-Provided Data\"",
-        "macrosInSelect": true,
         "selectItems": [],
         "simpleValueType": true,
         "defaultValue": "",
@@ -1769,15 +1780,16 @@
             "type": "EQUALS"
           }
         ],
-        "notSetText": "-",
-        "valueValidators": []
+        "notSetText": "",
+        "valueValidators": [],
+        "macrosInSelect": true
       }
     ]
   },
   {
     "type": "TEXT",
-    "name": "ga4InstanceName",
-    "displayName": "Specific Measurement ID (optional)",
+    "name": "ga4InstanceNames",
+    "displayName": "Specific Measurement ID(s) (optional)",
     "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
     "simpleValueType": true,
     "valueValidators": [],
@@ -1960,7 +1972,6 @@
         "name": "googleAdsEnhancedConversionsUserDataVariable",
         "displayName": "User-provided Data Variable",
         "help": "The selected variable should be of type 'User-Provided Data'",
-        "macrosInSelect": true,
         "selectItems": [],
         "simpleValueType": true,
         "defaultValue": "",
@@ -1971,8 +1982,9 @@
             "type": "EQUALS"
           }
         ],
-        "notSetText": "-",
-        "valueValidators": []
+        "notSetText": "",
+        "valueValidators": [],
+        "macrosInSelect": true
       }
     ]
   },
@@ -1981,7 +1993,6 @@
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
     "help": "One or the other of event_type_id or event_type_code must be specified.",
-    "simpleValueType": true,
     "radioItems": [
       {
         "value": "event_type_id",
@@ -2052,7 +2063,6 @@
           "name": "param_table_key_column",
           "displayName": "property",
           "help": "",
-          "macrosInSelect": false,
           "selectItems": [
             {
               "value": "amount",
@@ -2146,8 +2156,9 @@
           "simpleValueType": true,
           "defaultValue": "",
           "enablingConditions": [],
-          "notSetText": "-",
-          "valueValidators": []
+          "notSetText": "",
+          "valueValidators": [],
+          "macrosInSelect": false
         },
         "isUnique": true
       },
@@ -2187,7 +2198,7 @@
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "linkedinAdsEvent",
+        "paramValue": "linkedInAdsEvent",
         "type": "EQUALS"
       }
     ],
@@ -2320,7 +2331,7 @@
   {
     "type": "TEXT",
     "name": "theTradeDeskValue",
-    "displayName": "Value",
+    "displayName": "value",
     "help": "",
     "simpleValueType": true,
     "valueValidators": [],
@@ -2390,7 +2401,6 @@
     "name": "twitterEventName",
     "displayName": "Select tag event:",
     "help": "",
-    "simpleValueType": true,
     "radioItems": [
       {
         "value": "PageView",
@@ -2443,7 +2453,8 @@
         "paramValue": "twitterAdsEvent",
         "type": "EQUALS"
       }
-    ]
+    ],
+    "simpleValueType": true
   },
   {
     "type": "PARAM_TABLE",
@@ -2457,7 +2468,6 @@
           "name": "param_table_key_column",
           "displayName": "Event parameter name",
           "help": "",
-          "macrosInSelect": false,
           "selectItems": [
             {
               "value": "value",
@@ -2495,8 +2505,9 @@
           "simpleValueType": true,
           "defaultValue": "",
           "enablingConditions": [],
-          "notSetText": "-",
-          "valueValidators": []
+          "notSetText": "",
+          "valueValidators": [],
+          "macrosInSelect": false
         },
         "isUnique": true
       },
