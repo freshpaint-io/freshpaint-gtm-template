@@ -27,6 +27,7 @@ type TextArgs = {
   simpleValueType?: boolean;
   valueValidators?: Array<any>;
   enablingConditions?: Array<EnablingCondition>;
+  defaultValue?: string;
 };
 
 export type TextParam = {
@@ -37,6 +38,7 @@ export type TextParam = {
   help?: string;
   simpleValueType?: boolean;
   valueValidators?: Array<any>;
+  defaultValue?: string;
 };
 
 export function text(args: TextArgs): TextParam {
@@ -48,6 +50,7 @@ export function text(args: TextArgs): TextParam {
     simpleValueType: args.simpleValueType || true,
     valueValidators: args.valueValidators || [],
     enablingConditions: args.enablingConditions || [],
+    defaultValue: args.defaultValue || '',
   };
 }
 
