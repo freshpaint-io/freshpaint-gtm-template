@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { orderParamsDeterministic } from './paramSortOrder';
 
 const outputPath = 'src/parameters.json';
 await fs.mkdir(path.dirname(outputPath), { recursive: true });
@@ -56,9 +57,8 @@ for (const param of allParams) {
   }
 }
 
-await fs.writeFile(
-  outputPath,
-  JSON.stringify(Array.from(uniqParamMap.values()), null, 2) + '\n',
-  'utf8',
-);
+let merged = Array.from(uniqParamMap.values());
+merged = orderParamsDeterministic(merged);
+
+await fs.writeFile(outputPath, JSON.stringify(merged, null, 2) + '\n', 'utf8');
 console.log(`wrote ${outputPath}`);

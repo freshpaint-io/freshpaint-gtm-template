@@ -136,6 +136,198 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "basisInstanceName",
+    "displayName": "Specific Pixel ID (optional)",
+    "help": "If multiple Pixel IDs are configured for the Basis destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "bingAdsInstanceName",
+    "displayName": "Specific Tag ID (optional)",
+    "help": "If multiple Tag IDs are configured for the Bing Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Tag IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "googleCM360InstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 Conversions API destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "fbInstanceNames",
+    "displayName": "Specific Pixel ID(s) (optional)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "floodlightInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Floodlight destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "ga4InstanceNames",
+    "displayName": "Specific Measurement ID(s) (optional)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsInstanceName",
+    "displayName": "Specific Conversion ID (optional)",
+    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "mntnInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "pinterestAdsInstanceName",
+    "displayName": "Pinterest Ad Account ID (optional)",
+    "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "redditAdsInstanceName",
+    "displayName": "Specific Account ID (optional)",
+    "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "theTradeDeskInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
+    "name": "viantInstanceName",
+    "displayName": "Specific Advertiser ID (optional)",
+    "help": "If multiple Advertiser IDs are configured for the Viant destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
+    "simpleValueType": true,
+    "valueValidators": [],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "viantEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "defaultValue": ""
+  },
+  {
+    "type": "TEXT",
     "name": "commonEventName",
     "displayName": "Freshpaint Event Name",
     "help": "This will be the event name that you see in Freshpaint - it is sent to only certain destinations, including Google Analytics 4 (Proxy).",
@@ -220,208 +412,6 @@ ___TEMPLATE_PARAMETERS___
     "defaultValue": ""
   },
   {
-    "type": "SIMPLE_TABLE",
-    "name": "commonEventPropertiesJSONValue",
-    "displayName": "Event Properties",
-    "help": "Props named value, quantity, item_count, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "redditAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "newRowButtonText": "",
-    "valueValidators": []
-  },
-  {
-    "type": "RADIO",
-    "name": "commonOptinOptOut",
-    "displayName": "Opt-in / Opt-out",
-    "help": "",
-    "radioItems": [
-      {
-        "value": "OPTIN",
-        "displayValue": "Opt-in",
-        "help": "Deliver only to destination types / instances specified"
-      },
-      {
-        "value": "OPTOUT",
-        "displayValue": "Opt-out",
-        "help": "Deliver to all but the destination types / instances specified"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ],
-    "simpleValueType": true
-  },
-  {
-    "type": "PARAM_TABLE",
-    "name": "commonOptinOptOutInstances",
-    "displayName": "Specific Destination Types / Instance IDs",
-    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
-    "paramTableColumns": [
-      {
-        "param": {
-          "type": "SELECT",
-          "name": "param_table_key_column",
-          "displayName": "Destination Type",
-          "help": "",
-          "selectItems": [
-            {
-              "value": "Google Analytics 4 Proxy",
-              "displayValue": "Google Analytics 4 (Proxy)"
-            },
-            {
-              "value": "Google Analytics 4",
-              "displayValue": "Google Analytics 4 (Server-Side)"
-            },
-            {
-              "value": "Google AdWords New",
-              "displayValue": "Google Ads"
-            },
-            {
-              "value": "Google Ads Conversion API",
-              "displayValue": "Google Ads Conversion API"
-            },
-            {
-              "value": "Google Campaign Manager 360 Conversions API",
-              "displayValue": "Google Campaign Manager 360 Conversions API"
-            },
-            {
-              "value": "Facebook Conversions API",
-              "displayValue": "Facebook Conversions API"
-            },
-            {
-              "value": "Amplitude",
-              "displayValue": "Amplitude"
-            },
-            {
-              "value": "Basis",
-              "displayValue": "Basis"
-            },
-            {
-              "value": "Bing Ads",
-              "displayValue": "Bing Ads"
-            },
-            {
-              "value": "impactdotcom",
-              "displayValue": "impact.com"
-            },
-            {
-              "value": "LinkedIn Ads Conversions API",
-              "displayValue": "LinkedIn Ads Conversions API"
-            },
-            {
-              "value": "MNTN",
-              "displayValue": "MNTN"
-            },
-            {
-              "value": "Mixpanel",
-              "displayValue": "Mixpanel"
-            },
-            {
-              "value": "StackAdapt",
-              "displayValue": "StackAdapt"
-            },
-            {
-              "value": "theTradeDesk",
-              "displayValue": "theTradeDesk"
-            },
-            {
-              "value": "TikTok Ads",
-              "displayValue": "TikTok Ads"
-            },
-            {
-              "value": "reddit-ads",
-              "displayValue": "Reddit Ads"
-            },
-            {
-              "value": "pinterest-ads",
-              "displayValue": "Pinterest Ads"
-            },
-            {
-              "value": "Twitter Ads",
-              "displayValue": "Twitter Ads"
-            },
-            {
-              "value": "viant",
-              "displayValue": "Viant"
-            },
-            {
-              "value": "Webhooks",
-              "displayValue": "Webhooks"
-            },
-            {
-              "value": "linkedin-ads",
-              "displayValue": "LinkedIn Ads"
-            },
-            {
-              "value": "Floodlight",
-              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
-            }
-          ],
-          "simpleValueType": true,
-          "defaultValue": "",
-          "enablingConditions": [],
-          "notSetText": "",
-          "valueValidators": [],
-          "macrosInSelect": false
-        },
-        "isUnique": false
-      },
-      {
-        "param": {
-          "type": "TEXT",
-          "name": "param_table_value_column",
-          "displayName": "Instance ID (optional)",
-          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
-          "simpleValueType": true,
-          "valueValidators": [],
-          "enablingConditions": [],
-          "defaultValue": ""
-        },
-        "isUnique": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "TEXT",
     "name": "identifyIdentifier",
     "displayName": "Identifier (recommended)",
@@ -436,105 +426,6 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "defaultValue": ""
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "commonUserProperties",
-    "displayName": "User Properties",
-    "help": "",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      }
-    ],
-    "newRowButtonText": "",
-    "valueValidators": []
-  },
-  {
-    "type": "PARAM_TABLE",
-    "name": "identifyOptinOptOutInstances",
-    "displayName": "Specific Destination Types / Instance IDs",
-    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
-    "paramTableColumns": [
-      {
-        "param": {
-          "type": "SELECT",
-          "name": "param_table_key_column",
-          "displayName": "Destination Type",
-          "help": "",
-          "selectItems": [
-            {
-              "value": "Google Analytics 4 Proxy",
-              "displayValue": "Google Analytics 4 (Proxy)"
-            },
-            {
-              "value": "Amplitude",
-              "displayValue": "Amplitude"
-            },
-            {
-              "value": "impactdotcom",
-              "displayValue": "impact.com"
-            },
-            {
-              "value": "Mixpanel",
-              "displayValue": "Mixpanel"
-            },
-            {
-              "value": "Webhooks",
-              "displayValue": "Webhooks"
-            }
-          ],
-          "simpleValueType": true,
-          "defaultValue": "",
-          "enablingConditions": [],
-          "notSetText": "",
-          "valueValidators": [],
-          "macrosInSelect": false
-        },
-        "isUnique": false
-      },
-      {
-        "param": {
-          "type": "TEXT",
-          "name": "param_table_value_column",
-          "displayName": "Instance ID (optional)",
-          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
-          "simpleValueType": true,
-          "valueValidators": [],
-          "enablingConditions": [],
-          "defaultValue": ""
-        },
-        "isUnique": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ]
   },
   {
     "type": "SIMPLE_TABLE",
@@ -571,97 +462,6 @@ ___TEMPLATE_PARAMETERS___
         ]
       }
     ]
-  },
-  {
-    "type": "TEXT",
-    "name": "basisInstanceName",
-    "displayName": "Specific Pixel ID (optional)",
-    "help": "If multiple Pixel IDs are configured for the Basis destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "basisEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "commonEventProperties",
-    "displayName": "Event Properties",
-    "help": "",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "basisEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "linkedInAdsCAPIEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "mntnEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "pinterestAdsEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "stackAdaptEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "tikTokAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "newRowButtonText": "",
-    "valueValidators": []
-  },
-  {
-    "type": "TEXT",
-    "name": "bingAdsInstanceName",
-    "displayName": "Specific Tag ID (optional)",
-    "help": "If multiple Tag IDs are configured for the Bing Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Tag IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "bingAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
   },
   {
     "type": "SELECT",
@@ -1326,22 +1126,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "googleCM360InstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 Conversions API destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleCM360Event",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
     "name": "googleCM360ActivityIDString",
     "displayName": "Activity ID",
     "help": "This is the Floodlight Activity ID (typically numeric) that conversions will be associated with. It differs from the Floodlight Activity tag string used by the native Floodlight Counter tag.",
@@ -1419,22 +1203,6 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "simpleValueType": true
-  },
-  {
-    "type": "TEXT",
-    "name": "fbInstanceNames",
-    "displayName": "Specific Pixel ID(s) (optional)",
-    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "fbPixelEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
   },
   {
     "type": "RADIO",
@@ -1636,22 +1404,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "floodlightInstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for the Floodlight destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "floodlightEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
     "name": "floodlightGroupTagString",
     "displayName": "Group Tag String",
     "help": "This is the value of the \"type=\" parameter.",
@@ -1817,22 +1569,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "ga4InstanceNames",
-    "displayName": "Specific Measurement ID(s) (optional)",
-    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
     "name": "ga4EventPropsVariable",
     "displayName": "Event Properties Variable",
     "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
@@ -1907,22 +1643,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsCallConversionsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "googleAdsInstanceName",
-    "displayName": "Specific Conversion ID (optional)",
-    "help": "If multiple Conversion IDs are configured for the Google Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
     ],
@@ -2255,54 +1975,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "mntnInstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "mntnEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "pinterestAdsInstanceName",
-    "displayName": "Pinterest Ad Account ID (optional)",
-    "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "pinterestAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "redditAdsInstanceName",
-    "displayName": "Specific Account ID (optional)",
-    "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "redditAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
     "help": "",
@@ -2316,22 +1988,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
-    "name": "theTradeDeskInstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
     ],
@@ -2563,20 +2219,364 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "TEXT",
-    "name": "viantInstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for the Viant destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
-    "simpleValueType": true,
-    "valueValidators": [],
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventPropertiesJSONValue",
+    "displayName": "Event Properties",
+    "help": "Props named value, quantity, item_count, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
-        "paramValue": "viantEvent",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "redditAdsEvent",
         "type": "EQUALS"
       }
     ],
-    "defaultValue": ""
+    "newRowButtonText": "",
+    "valueValidators": []
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventProperties",
+    "displayName": "Event Properties",
+    "help": "",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "basisEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "newRowButtonText": "",
+    "valueValidators": []
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonUserProperties",
+    "displayName": "User Properties",
+    "help": "",
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ],
+    "newRowButtonText": "",
+    "valueValidators": []
+  },
+  {
+    "type": "RADIO",
+    "name": "commonOptinOptOut",
+    "displayName": "Opt-in / Opt-out",
+    "help": "",
+    "radioItems": [
+      {
+        "value": "OPTIN",
+        "displayValue": "Opt-in",
+        "help": "Deliver only to destination types / instances specified"
+      },
+      {
+        "value": "OPTOUT",
+        "displayValue": "Opt-out",
+        "help": "Deliver to all but the destination types / instances specified"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ],
+    "simpleValueType": true
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "commonOptinOptOutInstances",
+    "displayName": "Specific Destination Types / Instance IDs",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Destination Type",
+          "help": "",
+          "selectItems": [
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Google Analytics 4",
+              "displayValue": "Google Analytics 4 (Server-Side)"
+            },
+            {
+              "value": "Google AdWords New",
+              "displayValue": "Google Ads"
+            },
+            {
+              "value": "Google Ads Conversion API",
+              "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Google Campaign Manager 360 Conversions API",
+              "displayValue": "Google Campaign Manager 360 Conversions API"
+            },
+            {
+              "value": "Facebook Conversions API",
+              "displayValue": "Facebook Conversions API"
+            },
+            {
+              "value": "Amplitude",
+              "displayValue": "Amplitude"
+            },
+            {
+              "value": "Basis",
+              "displayValue": "Basis"
+            },
+            {
+              "value": "Bing Ads",
+              "displayValue": "Bing Ads"
+            },
+            {
+              "value": "impactdotcom",
+              "displayValue": "impact.com"
+            },
+            {
+              "value": "LinkedIn Ads Conversions API",
+              "displayValue": "LinkedIn Ads Conversions API"
+            },
+            {
+              "value": "MNTN",
+              "displayValue": "MNTN"
+            },
+            {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
+              "value": "StackAdapt",
+              "displayValue": "StackAdapt"
+            },
+            {
+              "value": "theTradeDesk",
+              "displayValue": "theTradeDesk"
+            },
+            {
+              "value": "TikTok Ads",
+              "displayValue": "TikTok Ads"
+            },
+            {
+              "value": "reddit-ads",
+              "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "pinterest-ads",
+              "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "Twitter Ads",
+              "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "viant",
+              "displayValue": "Viant"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
+            },
+            {
+              "value": "linkedin-ads",
+              "displayValue": "LinkedIn Ads"
+            },
+            {
+              "value": "Floodlight",
+              "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
+            }
+          ],
+          "simpleValueType": true,
+          "defaultValue": "",
+          "enablingConditions": [],
+          "notSetText": "",
+          "valueValidators": [],
+          "macrosInSelect": false
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Instance ID (optional)",
+          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+          "simpleValueType": true,
+          "valueValidators": [],
+          "enablingConditions": [],
+          "defaultValue": ""
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "identifyOptinOptOutInstances",
+    "displayName": "Specific Destination Types / Instance IDs",
+    "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
+    "paramTableColumns": [
+      {
+        "param": {
+          "type": "SELECT",
+          "name": "param_table_key_column",
+          "displayName": "Destination Type",
+          "help": "",
+          "selectItems": [
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Amplitude",
+              "displayValue": "Amplitude"
+            },
+            {
+              "value": "impactdotcom",
+              "displayValue": "impact.com"
+            },
+            {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Webhooks",
+              "displayValue": "Webhooks"
+            }
+          ],
+          "simpleValueType": true,
+          "defaultValue": "",
+          "enablingConditions": [],
+          "notSetText": "",
+          "valueValidators": [],
+          "macrosInSelect": false
+        },
+        "isUnique": false
+      },
+      {
+        "param": {
+          "type": "TEXT",
+          "name": "param_table_value_column",
+          "displayName": "Instance ID (optional)",
+          "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+          "simpleValueType": true,
+          "valueValidators": [],
+          "enablingConditions": [],
+          "defaultValue": ""
+        },
+        "isUnique": false
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ]
   }
 ]
 
