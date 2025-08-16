@@ -1,5 +1,6 @@
-import { pinterestAdsEvent, tagTypeEq, text } from '../helpers';
+import { tagTypeEq, text } from '../helpers';
 import { commonEventName, commonEventProperties } from '../common';
+import { pinterestAdsEvent } from '../integration';
 
 export default function PinterestParams() {
   const isPinterestEvent = tagTypeEq(pinterestAdsEvent);

@@ -1,12 +1,6 @@
 import { commonOptinOptOut, commonUserProperties } from './common';
-import {
-  tagTypeEq,
-  paramTable,
-  select,
-  text,
-  identify,
-  identifyDestinationSelectItems,
-} from './helpers';
+import { tagTypeEq, paramTable, select, text } from './helpers';
+import { identify, identifyDestinationSelectItems } from './integration';
 
 export default function IdentifyParams() {
   const isIdentifyTag = tagTypeEq(identify);

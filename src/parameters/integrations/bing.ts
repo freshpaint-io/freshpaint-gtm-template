@@ -1,4 +1,5 @@
-import { equals, tagTypeEq, group, nonEmpty, select, text, bingAdsEvent } from '../helpers';
+import { equals, tagTypeEq, group, nonEmpty, select, text } from '../helpers';
+import { bingAdsEvent } from '../integration';
 
 export default function BingParams() {
   const isBingEvent = tagTypeEq(bingAdsEvent);

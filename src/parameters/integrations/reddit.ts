@@ -1,5 +1,6 @@
-import { redditAdsEvent, tagTypeEq, text } from '../helpers';
+import { tagTypeEq, text } from '../helpers';
 import { commonEventName, commonEventPropertiesJSONValue } from '../common';
+import { redditAdsEvent } from '../integration';
 
 export default function RedditAdsParams() {
   const isRedditAdsEvent = tagTypeEq(redditAdsEvent);

@@ -1,4 +1,5 @@
-import { tagTypeEq, group, radio, select, simpleTable, text, fbPixelEvent } from '../helpers';
+import { tagTypeEq, group, radio, select, simpleTable, text } from '../helpers';
+import { fbPixelEvent } from '../integration';
 
 export default function FacebookConversionsApiParams() {
   const isFbPixelEvent = tagTypeEq(fbPixelEvent);

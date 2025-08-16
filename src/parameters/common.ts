@@ -7,8 +7,8 @@ import {
   radio,
   paramTable,
   select,
-  trackDestinationSelectItems,
 } from './helpers';
+import { trackDestinationSelectItems } from './integration';
 
 export const commonEventName = (enablingConditions: Array<EnablingCondition> = []): Text => {
   return text({

@@ -1,4 +1,5 @@
-import { nonEmpty, rootParamSelectItems, select } from './helpers';
+import { nonEmpty, select } from './helpers';
+import { rootParamSelectItems } from './integration';
 
 export default function rootParams() {
   return [

@@ -1,5 +1,6 @@
 import { commonEventName, commonEventProperties } from '../common';
-import { mntnEvent, tagTypeEq, text } from '../helpers';
+import { tagTypeEq, text } from '../helpers';
+import { mntnEvent } from '../integration';
 
 export default function MntnParams() {
   const isMntnEvent = tagTypeEq(mntnEvent);

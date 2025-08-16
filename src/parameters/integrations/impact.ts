@@ -1,4 +1,5 @@
-import { tagTypeEq, nonEmpty, paramTable, radio, select, text, impactEvent } from '../helpers';
+import { tagTypeEq, nonEmpty, paramTable, radio, select, text } from '../helpers';
+import { impactEvent } from '../integration';
 
 export default function ImpactParams() {
   const isImpactEvent = tagTypeEq(impactEvent);

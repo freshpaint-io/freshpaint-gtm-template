@@ -1,5 +1,6 @@
 import { commonEventName } from '../common';
-import { tagTypeEq, nonEmpty, text, theTradeDeskEvent } from '../helpers';
+import { tagTypeEq, nonEmpty, text } from '../helpers';
+import { theTradeDeskEvent } from '../integration';
 
 export default function TddParams() {
   const isTddEvent = tagTypeEq(theTradeDeskEvent);

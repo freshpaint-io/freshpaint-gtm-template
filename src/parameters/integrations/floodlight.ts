@@ -9,8 +9,8 @@ import {
   radio,
   select,
   text,
-  floodlightEvent,
 } from '../helpers';
+import { floodlightEvent } from '../integration';
 
 export default function FloodlightParams() {
   const isFloodlightEvent = tagTypeEq(floodlightEvent);

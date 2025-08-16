@@ -1,4 +1,5 @@
-import { tagTypeEq, paramTable, radio, select, text, twitterAdsEvent } from '../helpers';
+import { tagTypeEq, paramTable, radio, select, text } from '../helpers';
+import { twitterAdsEvent } from '../integration';
 
 export default function TwitterParams() {
   const isTwitterEvent = tagTypeEq(twitterAdsEvent);

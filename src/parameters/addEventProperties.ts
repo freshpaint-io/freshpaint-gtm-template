@@ -1,4 +1,5 @@
-import { tagTypeEq, simpleTable, addEventProperties } from './helpers';
+import { tagTypeEq, simpleTable } from './helpers';
+import { addEventProperties } from './integration';
 
 export default function AddEventPropertiesParams() {
   const isAddEventProperties = tagTypeEq(addEventProperties);
