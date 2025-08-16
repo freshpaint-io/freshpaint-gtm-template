@@ -1,6 +1,6 @@
 import {
   EnablingCondition,
-  TextParam,
+  Text,
   text,
   nonEmpty,
   simpleTable,
@@ -9,7 +9,7 @@ import {
   select,
 } from './helpers';
 
-export const commonEventName = (enablingConditions: Array<EnablingCondition> = []): TextParam => {
+export const commonEventName = (enablingConditions: Array<EnablingCondition> = []): Text => {
   return text({
     name: 'commonEventName',
     displayName: 'Freshpaint Event Name',

@@ -32,7 +32,14 @@ ___TEMPLATE_PARAMETERS___
     "type": "SELECT",
     "name": "tagType",
     "displayName": "Freshpaint Tag Type",
-    "help": "",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "notSetText": "-",
+    "enablingConditions": [],
     "selectItems": [
       {
         "value": "ga4Event",
@@ -123,15 +130,6 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
       }
     ],
-    "simpleValueType": true,
-    "defaultValue": "",
-    "enablingConditions": [],
-    "notSetText": "-",
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
     "macrosInSelect": false
   },
   {
@@ -140,15 +138,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Pixel ID (optional)",
     "help": "If multiple Pixel IDs are configured for the Basis destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "basisEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -156,15 +152,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Tag ID (optional)",
     "help": "If multiple Tag IDs are configured for the Bing Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Tag IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "bingAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -172,15 +166,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for the Google Campaign Manager 360 Conversions API destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Conversion IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "googleCM360Event",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -188,15 +180,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Pixel ID(s) (optional)",
     "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "fbPixelEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -204,15 +194,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for the Floodlight destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "floodlightEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -220,15 +208,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Measurement ID(s) (optional)",
     "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -243,8 +229,7 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -252,15 +237,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "mntnEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -268,15 +251,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Pinterest Ad Account ID (optional)",
     "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -284,15 +265,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Account ID (optional)",
     "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -300,15 +279,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -316,15 +293,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for the Viant destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "viantEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -408,30 +383,41 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "viantEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "identifyIdentifier",
     "displayName": "Identifier (recommended)",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "identify",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "SIMPLE_TABLE",
     "name": "addEventPropertiesSharedProperties",
     "displayName": "Shared Event Properties",
     "help": "Any properties that should be included with all events going forward.",
+    "valueValidators": [
+      {
+        "type": "TABLE_ROW_COUNT",
+        "args": [
+          1
+        ]
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "addEventProperties",
+        "type": "EQUALS"
+      }
+    ],
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -445,22 +431,6 @@ ___TEMPLATE_PARAMETERS___
         "name": "value",
         "type": "TEXT"
       }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "addEventProperties",
-        "type": "EQUALS"
-      }
-    ],
-    "newRowButtonText": "",
-    "valueValidators": [
-      {
-        "type": "TABLE_ROW_COUNT",
-        "args": [
-          1
-        ]
-      }
     ]
   },
   {
@@ -468,6 +438,20 @@ ___TEMPLATE_PARAMETERS___
     "name": "bingEventType",
     "displayName": "Track Type",
     "help": "Select \"Page View\" only when your Freshpaint Bing Ads configuration has \"Automatically Send Page View Events\" unchecked",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "notSetText": "-",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
     "selectItems": [
       {
         "value": "CUSTOM_PAGE_LOAD",
@@ -498,21 +482,6 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Define your own"
       }
     ],
-    "simpleValueType": true,
-    "defaultValue": "",
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "bingAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "notSetText": "-",
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
     "macrosInSelect": false
   },
   {
@@ -520,6 +489,24 @@ ___TEMPLATE_PARAMETERS___
     "name": "bingEventAction",
     "displayName": "Event action",
     "help": "If you select \"Custom\" and then leave the \"Define your own event action\" field blank, an empty event action value will be sent",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "bingEventType",
+        "paramValue": "ecommerce",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "hotel",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "bingEventType",
+        "paramValue": "travel",
+        "type": "EQUALS"
+      }
+    ],
     "selectItems": [
       {
         "value": "",
@@ -610,36 +597,13 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "View search results (view_search_results)"
       }
     ],
-    "simpleValueType": true,
-    "defaultValue": "",
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "ecommerce",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "bingEventType",
-        "paramValue": "hotel",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "bingEventType",
-        "paramValue": "travel",
-        "type": "EQUALS"
-      }
-    ],
-    "notSetText": "",
-    "valueValidators": [],
     "macrosInSelect": true
   },
   {
     "type": "TEXT",
     "name": "bingCustomEventAction",
     "displayName": "Define your own event action",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "bingEventType",
@@ -656,56 +620,46 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "bingEventCategory",
     "displayName": "Event category",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "bingEventType",
         "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "bingEventLabel",
     "displayName": "Event label",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "bingEventType",
         "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "bingEventValue",
     "displayName": "Event value",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "bingEventType",
         "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -713,7 +667,7 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Currency",
     "help": "Currency value must be ISO standard currency code",
     "simpleValueType": true,
-    "valueValidators": [],
+    "defaultValue": "USD",
     "enablingConditions": [
       {
         "paramName": "bingEventType",
@@ -730,16 +684,13 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "hotel",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": "USD"
+    ]
   },
   {
     "type": "TEXT",
     "name": "bingRevenue",
     "displayName": "Revenue Value",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "bingEventType",
@@ -751,14 +702,12 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "CUSTOM",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "GROUP",
     "name": "bingEcomParams",
     "displayName": "Ecommerce event parameters",
-    "groupStyle": "NO_ZIPPY",
     "enablingConditions": [
       {
         "paramName": "bingEventType",
@@ -771,17 +720,14 @@ ___TEMPLATE_PARAMETERS___
         "type": "TEXT",
         "name": "bingEcommProdId",
         "displayName": "Retail product ID",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "SELECT",
         "name": "bingEcommPagetype",
         "displayName": "Retail page type",
         "help": "The pagetype parameter is required when you include the prodid parameter.",
+        "simpleValueType": true,
         "selectItems": [
           {
             "value": "home",
@@ -812,40 +758,27 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Other"
           }
         ],
-        "simpleValueType": true,
-        "defaultValue": "",
-        "enablingConditions": [],
-        "notSetText": "",
-        "valueValidators": [],
         "macrosInSelect": true
       },
       {
         "type": "TEXT",
         "name": "bingEcommTotalValue",
         "displayName": "Retail total value",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingEcommCategory",
         "displayName": "Retail category",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       }
-    ]
+    ],
+    "groupStyle": "NO_ZIPPY"
   },
   {
     "type": "GROUP",
     "name": "bingHotelParams",
     "displayName": "Hotel event parameters",
-    "groupStyle": "NO_ZIPPY",
     "enablingConditions": [
       {
         "paramName": "bingEventType",
@@ -858,77 +791,51 @@ ___TEMPLATE_PARAMETERS___
         "type": "TEXT",
         "name": "bingHctBasePrice",
         "displayName": "Hotel base price",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingHctBookingXref",
         "displayName": "Hotel booking reference #",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingHctCheckinDate",
         "displayName": "Hotel check-in date",
         "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingHctCheckoutDate",
         "displayName": "Hotel check-out date",
         "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingHctLengthOfStay",
         "displayName": "Hotel length of stay",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingHctPartnerHotelId",
         "displayName": "Partner hotel ID",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingHctTotalPrice",
         "displayName": "Hotel total price",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "SELECT",
         "name": "bingHctPagetype",
         "displayName": "Hotel page type",
-        "help": "",
+        "simpleValueType": true,
         "selectItems": [
           {
             "value": "home",
@@ -971,11 +878,6 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Other"
           }
         ],
-        "simpleValueType": true,
-        "defaultValue": "",
-        "enablingConditions": [],
-        "notSetText": "",
-        "valueValidators": [],
         "macrosInSelect": true
       },
       {
@@ -983,13 +885,13 @@ ___TEMPLATE_PARAMETERS___
         "name": "bingHotelLabel",
         "displayName": "The hotel total price (hct_total_price) and currency parameters are required when you include other hotel parameters."
       }
-    ]
+    ],
+    "groupStyle": "NO_ZIPPY"
   },
   {
     "type": "GROUP",
     "name": "bingTravelParams",
     "displayName": "Travel event parameters",
-    "groupStyle": "NO_ZIPPY",
     "enablingConditions": [
       {
         "paramName": "bingEventType",
@@ -1002,27 +904,19 @@ ___TEMPLATE_PARAMETERS___
         "type": "TEXT",
         "name": "bingTravelDestid",
         "displayName": "Travel destination ID",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingTravelOriginid",
         "displayName": "Travel origin ID",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "SELECT",
         "name": "bingTravelPagetype",
         "displayName": "Travel page type",
-        "help": "",
+        "simpleValueType": true,
         "selectItems": [
           {
             "value": "home",
@@ -1053,11 +947,6 @@ ___TEMPLATE_PARAMETERS___
             "displayValue": "Other"
           }
         ],
-        "simpleValueType": true,
-        "defaultValue": "",
-        "enablingConditions": [],
-        "notSetText": "",
-        "valueValidators": [],
         "macrosInSelect": true
       },
       {
@@ -1065,32 +954,23 @@ ___TEMPLATE_PARAMETERS___
         "name": "bingTravelStartdate",
         "displayName": "Travel start date",
         "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingTravelEnddate",
         "displayName": "Travel end date",
         "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       },
       {
         "type": "TEXT",
         "name": "bingTravelTotalvalue",
         "displayName": "Travel total value",
-        "help": "",
-        "simpleValueType": true,
-        "valueValidators": [],
-        "enablingConditions": [],
-        "defaultValue": ""
+        "simpleValueType": true
       }
-    ]
+    ],
+    "groupStyle": "NO_ZIPPY"
   },
   {
     "type": "TEXT",
@@ -1098,15 +978,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Page path",
     "help": "Must start with a '/', ex: '/spa_page'",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "bingEventType",
         "paramValue": "pageViewSPA",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -1114,15 +992,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Page title",
     "help": "Can leave empty to re-use document title",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "bingEventType",
         "paramValue": "pageViewSPA",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -1141,14 +1017,20 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "googleCM360Event",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "SIMPLE_TABLE",
     "name": "googleCM360EventProperties",
     "displayName": "Event Properties",
     "help": "Google Campaign Manager 360 Conversions API accepts custom properties of the form u1, u2, etc (up to u100), as well as several additional properties. See Freshpaint documentation for a detailed list of accepted properties.",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      }
+    ],
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -1162,7 +1044,13 @@ ___TEMPLATE_PARAMETERS___
         "name": "value",
         "type": "TEXT"
       }
-    ],
+    ]
+  },
+  {
+    "type": "RADIO",
+    "name": "googleCM360FloodlightCountingMethod",
+    "displayName": "Counting Method",
+    "simpleValueType": true,
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -1170,14 +1058,6 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "newRowButtonText": "",
-    "valueValidators": []
-  },
-  {
-    "type": "RADIO",
-    "name": "googleCM360FloodlightCountingMethod",
-    "displayName": "Counting Method",
-    "help": "",
     "radioItems": [
       {
         "value": "STANDARD",
@@ -1194,21 +1074,19 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Per Session",
         "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
       }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleCM360Event",
-        "type": "EQUALS"
-      }
-    ],
-    "simpleValueType": true
+    ]
   },
   {
     "type": "RADIO",
     "name": "fbEventName",
-    "displayName": "",
-    "help": "",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "fbPixelEvent",
+        "type": "EQUALS"
+      }
+    ],
     "radioItems": [
       {
         "value": "standard",
@@ -1217,8 +1095,8 @@ ___TEMPLATE_PARAMETERS___
           {
             "type": "SELECT",
             "name": "fbStandardEventName",
-            "displayName": "",
-            "help": "",
+            "simpleValueType": true,
+            "defaultValue": "PageView",
             "selectItems": [
               {
                 "value": "PageView",
@@ -1292,12 +1170,7 @@ ___TEMPLATE_PARAMETERS___
                 "value": "ViewContent",
                 "displayValue": "ViewContent"
               }
-            ],
-            "simpleValueType": true,
-            "defaultValue": "PageView",
-            "enablingConditions": [],
-            "notSetText": "",
-            "valueValidators": []
+            ]
           }
         ]
       },
@@ -1309,11 +1182,7 @@ ___TEMPLATE_PARAMETERS___
             "type": "TEXT",
             "name": "fbCustomEventName",
             "displayName": "",
-            "help": "",
-            "simpleValueType": true,
-            "valueValidators": [],
-            "enablingConditions": [],
-            "defaultValue": ""
+            "simpleValueType": true
           }
         ]
       },
@@ -1324,33 +1193,18 @@ ___TEMPLATE_PARAMETERS___
           {
             "type": "SELECT",
             "name": "fbVariableEventName",
-            "displayName": "",
-            "help": "",
-            "selectItems": [],
             "simpleValueType": true,
-            "defaultValue": "",
-            "enablingConditions": [],
-            "notSetText": "",
-            "valueValidators": [],
+            "selectItems": [],
             "macrosInSelect": true
           }
         ]
       }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "fbPixelEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "simpleValueType": true
+    ]
   },
   {
     "type": "GROUP",
     "name": "fbGroupParams",
     "displayName": "Object Properties",
-    "groupStyle": "ZIPPY_CLOSED",
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -1364,24 +1218,18 @@ ___TEMPLATE_PARAMETERS___
         "name": "fbObjectPropertiesFromVariable",
         "displayName": "Load Properties From Variable",
         "help": "You can use a variable that returns a JavaScript object with the properties you want to use. This object will be merged with any additional properties you add via the table below. Any conflicts will be resolved in favor of the properties you add to the table.",
+        "simpleValueType": true,
         "selectItems": [
           {
             "value": false,
             "displayValue": "False"
           }
         ],
-        "simpleValueType": true,
-        "defaultValue": "",
-        "enablingConditions": [],
-        "notSetText": "",
-        "valueValidators": [],
         "macrosInSelect": true
       },
       {
         "type": "SIMPLE_TABLE",
         "name": "fbObjectPropertyList",
-        "displayName": "",
-        "help": "",
         "simpleTableColumns": [
           {
             "defaultValue": "",
@@ -1396,11 +1244,10 @@ ___TEMPLATE_PARAMETERS___
             "type": "TEXT"
           }
         ],
-        "enablingConditions": [],
-        "newRowButtonText": "Add property",
-        "valueValidators": []
+        "newRowButtonText": "Add property"
       }
-    ]
+    ],
+    "groupStyle": "ZIPPY_CLOSED"
   },
   {
     "type": "TEXT",
@@ -1419,8 +1266,7 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "floodlightEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -1439,14 +1285,20 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "floodlightEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "RADIO",
     "name": "floodlightCountingMethod",
     "displayName": "Counting Method",
-    "help": "",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "floodlightEvent",
+        "type": "EQUALS"
+      }
+    ],
     "radioItems": [
       {
         "value": "STANDARD",
@@ -1463,7 +1315,13 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Per Session",
         "help": "Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed."
       }
-    ],
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "floodlightCustomVariables",
+    "displayName": "Custom Variables",
+    "help": "Floodlight custom variables are key-value pairs that can be used to track data that you collect about your users, for example the genre of movie that a user purchases. The keys are of the format \"u1=\", \"u2=\", etc.",
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -1471,20 +1329,13 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "simpleValueType": true
-  },
-  {
-    "type": "PARAM_TABLE",
-    "name": "floodlightCustomVariables",
-    "displayName": "Custom Variables",
-    "help": "Floodlight custom variables are key-value pairs that can be used to track data that you collect about your users, for example the genre of movie that a user purchases. The keys are of the format \"u1=\", \"u2=\", etc.",
     "paramTableColumns": [
       {
         "param": {
           "type": "SELECT",
           "name": "key",
           "displayName": "Key",
-          "help": "",
+          "simpleValueType": true,
           "selectItems": [
             {
               "value": "u1",
@@ -1495,11 +1346,6 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "u2"
             }
           ],
-          "simpleValueType": true,
-          "defaultValue": "",
-          "enablingConditions": [],
-          "notSetText": "",
-          "valueValidators": [],
           "macrosInSelect": false
         },
         "isUnique": true
@@ -1509,20 +1355,9 @@ ___TEMPLATE_PARAMETERS___
           "type": "TEXT",
           "name": "value",
           "displayName": "Value",
-          "help": "",
-          "simpleValueType": true,
-          "valueValidators": [],
-          "enablingConditions": [],
-          "defaultValue": ""
+          "simpleValueType": true
         },
         "isUnique": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "floodlightEvent",
-        "type": "EQUALS"
       }
     ]
   },
@@ -1530,7 +1365,6 @@ ___TEMPLATE_PARAMETERS___
     "type": "GROUP",
     "name": "floodlightEnhancedConversionsGroup",
     "displayName": "Enhanced Conversions",
-    "groupStyle": "ZIPPY_CLOSED",
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -1542,18 +1376,16 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "CHECKBOX",
         "name": "floodlightEnhancedConversionsCheckbox",
-        "checkboxText": "Include user-provided data from your website",
+        "help": "User-provided data allows you to improve the accuracy of your measurement by sending hashed first party user-provided data from your website. You will need to agree to the user-provided data terms and policies in your Search Ads 360 account first.",
         "simpleValueType": true,
-        "help": "User-provided data allows you to improve the accuracy of your measurement by sending hashed first party user-provided data from your website. You will need to agree to the user-provided data terms and policies in your Search Ads 360 account first."
+        "checkboxText": "Include user-provided data from your website"
       },
       {
         "type": "SELECT",
         "name": "floodlightEnhancedConversionsUserDataVariable",
         "displayName": "User-provided Data Variable",
         "help": "The selected variable should be of type \"User-Provided Data\"",
-        "selectItems": [],
         "simpleValueType": true,
-        "defaultValue": "",
         "enablingConditions": [
           {
             "paramName": "floodlightEnhancedConversionsCheckbox",
@@ -1561,11 +1393,11 @@ ___TEMPLATE_PARAMETERS___
             "type": "EQUALS"
           }
         ],
-        "notSetText": "",
-        "valueValidators": [],
+        "selectItems": [],
         "macrosInSelect": true
       }
-    ]
+    ],
+    "groupStyle": "ZIPPY_CLOSED"
   },
   {
     "type": "TEXT",
@@ -1573,15 +1405,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Event Properties Variable",
     "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -1600,14 +1430,12 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "googleAdsCallConversionsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "googleAdsConversionLabel",
     "displayName": "Conversion Label",
-    "help": "",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -1625,14 +1453,12 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "googleAdsCallConversionsConversionId",
     "displayName": "Conversion ID",
-    "help": "",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -1645,62 +1471,51 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "googleAdsCallConversionsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "googleAdsConversionValue",
     "displayName": "Conversion Value (optional)",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "googleAdsOrderId",
     "displayName": "Transaction ID (optional)",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "googleAdsCurrencyCode",
     "displayName": "Currency Code (optional)",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "GROUP",
     "name": "googleAdsEnhancedConversionsGroup",
     "displayName": "Enhanced Conversions",
-    "groupStyle": "ZIPPY_CLOSED",
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -1712,18 +1527,16 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "CHECKBOX",
         "name": "googleAdsEnhancedConversionsCheckbox",
-        "checkboxText": "Include user-provided data from your website",
+        "help": "Improve measurement and get more insights with data people provide to your website. You will need to agree to the user-provided data terms and policies in your Google Ads account first.",
         "simpleValueType": true,
-        "help": "Improve measurement and get more insights with data people provide to your website. You will need to agree to the user-provided data terms and policies in your Google Ads account first."
+        "checkboxText": "Include user-provided data from your website"
       },
       {
         "type": "SELECT",
         "name": "googleAdsEnhancedConversionsUserDataVariable",
         "displayName": "User-provided Data Variable",
         "help": "The selected variable should be of type 'User-Provided Data'",
-        "selectItems": [],
         "simpleValueType": true,
-        "defaultValue": "",
         "enablingConditions": [
           {
             "paramName": "googleAdsEnhancedConversionsCheckbox",
@@ -1731,17 +1544,24 @@ ___TEMPLATE_PARAMETERS___
             "type": "EQUALS"
           }
         ],
-        "notSetText": "",
-        "valueValidators": [],
+        "selectItems": [],
         "macrosInSelect": true
       }
-    ]
+    ],
+    "groupStyle": "ZIPPY_CLOSED"
   },
   {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
     "help": "One or the other of event_type_id or event_type_code must be specified.",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
     "radioItems": [
       {
         "value": "event_type_id",
@@ -1751,6 +1571,17 @@ ___TEMPLATE_PARAMETERS___
         "value": "event_type_code",
         "displayValue": "event_type_code"
       }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "impactEventTypeIdOrCode",
+    "displayName": "event_type_id / event_type_code (required)",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
     ],
     "enablingConditions": [
       {
@@ -1762,29 +1593,8 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "impactEventTypeIdOrCode",
-    "displayName": "event_type_id / event_type_code (required)",
-    "help": "",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "impactEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "defaultValue": ""
-  },
-  {
-    "type": "TEXT",
     "name": "impactOrderId",
     "displayName": "order_id (required)",
-    "help": "",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -1797,21 +1607,26 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "impactEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "PARAM_TABLE",
     "name": "impactOtherEventParameters",
     "displayName": "Other parameters (optional)",
-    "help": "",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "impactEvent",
+        "type": "EQUALS"
+      }
+    ],
     "paramTableColumns": [
       {
         "param": {
           "type": "SELECT",
           "name": "param_table_key_column",
           "displayName": "property",
-          "help": "",
+          "simpleValueType": true,
           "selectItems": [
             {
               "value": "amount",
@@ -1902,11 +1717,6 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "text10"
             }
           ],
-          "simpleValueType": true,
-          "defaultValue": "",
-          "enablingConditions": [],
-          "notSetText": "",
-          "valueValidators": [],
           "macrosInSelect": false
         },
         "isUnique": true
@@ -1916,20 +1726,9 @@ ___TEMPLATE_PARAMETERS___
           "type": "TEXT",
           "name": "param_table_value_column",
           "displayName": "Value",
-          "help": "",
-          "simpleValueType": true,
-          "valueValidators": [],
-          "enablingConditions": [],
-          "defaultValue": ""
+          "simpleValueType": true
         },
         "isUnique": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "impactEvent",
-        "type": "EQUALS"
       }
     ]
   },
@@ -1950,8 +1749,7 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "linkedInAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -1970,14 +1768,12 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "linkedInAdsCAPIEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
-    "help": "",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -1990,8 +1786,7 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -2010,24 +1805,20 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
     "name": "theTradeDeskValue",
     "displayName": "value",
-    "help": "",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -2035,15 +1826,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Privacy Settings array (optional)",
     "help": "Privacy Settings array object",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -2051,15 +1840,13 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Data Processing Option (optional)",
     "help": "Data Processing Option object",
     "simpleValueType": true,
-    "valueValidators": [],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "TEXT",
@@ -2078,14 +1865,20 @@ ___TEMPLATE_PARAMETERS___
         "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
       }
-    ],
-    "defaultValue": ""
+    ]
   },
   {
     "type": "RADIO",
     "name": "twitterEventName",
     "displayName": "Select tag event:",
-    "help": "",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ],
     "radioItems": [
       {
         "value": "PageView",
@@ -2131,7 +1924,12 @@ ___TEMPLATE_PARAMETERS___
         "value": "CompleteRegistration",
         "displayValue": "CompleteRegistration"
       }
-    ],
+    ]
+  },
+  {
+    "type": "PARAM_TABLE",
+    "name": "twitterEventParameters",
+    "displayName": "Event Parameters",
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -2139,20 +1937,13 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "simpleValueType": true
-  },
-  {
-    "type": "PARAM_TABLE",
-    "name": "twitterEventParameters",
-    "displayName": "Event Parameters",
-    "help": "",
     "paramTableColumns": [
       {
         "param": {
           "type": "SELECT",
           "name": "param_table_key_column",
           "displayName": "Event parameter name",
-          "help": "",
+          "simpleValueType": true,
           "selectItems": [
             {
               "value": "value",
@@ -2187,11 +1978,6 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "'order_id' - order ID associated with the user's purchase. Example: OID-8767-1"
             }
           ],
-          "simpleValueType": true,
-          "defaultValue": "",
-          "enablingConditions": [],
-          "notSetText": "",
-          "valueValidators": [],
           "macrosInSelect": false
         },
         "isUnique": true
@@ -2201,20 +1987,9 @@ ___TEMPLATE_PARAMETERS___
           "type": "TEXT",
           "name": "param_table_value_column",
           "displayName": "Value for the event parameter",
-          "help": "",
-          "simpleValueType": true,
-          "valueValidators": [],
-          "enablingConditions": [],
-          "defaultValue": ""
+          "simpleValueType": true
         },
         "isUnique": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "twitterAdsEvent",
-        "type": "EQUALS"
       }
     ]
   },
@@ -2223,20 +1998,6 @@ ___TEMPLATE_PARAMETERS___
     "name": "commonEventPropertiesJSONValue",
     "displayName": "Event Properties",
     "help": "Props named value, quantity, item_count, price, total, revenue, or num_items will be converted to numeric if possible; those named contents, products, or items will be converted to a JSON object / array if possible (keys must be quoted).",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Property Name",
-        "name": "name",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Property Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -2249,14 +2010,6 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "newRowButtonText": "",
-    "valueValidators": []
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "commonEventProperties",
-    "displayName": "Event Properties",
-    "help": "",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -2270,7 +2023,12 @@ ___TEMPLATE_PARAMETERS___
         "name": "value",
         "type": "TEXT"
       }
-    ],
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonEventProperties",
+    "displayName": "Event Properties",
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -2308,14 +2066,6 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "newRowButtonText": "",
-    "valueValidators": []
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "commonUserProperties",
-    "displayName": "User Properties",
-    "help": "",
     "simpleTableColumns": [
       {
         "defaultValue": "",
@@ -2329,7 +2079,12 @@ ___TEMPLATE_PARAMETERS___
         "name": "value",
         "type": "TEXT"
       }
-    ],
+    ]
+  },
+  {
+    "type": "SIMPLE_TABLE",
+    "name": "commonUserProperties",
+    "displayName": "User Properties",
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -2342,26 +2097,26 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "newRowButtonText": "",
-    "valueValidators": []
+    "simpleTableColumns": [
+      {
+        "defaultValue": "",
+        "displayName": "Property Name",
+        "name": "name",
+        "type": "TEXT"
+      },
+      {
+        "defaultValue": "",
+        "displayName": "Property Value",
+        "name": "value",
+        "type": "TEXT"
+      }
+    ]
   },
   {
     "type": "RADIO",
     "name": "commonOptinOptOut",
     "displayName": "Opt-in / Opt-out",
-    "help": "",
-    "radioItems": [
-      {
-        "value": "OPTIN",
-        "displayValue": "Opt-in",
-        "help": "Deliver only to destination types / instances specified"
-      },
-      {
-        "value": "OPTOUT",
-        "displayValue": "Opt-out",
-        "help": "Deliver to all but the destination types / instances specified"
-      }
-    ],
+    "simpleValueType": true,
     "enablingConditions": [
       {
         "paramName": "tagType",
@@ -2374,20 +2129,38 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "simpleValueType": true
+    "radioItems": [
+      {
+        "value": "OPTIN",
+        "displayValue": "Opt-in",
+        "help": "Deliver only to destination types / instances specified"
+      },
+      {
+        "value": "OPTOUT",
+        "displayValue": "Opt-out",
+        "help": "Deliver to all but the destination types / instances specified"
+      }
+    ]
   },
   {
     "type": "PARAM_TABLE",
     "name": "commonOptinOptOutInstances",
     "displayName": "Specific Destination Types / Instance IDs",
     "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      }
+    ],
     "paramTableColumns": [
       {
         "param": {
           "type": "SELECT",
           "name": "param_table_key_column",
           "displayName": "Destination Type",
-          "help": "",
+          "simpleValueType": true,
           "selectItems": [
             {
               "value": "Google Analytics 4 Proxy",
@@ -2482,11 +2255,6 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Floodlight - DEPRECATED - instead use Google Campaign Manager 360 Conversions API"
             }
           ],
-          "simpleValueType": true,
-          "defaultValue": "",
-          "enablingConditions": [],
-          "notSetText": "",
-          "valueValidators": [],
           "macrosInSelect": false
         },
         "isUnique": false
@@ -2497,19 +2265,9 @@ ___TEMPLATE_PARAMETERS___
           "name": "param_table_value_column",
           "displayName": "Instance ID (optional)",
           "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
-          "simpleValueType": true,
-          "valueValidators": [],
-          "enablingConditions": [],
-          "defaultValue": ""
+          "simpleValueType": true
         },
         "isUnique": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "track",
-        "type": "EQUALS"
       }
     ]
   },
@@ -2518,13 +2276,20 @@ ___TEMPLATE_PARAMETERS___
     "name": "identifyOptinOptOutInstances",
     "displayName": "Specific Destination Types / Instance IDs",
     "help": "An Instance ID is required only when there are multiple instances configured for a destination type which supports multiple instance IDs, and you don't want to deliver to all.",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "identify",
+        "type": "EQUALS"
+      }
+    ],
     "paramTableColumns": [
       {
         "param": {
           "type": "SELECT",
           "name": "param_table_key_column",
           "displayName": "Destination Type",
-          "help": "",
+          "simpleValueType": true,
           "selectItems": [
             {
               "value": "Google Analytics 4 Proxy",
@@ -2547,11 +2312,6 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Webhooks"
             }
           ],
-          "simpleValueType": true,
-          "defaultValue": "",
-          "enablingConditions": [],
-          "notSetText": "",
-          "valueValidators": [],
           "macrosInSelect": false
         },
         "isUnique": false
@@ -2562,19 +2322,9 @@ ___TEMPLATE_PARAMETERS___
           "name": "param_table_value_column",
           "displayName": "Instance ID (optional)",
           "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
-          "simpleValueType": true,
-          "valueValidators": [],
-          "enablingConditions": [],
-          "defaultValue": ""
+          "simpleValueType": true
         },
         "isUnique": false
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "identify",
-        "type": "EQUALS"
       }
     ]
   }

@@ -1,13 +1,6 @@
 // TODO:
 // event names should be consts here
 
-export function pickDefined<T extends Record<string, unknown>>(obj: T) {
-  return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as {
-    // drop keys whose values are possibly `undefined`
-    [K in keyof T as undefined extends T[K] ? never : K]: Exclude<T[K], undefined>;
-  };
-}
-
 export type EnablingCondition = {
   paramName: string;
   paramValue: any;
@@ -24,65 +17,77 @@ export const nonEmpty = () => ({
   type: 'NON_EMPTY',
 });
 
-// TODO: fill this out to DRY up the param types
-type Param = any;
-
-type TextArgs = {
+/*
+ * It's okay for us to set not passed args as undefined values because
+ * once we JSON serialize in the build script, all keys with undefined values
+ * will be removed.
+ */
+interface ParamArgs {
   name: string;
-  displayName: string;
-  help?: string;
-  simpleValueType?: boolean;
-  valueValidators?: Array<any>;
-  enablingConditions?: Array<EnablingCondition>;
-  defaultValue?: string;
-};
-
-export type TextParam = {
-  type: 'TEXT';
-  name: string;
-  displayName: string;
-  enablingConditions?: Array<EnablingCondition>;
+  displayName?: string;
   help?: string;
   simpleValueType?: boolean;
   valueValidators?: Array<any>;
   defaultValue?: string;
-};
+  notSetText?: string;
+  enablingConditions?: Array<EnablingCondition>;
+  subParams?: Array<Param>;
+}
 
-export function text(args: TextArgs): TextParam {
+interface Param extends ParamArgs {
+  type:
+    | 'PARAM'
+    | 'TEXT'
+    | 'CHECKBOX'
+    | 'SELECT'
+    | 'GROUP'
+    | 'SIMPLE_TABLE'
+    | 'RADIO'
+    | 'PARAM_TABLE';
+}
+
+function param(args: ParamArgs): Param {
   return {
-    type: 'TEXT',
+    type: 'PARAM',
     name: args.name,
     displayName: args.displayName,
-    help: args.help || '',
-    simpleValueType: args.simpleValueType || true,
-    valueValidators: args.valueValidators || [],
-    enablingConditions: args.enablingConditions || [],
-    defaultValue: args.defaultValue || '',
+    help: args.help,
+    simpleValueType: args.simpleValueType,
+    valueValidators: args.valueValidators,
+    defaultValue: args.defaultValue,
+    notSetText: args.notSetText,
+    enablingConditions: args.enablingConditions,
+    subParams: args.subParams,
   };
 }
 
-type CheckboxArgs = {
-  name: string;
-  checkboxText: string;
-  simpleValueType?: boolean;
-  help?: string;
-};
+interface TextArgs extends ParamArgs {}
 
-type CheckboxParam = {
-  type: 'CHECKBOX';
-  name: string;
-  checkboxText: string;
-  simpleValueType?: boolean;
-  help?: string;
-};
+interface Text extends Param {
+  type: 'TEXT';
+}
 
-export function checkbox(args: CheckboxArgs): CheckboxParam {
+export function text(args: TextArgs): Text {
   return {
+    ...param(args),
+    type: 'TEXT',
+  };
+}
+
+interface CheckboxArgs extends ParamArgs {
+  checkboxText: string;
+}
+
+interface Checkbox extends Param {
+  type: 'CHECKBOX';
+  checkboxText: string;
+}
+
+export function checkbox(args: CheckboxArgs): Checkbox {
+  return {
+    ...param(args),
     type: 'CHECKBOX',
-    name: args.name,
     checkboxText: args.checkboxText,
-    simpleValueType: args.simpleValueType || true,
-    help: args.help || '',
   };
 }
 
@@ -93,76 +98,40 @@ type SelectableItem = {
   subParams?: Array<any>;
 };
 
-type SelectArgs = {
-  name: string;
-  displayName?: string;
-  help?: string;
+interface SelectArgs extends ParamArgs {
   macrosInSelect?: boolean;
   selectItems?: Array<SelectableItem>;
-  simpleValueType?: boolean;
-  notSetText?: string;
-  defaultValue?: string;
-  enablingConditions?: Array<EnablingCondition>;
-  valueValidators?: Array<any>;
-};
+}
 
-type SelectParam = {
+interface Select extends Param {
   type: 'SELECT';
-  name: string;
-  displayName?: string;
-  help?: string;
+  selectItems?: Array<SelectableItem>;
   macrosInSelect?: boolean;
-  selectItems: Array<SelectableItem>;
-  simpleValueType?: boolean;
-  enablingConditions?: Array<EnablingCondition>;
-  defaultValue?: string;
-  notSetText?: string;
-  valueValidators?: Array<any>;
-};
+}
 
-export function select(args: SelectArgs): SelectParam {
+export function select(args: SelectArgs): Select {
   return {
+    ...param(args),
     type: 'SELECT',
-    name: args.name,
-    displayName: args.displayName || '',
-    help: args.help || '',
-    selectItems: args.selectItems || [],
-    simpleValueType: args.simpleValueType || true,
-    defaultValue: args.defaultValue || '',
-    enablingConditions: args.enablingConditions || [],
-    notSetText: args.notSetText || '',
-    valueValidators: args.valueValidators || [],
-    ...pickDefined({
-      macrosInSelect: args.macrosInSelect,
-    }),
+    selectItems: args.selectItems,
+    macrosInSelect: args.macrosInSelect,
   };
 }
 
-type GroupArgs = {
-  name: string;
-  displayName: string;
+interface GroupArgs extends ParamArgs {
   groupStyle: string;
-  subParams?: Array<any>;
-  enablingConditions: Array<EnablingCondition>;
-};
+}
 
-type GroupParam = {
+interface Group extends Param {
   type: 'GROUP';
-  name: string;
-  displayName: string;
   groupStyle: string;
-  enablingConditions: Array<EnablingCondition>;
-  subParams: Array<any>;
-};
+}
 
-export function group(args: GroupArgs): GroupParam {
+export function group(args: GroupArgs): Group {
   return {
+    ...param(args),
     type: 'GROUP',
-    name: args.name,
-    displayName: args.displayName,
     groupStyle: args.groupStyle,
-    enablingConditions: args.enablingConditions,
-    subParams: args.subParams || [],
   };
 }
 
@@ -180,70 +149,39 @@ const propertyValueTableColumn = {
   type: 'TEXT',
 };
 
-// todo: search how many times we are calling this simpleTable helper
-// and passing in the same name/ display name
-
-type SimpleTableArgs = {
-  name: string;
-  displayName?: string;
-  help?: string;
-  enablingConditions?: Array<EnablingCondition>;
+interface SimpleTableArgs extends ParamArgs {
   newRowButtonText?: string;
-  valueValidators?: Array<any>;
-};
+}
 
-export type SimpleTableParam = {
+interface SimpleTable extends Param {
   type: 'SIMPLE_TABLE';
-  name: string;
-  displayName?: string;
-  help?: string;
   simpleTableColumns: Array<any>;
-  enablingConditions?: Array<EnablingCondition>;
   newRowButtonText?: string;
-  valueValidators?: Array<any>;
-};
+}
 
-export function simpleTable(args: SimpleTableArgs): SimpleTableParam {
+export function simpleTable(args: SimpleTableArgs): SimpleTable {
   return {
+    ...param(args),
     type: 'SIMPLE_TABLE',
-    name: args.name,
-    displayName: args.displayName || '',
-    help: args.help || '',
     simpleTableColumns: [propertyNameTableColumn, propertyValueTableColumn],
-    enablingConditions: args.enablingConditions || [],
-    newRowButtonText: args.newRowButtonText || '',
-    valueValidators: args.valueValidators || [],
+    newRowButtonText: args.newRowButtonText,
   };
 }
 
-type RadioArgs = {
-  name: string;
-  displayName?: string;
-  help?: string;
-  simpleValueType?: boolean;
+interface RadioArgs extends ParamArgs {
   radioItems: Array<SelectableItem>;
-  enablingConditions: Array<EnablingCondition>;
-};
+}
 
-type RadioParam = {
+interface Radio extends Param {
   type: 'RADIO';
-  name: string;
-  displayName?: string;
-  help?: string;
-  simpleValueType?: boolean;
   radioItems: Array<SelectableItem>;
-  enablingConditions: Array<EnablingCondition>;
-};
+}
 
-export function radio(args: RadioArgs): RadioParam {
+export function radio(args: RadioArgs): Radio {
   return {
+    ...param(args),
     type: 'RADIO',
-    name: args.name,
-    displayName: args.displayName || '',
-    help: args.help || '',
     radioItems: args.radioItems,
-    enablingConditions: args.enablingConditions,
-    ...pickDefined({ simpleValueType: args.simpleValueType }),
   };
 }
 
@@ -252,29 +190,19 @@ type ParamTableColumn = {
   isUnique: boolean;
 };
 
-type ParamTableArgs = {
-  name: string;
-  displayName: string;
-  help?: string;
+interface ParamTableArgs extends ParamArgs {
   paramTableColumns: Array<ParamTableColumn>;
-  enablingConditions: Array<EnablingCondition>;
-};
+}
 
-type ParamTableParam = {
+interface ParamTable extends Param {
   type: 'PARAM_TABLE';
-  name: string;
-  displayName: string;
-  help?: string;
   paramTableColumns: Array<ParamTableColumn>;
-  enablingConditions: Array<EnablingCondition>;
-};
-export function paramTable(args: ParamTableArgs): ParamTableParam {
+}
+
+export function paramTable(args: ParamTableArgs): ParamTable {
   return {
+    ...param(args),
     type: 'PARAM_TABLE',
-    name: args.name,
-    displayName: args.displayName,
-    help: args.help || '',
     paramTableColumns: args.paramTableColumns,
-    enablingConditions: args.enablingConditions,
   };
 }
