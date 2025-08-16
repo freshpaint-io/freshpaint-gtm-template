@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "scripts": {
+    "format": "prettier -w .",
+    "build": "npm run build:params && node scripts/buildTemplate.js",
+    "build:params": "npx tsx scripts/buildParameters.js",
+    "build:test": "npm run build && node scripts/diffTest.js tmp/parameters_original.json src/parameters.json; diff tmp/old.canon.json tmp/new.canon.json"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.4"
+  }
+}
