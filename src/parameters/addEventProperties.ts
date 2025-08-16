@@ -1,7 +1,7 @@
-import { equals, simpleTable } from './helpers';
+import { tagTypeEq, simpleTable, addEventProperties } from './helpers';
 
 export default function AddEventPropertiesParams() {
-  const isAddEventProperties = equals('tagType', 'addEventProperties');
+  const isAddEventProperties = tagTypeEq(addEventProperties);
   const onlyForAddEventProperties = [isAddEventProperties];
 
   return [

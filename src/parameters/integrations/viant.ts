@@ -1,8 +1,8 @@
 import { commonEventName } from '../common';
-import { equals, text } from '../helpers';
+import { tagTypeEq, text, viantEvent } from '../helpers';
 
 export default function ViantParams() {
-  const isViantEvent = equals('tagType', 'viantEvent');
+  const isViantEvent = tagTypeEq(viantEvent);
   const onlyForViant = [isViantEvent];
 
   return [

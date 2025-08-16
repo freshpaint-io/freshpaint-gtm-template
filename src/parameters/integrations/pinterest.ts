@@ -1,8 +1,8 @@
-import { equals, text } from '../helpers';
+import { pinterestAdsEvent, tagTypeEq, text } from '../helpers';
 import { commonEventName, commonEventProperties } from '../common';
 
 export default function PinterestParams() {
-  const isPinterestEvent = equals('tagType', 'pinterestAdsEvent');
+  const isPinterestEvent = tagTypeEq(pinterestAdsEvent);
   const onlyForPinterest = [isPinterestEvent];
 
   return [

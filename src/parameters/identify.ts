@@ -1,21 +1,22 @@
 import { commonOptinOptOut, commonUserProperties } from './common';
-import { equals, paramTable, select, text } from './helpers';
+import {
+  tagTypeEq,
+  paramTable,
+  select,
+  text,
+  identify,
+  identifyDestinationSelectItems,
+} from './helpers';
 
 export default function IdentifyParams() {
-  const isIdentifyTag = equals('tagType', 'identify');
+  const isIdentifyTag = tagTypeEq(identify);
   const onlyForIdentify = [isIdentifyTag];
 
   const destinationTypeKeySelect = select({
     name: 'param_table_key_column',
     displayName: 'Destination Type',
     macrosInSelect: false,
-    selectItems: [
-      { value: 'Google Analytics 4 Proxy', displayValue: 'Google Analytics 4 (Proxy)' },
-      { value: 'Amplitude', displayValue: 'Amplitude' },
-      { value: 'impactdotcom', displayValue: 'impact.com' },
-      { value: 'Mixpanel', displayValue: 'Mixpanel' },
-      { value: 'Webhooks', displayValue: 'Webhooks' },
-    ],
+    selectItems: identifyDestinationSelectItems,
     simpleValueType: true,
   });
 

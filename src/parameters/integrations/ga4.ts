@@ -1,8 +1,8 @@
 import { commonEventName, commonEventProperties, commonUserProperties } from '../common';
-import { equals, text } from '../helpers';
+import { ga4Event, tagTypeEq, text } from '../helpers';
 
 export default function ga4Params() {
-  const isGA4Event = equals('tagType', 'ga4Event');
+  const isGA4Event = tagTypeEq(ga4Event);
   const onlyForGA4 = [isGA4Event];
 
   return [

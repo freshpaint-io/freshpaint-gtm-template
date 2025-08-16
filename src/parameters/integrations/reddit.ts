@@ -1,8 +1,8 @@
-import { equals, text } from '../helpers';
+import { redditAdsEvent, tagTypeEq, text } from '../helpers';
 import { commonEventName, commonEventPropertiesJSONValue } from '../common';
 
 export default function RedditAdsParams() {
-  const isRedditAdsEvent = equals('tagType', 'redditAdsEvent');
+  const isRedditAdsEvent = tagTypeEq(redditAdsEvent);
   const onlyForRedditAds = [isRedditAdsEvent];
 
   return [

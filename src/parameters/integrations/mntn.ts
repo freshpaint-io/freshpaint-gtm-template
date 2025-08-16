@@ -1,8 +1,8 @@
 import { commonEventName, commonEventProperties } from '../common';
-import { equals, text } from '../helpers';
+import { mntnEvent, tagTypeEq, text } from '../helpers';
 
 export default function MntnParams() {
-  const isMntnEvent = equals('tagType', 'mntnEvent');
+  const isMntnEvent = tagTypeEq(mntnEvent);
   const onlyForMntn = [isMntnEvent];
 
   return [

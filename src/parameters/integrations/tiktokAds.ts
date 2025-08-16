@@ -1,8 +1,8 @@
 import { commonEventProperties } from '../common';
-import { equals, nonEmpty, text } from '../helpers';
+import { tagTypeEq, nonEmpty, text, tikTokAdsEvent } from '../helpers';
 
 export default function TikTokAdsParams() {
-  const isTikTokAdsEvent = equals('tagType', 'tikTokAdsEvent');
+  const isTikTokAdsEvent = tagTypeEq(tikTokAdsEvent);
   const onlyForTikTokAds = [isTikTokAdsEvent];
 
   return [

@@ -1,8 +1,8 @@
 import { commonEventName, commonEventProperties } from '../common';
-import { equals, nonEmpty, text } from '../helpers';
+import { tagTypeEq, nonEmpty, text, stackAdaptEvent } from '../helpers';
 
 export default function StackAdaptParams() {
-  const isStackAdaptEvent = equals('tagType', 'stackAdaptEvent');
+  const isStackAdaptEvent = tagTypeEq(stackAdaptEvent);
   const onlyForStackAdapt = [isStackAdaptEvent];
 
   return [

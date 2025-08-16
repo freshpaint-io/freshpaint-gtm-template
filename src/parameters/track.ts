@@ -4,10 +4,10 @@ import {
   commonOptinOptOut,
   commonOptinOptOutInstances,
 } from './common';
-import { equals } from './helpers';
+import { tagTypeEq, track } from './helpers';
 
 export default function TrackParams() {
-  const isTrackEvent = equals('tagType', 'track');
+  const isTrackEvent = tagTypeEq(track);
   const onlyForTrack = [isTrackEvent];
 
   return [

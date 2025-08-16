@@ -1,8 +1,19 @@
 import { commonEventName } from '../common';
-import { checkbox, equals, group, nonEmpty, paramTable, radio, select, text } from '../helpers';
+import {
+  checkbox,
+  equals,
+  tagTypeEq,
+  group,
+  nonEmpty,
+  paramTable,
+  radio,
+  select,
+  text,
+  floodlightEvent,
+} from '../helpers';
 
 export default function FloodlightParams() {
-  const isFloodlightEvent = equals('tagType', 'floodlightEvent');
+  const isFloodlightEvent = tagTypeEq(floodlightEvent);
   const onlyForFloodlight = [isFloodlightEvent];
 
   const customVariableKeySelect = select({

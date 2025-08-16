@@ -1,8 +1,8 @@
-import { equals, nonEmpty, text } from '../helpers';
+import { linkedInAdsEvent, tagTypeEq, nonEmpty, text } from '../helpers';
 import { commonEventName } from '../common';
 
 export default function LinkedInAdsParams() {
-  const isLinkedInEvent = equals('tagType', 'linkedInAdsEvent');
+  const isLinkedInEvent = tagTypeEq(linkedInAdsEvent);
   const onlyForLinkedIn = [isLinkedInEvent];
 
   return [

@@ -1,7 +1,7 @@
-import { equals, group, nonEmpty, select, text } from '../helpers';
+import { equals, tagTypeEq, group, nonEmpty, select, text, bingAdsEvent } from '../helpers';
 
 export default function BingParams() {
-  const isBingEvent = equals('tagType', 'bingAdsEvent');
+  const isBingEvent = tagTypeEq(bingAdsEvent);
   const onlyForBingAds = [isBingEvent];
 
   const isEmptyEvent = equals('bingEventAction', '');
@@ -246,7 +246,7 @@ export default function BingParams() {
     });
 
     const hotelLabel = {
-      type: 'LABEL',
+      type: 'LABEL' as const,
       name: 'bingHotelLabel',
       displayName:
         'The hotel total price (hct_total_price) and currency parameters are required when you include other hotel parameters.',

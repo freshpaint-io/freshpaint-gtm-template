@@ -1,9 +1,9 @@
 import { commonEventName, commonEventProperties } from '../common';
-import { equals, nonEmpty, text } from '../helpers';
+import { linkedInAdsCAPIEvent, tagTypeEq, nonEmpty, text } from '../helpers';
 
 export default function LinkedInCAPIParams() {
-  const isLinkedInCAPIEvent = equals('tagType', 'linkedInAdsCAPIEvent');
-  const onlyForLinkedInCAPI = [isLinkedInCAPIEvent];
+  const isLinkedInCAPICAPIEvent = tagTypeEq(linkedInAdsCAPIEvent);
+  const onlyForLinkedInCAPI = [isLinkedInCAPICAPIEvent];
 
   return [
     commonEventName(onlyForLinkedInCAPI),

@@ -1,8 +1,8 @@
 import { commonEventName, commonEventProperties } from '../common';
-import { equals, text } from '../helpers';
+import { basisEvent, tagTypeEq, text } from '../helpers';
 
 export default function BasisParams() {
-  const isBasisEvent = equals('tagType', 'basisEvent');
+  const isBasisEvent = tagTypeEq(basisEvent);
   const onlyForBasis = [isBasisEvent];
 
   return [

@@ -1,8 +1,8 @@
 import { commonGoogleAdsConversionLabel } from '../common';
-import { equals, text, nonEmpty } from '../helpers';
+import { text, nonEmpty, tagTypeEq, googleAdsCallConversionsEvent } from '../helpers';
 
 export default function gadCallConversionsParams() {
-  const isGadCallConversionsEvent = equals('tagType', 'googleAdsCallConversionsEvent');
+  const isGadCallConversionsEvent = tagTypeEq(googleAdsCallConversionsEvent);
   const onlyForGadCallConversions = [isGadCallConversionsEvent];
 
   return [

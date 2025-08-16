@@ -1,7 +1,7 @@
-import { equals, nonEmpty, paramTable, radio, select, text } from '../helpers';
+import { tagTypeEq, nonEmpty, paramTable, radio, select, text, impactEvent } from '../helpers';
 
 export default function ImpactParams() {
-  const isImpactEvent = equals('tagType', 'impactEvent');
+  const isImpactEvent = tagTypeEq(impactEvent);
   const onlyForImpactEvent = [isImpactEvent];
 
   const otherEventsKeySelect = select({
