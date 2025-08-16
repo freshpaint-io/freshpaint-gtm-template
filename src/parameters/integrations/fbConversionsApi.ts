@@ -41,6 +41,7 @@ export default function FacebookConversionsApiParams() {
 
   const variableEventSelect = select({
     name: 'fbVariableEventName',
+    displayName: '',
     macrosInSelect: true,
     selectItems: [],
     simpleValueType: true,

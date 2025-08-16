@@ -1193,6 +1193,7 @@ ___TEMPLATE_PARAMETERS___
           {
             "type": "SELECT",
             "name": "fbVariableEventName",
+            "displayName": "",
             "simpleValueType": true,
             "selectItems": [],
             "macrosInSelect": true

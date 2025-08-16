@@ -15,26 +15,12 @@ if (!aPath || !bPath) {
 
 const load = async (p) => JSON.parse(await fs.readFile(path.resolve(p), 'utf8'));
 
-const isEmptyish = (v) => {
-  if (v === undefined || v === null) return true;
-  if (typeof v === 'string') return v.trim() === '';
-  if (Array.isArray(v)) return v.length === 0 || v.every(isEmptyish);
-  if (typeof v === 'object') {
-    const ks = Object.keys(v);
-    return ks.length === 0 || ks.every((k) => isEmptyish(v[k]));
-  }
-  return false;
-};
-
 // Produce a canonical form where:
-// - emptyish values are removed (so "missing" == "empty"),
 // - object keys are sorted,
 // - arrays are sorted by a stable “key” derived from their canonical content.
 const canonicalize = (node) => {
-  if (node === undefined || node === null) return undefined;
-
   if (Array.isArray(node)) {
-    const items = node.map(canonicalize).filter((v) => !isEmptyish(v));
+    const items = node.map(canonicalize);
 
     items.sort((x, y) => {
       const kx = stableKey(x);
@@ -48,8 +34,7 @@ const canonicalize = (node) => {
   if (typeof node === 'object') {
     const out = {};
     for (const k of Object.keys(node).sort()) {
-      const v = canonicalize(node[k]);
-      if (!isEmptyish(v)) out[k] = v;
+      out[k] = canonicalize(node[k]);
     }
     return Object.keys(out).length ? out : undefined;
   }
