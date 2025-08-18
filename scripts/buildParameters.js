@@ -3,7 +3,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { orderParamsDeterministic } from './paramSortOrder';
 
-const outputPath = 'src/parameters.json';
+const outputPath = 'src/generatedParameters.json';
 await fs.mkdir(path.dirname(outputPath), { recursive: true });
 
 const srcFolder = 'src/parameters';

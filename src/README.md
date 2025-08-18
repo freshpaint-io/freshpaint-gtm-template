@@ -1,0 +1,22 @@
+# How to add a new integration to the Freshpaint GTM Template
+
+- In `./parameters/integration.ts`:
+  - add a `const` for the new integration event type
+  - add an entry to each of the following for the new event type:
+    - `rootParamSelectItems`
+    - `trackDestinationSelectItems`
+    - `identifyDestinationSelectItems`
+- Create a new file in `./parameters/integrations/` to define the UI fields that the customer will need to fill for this integration event type.
+  - referencing an existing integration file will be helpful at this step
+  - the new file needs to default export a function that returns an array of objects
+  - follow the existing conventions on ordering of the UI fields:
+    - if used, a field for the instance name of the destination should come first
+    - if used, the common field for Freshpaint Event Name should come next
+    - all other destination-specific UI fields should be defined next
+    - if used, the common field for Event Properties should come next
+    - if used, the common field for User Properties should come last
+  - WARNING: due to the usage of common fields and constraints imposed by GTM, the order of UI fields as defined in this file is not necessarily completely 1:1 with how they will show up in the UI. If there are any surprises when testing locally, please refer to `scripts/paramSortOrder.js` to understand the final global ordering.
+- In `web.js`:
+  - add a case statement for the new integration in `processEvent`
+  - create a new custom event processer called in the conditional case statement above
+- Run `npm run build` to update the `template.tpl` generated file

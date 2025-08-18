@@ -35,6 +35,9 @@ See "Last Updated" at [Community Template Gallery: Freshpaint](https://tagmanage
 
 ## Updating the Template
 
+Updates should be made by editing the files in `src/`, and then running `npm run build`.
+DO NOT update `template.tpl` directly. Please refer to `src/README.md` for more details.
+
 ### Testing the template
 
 It's critical to have done a file-import of the template via the GTM UI before merge, including:

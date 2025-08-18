@@ -5,7 +5,7 @@ import path from 'node:path';
 const SECTIONS = [
   ['___TERMS_OF_SERVICE___', 'terms.md'],
   ['___INFO___', 'metadata.json'],
-  ['___TEMPLATE_PARAMETERS___', 'parameters.json'],
+  ['___TEMPLATE_PARAMETERS___', 'generatedParameters.json'],
   ['___SANDBOXED_JS_FOR_WEB_TEMPLATE___', 'web.js'],
   ['___WEB_PERMISSIONS___', 'permissions.json'],
 ];
