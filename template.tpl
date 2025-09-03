@@ -289,6 +289,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "tikTokAdsInstanceNames",
+    "displayName": "Specific Pixel ID(s) (optional)",
+    "help": "If multiple Pixel IDs are configured for the TikTok Ads API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "viantInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for the Viant destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -2789,6 +2803,15 @@ const processTikTokAdsEvent = () => {
         objectProps[propKey] = val;
       }
     }
+  }
+
+    // Process instanceNames
+  let instanceNamesToUse;
+  if (data.tikTokAdsInstanceNames) {
+    instanceNamesToUse = data.tikTokAdsInstanceNames.trim();
+  }
+  if (instanceNamesToUse) {
+    options = generateOptionsFromInstances(tikTokSDKKey, instanceNamesToUse, true);
   }
 
   track(eventName, objectProps, options);
