@@ -463,7 +463,7 @@ const processTikTokAdsEvent = () => {
 const processTwitterEvent = () => {
   const options = generateOptions("Twitter Ads");
 
-  const eventName = data.twitterEventName;
+  const eventName = data.twitterEventId;
   const props = parseParamTable(data.twitterEventParameters || []);
 
   track(eventName, props, options);

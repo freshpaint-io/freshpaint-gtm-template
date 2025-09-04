@@ -1840,61 +1840,21 @@
     ]
   },
   {
-    "type": "RADIO",
-    "name": "twitterEventName",
-    "displayName": "Select tag event:",
+    "type": "TEXT",
+    "name": "twitterEventId",
+    "displayName": "Event ID",
+    "help": "Enter the name of the TikTok Event ID. This will be the Freshpaint Event Name as well.",
     "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "twitterAdsEvent",
         "type": "EQUALS"
-      }
-    ],
-    "radioItems": [
-      {
-        "value": "PageView",
-        "displayValue": "PageView"
-      },
-      {
-        "value": "ViewContent",
-        "displayValue": "ViewContent"
-      },
-      {
-        "value": "Search",
-        "displayValue": "Search"
-      },
-      {
-        "value": "AddToCart",
-        "displayValue": "AddToCart"
-      },
-      {
-        "value": "AddToWishlist",
-        "displayValue": "AddToWishlist"
-      },
-      {
-        "value": "InitiateCheckout",
-        "displayValue": "InitiateCheckout"
-      },
-      {
-        "value": "AddPaymentInfo",
-        "displayValue": "AddPaymentInfo"
-      },
-      {
-        "value": "Purchase",
-        "displayValue": "Purchase"
-      },
-      {
-        "value": "Signup",
-        "displayValue": "Signup"
-      },
-      {
-        "value": "Download",
-        "displayValue": "Download"
-      },
-      {
-        "value": "CompleteRegistration",
-        "displayValue": "CompleteRegistration"
       }
     ]
   },

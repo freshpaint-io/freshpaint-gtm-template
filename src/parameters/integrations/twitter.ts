@@ -1,11 +1,11 @@
-import { tagTypeEq, paramTable, radio, select, text } from '../helpers';
+import {tagTypeEq, paramTable, radio, select, text, nonEmpty} from '../helpers';
 import { twitterAdsEvent } from '../integration';
 
 export default function TwitterParams() {
   const isTwitterEvent = tagTypeEq(twitterAdsEvent);
   const onlyForTwitter = [isTwitterEvent];
 
-  const eventNameSelect = select({
+  const paramNameSelect = select({
     name: 'param_table_key_column',
     displayName: 'Event parameter name',
     macrosInSelect: false,
@@ -53,38 +53,27 @@ export default function TwitterParams() {
     simpleValueType: true,
   });
 
-  const eventValueText = text({
+  const paramValueText = text({
     name: 'param_table_value_column',
     displayName: 'Value for the event parameter',
     simpleValueType: true,
   });
 
   return [
-    radio({
-      name: 'twitterEventName',
-      displayName: 'Select tag event:',
-      radioItems: [
-        { value: 'PageView', displayValue: 'PageView' },
-        { value: 'ViewContent', displayValue: 'ViewContent' },
-        { value: 'Search', displayValue: 'Search' },
-        { value: 'AddToCart', displayValue: 'AddToCart' },
-        { value: 'AddToWishlist', displayValue: 'AddToWishlist' },
-        { value: 'InitiateCheckout', displayValue: 'InitiateCheckout' },
-        { value: 'AddPaymentInfo', displayValue: 'AddPaymentInfo' },
-        { value: 'Purchase', displayValue: 'Purchase' },
-        { value: 'Signup', displayValue: 'Signup' },
-        { value: 'Download', displayValue: 'Download' },
-        { value: 'CompleteRegistration', displayValue: 'CompleteRegistration' },
-      ],
+    text({
+      name: 'twitterEventId',
+      displayName: 'Event ID',
+      help: 'Enter the name of the TikTok Event ID. This will be the Freshpaint Event Name as well.',
       simpleValueType: true,
       enablingConditions: onlyForTwitter,
+      valueValidators: [nonEmpty()],
     }),
     paramTable({
       name: 'twitterEventParameters',
       displayName: 'Event Parameters',
       paramTableColumns: [
-        { param: eventNameSelect, isUnique: true },
-        { param: eventValueText, isUnique: false },
+        { param: paramNameSelect, isUnique: true },
+        { param: paramValueText, isUnique: false },
       ],
       enablingConditions: onlyForTwitter,
     }),
