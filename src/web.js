@@ -455,6 +455,15 @@ const processTikTokAdsEvent = () => {
     }
   }
 
+    // Process instanceNames
+  let instanceNamesToUse;
+  if (data.tikTokAdsInstanceNames) {
+    instanceNamesToUse = data.tikTokAdsInstanceNames.trim();
+  }
+  if (instanceNamesToUse) {
+    options = generateOptionsFromInstances(tikTokSDKKey, instanceNamesToUse, true);
+  }
+
   track(eventName, objectProps, options);
 
   data.gtmOnSuccess();

@@ -8,6 +8,13 @@ export default function TikTokAdsParams() {
 
   return [
     text({
+      name: 'tikTokAdsInstanceNames',
+      displayName: 'Specific Pixel ID(s) (optional)',
+      help: 'If multiple Pixel IDs are configured for the TikTok Ads API destination type, specify one or more specific Pixel IDs, comma delimited, to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)',
+      simpleValueType: true,
+      enablingConditions: onlyForTikTokAds,
+    }),
+    text({
       name: 'tikTokAdsEventName',
       displayName: 'TikTok Event Name',
       help: 'Enter the name of the TikTok event you want to track. This can be a standard event name or a custom event name.',
