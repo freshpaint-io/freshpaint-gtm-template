@@ -394,6 +394,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "viantEvent",
         "type": "EQUALS"
       }
@@ -1883,65 +1888,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "RADIO",
-    "name": "twitterEventName",
-    "displayName": "Select tag event:",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "twitterAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "radioItems": [
-      {
-        "value": "PageView",
-        "displayValue": "PageView"
-      },
-      {
-        "value": "ViewContent",
-        "displayValue": "ViewContent"
-      },
-      {
-        "value": "Search",
-        "displayValue": "Search"
-      },
-      {
-        "value": "AddToCart",
-        "displayValue": "AddToCart"
-      },
-      {
-        "value": "AddToWishlist",
-        "displayValue": "AddToWishlist"
-      },
-      {
-        "value": "InitiateCheckout",
-        "displayValue": "InitiateCheckout"
-      },
-      {
-        "value": "AddPaymentInfo",
-        "displayValue": "AddPaymentInfo"
-      },
-      {
-        "value": "Purchase",
-        "displayValue": "Purchase"
-      },
-      {
-        "value": "Signup",
-        "displayValue": "Signup"
-      },
-      {
-        "value": "Download",
-        "displayValue": "Download"
-      },
-      {
-        "value": "CompleteRegistration",
-        "displayValue": "CompleteRegistration"
-      }
-    ]
-  },
-  {
     "type": "PARAM_TABLE",
     "name": "twitterEventParameters",
     "displayName": "Event Parameters",
@@ -2822,7 +2768,7 @@ const processTikTokAdsEvent = () => {
 const processTwitterEvent = () => {
   const options = generateOptions("Twitter Ads");
 
-  const eventName = data.twitterEventName;
+  const eventName = data.commonEventName;
   const props = parseParamTable(data.twitterEventParameters || []);
 
   track(eventName, props, options);

@@ -365,6 +365,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "viantEvent",
         "type": "EQUALS"
       }
@@ -1850,65 +1855,6 @@
         "paramName": "tagType",
         "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "RADIO",
-    "name": "twitterEventName",
-    "displayName": "Select tag event:",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "twitterAdsEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "radioItems": [
-      {
-        "value": "PageView",
-        "displayValue": "PageView"
-      },
-      {
-        "value": "ViewContent",
-        "displayValue": "ViewContent"
-      },
-      {
-        "value": "Search",
-        "displayValue": "Search"
-      },
-      {
-        "value": "AddToCart",
-        "displayValue": "AddToCart"
-      },
-      {
-        "value": "AddToWishlist",
-        "displayValue": "AddToWishlist"
-      },
-      {
-        "value": "InitiateCheckout",
-        "displayValue": "InitiateCheckout"
-      },
-      {
-        "value": "AddPaymentInfo",
-        "displayValue": "AddPaymentInfo"
-      },
-      {
-        "value": "Purchase",
-        "displayValue": "Purchase"
-      },
-      {
-        "value": "Signup",
-        "displayValue": "Signup"
-      },
-      {
-        "value": "Download",
-        "displayValue": "Download"
-      },
-      {
-        "value": "CompleteRegistration",
-        "displayValue": "CompleteRegistration"
       }
     ]
   },
