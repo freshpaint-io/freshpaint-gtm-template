@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: c970f33de106a4be894589fa50e7f506b3a802f0
-    changeNotes: Generate template from separate source files
+  - sha: 5721278868c3885b1be8a5d57e3b2bd008dad17e
+    changeNotes: Twitter event_name fix, TiKTok multi-config
