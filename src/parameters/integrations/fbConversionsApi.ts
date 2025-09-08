@@ -65,7 +65,7 @@ export default function FacebookConversionsApiParams() {
     text({
       name: 'fbInstanceNames',
       displayName: 'Specific Pixel ID(s) (optional)',
-      help: 'If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)',
+      help: 'If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs, comma delimited, to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)',
       simpleValueType: true,
       enablingConditions: onlyForFbPixelEvent,
     }),

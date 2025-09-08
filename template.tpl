@@ -178,7 +178,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "fbInstanceNames",
     "displayName": "Specific Pixel ID(s) (optional)",
-    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "help": "If multiple Pixel IDs are configured for the Facebook Conversions API destination type, specify one or more specific Pixel IDs, comma delimited, to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -206,7 +206,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "ga4InstanceNames",
     "displayName": "Specific Measurement ID(s) (optional)",
-    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
+    "help": "If multiple Measurement IDs are configured for the Google Analytics 4 Proxy destination type, specify one or more specific Measurement IDs, comma delimited, to deliver to (if left blank, this event will be delivered to all configured Measurement IDs)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -283,6 +283,20 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "theTradeDeskEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "tikTokAdsInstanceNames",
+    "displayName": "Specific Pixel ID(s) (optional)",
+    "help": "If multiple Pixel IDs are configured for the TikTok Ads API destination type, specify one or more specific Pixel IDs, comma delimited, to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
       }
     ]
@@ -2789,6 +2803,15 @@ const processTikTokAdsEvent = () => {
         objectProps[propKey] = val;
       }
     }
+  }
+
+    // Process instanceNames
+  let instanceNamesToUse;
+  if (data.tikTokAdsInstanceNames) {
+    instanceNamesToUse = data.tikTokAdsInstanceNames.trim();
+  }
+  if (instanceNamesToUse) {
+    options = generateOptionsFromInstances(tikTokSDKKey, instanceNamesToUse, true);
   }
 
   track(eventName, objectProps, options);
