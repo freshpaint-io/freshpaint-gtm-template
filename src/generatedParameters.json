@@ -365,6 +365,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "viantEvent",
         "type": "EQUALS"
       }
@@ -1849,25 +1854,6 @@
       {
         "paramName": "tagType",
         "paramValue": "tikTokAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "twitterEventId",
-    "displayName": "Event ID",
-    "help": "Enter the name of the TikTok Event ID. This will be the Freshpaint Event Name as well.",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "twitterAdsEvent",
         "type": "EQUALS"
       }
     ]

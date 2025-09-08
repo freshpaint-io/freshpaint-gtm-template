@@ -1,5 +1,6 @@
 import {tagTypeEq, paramTable, radio, select, text, nonEmpty} from '../helpers';
 import { twitterAdsEvent } from '../integration';
+import {commonEventName} from "../common";
 
 export default function TwitterParams() {
   const isTwitterEvent = tagTypeEq(twitterAdsEvent);
@@ -60,14 +61,7 @@ export default function TwitterParams() {
   });
 
   return [
-    text({
-      name: 'twitterEventId',
-      displayName: 'Event ID',
-      help: 'Enter the name of the TikTok Event ID. This will be the Freshpaint Event Name as well.',
-      simpleValueType: true,
-      enablingConditions: onlyForTwitter,
-      valueValidators: [nonEmpty()],
-    }),
+    commonEventName(onlyForTwitter),
     paramTable({
       name: 'twitterEventParameters',
       displayName: 'Event Parameters',

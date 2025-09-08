@@ -394,6 +394,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "viantEvent",
         "type": "EQUALS"
       }
@@ -1883,25 +1888,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "TEXT",
-    "name": "twitterEventId",
-    "displayName": "Event ID",
-    "help": "Enter the name of the TikTok Event ID. This will be the Freshpaint Event Name as well.",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "twitterAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
     "type": "PARAM_TABLE",
     "name": "twitterEventParameters",
     "displayName": "Event Parameters",
@@ -2782,7 +2768,7 @@ const processTikTokAdsEvent = () => {
 const processTwitterEvent = () => {
   const options = generateOptions("Twitter Ads");
 
-  const eventName = data.twitterEventId;
+  const eventName = data.commonEventName;
   const props = parseParamTable(data.twitterEventParameters || []);
 
   track(eventName, props, options);
