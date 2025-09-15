@@ -233,6 +233,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "linkedInAdsCAPIInstanceName",
+    "displayName": "Specific Instance ID (optional)",
+    "help": "If multiple instances are configured for the LinkedIn CAPI integration type, specify one to deliver to (if left blank, this event will be delivered to all configured integrations)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "mntnInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -3042,7 +3056,17 @@ const processLinkedInAdsEvent = () => {
 
 const processLinkedInAdsCAPIEvent = () => {
   const linkedInCAPISDKKey = "LinkedIn Ads Conversions API";
-  const options = generateOptions(linkedInCAPISDKKey);
+  let options = generateOptions(linkedInCAPISDKKey);
+
+  if (data.linkedInAdsCAPIInstanceName) {
+    const instanceNameToUse = data.linkedInAdsCAPIInstanceName.trim();
+    options = generateOptionsFromInstances(linkedInCAPISDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple LinkedIn Ads CAPI instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
   const conversionIdsToUse = data.linkedInAdsCAPIConversionIds.trim();
   const conversionIds = conversionIdsToUse.split(',');
