@@ -1816,8 +1816,8 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "siriusXMAppName",
-    "displayName": "Specific Application ID (optional)",
-    "help": "If multiple Application IDs are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application IDs)",
+    "displayName": "Specific Application Name (optional)",
+    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
     "simpleValueType": true,
     "enablingConditions": [
       {
@@ -2524,6 +2524,9 @@ const processEvent = () => {
     case "stackAdaptEvent":
       processStackAdaptEvent();
       break;
+    case "siriusXMEvent":
+      processSiriusXMEvent();
+      break;
     case "pinterestAdsEvent":
       processPinterestAdsEvent();
       break;
@@ -3228,6 +3231,19 @@ const processStackAdaptEvent = () => {
     data.gtmOnFailure();
   }
 };
+
+const processSiriusXMEvent = () => {
+  const options = generateOptions("SiriusXM");
+
+  if (data.siriusXMAppName) {
+    const appNameToUse = data.siriusXMAppName.trim();
+    options = generateOptionsFromInstances("SiriusXM", appNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
 const processPinterestAdsEvent = () => {
   const pinterestSDKKey = "pinterest-ads";

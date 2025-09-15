@@ -182,6 +182,9 @@ const processEvent = () => {
     case "stackAdaptEvent":
       processStackAdaptEvent();
       break;
+    case "siriusXMEvent":
+      processSiriusXMEvent();
+      break;
     case "pinterestAdsEvent":
       processPinterestAdsEvent();
       break;
@@ -886,6 +889,19 @@ const processStackAdaptEvent = () => {
     data.gtmOnFailure();
   }
 };
+
+const processSiriusXMEvent = () => {
+  const options = generateOptions("SiriusXM");
+
+  if (data.siriusXMAppName) {
+    const appNameToUse = data.siriusXMAppName.trim();
+    options = generateOptionsFromInstances("SiriusXM", appNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
 const processPinterestAdsEvent = () => {
   const pinterestSDKKey = "pinterest-ads";
