@@ -86,6 +86,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "impact.com"
       },
       {
+        "value": "snapchatEvent",
+        "displayValue": "Snapchat"
+      },
+      {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
       },
@@ -380,6 +384,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       },
       {
@@ -1792,6 +1801,19 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "snapchatPixelID",
+    "displayName": "Pixel ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
     "simpleValueType": true,
@@ -2018,6 +2040,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       },
@@ -2174,6 +2201,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Mixpanel",
               "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Snapchat",
+              "displayValue": "Snapchat"
             },
             {
               "value": "StackAdapt",
@@ -2474,6 +2505,9 @@ const processEvent = () => {
       break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
+      break;
+    case "snapchatEvent":
+      processSnapchatEvent();
       break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
@@ -3152,6 +3186,23 @@ const processTheTradeDeskEvent = () => {
     data.gtmOnSuccess();
   } else {
     log("ERROR: Freshpaint theTradeDesk GTM Template missing eventName and / or trackerOrUPixelIDValue");
+    data.gtmOnFailure();
+  }
+};
+
+const processSnapchatEvent = () => {
+  const options = generateOptions("Snapchat");
+
+  if (data.commonEventName && data.snapchatPixelID) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+
+    props.pixel_id = data.snapchatPixelID;
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Snapchat GTM Template missing eventName and / or pixelID");
     data.gtmOnFailure();
   }
 };

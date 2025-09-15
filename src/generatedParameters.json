@@ -57,6 +57,10 @@
         "displayValue": "impact.com"
       },
       {
+        "value": "snapchatEvent",
+        "displayValue": "Snapchat"
+      },
+      {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
       },
@@ -351,6 +355,11 @@
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       },
       {
@@ -1763,6 +1772,19 @@
   },
   {
     "type": "TEXT",
+    "name": "snapchatPixelID",
+    "displayName": "Pixel ID",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
     "simpleValueType": true,
@@ -1989,6 +2011,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       },
@@ -2145,6 +2172,10 @@
             {
               "value": "Mixpanel",
               "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Snapchat",
+              "displayValue": "Snapchat"
             },
             {
               "value": "StackAdapt",

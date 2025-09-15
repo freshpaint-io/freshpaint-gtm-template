@@ -179,6 +179,9 @@ const processEvent = () => {
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
       break;
+    case "snapchatEvent":
+      processSnapchatEvent();
+      break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
       break;
@@ -856,6 +859,23 @@ const processTheTradeDeskEvent = () => {
     data.gtmOnSuccess();
   } else {
     log("ERROR: Freshpaint theTradeDesk GTM Template missing eventName and / or trackerOrUPixelIDValue");
+    data.gtmOnFailure();
+  }
+};
+
+const processSnapchatEvent = () => {
+  const options = generateOptions("Snapchat");
+
+  if (data.commonEventName && data.snapchatPixelID) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+
+    props.pixel_id = data.snapchatPixelID;
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Snapchat GTM Template missing eventName and / or pixelID");
     data.gtmOnFailure();
   }
 };
