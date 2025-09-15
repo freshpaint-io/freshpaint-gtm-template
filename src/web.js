@@ -746,7 +746,17 @@ const processLinkedInAdsEvent = () => {
 
 const processLinkedInAdsCAPIEvent = () => {
   const linkedInCAPISDKKey = "LinkedIn Ads Conversions API";
-  const options = generateOptions(linkedInCAPISDKKey);
+  let options = generateOptions(linkedInCAPISDKKey);
+
+  if (data.linkedInAdsCAPIInstanceName) {
+    const instanceNameToUse = data.linkedInAdsCAPIInstanceName.trim();
+    options = generateOptionsFromInstances(linkedInCAPISDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple LinkedIn Ads CAPI instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
   const conversionIdsToUse = data.linkedInAdsCAPIConversionIds.trim();
   const conversionIds = conversionIdsToUse.split(',');
