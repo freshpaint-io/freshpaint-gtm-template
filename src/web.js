@@ -864,21 +864,24 @@ const processTheTradeDeskEvent = () => {
 };
 
 const processSnapchatEvent = () => {
-  const options = generateOptions("Snapchat");
+    const snapchatSDKKey = "Snapchat";
 
-  if (data.commonEventName && data.snapchatPixelID) {
+    let options = generateOptions(snapchatSDKKey);
+    if (data.snapchatInstanceName) {
+      const instanceNameToUse = data.snapchatInstanceName.trim();
+      options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
     const props = parseSimpleTable(data.commonEventProperties || []);
-
-    props.pixel_id = data.snapchatPixelID;
-
     track(data.commonEventName, props, options);
 
     data.gtmOnSuccess();
-  } else {
-    log("ERROR: Freshpaint Snapchat GTM Template missing eventName and / or pixelID");
-    data.gtmOnFailure();
-  }
-};
+  };
 
 const processStackAdaptEvent = () => {
   const options = generateOptions("StackAdapt");

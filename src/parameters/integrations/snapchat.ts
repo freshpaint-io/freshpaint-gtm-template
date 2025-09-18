@@ -8,8 +8,9 @@ export default function SnapchatParams() {
 
   return [
     text({
-      name: 'snapchatPixelID',
+      name: 'snapchatInstanceName',
       displayName: 'Pixel ID',
+      help: 'If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)',
       simpleValueType: true,
       enablingConditions: onlyForSnapchat,
     }),

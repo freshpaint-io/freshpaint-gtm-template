@@ -279,6 +279,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "snapchatInstanceName",
+    "displayName": "Pixel ID",
+    "help": "If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "theTradeDeskInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -1801,19 +1815,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "snapchatPixelID",
-    "displayName": "Pixel ID",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "snapchatEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
     "simpleValueType": true,
@@ -3191,21 +3192,24 @@ const processTheTradeDeskEvent = () => {
 };
 
 const processSnapchatEvent = () => {
-  const options = generateOptions("Snapchat");
+    const snapchatSDKKey = "Snapchat";
 
-  if (data.commonEventName && data.snapchatPixelID) {
+    let options = generateOptions(snapchatSDKKey);
+    if (data.snapchatInstanceName) {
+      const instanceNameToUse = data.snapchatInstanceName.trim();
+      options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
     const props = parseSimpleTable(data.commonEventProperties || []);
-
-    props.pixel_id = data.snapchatPixelID;
-
     track(data.commonEventName, props, options);
 
     data.gtmOnSuccess();
-  } else {
-    log("ERROR: Freshpaint Snapchat GTM Template missing eventName and / or pixelID");
-    data.gtmOnFailure();
-  }
-};
+  };
 
 const processStackAdaptEvent = () => {
   const options = generateOptions("StackAdapt");

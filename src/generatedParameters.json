@@ -250,6 +250,20 @@
   },
   {
     "type": "TEXT",
+    "name": "snapchatInstanceName",
+    "displayName": "Pixel ID",
+    "help": "If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "theTradeDeskInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -1766,19 +1780,6 @@
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "snapchatPixelID",
-    "displayName": "Pixel ID",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       }
     ]
