@@ -18,6 +18,7 @@ As described in the [Freshpaint documentation](https://documentation.freshpaint.
   - MNTN
   - Pinterest Ads
   - Reddit Ads
+  - Snapchat
   - Stackadapt
   - TikTok Ads
   - Twitter Ads

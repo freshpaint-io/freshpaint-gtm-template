@@ -179,6 +179,9 @@ const processEvent = () => {
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
       break;
+    case "snapchatEvent":
+      processSnapchatEvent();
+      break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
       break;
@@ -869,6 +872,26 @@ const processTheTradeDeskEvent = () => {
     data.gtmOnFailure();
   }
 };
+
+const processSnapchatEvent = () => {
+    const snapchatSDKKey = "Snapchat";
+
+    let options = generateOptions(snapchatSDKKey);
+    if (data.snapchatInstanceName) {
+      const instanceNameToUse = data.snapchatInstanceName.trim();
+      options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  };
 
 const processStackAdaptEvent = () => {
   const options = generateOptions("StackAdapt");

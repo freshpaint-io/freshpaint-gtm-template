@@ -86,6 +86,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "impact.com"
       },
       {
+        "value": "snapchatEvent",
+        "displayValue": "Snapchat"
+      },
+      {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
       },
@@ -289,6 +293,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "snapchatInstanceName",
+    "displayName": "Pixel ID",
+    "help": "If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "theTradeDeskInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -394,6 +412,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       },
       {
@@ -2032,6 +2055,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       },
@@ -2188,6 +2216,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Mixpanel",
               "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Snapchat",
+              "displayValue": "Snapchat"
             },
             {
               "value": "StackAdapt",
@@ -2488,6 +2520,9 @@ const processEvent = () => {
       break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
+      break;
+    case "snapchatEvent":
+      processSnapchatEvent();
       break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
@@ -3179,6 +3214,26 @@ const processTheTradeDeskEvent = () => {
     data.gtmOnFailure();
   }
 };
+
+const processSnapchatEvent = () => {
+    const snapchatSDKKey = "Snapchat";
+
+    let options = generateOptions(snapchatSDKKey);
+    if (data.snapchatInstanceName) {
+      const instanceNameToUse = data.snapchatInstanceName.trim();
+      options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  };
 
 const processStackAdaptEvent = () => {
   const options = generateOptions("StackAdapt");
