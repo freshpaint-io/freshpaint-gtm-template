@@ -891,17 +891,19 @@ const processStackAdaptEvent = () => {
 };
 
 const processSiriusXMEvent = () => {
-  const options = generateOptions("SiriusXM");
+  const siriusXMSDKKey = "SiriusXM";
+  let options = generateOptions(siriusXMSDKKey);
 
   if (data.siriusXMAppName) {
     const appNameToUse = data.siriusXMAppName.trim();
-    options = generateOptionsFromInstances("SiriusXM", appNameToUse, false);
+    options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);
       data.gtmOnFailure();
       return;
     }
   }
+};
 
 const processPinterestAdsEvent = () => {
   const pinterestSDKKey = "pinterest-ads";
