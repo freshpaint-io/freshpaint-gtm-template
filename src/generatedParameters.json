@@ -77,6 +77,10 @@
         "displayValue": "Reddit Ads"
       },
       {
+        "value": "siriusXMEvent",
+        "displayValue": "SiriusXM"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
@@ -365,6 +369,11 @@
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       },
       {
@@ -1777,6 +1786,20 @@
   },
   {
     "type": "TEXT",
+    "name": "siriusXMAppName",
+    "displayName": "Specific Application Name (optional)",
+    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
     "simpleValueType": true,
@@ -2003,6 +2026,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       },
@@ -2179,6 +2207,10 @@
             {
               "value": "pinterest-ads",
               "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "SiriusXM",
+              "displayValue": "SiriusXM"
             },
             {
               "value": "Twitter Ads",
