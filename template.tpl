@@ -3236,6 +3236,12 @@ const processSiriusXMEvent = () => {
   const siriusXMSDKKey = "SiriusXM";
   let options = generateOptions(siriusXMSDKKey);
 
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint SiriusXM GTM Template missing eventName");
+    data.gtmOnFailure();
+    return;
+  }
+
   if (data.siriusXMAppName) {
     const appNameToUse = data.siriusXMAppName.trim();
     options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
@@ -3245,6 +3251,9 @@ const processSiriusXMEvent = () => {
       return;
     }
   }
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
 };
 
 const processPinterestAdsEvent = () => {
