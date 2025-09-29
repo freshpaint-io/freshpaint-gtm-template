@@ -888,6 +888,9 @@ const processSnapchatEvent = () => {
     }
 
     const props = parseSimpleTable(data.commonEventProperties || []);
+    // Grab the snapchatEventName from the dropdown list and include it in props.
+    props.snapchat_event_name = data.snapchatEventName;
+
     track(data.commonEventName, props, options);
 
     data.gtmOnSuccess();
