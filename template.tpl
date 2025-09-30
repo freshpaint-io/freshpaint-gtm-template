@@ -86,6 +86,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "impact.com"
       },
       {
+        "value": "snapchatEvent",
+        "displayValue": "Snapchat"
+      },
+      {
         "value": "stackAdaptEvent",
         "displayValue": "StackAdapt"
       },
@@ -289,6 +293,20 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "snapchatInstanceName",
+    "displayName": "Pixel ID",
+    "help": "If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "theTradeDeskInstanceName",
     "displayName": "Specific Advertiser ID (optional)",
     "help": "If multiple Advertiser IDs are configured for theTradeDesk destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
@@ -394,6 +412,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       },
       {
@@ -1805,6 +1828,147 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "SELECT",
+    "name": "snapchatEventName",
+    "displayName": "Snapchat Event Name",
+    "help": "This will be the event_name that is sent to Snapchat.",
+    "simpleValueType": true,
+    "defaultValue": "PAGE_VIEW",
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ],
+    "selectItems": [
+      {
+        "value": "PURCHASE",
+        "displayValue": "Purchase"
+      },
+      {
+        "value": "SAVE",
+        "displayValue": "Save"
+      },
+      {
+        "value": "START_CHECKOUT",
+        "displayValue": "Start Checkout"
+      },
+      {
+        "value": "ADD_CART",
+        "displayValue": "Add Cart"
+      },
+      {
+        "value": "VIEW_CONTENT",
+        "displayValue": "View Content"
+      },
+      {
+        "value": "ADD_BILLING",
+        "displayValue": "Add Billing"
+      },
+      {
+        "value": "SIGN_UP",
+        "displayValue": "Sign Up"
+      },
+      {
+        "value": "SEARCH",
+        "displayValue": "Search"
+      },
+      {
+        "value": "PAGE_VIEW",
+        "displayValue": "Page View"
+      },
+      {
+        "value": "SUBSCRIBE",
+        "displayValue": "Subscribe"
+      },
+      {
+        "value": "AD_CLICK",
+        "displayValue": "Ad Click"
+      },
+      {
+        "value": "AD_VIEW",
+        "displayValue": "Ad View"
+      },
+      {
+        "value": "COMPLETE_TUTORIAL",
+        "displayValue": "Complete Tutorial"
+      },
+      {
+        "value": "LEVEL_COMPLETE",
+        "displayValue": "Level Complete"
+      },
+      {
+        "value": "INVITE",
+        "displayValue": "Invite"
+      },
+      {
+        "value": "LOGIN",
+        "displayValue": "Login"
+      },
+      {
+        "value": "SHARE",
+        "displayValue": "Share"
+      },
+      {
+        "value": "RESERVE",
+        "displayValue": "Reserve"
+      },
+      {
+        "value": "ACHIEVEMENT_UNLOCKED",
+        "displayValue": "Achievement Unlocked"
+      },
+      {
+        "value": "ADD_TO_WISHLIST",
+        "displayValue": "Add To Wishlist"
+      },
+      {
+        "value": "SPENT_CREDITS",
+        "displayValue": "Spent Credits"
+      },
+      {
+        "value": "RATE",
+        "displayValue": "Rate"
+      },
+      {
+        "value": "START_TRIAL",
+        "displayValue": "Start Trial"
+      },
+      {
+        "value": "LIST_VIEW",
+        "displayValue": "List View"
+      },
+      {
+        "value": "APP_INSTALL",
+        "displayValue": "App Install"
+      },
+      {
+        "value": "APP_OPEN",
+        "displayValue": "App Open"
+      },
+      {
+        "value": "CUSTOM_EVENT_1",
+        "displayValue": "Custom Event 1"
+      },
+      {
+        "value": "CUSTOM_EVENT_2",
+        "displayValue": "Custom Event 2"
+      },
+      {
+        "value": "CUSTOM_EVENT_3",
+        "displayValue": "Custom Event 3"
+      },
+      {
+        "value": "CUSTOM_EVENT_4",
+        "displayValue": "Custom Event 4"
+      },
+      {
+        "value": "CUSTOM_EVENT_5",
+        "displayValue": "Custom Event 5"
+      }
+    ]
+  },
+  {
     "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
@@ -2032,6 +2196,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       },
@@ -2188,6 +2357,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Mixpanel",
               "displayValue": "Mixpanel"
+            },
+            {
+              "value": "Snapchat",
+              "displayValue": "Snapchat"
             },
             {
               "value": "StackAdapt",
@@ -2488,6 +2661,9 @@ const processEvent = () => {
       break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
+      break;
+    case "snapchatEvent":
+      processSnapchatEvent();
       break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
@@ -3179,6 +3355,29 @@ const processTheTradeDeskEvent = () => {
     data.gtmOnFailure();
   }
 };
+
+const processSnapchatEvent = () => {
+    const snapchatSDKKey = "Snapchat";
+
+    let options = generateOptions(snapchatSDKKey);
+    if (data.snapchatInstanceName) {
+      const instanceNameToUse = data.snapchatInstanceName.trim();
+      options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    // Grab the snapchatEventName from the dropdown list and include it in props.
+    props.snapchat_event_name = data.snapchatEventName;
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  };
 
 const processStackAdaptEvent = () => {
   const options = generateOptions("StackAdapt");
