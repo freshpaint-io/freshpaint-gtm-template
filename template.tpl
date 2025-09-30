@@ -110,6 +110,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Reddit Ads"
       },
       {
+        "value": "siriusXMEvent",
+        "displayValue": "SiriusXM"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
@@ -412,6 +416,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       },
       {
@@ -1828,6 +1837,20 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "siriusXMAppName",
+    "displayName": "Specific Application Name (optional)",
+    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "SELECT",
     "name": "snapchatEventName",
     "displayName": "Snapchat Event Name",
@@ -2196,6 +2219,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "snapchatEvent",
         "type": "EQUALS"
       },
@@ -2381,6 +2409,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "pinterest-ads",
               "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "SiriusXM",
+              "displayValue": "SiriusXM"
             },
             {
               "value": "Twitter Ads",
@@ -2667,6 +2699,9 @@ const processEvent = () => {
       break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
+      break;
+    case "siriusXMEvent":
+      processSiriusXMEvent();
       break;
     case "pinterestAdsEvent":
       processPinterestAdsEvent();
@@ -3394,6 +3429,30 @@ const processStackAdaptEvent = () => {
     log("ERROR: Freshpaint StackAdapt GTM Template missing eventName and / or stackAdaptConversionEventID");
     data.gtmOnFailure();
   }
+};
+
+const processSiriusXMEvent = () => {
+  const siriusXMSDKKey = "SiriusXM";
+  let options = generateOptions(siriusXMSDKKey);
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint SiriusXM GTM Template missing eventName");
+    data.gtmOnFailure();
+    return;
+  }
+
+  if (data.siriusXMAppName) {
+    const appNameToUse = data.siriusXMAppName.trim();
+    options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
 };
 
 const processPinterestAdsEvent = () => {

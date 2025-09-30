@@ -15,6 +15,7 @@ export const theTradeDeskEvent = 'theTradeDeskEvent';
 export const tikTokAdsEvent = 'tikTokAdsEvent';
 export const pinterestAdsEvent = 'pinterestAdsEvent';
 export const redditAdsEvent = 'redditAdsEvent';
+export const siriusXMEvent = 'siriusXMEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
 export const addEventProperties = 'addEventProperties';
 export const identify = 'identify';
@@ -40,6 +41,7 @@ export const rootParamSelectItems = [
   { value: tikTokAdsEvent, displayValue: 'TikTok Ads' },
   { value: pinterestAdsEvent, displayValue: 'Pinterest Ads' },
   { value: redditAdsEvent, displayValue: 'Reddit Ads' },
+  { value: siriusXMEvent, displayValue: 'SiriusXM' },
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
   { value: addEventProperties, displayValue: 'AddEventProperties' },
   { value: identify, displayValue: 'Identify' },
@@ -75,6 +77,7 @@ export const trackDestinationSelectItems = [
   { value: 'TikTok Ads', displayValue: 'TikTok Ads' },
   { value: 'reddit-ads', displayValue: 'Reddit Ads' },
   { value: 'pinterest-ads', displayValue: 'Pinterest Ads' },
+  { value: 'SiriusXM', displayValue: 'SiriusXM' },
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },
   { value: 'viant', displayValue: 'Viant' },
   { value: 'Webhooks', displayValue: 'Webhooks' },

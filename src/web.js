@@ -185,6 +185,9 @@ const processEvent = () => {
     case "stackAdaptEvent":
       processStackAdaptEvent();
       break;
+    case "siriusXMEvent":
+      processSiriusXMEvent();
+      break;
     case "pinterestAdsEvent":
       processPinterestAdsEvent();
       break;
@@ -911,6 +914,30 @@ const processStackAdaptEvent = () => {
     log("ERROR: Freshpaint StackAdapt GTM Template missing eventName and / or stackAdaptConversionEventID");
     data.gtmOnFailure();
   }
+};
+
+const processSiriusXMEvent = () => {
+  const siriusXMSDKKey = "SiriusXM";
+  let options = generateOptions(siriusXMSDKKey);
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint SiriusXM GTM Template missing eventName");
+    data.gtmOnFailure();
+    return;
+  }
+
+  if (data.siriusXMAppName) {
+    const appNameToUse = data.siriusXMAppName.trim();
+    options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
 };
 
 const processPinterestAdsEvent = () => {
