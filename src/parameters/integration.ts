@@ -9,6 +9,7 @@ export const linkedInAdsCAPIEvent = 'linkedInAdsCAPIEvent';
 export const mntnEvent = 'mntnEvent';
 export const bingAdsEvent = 'bingAdsEvent';
 export const impactEvent = 'impactEvent';
+export const snapchatEvent = 'snapchatEvent';
 export const stackAdaptEvent = 'stackAdaptEvent';
 export const theTradeDeskEvent = 'theTradeDeskEvent';
 export const tikTokAdsEvent = 'tikTokAdsEvent';
@@ -34,6 +35,7 @@ export const rootParamSelectItems = [
   { value: mntnEvent, displayValue: 'MNTN' },
   { value: bingAdsEvent, displayValue: 'Bing Ads' },
   { value: impactEvent, displayValue: 'impact.com' },
+  { value: snapchatEvent, displayValue: 'Snapchat' },
   { value: stackAdaptEvent, displayValue: 'StackAdapt' },
   { value: theTradeDeskEvent, displayValue: 'theTradeDesk' },
   { value: tikTokAdsEvent, displayValue: 'TikTok Ads' },
@@ -69,6 +71,7 @@ export const trackDestinationSelectItems = [
   { value: 'LinkedIn Ads Conversions API', displayValue: 'LinkedIn Ads Conversions API' },
   { value: 'MNTN', displayValue: 'MNTN' },
   { value: 'Mixpanel', displayValue: 'Mixpanel' },
+  { value: 'Snapchat', displayValue: 'Snapchat' },
   { value: 'StackAdapt', displayValue: 'StackAdapt' },
   { value: 'theTradeDesk', displayValue: 'theTradeDesk' },
   { value: 'TikTok Ads', displayValue: 'TikTok Ads' },
