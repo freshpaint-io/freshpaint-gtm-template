@@ -2,4 +2,4 @@ homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
   - sha: 6967dd2671e79c16c1668d7b73fecfc901b1617f
-    changeNotes: New Integraion support for SiriusXM and Snapchat Ads (both include mulitconfiguration support).
+    changeNotes: New Integraion support for SiriusXM and Snapchat Ads (both include multi-configuration support).
