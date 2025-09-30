@@ -420,11 +420,12 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
-<<<<<<< HEAD
         "paramValue": "siriusXMEvent",
-=======
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "snapchatEvent",
->>>>>>> main
         "type": "EQUALS"
       },
       {
@@ -1836,6 +1837,20 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "siriusXMAppName",
+    "displayName": "Specific Application Name (optional)",
+    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "SELECT",
     "name": "snapchatEventName",
     "displayName": "Snapchat Event Name",
@@ -1973,20 +1988,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "value": "CUSTOM_EVENT_5",
         "displayValue": "Custom Event 5"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "siriusXMAppName",
-    "displayName": "Specific Application Name (optional)",
-    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "siriusXMEvent",
-        "type": "EQUALS"
       }
     ]
   },
@@ -2218,11 +2219,12 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
-<<<<<<< HEAD
         "paramValue": "siriusXMEvent",
-=======
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "snapchatEvent",
->>>>>>> main
         "type": "EQUALS"
       },
       {
@@ -3819,3 +3821,5 @@ ___WEB_PERMISSIONS___
     "isRequired": true
   }
 ]
+
+

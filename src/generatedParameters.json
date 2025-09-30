@@ -391,6 +391,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "snapchatEvent",
         "type": "EQUALS"
       },
@@ -437,7 +442,9 @@
     "valueValidators": [
       {
         "type": "TABLE_ROW_COUNT",
-        "args": [1]
+        "args": [
+          1
+        ]
       }
     ],
     "enablingConditions": [
@@ -1801,6 +1808,20 @@
     ]
   },
   {
+    "type": "TEXT",
+    "name": "siriusXMAppName",
+    "displayName": "Specific Application Name (optional)",
+    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "SELECT",
     "name": "snapchatEventName",
     "displayName": "Snapchat Event Name",
@@ -1938,20 +1959,6 @@
       {
         "value": "CUSTOM_EVENT_5",
         "displayValue": "Custom Event 5"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "siriusXMAppName",
-    "displayName": "Specific Application Name (optional)",
-    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "siriusXMEvent",
-        "type": "EQUALS"
       }
     ]
   },
@@ -2179,6 +2186,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       },
       {
