@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 37ea9ed2c5b7b5576772c651764248a5ecee7313
-    changeNotes: LinkedIn CAPI instance ID field added to support multi-config.
+  - sha: 6967dd2671e79c16c1668d7b73fecfc901b1617f
+    changeNotes: New Integraion support for SiriusXM and Snapchat Ads (both include multi-configuration support).
