@@ -54,6 +54,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads Call Conversions"
       },
       {
+        "value": "googleAdsConversionApiEvent",
+        "displayValue": "Google Ads Conversion API"
+      },
+      {
         "value": "googleCM360Event",
         "displayValue": "Google Campaign Manager 360 Conversions API"
       },
@@ -391,6 +395,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
       },
       {
@@ -1617,6 +1626,20 @@ ___TEMPLATE_PARAMETERS___
     "groupStyle": "ZIPPY_CLOSED"
   },
   {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiCustomerId",
+    "displayName": "Customer ID",
+    "help": "Enter your Google Ads Account Customer ID. The Customer ID will be shown when logged into your google ads account above your email address. It should look similar to 123-123-1234.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
@@ -2204,6 +2227,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
         "type": "EQUALS"
       },
@@ -2690,6 +2718,9 @@ const processEvent = () => {
       break;
     case "googleAdsCallConversionsEvent":
       processGoogleAdsCallConversionsEvent();
+      break;
+    case "googleAdsConversionApiEvent":
+      processGoogleAdsConversionApiEvent();
       break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
@@ -3234,6 +3265,26 @@ const processGoogleAdsCallConversionsEvent = () => {
   let tagIdConversionLabel = "AW-" + data.googleAdsCallConversionsConversionId + "/" + data.googleAdsConversionLabel;
 
   registerCallConversion(tagIdConversionLabel, data.googleAdsCallConversionsDisplayedPhoneNbr);
+
+  data.gtmOnSuccess();
+};
+
+const processGoogleAdsConversionApiEvent = () => {
+  const googleAdsConversionApiSDKKey = "Google Ads Conversion API";
+  let options = generateOptions(googleAdsConversionApiSDKKey);
+
+  if (data.googleAdsConversionApiCustomerId) {
+    const instanceNameToUse = data.googleAdsConversionApiCustomerId.trim();
+    options = generateOptionsFromInstances(googleAdsConversionApiSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Google Ads Conversion API Customer IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
 
   data.gtmOnSuccess();
 };

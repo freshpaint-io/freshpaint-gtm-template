@@ -1,6 +1,7 @@
 export const ga4Event = 'ga4Event';
 export const googleAdsEvent = 'googleAdsEvent';
 export const googleAdsCallConversionsEvent = 'googleAdsCallConversionsEvent';
+export const googleAdsConversionApiEvent = 'googleAdsConversionApiEvent';
 export const googleCM360Event = 'googleCM360Event';
 export const fbPixelEvent = 'fbPixelEvent';
 export const basisEvent = 'basisEvent';
@@ -27,6 +28,7 @@ export const rootParamSelectItems = [
   { value: ga4Event, displayValue: 'Google Analytics 4 (Proxy)' },
   { value: googleAdsEvent, displayValue: 'Google Ads' },
   { value: googleAdsCallConversionsEvent, displayValue: 'Google Ads Call Conversions' },
+  { value: googleAdsConversionApiEvent, displayValue: 'Google Ads Conversion API' },
   { value: googleCM360Event, displayValue: 'Google Campaign Manager 360 Conversions API' },
   { value: fbPixelEvent, displayValue: 'Facebook Conversions API' },
   { value: basisEvent, displayValue: 'Basis' },

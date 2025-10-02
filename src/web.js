@@ -176,6 +176,9 @@ const processEvent = () => {
     case "googleAdsCallConversionsEvent":
       processGoogleAdsCallConversionsEvent();
       break;
+    case "googleAdsConversionApiEvent":
+      processGoogleAdsConversionApiEvent();
+      break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
       break;
@@ -719,6 +722,26 @@ const processGoogleAdsCallConversionsEvent = () => {
   let tagIdConversionLabel = "AW-" + data.googleAdsCallConversionsConversionId + "/" + data.googleAdsConversionLabel;
 
   registerCallConversion(tagIdConversionLabel, data.googleAdsCallConversionsDisplayedPhoneNbr);
+
+  data.gtmOnSuccess();
+};
+
+const processGoogleAdsConversionApiEvent = () => {
+  const googleAdsConversionApiSDKKey = "Google Ads Conversion API";
+  let options = generateOptions(googleAdsConversionApiSDKKey);
+
+  if (data.googleAdsConversionApiCustomerId) {
+    const instanceNameToUse = data.googleAdsConversionApiCustomerId.trim();
+    options = generateOptionsFromInstances(googleAdsConversionApiSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Google Ads Conversion API Customer IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
 
   data.gtmOnSuccess();
 };
