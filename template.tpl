@@ -1640,6 +1640,34 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiConversionId",
+    "displayName": "Conversion ID (ctid)",
+    "help": "Enter your Google Ads Conversion ID. This is shown within Google Ads when creating a new Conversion or viewing an existing Conversion, within the \"Use Google Tag Manager\" section.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiConversionName",
+    "displayName": "Conversion Name (ctname)",
+    "help": "Enter your Conversion's Name. This is shown in the Conversion Details section within Google Ads.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
@@ -3284,6 +3312,15 @@ const processGoogleAdsConversionApiEvent = () => {
   }
 
   const props = parseSimpleTable(data.commonEventProperties || []);
+
+  if (data.googleAdsConversionApiConversionId) {
+    props.ctid = data.googleAdsConversionApiConversionId;
+  }
+
+  if (data.googleAdsConversionApiConversionName) {
+    props.ctname = data.googleAdsConversionApiConversionName;
+  }
+
   track(data.commonEventName, props, options);
 
   data.gtmOnSuccess();

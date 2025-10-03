@@ -741,6 +741,15 @@ const processGoogleAdsConversionApiEvent = () => {
   }
 
   const props = parseSimpleTable(data.commonEventProperties || []);
+
+  if (data.googleAdsConversionApiConversionId) {
+    props.ctid = data.googleAdsConversionApiConversionId;
+  }
+
+  if (data.googleAdsConversionApiConversionName) {
+    props.ctname = data.googleAdsConversionApiConversionName;
+  }
+
   track(data.commonEventName, props, options);
 
   data.gtmOnSuccess();
