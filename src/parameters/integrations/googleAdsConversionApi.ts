@@ -1,4 +1,4 @@
-import { commonEventName, commonEventProperties, commonInstanceName } from '../common';
+import { commonEventName, commonEventProperties, commonInstanceId } from '../common';
 import { tagTypeEq, text } from '../helpers';
 import { googleAdsConversionApiEvent } from '../integration';
 
@@ -7,11 +7,7 @@ export default function GoogleAdsConversionApiParams() {
   const onlyForGoogleAdsConversionApiEvent = [isGoogleAdsConversionApiEvent];
 
   return [
-    commonInstanceName(
-      'Customer ID',
-      'Enter your Google Ads Account Customer ID. The Customer ID will be shown when logged into your google ads account above your email address. It should look similar to 123-123-1234.',
-      onlyForGoogleAdsConversionApiEvent
-    ),
+    commonInstanceId(onlyForGoogleAdsConversionApiEvent),
     text({
       name: 'googleAdsConversionApiConversionId',
       displayName: 'Conversion ID (ctid)',

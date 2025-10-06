@@ -730,8 +730,8 @@ const processGoogleAdsConversionApiEvent = () => {
   const googleAdsConversionApiSDKKey = "Google Ads Conversion API";
   let options = generateOptions(googleAdsConversionApiSDKKey);
 
-  if (data.commonInstanceName) {
-    const instanceNameToUse = data.commonInstanceName.trim();
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
     options = generateOptionsFromInstances(googleAdsConversionApiSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple Google Ads Conversion API Customer IDs not supported: " + instanceNameToUse);
@@ -912,8 +912,8 @@ const processSnapchatEvent = () => {
     const snapchatSDKKey = "Snapchat";
 
     let options = generateOptions(snapchatSDKKey);
-    if (data.commonInstanceName) {
-      const instanceNameToUse = data.commonInstanceName.trim();
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
       options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
@@ -958,8 +958,8 @@ const processSiriusXMEvent = () => {
     return;
   }
 
-  if (data.commonInstanceName) {
-    const appNameToUse = data.commonInstanceName.trim();
+  if (data.commonInstanceId) {
+    const appNameToUse = data.commonInstanceId.trim();
     options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);

@@ -216,30 +216,6 @@
   },
   {
     "type": "TEXT",
-    "name": "commonInstanceName",
-    "displayName": "Customer ID",
-    "help": "Enter your Google Ads Account Customer ID. The Customer ID will be shown when logged into your google ads account above your email address. It should look similar to 123-123-1234.",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsConversionApiEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "siriusXMEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "snapchatEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "linkedInAdsCAPIInstanceName",
     "displayName": "Specific Instance ID (optional)",
     "help": "If multiple instances are configured for the LinkedIn CAPI integration type, specify one to deliver to (if left blank, this event will be delivered to all configured integrations)",
@@ -1605,6 +1581,30 @@
       }
     ],
     "groupStyle": "ZIPPY_CLOSED"
+  },
+  {
+    "type": "TEXT",
+    "name": "commonInstanceId",
+    "displayName": "Instance ID",
+    "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
   },
   {
     "type": "TEXT",

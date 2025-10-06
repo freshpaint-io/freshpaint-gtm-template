@@ -1,4 +1,4 @@
-import { commonEventName, commonEventProperties, commonInstanceName } from '../common';
+import { commonEventName, commonEventProperties, commonInstanceId } from '../common';
 import { select, tagTypeEq, text } from '../helpers';
 import { snapchatEvent } from '../integration';
 
@@ -42,11 +42,7 @@ export default function SnapchatParams() {
   ];
 
   return [
-    commonInstanceName(
-      'Pixel ID',
-      'If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)',
-      onlyForSnapchat,
-    ),
+    commonInstanceId(onlyForSnapchat),
     commonEventName(onlyForSnapchat),
     select({
       name: 'snapchatEventName',
