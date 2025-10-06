@@ -46,6 +46,20 @@ export const commonEventPropertiesJSONValue = (
   });
 };
 
+export const commonInstanceName = (
+  displayName: string,
+  help: string = 'If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)',
+  enablingConditions: Array<EnablingCondition> = [],
+) => {
+  return text({
+    name: 'commonInstanceName',
+    displayName,
+    help,
+    simpleValueType: true,
+    enablingConditions,
+  });
+};
+
 export const commonGoogleAdsConversionLabel = (
   enablingConditions: Array<EnablingCondition> = [],
 ) => {

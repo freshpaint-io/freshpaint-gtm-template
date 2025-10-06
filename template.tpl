@@ -245,6 +245,30 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "commonInstanceName",
+    "displayName": "Customer ID",
+    "help": "Enter your Google Ads Account Customer ID. The Customer ID will be shown when logged into your google ads account above your email address. It should look similar to 123-123-1234.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "linkedInAdsCAPIInstanceName",
     "displayName": "Specific Instance ID (optional)",
     "help": "If multiple instances are configured for the LinkedIn CAPI integration type, specify one to deliver to (if left blank, this event will be delivered to all configured integrations)",
@@ -295,20 +319,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "snapchatInstanceName",
-    "displayName": "Pixel ID",
-    "help": "If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       }
     ]
@@ -1627,20 +1637,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "googleAdsConversionApiCustomerId",
-    "displayName": "Customer ID",
-    "help": "Enter your Google Ads Account Customer ID. The Customer ID will be shown when logged into your google ads account above your email address. It should look similar to 123-123-1234.",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsConversionApiEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "googleAdsConversionApiConversionId",
     "displayName": "Conversion ID (ctid)",
     "help": "Enter your Google Ads Conversion ID. This is shown within Google Ads when creating a new Conversion or viewing an existing Conversion, within the \"Use Google Tag Manager\" section.",
@@ -1883,20 +1879,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "siriusXMAppName",
-    "displayName": "Specific Application Name (optional)",
-    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       }
     ]
@@ -3301,8 +3283,8 @@ const processGoogleAdsConversionApiEvent = () => {
   const googleAdsConversionApiSDKKey = "Google Ads Conversion API";
   let options = generateOptions(googleAdsConversionApiSDKKey);
 
-  if (data.googleAdsConversionApiCustomerId) {
-    const instanceNameToUse = data.googleAdsConversionApiCustomerId.trim();
+  if (data.commonInstanceName) {
+    const instanceNameToUse = data.commonInstanceName.trim();
     options = generateOptionsFromInstances(googleAdsConversionApiSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple Google Ads Conversion API Customer IDs not supported: " + instanceNameToUse);
@@ -3483,8 +3465,8 @@ const processSnapchatEvent = () => {
     const snapchatSDKKey = "Snapchat";
 
     let options = generateOptions(snapchatSDKKey);
-    if (data.snapchatInstanceName) {
-      const instanceNameToUse = data.snapchatInstanceName.trim();
+    if (data.commonInstanceName) {
+      const instanceNameToUse = data.commonInstanceName.trim();
       options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
@@ -3529,8 +3511,8 @@ const processSiriusXMEvent = () => {
     return;
   }
 
-  if (data.siriusXMAppName) {
-    const appNameToUse = data.siriusXMAppName.trim();
+  if (data.commonInstanceName) {
+    const appNameToUse = data.commonInstanceName.trim();
     options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);
