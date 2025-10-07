@@ -4,7 +4,7 @@ export const ORDER_RULES = [
   { nameRe: /^tagType$/, bucket: -300 },
 
   // 2) Instance selectors
-  { nameRe: /(InstanceName|InstanceNames)$/, bucket: -200 },
+  { nameRe: /(InstanceName|InstanceNames|commonInstanceId)$/, bucket: -200 },
 
   // 3) Freshpaint event name immediately after instance selectors
   { nameRe: /^commonEventName$/, bucket: -180 },

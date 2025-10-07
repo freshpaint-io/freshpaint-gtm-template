@@ -1,5 +1,5 @@
 import { commonEventName, commonEventProperties, commonInstanceId } from '../common';
-import { select, tagTypeEq, text } from '../helpers';
+import { select, tagTypeEq } from '../helpers';
 import { snapchatEvent } from '../integration';
 
 export default function SnapchatParams() {

@@ -1,5 +1,5 @@
-import { tagTypeEq, text } from '../helpers';
-import { commonEventName, commonEventProperties } from '../common';
+import { tagTypeEq } from '../helpers';
+import { commonEventName, commonEventProperties, commonInstanceId } from '../common';
 import { pinterestAdsEvent } from '../integration';
 
 export default function PinterestParams() {
@@ -7,13 +7,7 @@ export default function PinterestParams() {
   const onlyForPinterest = [isPinterestEvent];
 
   return [
-    text({
-      name: 'pinterestAdsInstanceName',
-      displayName: 'Pinterest Ad Account ID (optional)',
-      help: 'If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)',
-      simpleValueType: true,
-      enablingConditions: onlyForPinterest,
-    }),
+    commonInstanceId(onlyForPinterest),
     commonEventName(onlyForPinterest),
     commonEventProperties(onlyForPinterest),
   ];
