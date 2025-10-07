@@ -54,6 +54,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads Call Conversions"
       },
       {
+        "value": "googleAdsConversionApiEvent",
+        "displayValue": "Google Ads Conversion API"
+      },
+      {
         "value": "googleCM360Event",
         "displayValue": "Google Campaign Manager 360 Conversions API"
       },
@@ -241,6 +245,40 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "commonInstanceId",
+    "displayName": "Instance ID",
+    "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "linkedInAdsCAPIInstanceName",
     "displayName": "Specific Instance ID (optional)",
     "help": "If multiple instances are configured for the LinkedIn CAPI integration type, specify one to deliver to (if left blank, this event will be delivered to all configured integrations)",
@@ -255,34 +293,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "mntnInstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "mntnEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "pinterestAdsInstanceName",
-    "displayName": "Pinterest Ad Account ID (optional)",
-    "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "pinterestAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "redditAdsInstanceName",
     "displayName": "Specific Account ID (optional)",
     "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
@@ -291,20 +301,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "snapchatInstanceName",
-    "displayName": "Pixel ID",
-    "help": "If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       }
     ]
@@ -391,6 +387,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
       },
       {
@@ -1617,6 +1618,34 @@ ___TEMPLATE_PARAMETERS___
     "groupStyle": "ZIPPY_CLOSED"
   },
   {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiConversionId",
+    "displayName": "Conversion ID (ctid)",
+    "help": "Enter your Google Ads Conversion ID. This is shown within Google Ads when creating a new Conversion or viewing an existing Conversion, within the \"Use Google Tag Manager\" section.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiConversionName",
+    "displayName": "Conversion Name (ctname)",
+    "help": "Enter your Conversion's Name. This is shown in the Conversion Details section within Google Ads.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
@@ -1832,20 +1861,6 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "siriusXMAppName",
-    "displayName": "Specific Application Name (optional)",
-    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       }
     ]
@@ -2200,6 +2215,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
       },
       {
@@ -2690,6 +2710,9 @@ const processEvent = () => {
       break;
     case "googleAdsCallConversionsEvent":
       processGoogleAdsCallConversionsEvent();
+      break;
+    case "googleAdsConversionApiEvent":
+      processGoogleAdsConversionApiEvent();
       break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
@@ -3238,6 +3261,35 @@ const processGoogleAdsCallConversionsEvent = () => {
   data.gtmOnSuccess();
 };
 
+const processGoogleAdsConversionApiEvent = () => {
+  const googleAdsConversionApiSDKKey = "Google Ads Conversion API";
+  let options = generateOptions(googleAdsConversionApiSDKKey);
+
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(googleAdsConversionApiSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Google Ads Conversion API Customer IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+
+  if (data.googleAdsConversionApiConversionId) {
+    props.ctid = data.googleAdsConversionApiConversionId;
+  }
+
+  if (data.googleAdsConversionApiConversionName) {
+    props.ctname = data.googleAdsConversionApiConversionName;
+  }
+
+  track(data.commonEventName, props, options);
+
+  data.gtmOnSuccess();
+};
+
 const processLinkedInAdsEvent = () => {
   const options = generateOptions("linkedin-ads");
 
@@ -3395,8 +3447,8 @@ const processSnapchatEvent = () => {
     const snapchatSDKKey = "Snapchat";
 
     let options = generateOptions(snapchatSDKKey);
-    if (data.snapchatInstanceName) {
-      const instanceNameToUse = data.snapchatInstanceName.trim();
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
       options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
@@ -3441,8 +3493,8 @@ const processSiriusXMEvent = () => {
     return;
   }
 
-  if (data.siriusXMAppName) {
-    const appNameToUse = data.siriusXMAppName.trim();
+  if (data.commonInstanceId) {
+    const appNameToUse = data.commonInstanceId.trim();
     options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);

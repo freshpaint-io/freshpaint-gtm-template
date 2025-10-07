@@ -25,6 +25,10 @@
         "displayValue": "Google Ads Call Conversions"
       },
       {
+        "value": "googleAdsConversionApiEvent",
+        "displayValue": "Google Ads Conversion API"
+      },
+      {
         "value": "googleCM360Event",
         "displayValue": "Google Campaign Manager 360 Conversions API"
       },
@@ -212,6 +216,40 @@
   },
   {
     "type": "TEXT",
+    "name": "commonInstanceId",
+    "displayName": "Instance ID",
+    "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "linkedInAdsCAPIInstanceName",
     "displayName": "Specific Instance ID (optional)",
     "help": "If multiple instances are configured for the LinkedIn CAPI integration type, specify one to deliver to (if left blank, this event will be delivered to all configured integrations)",
@@ -226,34 +264,6 @@
   },
   {
     "type": "TEXT",
-    "name": "mntnInstanceName",
-    "displayName": "Specific Advertiser ID (optional)",
-    "help": "If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "mntnEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "pinterestAdsInstanceName",
-    "displayName": "Pinterest Ad Account ID (optional)",
-    "help": "If multiple Pinterest Ad Account IDs are configured for the Pinterest Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pinterest Ad Account IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "pinterestAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "redditAdsInstanceName",
     "displayName": "Specific Account ID (optional)",
     "help": "If multiple Account IDs are configured for the Reddit Ads destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Account IDs)",
@@ -262,20 +272,6 @@
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "snapchatInstanceName",
-    "displayName": "Pixel ID",
-    "help": "If multiple Pixel IDs are configured for the Snapchat destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "snapchatEvent",
         "type": "EQUALS"
       }
     ]
@@ -362,6 +358,11 @@
       {
         "paramName": "tagType",
         "paramValue": "googleAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
       },
       {
@@ -1588,6 +1589,34 @@
     "groupStyle": "ZIPPY_CLOSED"
   },
   {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiConversionId",
+    "displayName": "Conversion ID (ctid)",
+    "help": "Enter your Google Ads Conversion ID. This is shown within Google Ads when creating a new Conversion or viewing an existing Conversion, within the \"Use Google Tag Manager\" section.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiConversionName",
+    "displayName": "Conversion Name (ctname)",
+    "help": "Enter your Conversion's Name. This is shown in the Conversion Details section within Google Ads.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
@@ -1803,20 +1832,6 @@
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "siriusXMAppName",
-    "displayName": "Specific Application Name (optional)",
-    "help": "If multiple Application Names are configured for the SiriusXM destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Application Names)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       }
     ]
@@ -2171,6 +2186,11 @@
       {
         "paramName": "tagType",
         "paramValue": "ga4Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
       },
       {

@@ -176,6 +176,9 @@ const processEvent = () => {
     case "googleAdsCallConversionsEvent":
       processGoogleAdsCallConversionsEvent();
       break;
+    case "googleAdsConversionApiEvent":
+      processGoogleAdsConversionApiEvent();
+      break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
       break;
@@ -723,6 +726,35 @@ const processGoogleAdsCallConversionsEvent = () => {
   data.gtmOnSuccess();
 };
 
+const processGoogleAdsConversionApiEvent = () => {
+  const googleAdsConversionApiSDKKey = "Google Ads Conversion API";
+  let options = generateOptions(googleAdsConversionApiSDKKey);
+
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(googleAdsConversionApiSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Google Ads Conversion API Customer IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+
+  if (data.googleAdsConversionApiConversionId) {
+    props.ctid = data.googleAdsConversionApiConversionId;
+  }
+
+  if (data.googleAdsConversionApiConversionName) {
+    props.ctname = data.googleAdsConversionApiConversionName;
+  }
+
+  track(data.commonEventName, props, options);
+
+  data.gtmOnSuccess();
+};
+
 const processLinkedInAdsEvent = () => {
   const options = generateOptions("linkedin-ads");
 
@@ -880,8 +912,8 @@ const processSnapchatEvent = () => {
     const snapchatSDKKey = "Snapchat";
 
     let options = generateOptions(snapchatSDKKey);
-    if (data.snapchatInstanceName) {
-      const instanceNameToUse = data.snapchatInstanceName.trim();
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
       options = generateOptionsFromInstances(snapchatSDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Snapchat Pixel IDs not supported: " + instanceNameToUse);
@@ -926,8 +958,8 @@ const processSiriusXMEvent = () => {
     return;
   }
 
-  if (data.siriusXMAppName) {
-    const appNameToUse = data.siriusXMAppName.trim();
+  if (data.commonInstanceId) {
+    const appNameToUse = data.commonInstanceId.trim();
     options = generateOptionsFromInstances(siriusXMSDKKey, appNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple SiriusXM App Names not supported: " + appNameToUse);

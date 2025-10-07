@@ -1,5 +1,5 @@
-import { commonEventName, commonEventProperties } from '../common';
-import { tagTypeEq, text } from '../helpers';
+import { commonEventName, commonEventProperties, commonInstanceId } from '../common';
+import { tagTypeEq } from '../helpers';
 import { mntnEvent } from '../integration';
 
 export default function MntnParams() {
@@ -7,13 +7,7 @@ export default function MntnParams() {
   const onlyForMntn = [isMntnEvent];
 
   return [
-    text({
-      name: 'mntnInstanceName',
-      displayName: 'Specific Advertiser ID (optional)',
-      help: 'If multiple Advertiser IDs are configured for the MNTN destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Advertiser IDs)',
-      simpleValueType: true,
-      enablingConditions: onlyForMntn,
-    }),
+    commonInstanceId(onlyForMntn),
     commonEventName(onlyForMntn),
     commonEventProperties(onlyForMntn),
   ];

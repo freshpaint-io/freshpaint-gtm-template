@@ -46,6 +46,17 @@ export const commonEventPropertiesJSONValue = (
   });
 };
 
+// displayName and help cannot be passed in. They are overridden by the last-called instance of the function. :/
+export const commonInstanceId = (enablingConditions: Array<EnablingCondition> = []) => {
+  return text({
+    name: 'commonInstanceId',
+    displayName: 'Instance ID',
+    help: 'If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)',
+    simpleValueType: true,
+    enablingConditions,
+  });
+};
+
 export const commonGoogleAdsConversionLabel = (
   enablingConditions: Array<EnablingCondition> = [],
 ) => {
