@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: b2b0faa8036499e4c5cc3f7bc5be8e8a0a7f6b98
-    changeNotes: New integration support for Google Ads Conversion API. Rename Instance Name field to Instance ID for MNTN, Snapchat, SiriusXM, and Pinterest Ads.
+  - sha: ea54e20a2f87a08fa02e66ac1db176a9fdd2db31
+    changeNotes: Deprecate the LinkedIn Ads integration and suggest using the LinkedIn Ads Conversions API instead.
