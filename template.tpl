@@ -135,7 +135,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "value": "linkedInAdsEvent",
-        "displayValue": "LinkedIn Ads"
+        "displayValue": "LinkedIn Ads - DEPRECATED - instead use LinkedIn Ads Conversions API"
       },
       {
         "value": "floodlightEvent",
@@ -1830,8 +1830,8 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "linkedInAdsConversionIds",
-    "displayName": "Conversion ID(s) (max. 3)",
-    "help": "Enter 1-3 conversion ids separated by a comma.",
+    "displayName": "Deprecated: Conversion ID(s) (max. 3)",
+    "help": "This integration is deprecated and will be removed in future versions. Please update to LinkedInCAPI tag and use the linkedInAdsCAPIConversionIds property instead.",
     "simpleValueType": true,
     "valueValidators": [
       {
@@ -2448,7 +2448,7 @@ ___TEMPLATE_PARAMETERS___
             },
             {
               "value": "linkedin-ads",
-              "displayValue": "LinkedIn Ads"
+              "displayValue": "LinkedIn Ads - DEPRECATED - instead use LinkedIn Ads Conversions API"
             },
             {
               "value": "Floodlight",

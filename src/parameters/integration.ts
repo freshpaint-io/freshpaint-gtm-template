@@ -48,7 +48,10 @@ export const rootParamSelectItems = [
   { value: addEventProperties, displayValue: 'AddEventProperties' },
   { value: identify, displayValue: 'Identify' },
   { value: track, displayValue: 'Track' },
-  { value: linkedInAdsEvent, displayValue: 'LinkedIn Ads' },
+  {
+    value: linkedInAdsEvent,
+    displayValue: 'LinkedIn Ads - DEPRECATED - instead use LinkedIn Ads Conversions API',
+  },
   {
     value: floodlightEvent,
     displayValue:
@@ -83,7 +86,10 @@ export const trackDestinationSelectItems = [
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },
   { value: 'viant', displayValue: 'Viant' },
   { value: 'Webhooks', displayValue: 'Webhooks' },
-  { value: 'linkedin-ads', displayValue: 'LinkedIn Ads' },
+  {
+    value: 'linkedin-ads',
+    displayValue: 'LinkedIn Ads - DEPRECATED - instead use LinkedIn Ads Conversions API',
+  },
   {
     value: 'Floodlight',
     displayValue:

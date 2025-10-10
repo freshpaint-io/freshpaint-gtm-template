@@ -13,7 +13,7 @@ As described in the [Freshpaint documentation](https://documentation.freshpaint.
   - Google Analytics 4 (proxy)
   - Google Campaign Manager 360 API
   - Impact.com
-  - LinkedIn Ads
+  - LinkedIn Ads (Deprecated)
   - LinkedIn Ads Conversions API
   - MNTN
   - Pinterest Ads

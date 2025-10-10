@@ -10,8 +10,8 @@ export default function LinkedInAdsParams() {
     commonEventName(onlyForLinkedIn),
     text({
       name: 'linkedInAdsConversionIds',
-      displayName: 'Conversion ID(s) (max. 3)',
-      help: 'Enter 1-3 conversion ids separated by a comma.',
+      displayName: 'Deprecated: Conversion ID(s) (max. 3)',
+      help: 'This integration is deprecated and will be removed in future versions. Please update to LinkedInCAPI tag and use the linkedInAdsCAPIConversionIds property instead.',
       simpleValueType: true,
       valueValidators: [nonEmpty()],
       enablingConditions: onlyForLinkedIn,
