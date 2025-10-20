@@ -34,7 +34,7 @@ export default function SpotifyCAPIParams() {
       simpleValueType: true,
       selectItems: selectableEventNames,
       // Arbitrary default value. This is a required field in the Spotify CAPI API, so choosing a valid value.
-      defaultValue: 'PAGE_VIEW',
+      defaultValue: 'VIEW',
       enablingConditions: onlyForSpotifyCAPI,
     }),
     commonEventProperties(onlyForSpotifyCAPI),

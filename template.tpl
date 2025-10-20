@@ -2026,7 +2026,7 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Spotify CAPI Event Name",
     "help": "This will be the event_name that is sent to Spotify.",
     "simpleValueType": true,
-    "defaultValue": "PAGE_VIEW",
+    "defaultValue": "VIEW",
     "enablingConditions": [
       {
         "paramName": "tagType",
