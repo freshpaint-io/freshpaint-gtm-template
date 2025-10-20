@@ -185,6 +185,9 @@ const processEvent = () => {
     case "snapchatEvent":
       processSnapchatEvent();
       break;
+    case "spotifyCAPIEvent":
+      processSpotifyCAPIEvent();
+      break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
       break;
@@ -925,6 +928,29 @@ const processSnapchatEvent = () => {
     const props = parseSimpleTable(data.commonEventProperties || []);
     // Grab the snapchatEventName from the dropdown list and include it in props.
     props.snapchat_event_name = data.snapchatEventName;
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  };
+
+const processSpotifyCAPIEvent = () => {
+    const spotifyCAPISDKKey = "Spotify Conversions API";
+
+    let options = generateOptions(spotifyCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(spotifyCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Spotify Connection IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    // Grab the spotifyCAPIEventName from the dropdown list and include it in props.
+    props.spotify_event_name = data.spotifyCAPIEventName;
 
     track(data.commonEventName, props, options);
 

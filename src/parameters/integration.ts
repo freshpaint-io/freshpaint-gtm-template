@@ -17,6 +17,7 @@ export const tikTokAdsEvent = 'tikTokAdsEvent';
 export const pinterestAdsEvent = 'pinterestAdsEvent';
 export const redditAdsEvent = 'redditAdsEvent';
 export const siriusXMEvent = 'siriusXMEvent';
+export const spotifyCAPIEvent = 'spotifyCAPIEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
 export const addEventProperties = 'addEventProperties';
 export const identify = 'identify';
@@ -44,6 +45,7 @@ export const rootParamSelectItems = [
   { value: pinterestAdsEvent, displayValue: 'Pinterest Ads' },
   { value: redditAdsEvent, displayValue: 'Reddit Ads' },
   { value: siriusXMEvent, displayValue: 'SiriusXM' },
+  { value: spotifyCAPIEvent, displayValue: 'Spotify Conversions API' },
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
   { value: addEventProperties, displayValue: 'AddEventProperties' },
   { value: identify, displayValue: 'Identify' },
@@ -77,6 +79,7 @@ export const trackDestinationSelectItems = [
   { value: 'MNTN', displayValue: 'MNTN' },
   { value: 'Mixpanel', displayValue: 'Mixpanel' },
   { value: 'Snapchat', displayValue: 'Snapchat' },
+  { value: 'Spotify Conversions API', displayValue: 'Spotify Conversions API' },
   { value: 'StackAdapt', displayValue: 'StackAdapt' },
   { value: 'theTradeDesk', displayValue: 'theTradeDesk' },
   { value: 'TikTok Ads', displayValue: 'TikTok Ads' },
