@@ -1881,17 +1881,153 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SELECT",
-    "name": "commonSelectableEventName",
-    "displayName": "Freshpaint Selectable Event Name",
-    "help": "Scroll for destination specific event names below.",
+    "name": "snapchatEventName",
+    "displayName": "Snapchat Event Name",
+    "help": "This will be the event_name that is sent to Snapchat.",
     "simpleValueType": true,
-    "defaultValue": "PURCHASE",
+    "defaultValue": "PAGE_VIEW",
     "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "snapchatEvent",
         "type": "EQUALS"
+      }
+    ],
+    "selectItems": [
+      {
+        "value": "PURCHASE",
+        "displayValue": "Purchase"
       },
+      {
+        "value": "SAVE",
+        "displayValue": "Save"
+      },
+      {
+        "value": "START_CHECKOUT",
+        "displayValue": "Start Checkout"
+      },
+      {
+        "value": "ADD_CART",
+        "displayValue": "Add Cart"
+      },
+      {
+        "value": "VIEW_CONTENT",
+        "displayValue": "View Content"
+      },
+      {
+        "value": "ADD_BILLING",
+        "displayValue": "Add Billing"
+      },
+      {
+        "value": "SIGN_UP",
+        "displayValue": "Sign Up"
+      },
+      {
+        "value": "SEARCH",
+        "displayValue": "Search"
+      },
+      {
+        "value": "PAGE_VIEW",
+        "displayValue": "Page View"
+      },
+      {
+        "value": "SUBSCRIBE",
+        "displayValue": "Subscribe"
+      },
+      {
+        "value": "AD_CLICK",
+        "displayValue": "Ad Click"
+      },
+      {
+        "value": "AD_VIEW",
+        "displayValue": "Ad View"
+      },
+      {
+        "value": "COMPLETE_TUTORIAL",
+        "displayValue": "Complete Tutorial"
+      },
+      {
+        "value": "LEVEL_COMPLETE",
+        "displayValue": "Level Complete"
+      },
+      {
+        "value": "INVITE",
+        "displayValue": "Invite"
+      },
+      {
+        "value": "LOGIN",
+        "displayValue": "Login"
+      },
+      {
+        "value": "SHARE",
+        "displayValue": "Share"
+      },
+      {
+        "value": "RESERVE",
+        "displayValue": "Reserve"
+      },
+      {
+        "value": "ACHIEVEMENT_UNLOCKED",
+        "displayValue": "Achievement Unlocked"
+      },
+      {
+        "value": "ADD_TO_WISHLIST",
+        "displayValue": "Add To Wishlist"
+      },
+      {
+        "value": "SPENT_CREDITS",
+        "displayValue": "Spent Credits"
+      },
+      {
+        "value": "RATE",
+        "displayValue": "Rate"
+      },
+      {
+        "value": "START_TRIAL",
+        "displayValue": "Start Trial"
+      },
+      {
+        "value": "LIST_VIEW",
+        "displayValue": "List View"
+      },
+      {
+        "value": "APP_INSTALL",
+        "displayValue": "App Install"
+      },
+      {
+        "value": "APP_OPEN",
+        "displayValue": "App Open"
+      },
+      {
+        "value": "CUSTOM_EVENT_1",
+        "displayValue": "Custom Event 1"
+      },
+      {
+        "value": "CUSTOM_EVENT_2",
+        "displayValue": "Custom Event 2"
+      },
+      {
+        "value": "CUSTOM_EVENT_3",
+        "displayValue": "Custom Event 3"
+      },
+      {
+        "value": "CUSTOM_EVENT_4",
+        "displayValue": "Custom Event 4"
+      },
+      {
+        "value": "CUSTOM_EVENT_5",
+        "displayValue": "Custom Event 5"
+      }
+    ]
+  },
+  {
+    "type": "SELECT",
+    "name": "spotifyCAPIEventName",
+    "displayName": "Spotify CAPI Event Name",
+    "help": "This will be the event_name that is sent to Spotify.",
+    "simpleValueType": true,
+    "defaultValue": "VIEW",
+    "enablingConditions": [
       {
         "paramName": "tagType",
         "paramValue": "spotifyCAPIEvent",
@@ -1900,180 +2036,56 @@ ___TEMPLATE_PARAMETERS___
     ],
     "selectItems": [
       {
-        "value": "ACHIEVEMENT_UNLOCKED",
-        "displayValue": "Snapchat Achievement Unlocked"
-      },
-      {
-        "value": "ADD_BILLING",
-        "displayValue": "Snapchat Add Billing"
-      },
-      {
-        "value": "ADD_CART",
-        "displayValue": "Snapchat Add Cart"
-      },
-      {
-        "value": "ADD_TO_WISHLIST",
-        "displayValue": "Snapchat Add To Wishlist"
-      },
-      {
-        "value": "AD_CLICK",
-        "displayValue": "Snapchat Ad Click"
-      },
-      {
-        "value": "AD_VIEW",
-        "displayValue": "Snapchat Ad View"
-      },
-      {
-        "value": "APP_INSTALL",
-        "displayValue": "Snapchat App Install"
-      },
-      {
-        "value": "APP_OPEN",
-        "displayValue": "Snapchat App Open"
-      },
-      {
-        "value": "COMPLETE_TUTORIAL",
-        "displayValue": "Snapchat Complete Tutorial"
-      },
-      {
-        "value": "CUSTOM_EVENT_1",
-        "displayValue": "Snapchat Custom Event 1"
-      },
-      {
-        "value": "CUSTOM_EVENT_2",
-        "displayValue": "Snapchat Custom Event 2"
-      },
-      {
-        "value": "CUSTOM_EVENT_3",
-        "displayValue": "Snapchat Custom Event 3"
-      },
-      {
-        "value": "CUSTOM_EVENT_4",
-        "displayValue": "Snapchat Custom Event 4"
-      },
-      {
-        "value": "CUSTOM_EVENT_5",
-        "displayValue": "Snapchat Custom Event 5"
-      },
-      {
-        "value": "INVITE",
-        "displayValue": "Snapchat Invite"
-      },
-      {
-        "value": "LEVEL_COMPLETE",
-        "displayValue": "Snapchat Level Complete"
-      },
-      {
-        "value": "LIST_VIEW",
-        "displayValue": "Snapchat List View"
-      },
-      {
-        "value": "LOGIN",
-        "displayValue": "Snapchat Login"
-      },
-      {
-        "value": "PAGE_VIEW",
-        "displayValue": "Snapchat Page View"
-      },
-      {
-        "value": "PURCHASE",
-        "displayValue": "Snapchat Purchase"
-      },
-      {
-        "value": "RATE",
-        "displayValue": "Snapchat Rate"
-      },
-      {
-        "value": "RESERVE",
-        "displayValue": "Snapchat Reserve"
-      },
-      {
-        "value": "SAVE",
-        "displayValue": "Snapchat Save"
-      },
-      {
-        "value": "SEARCH",
-        "displayValue": "Snapchat Search"
-      },
-      {
-        "value": "SHARE",
-        "displayValue": "Snapchat Share"
-      },
-      {
-        "value": "SIGN_UP",
-        "displayValue": "Snapchat Sign Up"
-      },
-      {
-        "value": "SPENT_CREDITS",
-        "displayValue": "Snapchat Spent Credits"
-      },
-      {
-        "value": "START_CHECKOUT",
-        "displayValue": "Snapchat Start Checkout"
-      },
-      {
-        "value": "START_TRIAL",
-        "displayValue": "Snapchat Start Trial"
-      },
-      {
-        "value": "SUBSCRIBE",
-        "displayValue": "Snapchat Subscribe"
-      },
-      {
-        "value": "VIEW_CONTENT",
-        "displayValue": "Snapchat View Content"
+        "value": "ADD_TO_CART",
+        "displayValue": "Add to Cart"
       },
       {
         "value": "ALIAS",
-        "displayValue": "Spotify CAPI Alias"
-      },
-      {
-        "value": "ADD_TO_CART",
-        "displayValue": "Spotify CAPI Add to Cart"
-      },
-      {
-        "value": "CUSTOM_EVENT_1",
-        "displayValue": "Spotify CAPI Custom Event 1"
-      },
-      {
-        "value": "CUSTOM_EVENT_2",
-        "displayValue": "Spotify CAPI Custom Event 2"
-      },
-      {
-        "value": "CUSTOM_EVENT_3",
-        "displayValue": "Spotify CAPI Custom Event 3"
-      },
-      {
-        "value": "CUSTOM_EVENT_4",
-        "displayValue": "Spotify CAPI Custom Event 4"
-      },
-      {
-        "value": "CUSTOM_EVENT_5",
-        "displayValue": "Spotify CAPI Custom Event 5"
+        "displayValue": "Alias"
       },
       {
         "value": "LEAD",
-        "displayValue": "Spotify CAPI Lead"
+        "displayValue": "Lead"
       },
       {
         "value": "VIEW",
-        "displayValue": "Spotify CAPI Page View"
+        "displayValue": "Page View"
       },
       {
         "value": "PURCHASE",
-        "displayValue": "Spotify CAPI Purchase"
+        "displayValue": "Purchase"
       },
       {
         "value": "SIGN_UP",
-        "displayValue": "Spotify CAPI Sign Up"
-      },
-      {
-        "value": "CHECK_OUT",
-        "displayValue": "Spotify CAPI Start Checkout"
+        "displayValue": "Sign Up"
       },
       {
         "value": "PRODUCT",
-        "displayValue": "Spotify CAPI View Product"
+        "displayValue": "View Product"
+      },
+      {
+        "value": "CHECK_OUT",
+        "displayValue": "Start Checkout"
+      },
+      {
+        "value": "CUSTOM_EVENT_1",
+        "displayValue": "Custom Event 1"
+      },
+      {
+        "value": "CUSTOM_EVENT_2",
+        "displayValue": "Custom Event 2"
+      },
+      {
+        "value": "CUSTOM_EVENT_3",
+        "displayValue": "Custom Event 3"
+      },
+      {
+        "value": "CUSTOM_EVENT_4",
+        "displayValue": "Custom Event 4"
+      },
+      {
+        "value": "CUSTOM_EVENT_5",
+        "displayValue": "Custom Event 5"
       }
     ]
   },
