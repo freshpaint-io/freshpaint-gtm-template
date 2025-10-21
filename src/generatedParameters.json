@@ -89,6 +89,10 @@
         "displayValue": "SiriusXM"
       },
       {
+        "value": "spotifyCAPIEvent",
+        "displayValue": "Spotify Conversions API"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
@@ -245,6 +249,11 @@
         "paramName": "tagType",
         "paramValue": "snapchatEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -398,6 +407,11 @@
       {
         "paramName": "tagType",
         "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -2220,6 +2234,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       },
@@ -2380,6 +2399,10 @@
             {
               "value": "Snapchat",
               "displayValue": "Snapchat"
+            },
+            {
+              "value": "Spotify Conversions API",
+              "displayValue": "Spotify Conversions API"
             },
             {
               "value": "StackAdapt",

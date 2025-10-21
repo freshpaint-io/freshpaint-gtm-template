@@ -118,6 +118,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "SiriusXM"
       },
       {
+        "value": "spotifyCAPIEvent",
+        "displayValue": "Spotify Conversions API"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
@@ -274,6 +278,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "snapchatEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -427,6 +436,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -2249,6 +2263,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
         "type": "EQUALS"
       },
@@ -2409,6 +2428,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Snapchat",
               "displayValue": "Snapchat"
+            },
+            {
+              "value": "Spotify Conversions API",
+              "displayValue": "Spotify Conversions API"
             },
             {
               "value": "StackAdapt",
@@ -2719,6 +2742,9 @@ const processEvent = () => {
       break;
     case "snapchatEvent":
       processSnapchatEvent();
+      break;
+    case "spotifyCAPIEvent":
+      processSpotifyCAPIEvent();
       break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
@@ -3463,6 +3489,25 @@ const processSnapchatEvent = () => {
 
     track(data.commonEventName, props, options);
 
+    data.gtmOnSuccess();
+  };
+
+const processSpotifyCAPIEvent = () => {
+    const spotifyCAPISDKKey = "Spotify Conversions API";
+
+    let options = generateOptions(spotifyCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(spotifyCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Spotify Connection IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
     data.gtmOnSuccess();
   };
 
