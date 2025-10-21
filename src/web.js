@@ -949,11 +949,7 @@ const processSpotifyCAPIEvent = () => {
     }
 
     const props = parseSimpleTable(data.commonEventProperties || []);
-    // Grab the spotifyCAPIEventName from the dropdown list and include it in props.
-    props.spotify_event_name = data.spotifyCAPIEventName;
-
     track(data.commonEventName, props, options);
-
     data.gtmOnSuccess();
   };
 

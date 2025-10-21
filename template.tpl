@@ -2021,75 +2021,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "SELECT",
-    "name": "spotifyCAPIEventName",
-    "displayName": "Spotify CAPI Event Name",
-    "help": "This will be the event_name that is sent to Spotify.",
-    "simpleValueType": true,
-    "defaultValue": "VIEW",
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "spotifyCAPIEvent",
-        "type": "EQUALS"
-      }
-    ],
-    "selectItems": [
-      {
-        "value": "ADD_TO_CART",
-        "displayValue": "Add to Cart"
-      },
-      {
-        "value": "ALIAS",
-        "displayValue": "Alias"
-      },
-      {
-        "value": "LEAD",
-        "displayValue": "Lead"
-      },
-      {
-        "value": "VIEW",
-        "displayValue": "Page View"
-      },
-      {
-        "value": "PURCHASE",
-        "displayValue": "Purchase"
-      },
-      {
-        "value": "SIGN_UP",
-        "displayValue": "Sign Up"
-      },
-      {
-        "value": "PRODUCT",
-        "displayValue": "View Product"
-      },
-      {
-        "value": "CHECK_OUT",
-        "displayValue": "Start Checkout"
-      },
-      {
-        "value": "CUSTOM_EVENT_1",
-        "displayValue": "Custom Event 1"
-      },
-      {
-        "value": "CUSTOM_EVENT_2",
-        "displayValue": "Custom Event 2"
-      },
-      {
-        "value": "CUSTOM_EVENT_3",
-        "displayValue": "Custom Event 3"
-      },
-      {
-        "value": "CUSTOM_EVENT_4",
-        "displayValue": "Custom Event 4"
-      },
-      {
-        "value": "CUSTOM_EVENT_5",
-        "displayValue": "Custom Event 5"
-      }
-    ]
-  },
-  {
     "type": "TEXT",
     "name": "stackAdaptConversionEventID",
     "displayName": "StackAdapt Conversion Event Unique ID",
@@ -3576,11 +3507,7 @@ const processSpotifyCAPIEvent = () => {
     }
 
     const props = parseSimpleTable(data.commonEventProperties || []);
-    // Grab the spotifyCAPIEventName from the dropdown list and include it in props.
-    props.spotify_event_name = data.spotifyCAPIEventName;
-
     track(data.commonEventName, props, options);
-
     data.gtmOnSuccess();
   };
 
