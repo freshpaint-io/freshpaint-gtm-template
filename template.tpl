@@ -126,6 +126,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Twitter Ads"
       },
       {
+        "value": "nextdoorEvent",
+        "displayValue": "Nextdoor"
+      },
+      {
         "value": "addEventProperties",
         "displayValue": "AddEventProperties"
       },
@@ -262,6 +266,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
         "type": "EQUALS"
       },
       {
@@ -416,6 +425,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
         "type": "EQUALS"
       },
       {
@@ -2248,6 +2262,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
         "type": "EQUALS"
       },
@@ -2460,6 +2479,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "Nextdoor",
+              "displayValue": "Nextdoor"
             },
             {
               "value": "viant",
@@ -2769,6 +2792,9 @@ const processEvent = () => {
       break;
     case "viantEvent":
       processViantEvent();
+      break;
+    case "nextdoorEvent":
+      processNextdoorEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3748,6 +3774,31 @@ const processViantEvent = () => {
   }
 
   track(data.commonEventName, {}, options);
+  data.gtmOnSuccess();
+};
+
+const processNextdoorEvent = () => {
+  const nextdoorSDKKey = "Nextdoor";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Nextdoor GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(nextdoorSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(nextdoorSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Nextdoor Pixel IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
 

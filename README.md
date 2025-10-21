@@ -16,6 +16,7 @@ As described in the [Freshpaint documentation](https://documentation.freshpaint.
   - LinkedIn Ads (Deprecated)
   - LinkedIn Ads Conversions API
   - MNTN
+  - Nextdoor
   - Pinterest Ads
   - Reddit Ads
   - SiriusXM
