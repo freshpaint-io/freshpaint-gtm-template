@@ -97,6 +97,10 @@
         "displayValue": "Twitter Ads"
       },
       {
+        "value": "nextdoorEvent",
+        "displayValue": "Nextdoor"
+      },
+      {
         "value": "addEventProperties",
         "displayValue": "AddEventProperties"
       },
@@ -233,6 +237,11 @@
       {
         "paramName": "tagType",
         "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
         "type": "EQUALS"
       },
       {
@@ -387,6 +396,11 @@
       {
         "paramName": "tagType",
         "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
         "type": "EQUALS"
       },
       {
@@ -2219,6 +2233,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
         "type": "EQUALS"
       },
@@ -2431,6 +2450,10 @@
             {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "Nextdoor",
+              "displayValue": "Nextdoor"
             },
             {
               "value": "viant",

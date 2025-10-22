@@ -19,6 +19,7 @@ export const redditAdsEvent = 'redditAdsEvent';
 export const siriusXMEvent = 'siriusXMEvent';
 export const spotifyCAPIEvent = 'spotifyCAPIEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
+export const nextdoorEvent = 'nextdoorEvent';
 export const addEventProperties = 'addEventProperties';
 export const identify = 'identify';
 export const track = 'track';
@@ -47,6 +48,7 @@ export const rootParamSelectItems = [
   { value: siriusXMEvent, displayValue: 'SiriusXM' },
   { value: spotifyCAPIEvent, displayValue: 'Spotify Conversions API' },
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
+  { value: nextdoorEvent, displayValue: 'Nextdoor' },
   { value: addEventProperties, displayValue: 'AddEventProperties' },
   { value: identify, displayValue: 'Identify' },
   { value: track, displayValue: 'Track' },
@@ -87,6 +89,7 @@ export const trackDestinationSelectItems = [
   { value: 'pinterest-ads', displayValue: 'Pinterest Ads' },
   { value: 'SiriusXM', displayValue: 'SiriusXM' },
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },
+  { value: 'Nextdoor', displayValue: 'Nextdoor' },
   { value: 'viant', displayValue: 'Viant' },
   { value: 'Webhooks', displayValue: 'Webhooks' },
   {
