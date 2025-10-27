@@ -523,9 +523,12 @@ const processBingEvent = () => {
     return;
   }
 
-  // Proceed with non-page-load tag
-  let eventName;
-  const props = { tpp: "1" };
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  Object.assign(props, {
+    // Proceed with non-page-load tag
+    tpp: "1",
+  });
+
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
       const dataKey = mapping[propKey];
@@ -535,6 +538,7 @@ const processBingEvent = () => {
     }
   };
 
+  let eventName;
   if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
@@ -553,44 +557,6 @@ const processBingEvent = () => {
       event_value: "bingEventValue",
       revenue: "bingRevenue",
     });
-  } else if (data.bingEventType === "ecommerce" || data.bingEventType === "hotel" || data.bingEventType === "travel") {
-    let action = data.bingEventAction;
-    if (action === "") {
-      action = data.bingCustomEventAction;
-    }
-    eventName = action;
-    props.action = action;
-    props.label = "";
-
-    if (data.bingEventType === "ecommerce") {
-      includePropsFromData({
-        product_id: "bingEcommProdId",
-        pagetype: "bingEcommPagetype",
-        ecomm_totalvalue: "bingEcommTotalValue",
-        ecomm_category: "bingEcommCategory",
-      });
-    } else if (data.bingEventType === "hotel") {
-      props.currency = data.bingCurrency || "USD";
-      includePropsFromData({
-        hct_base_price: "bingHctBasePrice",
-        hct_booking_xref: "bingHctBookingXref",
-        hct_checkin_date: "bingHctCheckinDate",
-        hct_checkout_date: "bingHctCheckoutDate",
-        hct_length_of_stay: "bingHctLengthOfStay",
-        hct_partner_hotel_id: "bingHctPartnerHotelId",
-        hct_total_price: "bingHctTotalPrice",
-        hct_pagetype: "bingHctPagetype",
-      });
-    } else if (data.bingEventType === "travel") {
-      includePropsFromData({
-        travel_destid: "bingTravelDestid",
-        travel_originid: "bingTravelOriginid",
-        travel_pagetype: "bingTravelPagetype",
-        travel_startdate: "bingTravelStartdate",
-        travel_enddate: "bingTravelEnddate",
-        travel_totalvalue: "bingTravelTotalvalue",
-      });
-    }
   } else if (data.bingEventType === "userDefined") {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;

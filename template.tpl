@@ -799,274 +799,6 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "GROUP",
-    "name": "bingEcomParams",
-    "displayName": "Ecommerce event parameters",
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "ecommerce",
-        "type": "EQUALS"
-      }
-    ],
-    "subParams": [
-      {
-        "type": "TEXT",
-        "name": "bingEcommProdId",
-        "displayName": "Retail product ID",
-        "simpleValueType": true
-      },
-      {
-        "type": "SELECT",
-        "name": "bingEcommPagetype",
-        "displayName": "Retail page type",
-        "help": "The pagetype parameter is required when you include the prodid parameter.",
-        "simpleValueType": true,
-        "selectItems": [
-          {
-            "value": "home",
-            "displayValue": "Home"
-          },
-          {
-            "value": "searchresults",
-            "displayValue": "Search Results"
-          },
-          {
-            "value": "category",
-            "displayValue": "Category"
-          },
-          {
-            "value": "product",
-            "displayValue": "Product"
-          },
-          {
-            "value": "cart",
-            "displayValue": "Cart"
-          },
-          {
-            "value": "purchase",
-            "displayValue": "Purchase"
-          },
-          {
-            "value": "other",
-            "displayValue": "Other"
-          }
-        ],
-        "macrosInSelect": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingEcommTotalValue",
-        "displayName": "Retail total value",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingEcommCategory",
-        "displayName": "Retail category",
-        "simpleValueType": true
-      }
-    ],
-    "groupStyle": "NO_ZIPPY"
-  },
-  {
-    "type": "GROUP",
-    "name": "bingHotelParams",
-    "displayName": "Hotel event parameters",
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "hotel",
-        "type": "EQUALS"
-      }
-    ],
-    "subParams": [
-      {
-        "type": "TEXT",
-        "name": "bingHctBasePrice",
-        "displayName": "Hotel base price",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingHctBookingXref",
-        "displayName": "Hotel booking reference #",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingHctCheckinDate",
-        "displayName": "Hotel check-in date",
-        "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingHctCheckoutDate",
-        "displayName": "Hotel check-out date",
-        "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingHctLengthOfStay",
-        "displayName": "Hotel length of stay",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingHctPartnerHotelId",
-        "displayName": "Partner hotel ID",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingHctTotalPrice",
-        "displayName": "Hotel total price",
-        "simpleValueType": true
-      },
-      {
-        "type": "SELECT",
-        "name": "bingHctPagetype",
-        "displayName": "Hotel page type",
-        "simpleValueType": true,
-        "selectItems": [
-          {
-            "value": "home",
-            "displayValue": "Home"
-          },
-          {
-            "value": "searchresults",
-            "displayValue": "Search Results"
-          },
-          {
-            "value": "offerdetail",
-            "displayValue": "Offer Detail"
-          },
-          {
-            "value": "conversionintent",
-            "displayValue": "Conversion Intent"
-          },
-          {
-            "value": "conversion",
-            "displayValue": "Conversion"
-          },
-          {
-            "value": "property",
-            "displayValue": "Property"
-          },
-          {
-            "value": "cart",
-            "displayValue": "Cart"
-          },
-          {
-            "value": "purchase",
-            "displayValue": "Purchase"
-          },
-          {
-            "value": "cancel",
-            "displayValue": "Cancel"
-          },
-          {
-            "value": "other",
-            "displayValue": "Other"
-          }
-        ],
-        "macrosInSelect": true
-      },
-      {
-        "type": "LABEL",
-        "name": "bingHotelLabel",
-        "displayName": "The hotel total price (hct_total_price) and currency parameters are required when you include other hotel parameters."
-      }
-    ],
-    "groupStyle": "NO_ZIPPY"
-  },
-  {
-    "type": "GROUP",
-    "name": "bingTravelParams",
-    "displayName": "Travel event parameters",
-    "enablingConditions": [
-      {
-        "paramName": "bingEventType",
-        "paramValue": "travel",
-        "type": "EQUALS"
-      }
-    ],
-    "subParams": [
-      {
-        "type": "TEXT",
-        "name": "bingTravelDestid",
-        "displayName": "Travel destination ID",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingTravelOriginid",
-        "displayName": "Travel origin ID",
-        "simpleValueType": true
-      },
-      {
-        "type": "SELECT",
-        "name": "bingTravelPagetype",
-        "displayName": "Travel page type",
-        "simpleValueType": true,
-        "selectItems": [
-          {
-            "value": "home",
-            "displayValue": "Home"
-          },
-          {
-            "value": "searchresults",
-            "displayValue": "Search Results"
-          },
-          {
-            "value": "offerdetail",
-            "displayValue": "Offer Detail"
-          },
-          {
-            "value": "conversionintent",
-            "displayValue": "Conversion Intent"
-          },
-          {
-            "value": "conversion",
-            "displayValue": "Conversion"
-          },
-          {
-            "value": "cancel",
-            "displayValue": "Cancel"
-          },
-          {
-            "value": "other",
-            "displayValue": "Other"
-          }
-        ],
-        "macrosInSelect": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingTravelStartdate",
-        "displayName": "Travel start date",
-        "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingTravelEnddate",
-        "displayName": "Travel end date",
-        "help": "Value must be in YYYY-MM-DD date format",
-        "simpleValueType": true
-      },
-      {
-        "type": "TEXT",
-        "name": "bingTravelTotalvalue",
-        "displayName": "Travel total value",
-        "simpleValueType": true
-      }
-    ],
-    "groupStyle": "NO_ZIPPY"
-  },
-  {
     "type": "TEXT",
     "name": "bingPagePath",
     "displayName": "Page path",
@@ -2242,6 +1974,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "bingAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
@@ -3104,9 +2841,12 @@ const processBingEvent = () => {
     return;
   }
 
-  // Proceed with non-page-load tag
-  let eventName;
-  const props = { tpp: "1" };
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  Object.assign(props, {
+    // Proceed with non-page-load tag
+    tpp: "1",
+  });
+
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
       const dataKey = mapping[propKey];
@@ -3116,6 +2856,7 @@ const processBingEvent = () => {
     }
   };
 
+  let eventName;
   if (data.bingEventType === "VARIABLE_REVENUE") {
     eventName = "revenue_generated";
     props.action = "";
@@ -3134,44 +2875,6 @@ const processBingEvent = () => {
       event_value: "bingEventValue",
       revenue: "bingRevenue",
     });
-  } else if (data.bingEventType === "ecommerce" || data.bingEventType === "hotel" || data.bingEventType === "travel") {
-    let action = data.bingEventAction;
-    if (action === "") {
-      action = data.bingCustomEventAction;
-    }
-    eventName = action;
-    props.action = action;
-    props.label = "";
-
-    if (data.bingEventType === "ecommerce") {
-      includePropsFromData({
-        product_id: "bingEcommProdId",
-        pagetype: "bingEcommPagetype",
-        ecomm_totalvalue: "bingEcommTotalValue",
-        ecomm_category: "bingEcommCategory",
-      });
-    } else if (data.bingEventType === "hotel") {
-      props.currency = data.bingCurrency || "USD";
-      includePropsFromData({
-        hct_base_price: "bingHctBasePrice",
-        hct_booking_xref: "bingHctBookingXref",
-        hct_checkin_date: "bingHctCheckinDate",
-        hct_checkout_date: "bingHctCheckoutDate",
-        hct_length_of_stay: "bingHctLengthOfStay",
-        hct_partner_hotel_id: "bingHctPartnerHotelId",
-        hct_total_price: "bingHctTotalPrice",
-        hct_pagetype: "bingHctPagetype",
-      });
-    } else if (data.bingEventType === "travel") {
-      includePropsFromData({
-        travel_destid: "bingTravelDestid",
-        travel_originid: "bingTravelOriginid",
-        travel_pagetype: "bingTravelPagetype",
-        travel_startdate: "bingTravelStartdate",
-        travel_enddate: "bingTravelEnddate",
-        travel_totalvalue: "bingTravelTotalvalue",
-      });
-    }
   } else if (data.bingEventType === "userDefined") {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
