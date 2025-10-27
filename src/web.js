@@ -524,10 +524,8 @@ const processBingEvent = () => {
   }
 
   const props = parseSimpleTable(data.commonEventProperties || []);
-  Object.assign(props, {
-    // Proceed with non-page-load tag
-    tpp: "1",
-  });
+  // Proceed with non-page-load tag
+  props.tpp = "1";
 
   const includePropsFromData = (mapping) => {
     for (let propKey in mapping) {
