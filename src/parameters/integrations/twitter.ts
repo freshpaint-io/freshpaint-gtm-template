@@ -1,6 +1,6 @@
-import {tagTypeEq, paramTable, radio, select, text, nonEmpty} from '../helpers';
+import { tagTypeEq, paramTable, radio, select, text, nonEmpty } from '../helpers';
 import { twitterAdsEvent } from '../integration';
-import {commonEventName} from "../common";
+import { commonEventName, commonInstanceId } from '../common';
 
 export default function TwitterParams() {
   const isTwitterEvent = tagTypeEq(twitterAdsEvent);
@@ -61,6 +61,7 @@ export default function TwitterParams() {
   });
 
   return [
+    commonInstanceId(onlyForTwitter),
     commonEventName(onlyForTwitter),
     paramTable({
       name: 'twitterEventParameters',
