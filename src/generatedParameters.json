@@ -263,6 +263,11 @@
         "paramName": "tagType",
         "paramValue": "spotifyCAPIEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
       }
     ]
   },

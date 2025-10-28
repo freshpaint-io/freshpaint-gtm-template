@@ -292,6 +292,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "spotifyCAPIEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -2803,7 +2808,18 @@ const processTikTokAdsEvent = () => {
 };
 
 const processTwitterEvent = () => {
-  const options = generateOptions("Twitter Ads");
+  const twitterSDKKey = "Twitter Ads";
+
+  let options = generateOptions(twitterSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(twitterSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Twitter Pixel IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
 
   const eventName = data.commonEventName;
   const props = parseParamTable(data.twitterEventParameters || []);
@@ -3112,8 +3128,8 @@ const processMntnEvent = () => {
   const mntnSDKKey = "MNTN";
 
   let options = generateOptions(mntnSDKKey);
-  if (data.mntnInstanceName) {
-    const instanceNameToUse = data.mntnInstanceName.trim();
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
     options = generateOptionsFromInstances(mntnSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple MNTN Advertiser IDs not supported: " + instanceNameToUse);
