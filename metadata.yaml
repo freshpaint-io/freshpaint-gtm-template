@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: f7a25d8592f9007714cc736ad988b73314aa7427
-    changeNotes: Adds support for Spotify Conversions API and Nextdoor. Both support multiple configurations.
+  - sha: 4462bbbc1d95d9c1933b489c016450e5302c9b83
+    changeNotes: Supports Twitter Ads instance name. Uses common event properties for Bing Ads.
