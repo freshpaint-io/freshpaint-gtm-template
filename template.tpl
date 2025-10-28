@@ -2889,6 +2889,18 @@ const processBingEvent = () => {
       event_value: "bingEventValue",
       revenue: "bingRevenue",
     });
+} else if (data.bingEventType === "ecommerce" || data.bingEventType === "hotel" || data.bingEventType === "travel") {
+    let action = data.bingEventAction;
+    if (action === "") {
+      action = data.bingCustomEventAction;
+    }
+    eventName = action;
+    props.action = action;
+    props.label = "";
+
+    if (data.bingEventType === "hotel") {
+      props.currency = data.bingCurrency || "USD";
+    }
   } else if (data.bingEventType === "userDefined") {
     eventName = data.bingCustomEventAction || "";
     props.action = eventName;
