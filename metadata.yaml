@@ -2,4 +2,4 @@ homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
   - sha: 684010db10157af5fc7a0de1115016dc8963b03c
-    changeNotes: Supports Twitter Ads instance name. Uses common event properties for Bing Ads.
+    changeNotes: Uses common event properties for Bing Ads. Supports Twitter Ads instance name.
