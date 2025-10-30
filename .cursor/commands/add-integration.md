@@ -16,7 +16,9 @@ See @src/README.md for full details. This command will:
 5. Run `npm run build` to regenerate `template.tpl`
 6. Print post-run instructions
 
-Reference similar integrations: `basis.ts`, `snapchat.ts`, `pinterest.ts`
+Reference similar integrations: `basis.ts`, `snapchat.ts`, `spotifyCAPI.ts`
+
+Unless specified otherwise, the implementation should use only common properties like `spotifyCAPI.ts`.
 
 # Post-run instructions
 

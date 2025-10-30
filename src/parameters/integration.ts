@@ -20,6 +20,7 @@ export const siriusXMEvent = 'siriusXMEvent';
 export const spotifyCAPIEvent = 'spotifyCAPIEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
 export const nextdoorEvent = 'nextdoorEvent';
+export const appLovinEvent = 'appLovinEvent';
 export const addEventProperties = 'addEventProperties';
 export const identify = 'identify';
 export const track = 'track';
@@ -49,6 +50,7 @@ export const rootParamSelectItems = [
   { value: spotifyCAPIEvent, displayValue: 'Spotify Conversions API' },
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
   { value: nextdoorEvent, displayValue: 'Nextdoor' },
+  { value: appLovinEvent, displayValue: 'AppLovin' },
   { value: addEventProperties, displayValue: 'AddEventProperties' },
   { value: identify, displayValue: 'Identify' },
   { value: track, displayValue: 'Track' },
@@ -90,6 +92,7 @@ export const trackDestinationSelectItems = [
   { value: 'SiriusXM', displayValue: 'SiriusXM' },
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },
   { value: 'Nextdoor', displayValue: 'Nextdoor' },
+  { value: 'AppLovin', displayValue: 'AppLovin' },
   { value: 'viant', displayValue: 'Viant' },
   { value: 'Webhooks', displayValue: 'Webhooks' },
   {

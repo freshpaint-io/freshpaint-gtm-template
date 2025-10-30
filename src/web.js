@@ -215,6 +215,9 @@ const processEvent = () => {
     case "nextdoorEvent":
       processNextdoorEvent();
       break;
+    case "appLovinEvent":
+      processAppLovinEvent();
+      break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
       data.gtmOnFailure();
@@ -1198,6 +1201,31 @@ const processNextdoorEvent = () => {
     options = generateOptionsFromInstances(nextdoorSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple Nextdoor Pixel IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processAppLovinEvent = () => {
+  const appLovinSDKKey = "AppLovin";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint AppLovin GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(appLovinSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(appLovinSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple AppLovin Instance IDs not supported: " + instanceNameToUse);
       data.gtmOnFailure();
       return;
     }
