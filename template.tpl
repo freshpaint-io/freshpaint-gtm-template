@@ -42,20 +42,12 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [],
     "selectItems": [
       {
-        "value": "basisEvent",
-        "displayValue": "Basis"
-      },
-      {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
-      },
-      {
-        "value": "fbPixelEvent",
-        "displayValue": "Facebook Conversions API"
-      },
-      {
         "value": "ga4Event",
         "displayValue": "Google Analytics 4 (Proxy)"
+      },
+      {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads"
       },
       {
         "value": "googleAdsCallConversionsEvent",
@@ -66,16 +58,20 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads Conversion API"
       },
       {
-        "value": "googleAdsEvent",
-        "displayValue": "Google Ads"
-      },
-      {
         "value": "googleCM360Event",
         "displayValue": "Google Campaign Manager 360 Conversions API"
       },
       {
-        "value": "impactEvent",
-        "displayValue": "impact.com"
+        "value": "fbPixelEvent",
+        "displayValue": "Facebook Conversions API"
+      },
+      {
+        "value": "basisEvent",
+        "displayValue": "Basis"
+      },
+      {
+        "value": "viantEvent",
+        "displayValue": "Viant"
       },
       {
         "value": "linkedInAdsCAPIEvent",
@@ -86,28 +82,16 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "MNTN"
       },
       {
-        "value": "nextdoorEvent",
-        "displayValue": "Nextdoor"
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
       },
       {
-        "value": "pinterestAdsEvent",
-        "displayValue": "Pinterest Ads"
-      },
-      {
-        "value": "redditAdsEvent",
-        "displayValue": "Reddit Ads"
-      },
-      {
-        "value": "siriusXMEvent",
-        "displayValue": "SiriusXM"
+        "value": "impactEvent",
+        "displayValue": "impact.com"
       },
       {
         "value": "snapchatEvent",
         "displayValue": "Snapchat"
-      },
-      {
-        "value": "spotifyCAPIEvent",
-        "displayValue": "Spotify Conversions API"
       },
       {
         "value": "stackAdaptEvent",
@@ -122,12 +106,28 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "TikTok Ads"
       },
       {
+        "value": "pinterestAdsEvent",
+        "displayValue": "Pinterest Ads"
+      },
+      {
+        "value": "redditAdsEvent",
+        "displayValue": "Reddit Ads"
+      },
+      {
+        "value": "siriusXMEvent",
+        "displayValue": "SiriusXM"
+      },
+      {
+        "value": "spotifyCAPIEvent",
+        "displayValue": "Spotify Conversions API"
+      },
+      {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
       {
-        "value": "viantEvent",
-        "displayValue": "Viant"
+        "value": "nextdoorEvent",
+        "displayValue": "Nextdoor"
       },
       {
         "value": "yelpCAPIEvent",
@@ -2154,6 +2154,30 @@ ___TEMPLATE_PARAMETERS___
           "simpleValueType": true,
           "selectItems": [
             {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Google Analytics 4",
+              "displayValue": "Google Analytics 4 (Server-Side)"
+            },
+            {
+              "value": "Google AdWords New",
+              "displayValue": "Google Ads"
+            },
+            {
+              "value": "Google Ads Conversion API",
+              "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Google Campaign Manager 360 Conversions API",
+              "displayValue": "Google Campaign Manager 360 Conversions API"
+            },
+            {
+              "value": "Facebook Conversions API",
+              "displayValue": "Facebook Conversions API"
+            },
+            {
               "value": "Amplitude",
               "displayValue": "Amplitude"
             },
@@ -2166,30 +2190,6 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Bing Ads"
             },
             {
-              "value": "Facebook Conversions API",
-              "displayValue": "Facebook Conversions API"
-            },
-            {
-              "value": "Google Ads Conversion API",
-              "displayValue": "Google Ads Conversion API"
-            },
-            {
-              "value": "Google AdWords New",
-              "displayValue": "Google Ads"
-            },
-            {
-              "value": "Google Analytics 4 Proxy",
-              "displayValue": "Google Analytics 4 (Proxy)"
-            },
-            {
-              "value": "Google Analytics 4",
-              "displayValue": "Google Analytics 4 (Server-Side)"
-            },
-            {
-              "value": "Google Campaign Manager 360 Conversions API",
-              "displayValue": "Google Campaign Manager 360 Conversions API"
-            },
-            {
               "value": "impactdotcom",
               "displayValue": "impact.com"
             },
@@ -2198,28 +2198,12 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "LinkedIn Ads Conversions API"
             },
             {
-              "value": "Mixpanel",
-              "displayValue": "Mixpanel"
-            },
-            {
               "value": "MNTN",
               "displayValue": "MNTN"
             },
             {
-              "value": "Nextdoor",
-              "displayValue": "Nextdoor"
-            },
-            {
-              "value": "pinterest-ads",
-              "displayValue": "Pinterest Ads"
-            },
-            {
-              "value": "reddit-ads",
-              "displayValue": "Reddit Ads"
-            },
-            {
-              "value": "SiriusXM",
-              "displayValue": "SiriusXM"
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
             },
             {
               "value": "Snapchat",
@@ -2242,8 +2226,24 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "TikTok Ads"
             },
             {
+              "value": "reddit-ads",
+              "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "pinterest-ads",
+              "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "SiriusXM",
+              "displayValue": "SiriusXM"
+            },
+            {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "Nextdoor",
+              "displayValue": "Nextdoor"
             },
             {
               "value": "viant",
@@ -3300,7 +3300,7 @@ const processYelpCAPIEvent = () => {
       const instanceNameToUse = data.commonInstanceId.trim();
       options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
-        log("ERROR: Multiple Yelp Connection IDs not supported: " + instanceNameToUse);
+        log("ERROR: Multiple Yelp Client IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
