@@ -954,7 +954,7 @@ const processYelpCAPIEvent = () => {
       const instanceNameToUse = data.commonInstanceId.trim();
       options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
-        log("ERROR: Multiple Yelp Connection IDs not supported: " + instanceNameToUse);
+        log("ERROR: Multiple Yelp Client IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
