@@ -42,12 +42,20 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [],
     "selectItems": [
       {
-        "value": "ga4Event",
-        "displayValue": "Google Analytics 4 (Proxy)"
+        "value": "basisEvent",
+        "displayValue": "Basis"
       },
       {
-        "value": "googleAdsEvent",
-        "displayValue": "Google Ads"
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
+      },
+      {
+        "value": "fbPixelEvent",
+        "displayValue": "Facebook Conversions API"
+      },
+      {
+        "value": "ga4Event",
+        "displayValue": "Google Analytics 4 (Proxy)"
       },
       {
         "value": "googleAdsCallConversionsEvent",
@@ -58,20 +66,16 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads Conversion API"
       },
       {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads"
+      },
+      {
         "value": "googleCM360Event",
         "displayValue": "Google Campaign Manager 360 Conversions API"
       },
       {
-        "value": "fbPixelEvent",
-        "displayValue": "Facebook Conversions API"
-      },
-      {
-        "value": "basisEvent",
-        "displayValue": "Basis"
-      },
-      {
-        "value": "viantEvent",
-        "displayValue": "Viant"
+        "value": "impactEvent",
+        "displayValue": "impact.com"
       },
       {
         "value": "linkedInAdsCAPIEvent",
@@ -82,28 +86,8 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "MNTN"
       },
       {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
-      },
-      {
-        "value": "impactEvent",
-        "displayValue": "impact.com"
-      },
-      {
-        "value": "snapchatEvent",
-        "displayValue": "Snapchat"
-      },
-      {
-        "value": "stackAdaptEvent",
-        "displayValue": "StackAdapt"
-      },
-      {
-        "value": "theTradeDeskEvent",
-        "displayValue": "theTradeDesk"
-      },
-      {
-        "value": "tikTokAdsEvent",
-        "displayValue": "TikTok Ads"
+        "value": "nextdoorEvent",
+        "displayValue": "Nextdoor"
       },
       {
         "value": "pinterestAdsEvent",
@@ -118,16 +102,36 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "SiriusXM"
       },
       {
+        "value": "snapchatEvent",
+        "displayValue": "Snapchat"
+      },
+      {
         "value": "spotifyCAPIEvent",
         "displayValue": "Spotify Conversions API"
+      },
+      {
+        "value": "stackAdaptEvent",
+        "displayValue": "StackAdapt"
+      },
+      {
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
+      },
+      {
+        "value": "tikTokAdsEvent",
+        "displayValue": "TikTok Ads"
       },
       {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
       {
-        "value": "nextdoorEvent",
-        "displayValue": "Nextdoor"
+        "value": "viantEvent",
+        "displayValue": "Viant"
+      },
+      {
+        "value": "yelpCAPIEvent",
+        "displayValue": "Yelp Conversions API"
       },
       {
         "value": "addEventProperties",
@@ -296,6 +300,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -480,6 +489,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "viantEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -2036,6 +2050,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "yelpCAPIEvent",
+        "type": "EQUALS"
       }
     ],
     "simpleTableColumns": [
@@ -2135,30 +2154,6 @@ ___TEMPLATE_PARAMETERS___
           "simpleValueType": true,
           "selectItems": [
             {
-              "value": "Google Analytics 4 Proxy",
-              "displayValue": "Google Analytics 4 (Proxy)"
-            },
-            {
-              "value": "Google Analytics 4",
-              "displayValue": "Google Analytics 4 (Server-Side)"
-            },
-            {
-              "value": "Google AdWords New",
-              "displayValue": "Google Ads"
-            },
-            {
-              "value": "Google Ads Conversion API",
-              "displayValue": "Google Ads Conversion API"
-            },
-            {
-              "value": "Google Campaign Manager 360 Conversions API",
-              "displayValue": "Google Campaign Manager 360 Conversions API"
-            },
-            {
-              "value": "Facebook Conversions API",
-              "displayValue": "Facebook Conversions API"
-            },
-            {
               "value": "Amplitude",
               "displayValue": "Amplitude"
             },
@@ -2171,6 +2166,30 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Bing Ads"
             },
             {
+              "value": "Facebook Conversions API",
+              "displayValue": "Facebook Conversions API"
+            },
+            {
+              "value": "Google Ads Conversion API",
+              "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Google AdWords New",
+              "displayValue": "Google Ads"
+            },
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Google Analytics 4",
+              "displayValue": "Google Analytics 4 (Server-Side)"
+            },
+            {
+              "value": "Google Campaign Manager 360 Conversions API",
+              "displayValue": "Google Campaign Manager 360 Conversions API"
+            },
+            {
               "value": "impactdotcom",
               "displayValue": "impact.com"
             },
@@ -2179,12 +2198,28 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "LinkedIn Ads Conversions API"
             },
             {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
               "value": "MNTN",
               "displayValue": "MNTN"
             },
             {
-              "value": "Mixpanel",
-              "displayValue": "Mixpanel"
+              "value": "Nextdoor",
+              "displayValue": "Nextdoor"
+            },
+            {
+              "value": "pinterest-ads",
+              "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "reddit-ads",
+              "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "SiriusXM",
+              "displayValue": "SiriusXM"
             },
             {
               "value": "Snapchat",
@@ -2207,28 +2242,16 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "TikTok Ads"
             },
             {
-              "value": "reddit-ads",
-              "displayValue": "Reddit Ads"
-            },
-            {
-              "value": "pinterest-ads",
-              "displayValue": "Pinterest Ads"
-            },
-            {
-              "value": "SiriusXM",
-              "displayValue": "SiriusXM"
-            },
-            {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
             },
             {
-              "value": "Nextdoor",
-              "displayValue": "Nextdoor"
-            },
-            {
               "value": "viant",
               "displayValue": "Viant"
+            },
+            {
+              "value": "Yelp Conversions API",
+              "displayValue": "Yelp Conversions API"
             },
             {
               "value": "Webhooks",
@@ -2510,6 +2533,9 @@ const processEvent = () => {
       break;
     case "spotifyCAPIEvent":
       processSpotifyCAPIEvent();
+      break;
+    case "yelpCAPIEvent":
+      processYelpCAPIEvent();
       break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
@@ -3256,6 +3282,25 @@ const processSpotifyCAPIEvent = () => {
       options = generateOptionsFromInstances(spotifyCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Spotify Connection IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processYelpCAPIEvent = () => {
+    const yelpCAPISDKKey = "Yelp Conversions API";
+
+    let options = generateOptions(yelpCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Yelp Connection IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
