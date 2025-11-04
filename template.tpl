@@ -42,6 +42,10 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [],
     "selectItems": [
       {
+        "value": "appLovinEvent",
+        "displayValue": "AppLovin"
+      },
+      {
         "value": "basisEvent",
         "displayValue": "Basis"
       },
@@ -154,6 +158,60 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
+    "name": "commonInstanceId",
+    "displayName": "Instance ID",
+    "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "appLovinEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "basisInstanceName",
     "displayName": "Specific Pixel ID (optional)",
     "help": "If multiple Pixel IDs are configured for the Basis destination type, specify one to deliver to (if left blank, this event will be delivered to all configured Pixel IDs)",
@@ -253,55 +311,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "commonInstanceId",
-    "displayName": "Instance ID",
-    "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "googleAdsConversionApiEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "mntnEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "nextdoorEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "pinterestAdsEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "siriusXMEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "snapchatEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "spotifyCAPIEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
-        "paramValue": "twitterAdsEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "linkedInAdsCAPIInstanceName",
     "displayName": "Specific Instance ID (optional)",
     "help": "If multiple instances are configured for the LinkedIn CAPI integration type, specify one to deliver to (if left blank, this event will be delivered to all configured integrations)",
@@ -385,6 +394,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "appLovinEvent",
         "type": "EQUALS"
       },
       {
@@ -1974,6 +1988,11 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
+        "paramValue": "appLovinEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "basisEvent",
         "type": "EQUALS"
       },
@@ -2137,6 +2156,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Amplitude",
               "displayValue": "Amplitude"
+            },
+            {
+              "value": "AppLovin",
+              "displayValue": "AppLovin"
             },
             {
               "value": "Basis",
@@ -2537,6 +2560,9 @@ const processEvent = () => {
       break;
     case "nextdoorEvent":
       processNextdoorEvent();
+      break;
+    case "appLovinEvent":
+      processAppLovinEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3521,6 +3547,31 @@ const processNextdoorEvent = () => {
     options = generateOptionsFromInstances(nextdoorSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple Nextdoor Pixel IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processAppLovinEvent = () => {
+  const appLovinSDKKey = "AppLovin";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint AppLovin GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(appLovinSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(appLovinSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple AppLovin Instance IDs not supported: " + instanceNameToUse);
       data.gtmOnFailure();
       return;
     }

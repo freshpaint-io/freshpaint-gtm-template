@@ -1,3 +1,4 @@
+export const appLovinEvent = 'appLovinEvent';
 export const basisEvent = 'basisEvent';
 export const bingAdsEvent = 'bingAdsEvent';
 export const fbPixelEvent = 'fbPixelEvent';
@@ -29,6 +30,7 @@ export const linkedInAdsEvent = 'linkedInAdsEvent';
 export const floodlightEvent = 'floodlightEvent';
 
 export const rootParamSelectItems = [
+  { value: appLovinEvent, displayValue: 'AppLovin' },
   { value: basisEvent, displayValue: 'Basis' },
   { value: bingAdsEvent, displayValue: 'Bing Ads' },
   { value: fbPixelEvent, displayValue: 'Facebook Conversions API' },
@@ -67,6 +69,7 @@ export const rootParamSelectItems = [
 
 export const trackDestinationSelectItems = [
   { value: 'Amplitude', displayValue: 'Amplitude' },
+  { value: 'AppLovin', displayValue: 'AppLovin' },
   { value: 'Basis', displayValue: 'Basis' },
   { value: 'Bing Ads', displayValue: 'Bing Ads' },
   { value: 'Facebook Conversions API', displayValue: 'Facebook Conversions API' },
