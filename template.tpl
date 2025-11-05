@@ -42,12 +42,24 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [],
     "selectItems": [
       {
-        "value": "ga4Event",
-        "displayValue": "Google Analytics 4 (Proxy)"
+        "value": "appLovinEvent",
+        "displayValue": "AppLovin"
       },
       {
-        "value": "googleAdsEvent",
-        "displayValue": "Google Ads"
+        "value": "basisEvent",
+        "displayValue": "Basis"
+      },
+      {
+        "value": "bingAdsEvent",
+        "displayValue": "Bing Ads"
+      },
+      {
+        "value": "fbPixelEvent",
+        "displayValue": "Facebook Conversions API"
+      },
+      {
+        "value": "ga4Event",
+        "displayValue": "Google Analytics 4 (Proxy)"
       },
       {
         "value": "googleAdsCallConversionsEvent",
@@ -58,20 +70,16 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Google Ads Conversion API"
       },
       {
+        "value": "googleAdsEvent",
+        "displayValue": "Google Ads"
+      },
+      {
         "value": "googleCM360Event",
         "displayValue": "Google Campaign Manager 360 Conversions API"
       },
       {
-        "value": "fbPixelEvent",
-        "displayValue": "Facebook Conversions API"
-      },
-      {
-        "value": "basisEvent",
-        "displayValue": "Basis"
-      },
-      {
-        "value": "viantEvent",
-        "displayValue": "Viant"
+        "value": "impactEvent",
+        "displayValue": "impact.com"
       },
       {
         "value": "linkedInAdsCAPIEvent",
@@ -82,28 +90,8 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "MNTN"
       },
       {
-        "value": "bingAdsEvent",
-        "displayValue": "Bing Ads"
-      },
-      {
-        "value": "impactEvent",
-        "displayValue": "impact.com"
-      },
-      {
-        "value": "snapchatEvent",
-        "displayValue": "Snapchat"
-      },
-      {
-        "value": "stackAdaptEvent",
-        "displayValue": "StackAdapt"
-      },
-      {
-        "value": "theTradeDeskEvent",
-        "displayValue": "theTradeDesk"
-      },
-      {
-        "value": "tikTokAdsEvent",
-        "displayValue": "TikTok Ads"
+        "value": "nextdoorEvent",
+        "displayValue": "Nextdoor"
       },
       {
         "value": "pinterestAdsEvent",
@@ -118,16 +106,32 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "SiriusXM"
       },
       {
+        "value": "snapchatEvent",
+        "displayValue": "Snapchat"
+      },
+      {
         "value": "spotifyCAPIEvent",
         "displayValue": "Spotify Conversions API"
+      },
+      {
+        "value": "stackAdaptEvent",
+        "displayValue": "StackAdapt"
+      },
+      {
+        "value": "theTradeDeskEvent",
+        "displayValue": "theTradeDesk"
+      },
+      {
+        "value": "tikTokAdsEvent",
+        "displayValue": "TikTok Ads"
       },
       {
         "value": "twitterAdsEvent",
         "displayValue": "Twitter Ads"
       },
       {
-        "value": "nextdoorEvent",
-        "displayValue": "Nextdoor"
+        "value": "viantEvent",
+        "displayValue": "Viant"
       },
       {
         "value": "yelpCAPIEvent",
@@ -155,6 +159,60 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "macrosInSelect": false
+  },
+  {
+    "type": "TEXT",
+    "name": "commonInstanceId",
+    "displayName": "Instance ID",
+    "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "appLovinEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mntnEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "siriusXMEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "snapchatEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      }
+    ]
   },
   {
     "type": "TEXT",
@@ -394,6 +452,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "appLovinEvent",
         "type": "EQUALS"
       },
       {
@@ -1988,6 +2051,11 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
+        "paramValue": "appLovinEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "basisEvent",
         "type": "EQUALS"
       },
@@ -2154,32 +2222,12 @@ ___TEMPLATE_PARAMETERS___
           "simpleValueType": true,
           "selectItems": [
             {
-              "value": "Google Analytics 4 Proxy",
-              "displayValue": "Google Analytics 4 (Proxy)"
-            },
-            {
-              "value": "Google Analytics 4",
-              "displayValue": "Google Analytics 4 (Server-Side)"
-            },
-            {
-              "value": "Google AdWords New",
-              "displayValue": "Google Ads"
-            },
-            {
-              "value": "Google Ads Conversion API",
-              "displayValue": "Google Ads Conversion API"
-            },
-            {
-              "value": "Google Campaign Manager 360 Conversions API",
-              "displayValue": "Google Campaign Manager 360 Conversions API"
-            },
-            {
-              "value": "Facebook Conversions API",
-              "displayValue": "Facebook Conversions API"
-            },
-            {
               "value": "Amplitude",
               "displayValue": "Amplitude"
+            },
+            {
+              "value": "AppLovin",
+              "displayValue": "AppLovin"
             },
             {
               "value": "Basis",
@@ -2190,6 +2238,30 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "Bing Ads"
             },
             {
+              "value": "Facebook Conversions API",
+              "displayValue": "Facebook Conversions API"
+            },
+            {
+              "value": "Google Ads Conversion API",
+              "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Google AdWords New",
+              "displayValue": "Google Ads"
+            },
+            {
+              "value": "Google Analytics 4 Proxy",
+              "displayValue": "Google Analytics 4 (Proxy)"
+            },
+            {
+              "value": "Google Analytics 4",
+              "displayValue": "Google Analytics 4 (Server-Side)"
+            },
+            {
+              "value": "Google Campaign Manager 360 Conversions API",
+              "displayValue": "Google Campaign Manager 360 Conversions API"
+            },
+            {
               "value": "impactdotcom",
               "displayValue": "impact.com"
             },
@@ -2198,12 +2270,28 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "LinkedIn Ads Conversions API"
             },
             {
+              "value": "Mixpanel",
+              "displayValue": "Mixpanel"
+            },
+            {
               "value": "MNTN",
               "displayValue": "MNTN"
             },
             {
-              "value": "Mixpanel",
-              "displayValue": "Mixpanel"
+              "value": "Nextdoor",
+              "displayValue": "Nextdoor"
+            },
+            {
+              "value": "pinterest-ads",
+              "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "reddit-ads",
+              "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "SiriusXM",
+              "displayValue": "SiriusXM"
             },
             {
               "value": "Snapchat",
@@ -2226,24 +2314,8 @@ ___TEMPLATE_PARAMETERS___
               "displayValue": "TikTok Ads"
             },
             {
-              "value": "reddit-ads",
-              "displayValue": "Reddit Ads"
-            },
-            {
-              "value": "pinterest-ads",
-              "displayValue": "Pinterest Ads"
-            },
-            {
-              "value": "SiriusXM",
-              "displayValue": "SiriusXM"
-            },
-            {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
-            },
-            {
-              "value": "Nextdoor",
-              "displayValue": "Nextdoor"
             },
             {
               "value": "viant",
@@ -2563,6 +2635,9 @@ const processEvent = () => {
       break;
     case "nextdoorEvent":
       processNextdoorEvent();
+      break;
+    case "appLovinEvent":
+      processAppLovinEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3566,6 +3641,31 @@ const processNextdoorEvent = () => {
     options = generateOptionsFromInstances(nextdoorSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple Nextdoor Pixel IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processAppLovinEvent = () => {
+  const appLovinSDKKey = "AppLovin";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint AppLovin GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(appLovinSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(appLovinSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple AppLovin Instance IDs not supported: " + instanceNameToUse);
       data.gtmOnFailure();
       return;
     }
