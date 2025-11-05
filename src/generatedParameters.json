@@ -105,6 +105,10 @@
         "displayValue": "Viant"
       },
       {
+        "value": "yelpCAPIEvent",
+        "displayValue": "Yelp Conversions API"
+      },
+      {
         "value": "addEventProperties",
         "displayValue": "AddEventProperties"
       },
@@ -177,6 +181,11 @@
       {
         "paramName": "tagType",
         "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -465,6 +474,11 @@
       {
         "paramName": "tagType",
         "paramValue": "viantEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -2026,6 +2040,11 @@
         "paramName": "tagType",
         "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "yelpCAPIEvent",
+        "type": "EQUALS"
       }
     ],
     "simpleTableColumns": [
@@ -2223,6 +2242,10 @@
             {
               "value": "viant",
               "displayValue": "Viant"
+            },
+            {
+              "value": "Yelp Conversions API",
+              "displayValue": "Yelp Conversions API"
             },
             {
               "value": "Webhooks",

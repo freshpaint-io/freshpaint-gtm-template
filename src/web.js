@@ -188,6 +188,9 @@ const processEvent = () => {
     case "spotifyCAPIEvent":
       processSpotifyCAPIEvent();
       break;
+    case "yelpCAPIEvent":
+      processYelpCAPIEvent();
+      break;
     case "stackAdaptEvent":
       processStackAdaptEvent();
       break;
@@ -936,6 +939,25 @@ const processSpotifyCAPIEvent = () => {
       options = generateOptionsFromInstances(spotifyCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Spotify Connection IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processYelpCAPIEvent = () => {
+    const yelpCAPISDKKey = "Yelp Conversions API";
+
+    let options = generateOptions(yelpCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Yelp Client IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }

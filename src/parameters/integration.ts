@@ -21,6 +21,7 @@ export const theTradeDeskEvent = 'theTradeDeskEvent';
 export const tikTokAdsEvent = 'tikTokAdsEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
 export const viantEvent = 'viantEvent';
+export const yelpCAPIEvent = 'yelpCAPIEvent';
 // Aren't destinations
 export const addEventProperties = 'addEventProperties';
 export const identify = 'identify';
@@ -53,6 +54,7 @@ export const rootParamSelectItems = [
   { value: tikTokAdsEvent, displayValue: 'TikTok Ads' },
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
   { value: viantEvent, displayValue: 'Viant' },
+  { value: yelpCAPIEvent, displayValue: 'Yelp Conversions API' },
   { value: addEventProperties, displayValue: 'AddEventProperties' },
   { value: identify, displayValue: 'Identify' },
   { value: track, displayValue: 'Track' },
@@ -96,6 +98,7 @@ export const trackDestinationSelectItems = [
   { value: 'TikTok Ads', displayValue: 'TikTok Ads' },
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },
   { value: 'viant', displayValue: 'Viant' },
+  { value: 'Yelp Conversions API', displayValue: 'Yelp Conversions API' },
   { value: 'Webhooks', displayValue: 'Webhooks' },
   {
     value: 'linkedin-ads',
