@@ -200,6 +200,9 @@ const processEvent = () => {
     case "pinterestAdsEvent":
       processPinterestAdsEvent();
       break;
+    case "quoraCAPIEvent":
+      processQuoraCAPIEvent();
+      break;
     case "redditAdsEvent":
       processRedditAdsEvent();
       break;
@@ -1033,6 +1036,31 @@ const processPinterestAdsEvent = () => {
 
   track(data.commonEventName, props, options);
 
+  data.gtmOnSuccess();
+};
+
+const processQuoraCAPIEvent = () => {
+  const quoraCAPISDKKey = "Quora Conversions API";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Quora Conversions API GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(quoraCAPISDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(quoraCAPISDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Quora Conversions API Client IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
 
