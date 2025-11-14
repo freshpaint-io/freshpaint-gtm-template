@@ -69,6 +69,10 @@
         "displayValue": "Pinterest Ads"
       },
       {
+        "value": "quoraCAPIEvent",
+        "displayValue": "Quora Conversions API"
+      },
+      {
         "value": "redditAdsEvent",
         "displayValue": "Reddit Ads"
       },
@@ -161,6 +165,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "quoraCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -434,6 +443,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "quoraCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -2018,6 +2032,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "quoraCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       },
@@ -2206,6 +2225,10 @@
             {
               "value": "pinterest-ads",
               "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "Quora Conversions API",
+              "displayValue": "Quora Conversions API"
             },
             {
               "value": "reddit-ads",
