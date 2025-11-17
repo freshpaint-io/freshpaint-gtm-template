@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 8c70992bb2773514fca43a80cb2bbfcad616f738
-    changeNotes: Add AppLovin and Yelp Conversions API destinations. Sort destinations alphabetically.
+  - sha: 0295c16a796be9846fc5293a6f548efafd5cc07c
+    changeNotes: Add Quora Conversions API destination.
