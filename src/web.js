@@ -10,6 +10,8 @@ const makeTableMap = require("makeTableMap");
 const makeNumber = require("makeNumber");
 const getType = require("getType");
 const JSON = require('JSON');
+const setDefaultConsentState = require('setDefaultConsentState');
+const gtagSet = require('gtagSet');
 
 function parseSimpleTable(inputProps) {
   const props = {};
@@ -133,6 +135,9 @@ const processEvent = () => {
   switch (data.tagType) {
     case "init":
       processInit();
+      break;
+    case "consentInit":
+      processConsentInit();
       break;
     case "track":
       processTrack();
@@ -303,6 +308,27 @@ const generateOptionsFromParamTable = (optInOptOut, paramTable) => {
 
 const processInit = () => {
   // Init handled upstream
+  data.gtmOnSuccess();
+};
+
+const processConsentInit = () => {
+  // Set default consent state for Google Consent Mode
+  // All consent types denied except functionality_storage and security_storage
+  setDefaultConsentState({
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'granted',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500
+  });
+
+  // Enable ads data redaction when ad_storage is denied
+  // This strips click IDs from requests sent to Google
+  gtagSet('ads_data_redaction', true);
+
   data.gtmOnSuccess();
 };
 

@@ -25,6 +25,7 @@ export const viantEvent = 'viantEvent';
 export const yelpCAPIEvent = 'yelpCAPIEvent';
 // Aren't destinations
 export const addEventProperties = 'addEventProperties';
+export const consentInit = 'consentInit';
 export const identify = 'identify';
 export const track = 'track';
 // DEPRECATED
@@ -58,6 +59,7 @@ export const rootParamSelectItems = [
   { value: viantEvent, displayValue: 'Viant' },
   { value: yelpCAPIEvent, displayValue: 'Yelp Conversions API' },
   { value: addEventProperties, displayValue: 'AddEventProperties' },
+  { value: consentInit, displayValue: 'Freshpaint Google Consent Mode Initialization' },
   { value: identify, displayValue: 'Identify' },
   { value: track, displayValue: 'Track' },
   {
