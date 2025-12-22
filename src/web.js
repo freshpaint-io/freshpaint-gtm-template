@@ -312,8 +312,8 @@ const processInit = () => {
 };
 
 const processConsentInit = () => {
-  // Set default consent state for Google Consent Mode
-  // All consent types denied except functionality_storage and security_storage
+  // Set default consent state for Google Consent Mode.
+  // All consent types are denied except functionality_storage and security_storage, which are categorized as "essential".
   setDefaultConsentState({
     'ad_storage': 'denied',
     'analytics_storage': 'denied',
@@ -325,8 +325,8 @@ const processConsentInit = () => {
     'wait_for_update': 500
   });
 
-  // Enable ads data redaction when ad_storage is denied
-  // This strips click IDs from requests sent to Google
+  // Enable ads data redaction when ad_storage is denied.
+  // This strips click IDs from requests sent to Google.
   gtagSet('ads_data_redaction', true);
 
   data.gtmOnSuccess();
