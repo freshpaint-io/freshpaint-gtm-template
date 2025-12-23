@@ -312,9 +312,13 @@ const processInit = () => {
 };
 
 const processConsentInit = () => {
-  // Set default consent state for Google Consent Mode.
-  // All consent types are denied except functionality_storage and security_storage, which are categorized as "essential".
-  setDefaultConsentState({
+  const getCookieValues = require('getCookieValues');
+
+  // It's necessary to set the consent state during consent initialization if we can,
+  // otherwise there's a possibility of data races and missing/incomplete data
+  const fpcmCookie = getCookieValues('fpconsent');
+
+  let consentState = {
     'ad_storage': 'denied',
     'analytics_storage': 'denied',
     'functionality_storage': 'granted',
@@ -322,11 +326,36 @@ const processConsentInit = () => {
     'security_storage': 'granted',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
-    'wait_for_update': 500
-  });
+  };
+  let hasExistingConsent = false;
 
-  // Enable ads data redaction when ad_storage is denied.
-  // This strips click IDs from requests sent to Google.
+  if (fpcmCookie && fpcmCookie.length > 0) {
+    const cookieData = JSON.parse(fpcmCookie[0]);
+    if (cookieData && getType(cookieData.categories) === 'array') {
+      hasExistingConsent = true;
+      const categories = cookieData.categories;
+
+      for (let i = 0; i < categories.length; i++) {
+        const cat = categories[i].toLowerCase();
+        if (cat === 'marketing') {
+          consentState.ad_storage = 'granted';
+          consentState.ad_user_data = 'granted';
+          consentState.ad_personalization = 'granted';
+        } else if (cat === 'analytics') {
+          consentState.analytics_storage = 'granted';
+        } else if (cat === 'personalization') {
+          consentState.personalization_storage = 'granted';
+        }
+      }
+    }
+  }
+
+  if (!hasExistingConsent) {
+    consentState.wait_for_update = 500;
+  }
+
+  setDefaultConsentState(consentState);
+
   gtagSet('ads_data_redaction', true);
 
   data.gtmOnSuccess();
@@ -1360,7 +1389,10 @@ const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
-if (!callFreshpaintProxy("isLoaded")) {
+if (data.tagType === "consentInit") {
+  // consent initialization needs to load synchronously
+  processConsentInit();
+} else if (!callFreshpaintProxy("isLoaded")) {
   injectScript(JS_URL, processEvent, data.gtmOnFailure, "freshpaint_gtm_proxy");
 } else {
   processEvent();
