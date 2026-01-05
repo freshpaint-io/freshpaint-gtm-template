@@ -2408,6 +2408,7 @@ const getType = require("getType");
 const JSON = require('JSON');
 const setDefaultConsentState = require('setDefaultConsentState');
 const gtagSet = require('gtagSet');
+const getCookieValues = require('getCookieValues');
 
 function parseSimpleTable(inputProps) {
   const props = {};
@@ -2708,10 +2709,8 @@ const processInit = () => {
 };
 
 const processConsentInit = () => {
-  const getCookieValues = require('getCookieValues');
-
-  // It's necessary to set the consent state during consent initialization if we can,
-  // otherwise there's a possibility of data races and missing/incomplete data
+  // Setting the initial consent state to match the existing cookie value (if present) eliminates the risk of a
+  // data race between consent initialization and the first update from the SDK
   const fpcmCookie = getCookieValues('fpconsent');
 
   let consentState = {
@@ -2747,7 +2746,7 @@ const processConsentInit = () => {
   }
 
   if (!hasExistingConsent) {
-    consentState.wait_for_update = 500;
+    consentState.wait_for_update = 1000;
   }
 
   setDefaultConsentState(consentState);
