@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 0295c16a796be9846fc5293a6f548efafd5cc07c
-    changeNotes: Add Quora Conversions API destination.
+  - sha: 3011302941e7eb285d11568fcc110298fbaf8172
+    changeNotes: Google Consent Mode consent initialization tag support
