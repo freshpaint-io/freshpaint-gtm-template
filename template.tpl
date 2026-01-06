@@ -146,6 +146,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "AddEventProperties"
       },
       {
+        "value": "consentInit",
+        "displayValue": "Freshpaint Google Consent Mode Initialization"
+      },
+      {
         "value": "identify",
         "displayValue": "Identify"
       },
@@ -2402,6 +2406,9 @@ const makeTableMap = require("makeTableMap");
 const makeNumber = require("makeNumber");
 const getType = require("getType");
 const JSON = require('JSON');
+const setDefaultConsentState = require('setDefaultConsentState');
+const gtagSet = require('gtagSet');
+const getCookieValues = require('getCookieValues');
 
 function parseSimpleTable(inputProps) {
   const props = {};
@@ -2525,6 +2532,9 @@ const processEvent = () => {
   switch (data.tagType) {
     case "init":
       processInit();
+      break;
+    case "consentInit":
+      processConsentInit();
       break;
     case "track":
       processTrack();
@@ -2695,6 +2705,54 @@ const generateOptionsFromParamTable = (optInOptOut, paramTable) => {
 
 const processInit = () => {
   // Init handled upstream
+  data.gtmOnSuccess();
+};
+
+const processConsentInit = () => {
+  // Setting the initial consent state to match the existing cookie value (if present) eliminates the risk of a
+  // data race between consent initialization and the first update from the SDK
+  const fpcmCookie = getCookieValues('fpconsent');
+
+  let consentState = {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'granted',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+  };
+  let hasExistingConsent = false;
+
+  if (fpcmCookie && fpcmCookie.length > 0) {
+    const cookieData = JSON.parse(fpcmCookie[0]);
+    if (cookieData && getType(cookieData.categories) === 'array') {
+      hasExistingConsent = true;
+      const categories = cookieData.categories;
+
+      for (let i = 0; i < categories.length; i++) {
+        const cat = categories[i].toLowerCase();
+        if (cat === 'marketing') {
+          consentState.ad_storage = 'granted';
+          consentState.ad_user_data = 'granted';
+          consentState.ad_personalization = 'granted';
+        } else if (cat === 'analytics') {
+          consentState.analytics_storage = 'granted';
+        } else if (cat === 'personalization') {
+          consentState.personalization_storage = 'granted';
+        }
+      }
+    }
+  }
+
+  if (!hasExistingConsent) {
+    consentState.wait_for_update = 1000;
+  }
+
+  setDefaultConsentState(consentState);
+
+  gtagSet('ads_data_redaction', true);
+
   data.gtmOnSuccess();
 };
 
@@ -3726,7 +3784,10 @@ const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
-if (!callFreshpaintProxy("isLoaded")) {
+if (data.tagType === "consentInit") {
+  // consent initialization needs to load synchronously
+  processConsentInit();
+} else if (!callFreshpaintProxy("isLoaded")) {
   injectScript(JS_URL, processEvent, data.gtmOnFailure, "freshpaint_gtm_proxy");
 } else {
   processEvent();
@@ -3736,6 +3797,302 @@ if (!callFreshpaintProxy("isLoaded")) {
 ___WEB_PERMISSIONS___
 
 [
+  {
+    "instance": {
+      "key": {
+        "publicId": "access_consent",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "consentTypes",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "analytics_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "functionality_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "personalization_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "security_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_user_data"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_personalization"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "wait_for_update"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "write_data_layer",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "keyPatterns",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "ads_data_redaction"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
   {
     "instance": {
       "key": {
@@ -3835,6 +4192,39 @@ ___WEB_PERMISSIONS___
           "value": {
             "type": 1,
             "string": "all"
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "get_cookies",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "cookieAccess",
+          "value": {
+            "type": 1,
+            "string": "specific"
+          }
+        },
+        {
+          "key": "cookieNames",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "fpconsent"
+              }
+            ]
           }
         }
       ]

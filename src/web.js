@@ -10,6 +10,9 @@ const makeTableMap = require("makeTableMap");
 const makeNumber = require("makeNumber");
 const getType = require("getType");
 const JSON = require('JSON');
+const setDefaultConsentState = require('setDefaultConsentState');
+const gtagSet = require('gtagSet');
+const getCookieValues = require('getCookieValues');
 
 function parseSimpleTable(inputProps) {
   const props = {};
@@ -133,6 +136,9 @@ const processEvent = () => {
   switch (data.tagType) {
     case "init":
       processInit();
+      break;
+    case "consentInit":
+      processConsentInit();
       break;
     case "track":
       processTrack();
@@ -303,6 +309,54 @@ const generateOptionsFromParamTable = (optInOptOut, paramTable) => {
 
 const processInit = () => {
   // Init handled upstream
+  data.gtmOnSuccess();
+};
+
+const processConsentInit = () => {
+  // Setting the initial consent state to match the existing cookie value (if present) eliminates the risk of a
+  // data race between consent initialization and the first update from the SDK
+  const fpcmCookie = getCookieValues('fpconsent');
+
+  let consentState = {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'granted',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+  };
+  let hasExistingConsent = false;
+
+  if (fpcmCookie && fpcmCookie.length > 0) {
+    const cookieData = JSON.parse(fpcmCookie[0]);
+    if (cookieData && getType(cookieData.categories) === 'array') {
+      hasExistingConsent = true;
+      const categories = cookieData.categories;
+
+      for (let i = 0; i < categories.length; i++) {
+        const cat = categories[i].toLowerCase();
+        if (cat === 'marketing') {
+          consentState.ad_storage = 'granted';
+          consentState.ad_user_data = 'granted';
+          consentState.ad_personalization = 'granted';
+        } else if (cat === 'analytics') {
+          consentState.analytics_storage = 'granted';
+        } else if (cat === 'personalization') {
+          consentState.personalization_storage = 'granted';
+        }
+      }
+    }
+  }
+
+  if (!hasExistingConsent) {
+    consentState.wait_for_update = 1000;
+  }
+
+  setDefaultConsentState(consentState);
+
+  gtagSet('ads_data_redaction', true);
+
   data.gtmOnSuccess();
 };
 
@@ -1334,7 +1388,10 @@ const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
 
 const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
-if (!callFreshpaintProxy("isLoaded")) {
+if (data.tagType === "consentInit") {
+  // consent initialization needs to load synchronously
+  processConsentInit();
+} else if (!callFreshpaintProxy("isLoaded")) {
   injectScript(JS_URL, processEvent, data.gtmOnFailure, "freshpaint_gtm_proxy");
 } else {
   processEvent();
