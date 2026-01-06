@@ -46,6 +46,19 @@ export const commonEventPropertiesJSONValue = (
   });
 };
 
+export const commonEventPropsVariable = (enablingConditions: Array<EnablingCondition> = []) => {
+  // This variable is either a Javascript object or a 'Google Tag: Event Settings' variable.
+  // The name ga4EventPropsVariable is left over from when this was only supported for GA4.
+  // For backwards compatibility, the name remains the same, but this is not GA4-specific.
+  return text({
+    name: 'ga4EventPropsVariable',
+    displayName: 'Event Properties Variable',
+    help: 'If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format',
+    simpleValueType: true,
+    enablingConditions,
+  });
+};
+
 // displayName and help cannot be passed in. They are overridden by the last-called instance of the function. :/
 export const commonInstanceId = (enablingConditions: Array<EnablingCondition> = []) => {
   return text({

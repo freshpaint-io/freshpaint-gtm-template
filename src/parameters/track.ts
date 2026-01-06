@@ -1,6 +1,7 @@
 import {
   commonEventName,
   commonEventPropertiesJSONValue,
+  commonEventPropsVariable,
   commonOptinOptOut,
   commonOptinOptOutInstances,
 } from './common';
@@ -13,6 +14,7 @@ export default function TrackParams() {
 
   return [
     commonEventName(onlyForTrack),
+    commonEventPropsVariable(onlyForTrack),
     commonEventPropertiesJSONValue(onlyForTrack),
     commonOptinOptOut(onlyForTrack),
     commonOptinOptOutInstances(onlyForTrack),

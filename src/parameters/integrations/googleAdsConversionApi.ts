@@ -19,7 +19,7 @@ export default function GoogleAdsConversionApiParams() {
     text({
       name: 'googleAdsConversionApiConversionName',
       displayName: 'Conversion Name (ctname)',
-      help: 'Enter your Conversion\'s Name. This is shown in the Conversion Details section within Google Ads.',
+      help: "Enter your Conversion's Name. This is shown in the Conversion Details section within Google Ads.",
       simpleValueType: true,
       enablingConditions: onlyForGoogleAdsConversionApiEvent,
     }),
