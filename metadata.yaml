@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 3011302941e7eb285d11568fcc110298fbaf8172
-    changeNotes: Google Consent Mode consent initialization tag support
+  - sha: 7b7653edf1c227eb6e4ffd350c7b75dc94c44652
+    changeNotes: Support Google Tag Event Settings variable on Freshpaint Track tags
