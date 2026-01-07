@@ -71,7 +71,7 @@ function parseParamTableToArray(inputProps, overrides) {
   return props;
 }
 
-function getEventPropsFromGoogEventSettingsVar(inputProps) {
+function getEventPropsFromGoogleTagEventSettingsVar(inputProps) {
   if (getType(inputProps) !== "object") {
     return {};
   }
@@ -89,7 +89,7 @@ function getEventPropsFromGoogEventSettingsVar(inputProps) {
   return eventProps;
 }
 
-function getUserPropsFromGoogEventSettingsVar(inputProps) {
+function getUserPropsFromGoogleTagEventSettingsVar(inputProps) {
   if (getType(inputProps) !== "object") {
     return {};
   }
@@ -362,11 +362,12 @@ const processConsentInit = () => {
 
 const processTrack = () => {
   if (data.commonEventName) {
+    const eventPropsFromVar = getEventPropsFromGoogleTagEventSettingsVar(data.ga4EventPropsVariable);
     const props = parseSimpleTableAndParseNumericAndJSONValues(data.commonEventPropertiesJSONValue || [], "track");
 
     const options = generateOptionsFromParamTable(data.commonOptinOptOut, data.commonOptinOptOutInstances);
 
-    track(data.commonEventName, props, options);
+    track(data.commonEventName, mergeObj(eventPropsFromVar, props), options);
 
       data.gtmOnSuccess();
   } else {
@@ -414,14 +415,14 @@ const processGA4Event = () => {
     options = generateOptionsFromInstances(ga4ProxySDKKey, instanceNamesToUse, true);
   }
 
-  const userPropsFromVar = getUserPropsFromGoogEventSettingsVar(data.ga4EventPropsVariable);
+  const userPropsFromVar = getUserPropsFromGoogleTagEventSettingsVar(data.ga4EventPropsVariable);
   const userProps = parseSimpleTable(data.commonUserProperties || []);
   const allUserProps = mergeObj(userPropsFromVar, userProps);
   if (!objectIsEmpty(allUserProps)) {
     identify(undefined, allUserProps, options);
   }
 
-  const eventPropsFromVar = getEventPropsFromGoogEventSettingsVar(data.ga4EventPropsVariable);
+  const eventPropsFromVar = getEventPropsFromGoogleTagEventSettingsVar(data.ga4EventPropsVariable);
 
   if (data.commonEventName) {
     const props = parseSimpleTable(data.commonEventProperties || []);

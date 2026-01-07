@@ -15,6 +15,7 @@ This file will define the UI fields that the customer will need to fill for this
 For the integration's primary account/instance/pixel identifier, we want to use `commonInstanceId()`. While this provides a less desireable, generic name and help text, there is a limit to the maximum number of custom fields allowed in a GTM template and we are [quickly approaching that limit](https://www.notion.so/freshpaintio/RFC-GTM-Template-Number-of-UI-Fields-limit-Proposed-solution-2841ea732c1e80908320e2d5805645a1).
 
 follow the existing conventions on ordering of the UI fields:
+
 - if used, the common field for the instance name of the destination should come first
 - if used, the common field for Freshpaint Event Name should come next
 - all other destination-specific UI fields should be defined next

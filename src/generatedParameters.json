@@ -503,6 +503,25 @@
   },
   {
     "type": "TEXT",
+    "name": "ga4EventPropsVariable",
+    "displayName": "Event Properties Variable",
+    "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "ga4Event",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
     "name": "identifyIdentifier",
     "displayName": "Identifier (recommended)",
     "simpleValueType": true,
@@ -1247,20 +1266,6 @@
       }
     ],
     "groupStyle": "ZIPPY_CLOSED"
-  },
-  {
-    "type": "TEXT",
-    "name": "ga4EventPropsVariable",
-    "displayName": "Event Properties Variable",
-    "help": "If specified, must be a variable returning an object, such as a Google Tag: Event Settings or Custom JavaScript variable, in {{varname}} format",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "ga4Event",
-        "type": "EQUALS"
-      }
-    ]
   },
   {
     "type": "TEXT",
