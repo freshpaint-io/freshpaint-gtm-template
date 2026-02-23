@@ -57,6 +57,10 @@
         "displayValue": "LinkedIn Ads Conversions API"
       },
       {
+        "value": "microsoftAdsConversionsApiEvent",
+        "displayValue": "Microsoft Ads Conversions API"
+      },
+      {
         "value": "mntnEvent",
         "displayValue": "MNTN"
       },
@@ -154,6 +158,11 @@
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "microsoftAdsConversionsApiEvent",
         "type": "EQUALS"
       },
       {
@@ -432,6 +441,11 @@
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "microsoftAdsConversionsApiEvent",
         "type": "EQUALS"
       },
       {
@@ -2026,6 +2040,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "microsoftAdsConversionsApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "mntnEvent",
         "type": "EQUALS"
       },
@@ -2218,6 +2237,10 @@
             {
               "value": "LinkedIn Ads Conversions API",
               "displayValue": "LinkedIn Ads Conversions API"
+            },
+            {
+              "value": "Microsoft Ads Conversions API",
+              "displayValue": "Microsoft Ads Conversions API"
             },
             {
               "value": "Mixpanel",
