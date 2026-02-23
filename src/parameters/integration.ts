@@ -9,6 +9,7 @@ export const googleAdsEvent = 'googleAdsEvent';
 export const googleCM360Event = 'googleCM360Event';
 export const impactEvent = 'impactEvent';
 export const linkedInAdsCAPIEvent = 'linkedInAdsCAPIEvent';
+export const microsoftAdsConversionsApiEvent = 'microsoftAdsConversionsApiEvent';
 export const mntnEvent = 'mntnEvent';
 export const nextdoorEvent = 'nextdoorEvent';
 export const pinterestAdsEvent = 'pinterestAdsEvent';
@@ -44,6 +45,7 @@ export const rootParamSelectItems = [
   { value: googleCM360Event, displayValue: 'Google Campaign Manager 360 Conversions API' },
   { value: impactEvent, displayValue: 'impact.com' },
   { value: linkedInAdsCAPIEvent, displayValue: 'LinkedIn Ads Conversions API' },
+  { value: microsoftAdsConversionsApiEvent, displayValue: 'Microsoft Ads Conversions API' },
   { value: mntnEvent, displayValue: 'MNTN' },
   { value: nextdoorEvent, displayValue: 'Nextdoor' },
   { value: pinterestAdsEvent, displayValue: 'Pinterest Ads' },
@@ -89,6 +91,7 @@ export const trackDestinationSelectItems = [
   },
   { value: 'impactdotcom', displayValue: 'impact.com' },
   { value: 'LinkedIn Ads Conversions API', displayValue: 'LinkedIn Ads Conversions API' },
+  { value: 'Microsoft Ads Conversions API', displayValue: 'Microsoft Ads Conversions API' },
   { value: 'Mixpanel', displayValue: 'Mixpanel' },
   { value: 'MNTN', displayValue: 'MNTN' },
   { value: 'Nextdoor', displayValue: 'Nextdoor' },

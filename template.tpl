@@ -86,6 +86,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "LinkedIn Ads Conversions API"
       },
       {
+        "value": "microsoftAdsConversionsApiEvent",
+        "displayValue": "Microsoft Ads Conversions API"
+      },
+      {
         "value": "mntnEvent",
         "displayValue": "MNTN"
       },
@@ -183,6 +187,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "microsoftAdsConversionsApiEvent",
         "type": "EQUALS"
       },
       {
@@ -461,6 +470,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "microsoftAdsConversionsApiEvent",
         "type": "EQUALS"
       },
       {
@@ -2055,6 +2069,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "microsoftAdsConversionsApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "mntnEvent",
         "type": "EQUALS"
       },
@@ -2247,6 +2266,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "LinkedIn Ads Conversions API",
               "displayValue": "LinkedIn Ads Conversions API"
+            },
+            {
+              "value": "Microsoft Ads Conversions API",
+              "displayValue": "Microsoft Ads Conversions API"
             },
             {
               "value": "Mixpanel",
@@ -2564,6 +2587,9 @@ const processEvent = () => {
       break;
     case "linkedInAdsCAPIEvent":
       processLinkedInAdsCAPIEvent();
+      break;
+    case "microsoftAdsConversionsApiEvent":
+      processMicrosoftAdsConversionsApiEvent();
       break;
     case "mntnEvent":
       processMntnEvent();
@@ -3295,6 +3321,31 @@ const processMntnEvent = () => {
   const props = parseSimpleTable(data.commonEventProperties || []);
   track(data.commonEventName, props, options);
 
+  data.gtmOnSuccess();
+};
+
+const processMicrosoftAdsConversionsApiEvent = () => {
+  const microsoftAdsConversionsApiSDKKey = "Microsoft Ads Conversions API";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Microsoft Ads Conversions API GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(microsoftAdsConversionsApiSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(microsoftAdsConversionsApiSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Microsoft Ads Conversions API Instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
 
