@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 1b5c74cdb66eb43b86206eb19e82a3bf7c6a15ce
-    changeNotes: Add Microsoft Ads Conversions API destination
+  - sha: cd07daa738bd7acb71de06109547ce986584bf13
+    changeNotes: Add Zeta Conversions API destination
