@@ -233,6 +233,9 @@ const processEvent = () => {
     case "appLovinEvent":
       processAppLovinEvent();
       break;
+    case "zetaCAPIEvent":
+      processZetaCAPIEvent();
+      break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
       data.gtmOnFailure();
@@ -1044,6 +1047,25 @@ const processYelpCAPIEvent = () => {
       options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Yelp Client IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processZetaCAPIEvent = () => {
+    const zetaCAPISDKKey = "Zeta Conversions API";
+
+    let options = generateOptions(zetaCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(zetaCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Zeta Conversions API Instance IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }

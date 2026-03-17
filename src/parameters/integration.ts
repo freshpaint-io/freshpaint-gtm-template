@@ -24,6 +24,7 @@ export const tikTokAdsEvent = 'tikTokAdsEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
 export const viantEvent = 'viantEvent';
 export const yelpCAPIEvent = 'yelpCAPIEvent';
+export const zetaCAPIEvent = 'zetaCAPIEvent';
 // Aren't destinations
 export const addEventProperties = 'addEventProperties';
 export const consentInit = 'consentInit';
@@ -60,6 +61,7 @@ export const rootParamSelectItems = [
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
   { value: viantEvent, displayValue: 'Viant' },
   { value: yelpCAPIEvent, displayValue: 'Yelp Conversions API' },
+  { value: zetaCAPIEvent, displayValue: 'Zeta Conversions API' },
   { value: addEventProperties, displayValue: 'AddEventProperties' },
   { value: consentInit, displayValue: 'Freshpaint Google Consent Mode Initialization' },
   { value: identify, displayValue: 'Identify' },
@@ -107,6 +109,7 @@ export const trackDestinationSelectItems = [
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },
   { value: 'viant', displayValue: 'Viant' },
   { value: 'Yelp Conversions API', displayValue: 'Yelp Conversions API' },
+  { value: 'Zeta Conversions API', displayValue: 'Zeta Conversions API' },
   { value: 'Webhooks', displayValue: 'Webhooks' },
   {
     value: 'linkedin-ads',

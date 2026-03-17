@@ -146,6 +146,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Yelp Conversions API"
       },
       {
+        "value": "zetaCAPIEvent",
+        "displayValue": "Zeta Conversions API"
+      },
+      {
         "value": "addEventProperties",
         "displayValue": "AddEventProperties"
       },
@@ -237,6 +241,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "zetaCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -540,6 +549,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "zetaCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -2121,6 +2135,11 @@ ___TEMPLATE_PARAMETERS___
         "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "zetaCAPIEvent",
+        "type": "EQUALS"
       }
     ],
     "simpleTableColumns": [
@@ -2330,6 +2349,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Yelp Conversions API",
               "displayValue": "Yelp Conversions API"
+            },
+            {
+              "value": "Zeta Conversions API",
+              "displayValue": "Zeta Conversions API"
             },
             {
               "value": "Webhooks",
@@ -2656,6 +2679,9 @@ const processEvent = () => {
       break;
     case "appLovinEvent":
       processAppLovinEvent();
+      break;
+    case "zetaCAPIEvent":
+      processZetaCAPIEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3468,6 +3494,25 @@ const processYelpCAPIEvent = () => {
       options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Yelp Client IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processZetaCAPIEvent = () => {
+    const zetaCAPISDKKey = "Zeta Conversions API";
+
+    let options = generateOptions(zetaCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(zetaCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Zeta Conversions API Instance IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }

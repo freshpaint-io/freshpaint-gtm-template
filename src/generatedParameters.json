@@ -117,6 +117,10 @@
         "displayValue": "Yelp Conversions API"
       },
       {
+        "value": "zetaCAPIEvent",
+        "displayValue": "Zeta Conversions API"
+      },
+      {
         "value": "addEventProperties",
         "displayValue": "AddEventProperties"
       },
@@ -208,6 +212,11 @@
       {
         "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "zetaCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -511,6 +520,11 @@
       {
         "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "zetaCAPIEvent",
         "type": "EQUALS"
       }
     ]
@@ -2092,6 +2106,11 @@
         "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "zetaCAPIEvent",
+        "type": "EQUALS"
       }
     ],
     "simpleTableColumns": [
@@ -2301,6 +2320,10 @@
             {
               "value": "Yelp Conversions API",
               "displayValue": "Yelp Conversions API"
+            },
+            {
+              "value": "Zeta Conversions API",
+              "displayValue": "Zeta Conversions API"
             },
             {
               "value": "Webhooks",
