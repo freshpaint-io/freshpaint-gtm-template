@@ -1461,6 +1461,20 @@
     ]
   },
   {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiCustomerType",
+    "displayName": "Customer Type (optional)",
+    "help": "Set to 'NEW' or 'RETURNING' to enable new vs. returning customer bidding in Google Ads. You can use a GTM variable (e.g. {{DLV - customer_type}}) to pass this dynamically. Your Google Ads account must be allowlisted by Google to use this feature.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",

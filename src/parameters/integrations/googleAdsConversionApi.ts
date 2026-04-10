@@ -23,6 +23,13 @@ export default function GoogleAdsConversionApiParams() {
       simpleValueType: true,
       enablingConditions: onlyForGoogleAdsConversionApiEvent,
     }),
+    text({
+      name: 'googleAdsConversionApiCustomerType',
+      displayName: 'Customer Type (optional)',
+      help: "Set to 'NEW' or 'RETURNING' to enable new vs. returning customer bidding in Google Ads. You can use a GTM variable (e.g. {{DLV - customer_type}}) to pass this dynamically. Your Google Ads account must be allowlisted by Google to use this feature.",
+      simpleValueType: true,
+      enablingConditions: onlyForGoogleAdsConversionApiEvent,
+    }),
     commonEventProperties(onlyForGoogleAdsConversionApiEvent),
   ];
 }

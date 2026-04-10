@@ -813,6 +813,10 @@ const processGoogleAdsConversionApiEvent = () => {
     props.ctname = data.googleAdsConversionApiConversionName;
   }
 
+  if (data.googleAdsConversionApiCustomerType) {
+    props.customer_type = data.googleAdsConversionApiCustomerType;
+  }
+
   track(data.commonEventName, props, options);
 
   data.gtmOnSuccess();

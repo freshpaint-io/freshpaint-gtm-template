@@ -1490,6 +1490,20 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "googleAdsConversionApiCustomerType",
+    "displayName": "Customer Type (optional)",
+    "help": "Set to 'NEW' or 'RETURNING' to enable new vs. returning customer bidding in Google Ads. You can use a GTM variable (e.g. {{DLV - customer_type}}) to pass this dynamically. Your Google Ads account must be allowlisted by Google to use this feature.",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "RADIO",
     "name": "impactEventTypeIdOrCodeSelector",
     "displayName": "Use event_type_id vs. event_type_code",
@@ -3258,6 +3272,10 @@ const processGoogleAdsConversionApiEvent = () => {
 
   if (data.googleAdsConversionApiConversionName) {
     props.ctname = data.googleAdsConversionApiConversionName;
+  }
+
+  if (data.googleAdsConversionApiCustomerType) {
+    props.customer_type = data.googleAdsConversionApiCustomerType;
   }
 
   track(data.commonEventName, props, options);
