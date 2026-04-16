@@ -24,6 +24,7 @@ export const tikTokAdsEvent = 'tikTokAdsEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
 export const viantEvent = 'viantEvent';
 export const yelpCAPIEvent = 'yelpCAPIEvent';
+export const vibeCAPIEvent = 'vibeCAPIEvent';
 export const zetaCAPIEvent = 'zetaCAPIEvent';
 // Aren't destinations
 export const addEventProperties = 'addEventProperties';
@@ -59,6 +60,7 @@ export const rootParamSelectItems = [
   { value: theTradeDeskEvent, displayValue: 'theTradeDesk' },
   { value: tikTokAdsEvent, displayValue: 'TikTok Ads' },
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
+  { value: vibeCAPIEvent, displayValue: 'Vibe Conversions API' },
   { value: viantEvent, displayValue: 'Viant' },
   { value: yelpCAPIEvent, displayValue: 'Yelp Conversions API' },
   { value: zetaCAPIEvent, displayValue: 'Zeta Conversions API' },
@@ -107,6 +109,7 @@ export const trackDestinationSelectItems = [
   { value: 'theTradeDesk', displayValue: 'theTradeDesk' },
   { value: 'TikTok Ads', displayValue: 'TikTok Ads' },
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },
+  { value: 'Vibe Conversions API', displayValue: 'Vibe Conversions API' },
   { value: 'viant', displayValue: 'Viant' },
   { value: 'Yelp Conversions API', displayValue: 'Yelp Conversions API' },
   { value: 'Zeta Conversions API', displayValue: 'Zeta Conversions API' },

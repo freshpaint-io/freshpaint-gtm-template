@@ -109,6 +109,10 @@
         "displayValue": "Twitter Ads"
       },
       {
+        "value": "vibeCAPIEvent",
+        "displayValue": "Vibe Conversions API"
+      },
+      {
         "value": "viantEvent",
         "displayValue": "Viant"
       },
@@ -207,6 +211,11 @@
       {
         "paramName": "tagType",
         "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "vibeCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -515,6 +524,11 @@
       {
         "paramName": "tagType",
         "paramValue": "viantEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "vibeCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -2104,6 +2118,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "vibeCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
       },
@@ -2312,6 +2331,10 @@
             {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "Vibe Conversions API",
+              "displayValue": "Vibe Conversions API"
             },
             {
               "value": "viant",
