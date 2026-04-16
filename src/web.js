@@ -233,6 +233,9 @@ const processEvent = () => {
     case "appLovinEvent":
       processAppLovinEvent();
       break;
+    case "vibeCAPIEvent":
+      processVibeCAPIEvent();
+      break;
     case "zetaCAPIEvent":
       processZetaCAPIEvent();
       break;
@@ -1047,6 +1050,25 @@ const processYelpCAPIEvent = () => {
       options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Yelp Client IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processVibeCAPIEvent = () => {
+    const vibeCAPISDKKey = "Vibe Conversions API";
+
+    let options = generateOptions(vibeCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(vibeCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Vibe Conversions API Instance IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }

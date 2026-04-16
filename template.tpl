@@ -138,6 +138,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Twitter Ads"
       },
       {
+        "value": "vibeCAPIEvent",
+        "displayValue": "Vibe Conversions API"
+      },
+      {
         "value": "viantEvent",
         "displayValue": "Viant"
       },
@@ -236,6 +240,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "twitterAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "vibeCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -544,6 +553,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "viantEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "vibeCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -2133,6 +2147,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "vibeCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "yelpCAPIEvent",
         "type": "EQUALS"
       },
@@ -2341,6 +2360,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Twitter Ads",
               "displayValue": "Twitter Ads"
+            },
+            {
+              "value": "Vibe Conversions API",
+              "displayValue": "Vibe Conversions API"
             },
             {
               "value": "viant",
@@ -2679,6 +2702,9 @@ const processEvent = () => {
       break;
     case "appLovinEvent":
       processAppLovinEvent();
+      break;
+    case "vibeCAPIEvent":
+      processVibeCAPIEvent();
       break;
     case "zetaCAPIEvent":
       processZetaCAPIEvent();
@@ -3494,6 +3520,25 @@ const processYelpCAPIEvent = () => {
       options = generateOptionsFromInstances(yelpCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Yelp Client IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processVibeCAPIEvent = () => {
+    const vibeCAPISDKKey = "Vibe Conversions API";
+
+    let options = generateOptions(vibeCAPISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(vibeCAPISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Vibe Conversions API Instance IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
