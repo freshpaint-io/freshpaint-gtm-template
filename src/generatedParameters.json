@@ -53,6 +53,10 @@
         "displayValue": "impact.com"
       },
       {
+        "value": "kochavaEvent",
+        "displayValue": "Kochava"
+      },
+      {
         "value": "linkedInAdsCAPIEvent",
         "displayValue": "LinkedIn Ads Conversions API"
       },
@@ -166,6 +170,11 @@
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "kochavaEvent",
         "type": "EQUALS"
       },
       {
@@ -449,6 +458,11 @@
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "kochavaEvent",
         "type": "EQUALS"
       },
       {
@@ -2063,6 +2077,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "kochavaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
         "type": "EQUALS"
       },
@@ -2271,6 +2290,10 @@
             {
               "value": "impactdotcom",
               "displayValue": "impact.com"
+            },
+            {
+              "value": "Kochava",
+              "displayValue": "Kochava"
             },
             {
               "value": "LinkedIn Ads Conversions API",

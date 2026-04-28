@@ -179,6 +179,9 @@ const processEvent = () => {
     case "impactEvent":
       processImpactEvent();
       break;
+    case "kochavaEvent":
+      processKochavaEvent();
+      break;
     case "googleAdsEvent":
       processGoogleAdsEvent();
       break;
@@ -712,6 +715,31 @@ const processImpactEvent = () => {
 
   track(data.impactEventTypeIdOrCode, props, options);
 
+  data.gtmOnSuccess();
+};
+
+const processKochavaEvent = () => {
+  const kochavaSDKKey = "Kochava";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Kochava GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(kochavaSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(kochavaSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Kochava Instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
 
