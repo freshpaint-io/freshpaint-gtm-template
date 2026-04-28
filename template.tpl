@@ -82,6 +82,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "impact.com"
       },
       {
+        "value": "kochavaEvent",
+        "displayValue": "Kochava"
+      },
+      {
         "value": "linkedInAdsCAPIEvent",
         "displayValue": "LinkedIn Ads Conversions API"
       },
@@ -195,6 +199,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "kochavaEvent",
         "type": "EQUALS"
       },
       {
@@ -478,6 +487,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "kochavaEvent",
         "type": "EQUALS"
       },
       {
@@ -2092,6 +2106,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "kochavaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
         "type": "EQUALS"
       },
@@ -2300,6 +2319,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "impactdotcom",
               "displayValue": "impact.com"
+            },
+            {
+              "value": "Kochava",
+              "displayValue": "Kochava"
             },
             {
               "value": "LinkedIn Ads Conversions API",
@@ -2648,6 +2671,9 @@ const processEvent = () => {
       break;
     case "impactEvent":
       processImpactEvent();
+      break;
+    case "kochavaEvent":
+      processKochavaEvent();
       break;
     case "googleAdsEvent":
       processGoogleAdsEvent();
@@ -3182,6 +3208,31 @@ const processImpactEvent = () => {
 
   track(data.impactEventTypeIdOrCode, props, options);
 
+  data.gtmOnSuccess();
+};
+
+const processKochavaEvent = () => {
+  const kochavaSDKKey = "Kochava";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Kochava GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(kochavaSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(kochavaSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Kochava Instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
 
