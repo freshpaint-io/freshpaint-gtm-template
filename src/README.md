@@ -10,9 +10,13 @@
 
 ### Create a new file in `./parameters/integrations/`
 
-This file will define the UI fields that the customer will need to fill for this integration event type. Referencing an existing integration file will be helpful at this step. The new file needs to default export a function that returns an array of objects.
+This file will define the UI fields that the customer will need to fill for this integration event type. 
+Referencing an existing integration file will be helpful at this step. 
+The new file needs to default export a function that returns an array of objects.
 
-For the integration's primary account/instance/pixel identifier, we want to use `commonInstanceId()`. While this provides a less desireable, generic name and help text, there is a limit to the maximum number of custom fields allowed in a GTM template and we are [quickly approaching that limit](https://www.notion.so/freshpaintio/RFC-GTM-Template-Number-of-UI-Fields-limit-Proposed-solution-2841ea732c1e80908320e2d5805645a1).
+For the integration's primary account/instance/pixel identifier, we want to use `commonInstanceId()`. 
+While this provides a less desireable, generic name and help text, there is a limit to the maximum number of custom 
+fields allowed in a GTM template and we are [quickly approaching that limit](https://www.notion.so/freshpaintio/RFC-GTM-Template-Number-of-UI-Fields-limit-Proposed-solution-2841ea732c1e80908320e2d5805645a1).
 
 follow the existing conventions on ordering of the UI fields:
 
@@ -22,7 +26,9 @@ follow the existing conventions on ordering of the UI fields:
 - if used, the common field for Event Properties should come next
 - if used, the common field for User Properties should come last
 
-**WARNING:** due to the usage of common fields and constraints imposed by GTM, the order of UI fields as defined in this file is not necessarily completely 1:1 with how they will show up in the UI. If there are any surprises when testing locally, please refer to `scripts/paramSortOrder.js` to understand the final global ordering.
+**WARNING:** due to the usage of common fields and constraints imposed by GTM, the order of UI fields as defined in this 
+file is not necessarily completely 1:1 with how they will show up in the UI. If there are any surprises when testing 
+locally, please refer to `scripts/paramSortOrder.js` to understand the final global ordering.
 
 ### In `web.js`:
 
