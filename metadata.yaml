@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 7bd07d100969f8b599457fb7b51ef75765b9cce4
-    changeNotes: Add Kochava destination
+  - sha: 153b7503b1aef7e774e5258d24b6006883bd927b
+    changeNotes: Add support for Kochava destination
