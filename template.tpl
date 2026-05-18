@@ -114,6 +114,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Reddit Ads"
       },
       {
+        "value": "simplifiCAPIEvent",
+        "displayValue": "Simpli.fi Conversions API"
+      },
+      {
         "value": "siriusXMEvent",
         "displayValue": "SiriusXM"
       },
@@ -532,6 +536,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "simplifiCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -1738,6 +1747,25 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
+    "type": "TEXT",
+    "name": "simplifiAudienceKey",
+    "displayName": "Simpli.fi Audience Key",
+    "help": "Property that identifies the Simpli.fi Conversion Audience you want to attribute the conversion to. Each conversion event must have an audience_key matching the relevant Simpli.fi Conversion Audience key.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "simplifiCAPIEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "SELECT",
     "name": "snapchatEventName",
     "displayName": "Snapchat Event Name",
@@ -2141,6 +2169,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "simplifiCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       },
@@ -2355,6 +2388,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "reddit-ads",
               "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "Simpli.fi",
+              "displayValue": "Simpli.fi Conversions API"
             },
             {
               "value": "SiriusXM",
@@ -2734,6 +2771,9 @@ const processEvent = () => {
       break;
     case "zetaCAPIEvent":
       processZetaCAPIEvent();
+      break;
+    case "simplifiCAPIEvent":
+      processSimplifiCAPIEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3618,6 +3658,23 @@ const processZetaCAPIEvent = () => {
     track(data.commonEventName, props, options);
     data.gtmOnSuccess();
   };
+
+const processSimplifiCAPIEvent = () => {
+  const options = generateOptions("Simpli.fi");
+
+  if (data.commonEventName && data.simplifiAudienceKey) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+
+    props.audience_key = data.simplifiAudienceKey;
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Simpli.fi Conversions API GTM Template missing eventName and / or simplifiAudienceKey");
+    data.gtmOnFailure();
+  }
+};
 
 const processStackAdaptEvent = () => {
   const options = generateOptions("StackAdapt");

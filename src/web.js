@@ -242,6 +242,9 @@ const processEvent = () => {
     case "zetaCAPIEvent":
       processZetaCAPIEvent();
       break;
+    case "simplifiCAPIEvent":
+      processSimplifiCAPIEvent();
+      break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
       data.gtmOnFailure();
@@ -1125,6 +1128,23 @@ const processZetaCAPIEvent = () => {
     track(data.commonEventName, props, options);
     data.gtmOnSuccess();
   };
+
+const processSimplifiCAPIEvent = () => {
+  const options = generateOptions("Simpli.fi");
+
+  if (data.commonEventName && data.simplifiAudienceKey) {
+    const props = parseSimpleTable(data.commonEventProperties || []);
+
+    props.audience_key = data.simplifiAudienceKey;
+
+    track(data.commonEventName, props, options);
+
+    data.gtmOnSuccess();
+  } else {
+    log("ERROR: Freshpaint Simpli.fi Conversions API GTM Template missing eventName and / or simplifiAudienceKey");
+    data.gtmOnFailure();
+  }
+};
 
 const processStackAdaptEvent = () => {
   const options = generateOptions("StackAdapt");

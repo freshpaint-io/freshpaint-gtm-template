@@ -85,6 +85,10 @@
         "displayValue": "Reddit Ads"
       },
       {
+        "value": "simplifiCAPIEvent",
+        "displayValue": "Simpli.fi Conversions API"
+      },
+      {
         "value": "siriusXMEvent",
         "displayValue": "SiriusXM"
       },
@@ -503,6 +507,11 @@
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "simplifiCAPIEvent",
         "type": "EQUALS"
       },
       {
@@ -1709,6 +1718,25 @@
     ]
   },
   {
+    "type": "TEXT",
+    "name": "simplifiAudienceKey",
+    "displayName": "Simpli.fi Audience Key",
+    "help": "Property that identifies the Simpli.fi Conversion Audience you want to attribute the conversion to. Each conversion event must have an audience_key matching the relevant Simpli.fi Conversion Audience key.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "simplifiCAPIEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
     "type": "SELECT",
     "name": "snapchatEventName",
     "displayName": "Snapchat Event Name",
@@ -2112,6 +2140,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "simplifiCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "siriusXMEvent",
         "type": "EQUALS"
       },
@@ -2326,6 +2359,10 @@
             {
               "value": "reddit-ads",
               "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "Simpli.fi",
+              "displayValue": "Simpli.fi Conversions API"
             },
             {
               "value": "SiriusXM",
