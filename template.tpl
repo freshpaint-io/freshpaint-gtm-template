@@ -972,61 +972,6 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "TEXT",
-    "name": "cjOrderId",
-    "displayName": "order_id (required)",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "cjEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "cjValue",
-    "displayName": "value (required)",
-    "help": "Conversion value. Accepts total, revenue, or price from the data layer — map whichever is set.",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "cjEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "cjCurrency",
-    "displayName": "currency (required)",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ],
-    "enablingConditions": [
-      {
-        "paramName": "tagType",
-        "paramValue": "cjEvent",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
     "name": "googleCM360ActivityIDString",
     "displayName": "Activity ID",
     "help": "This is the Floodlight Activity ID (typically numeric) that conversions will be associated with. It differs from the Floodlight Activity tag string used by the native Floodlight Counter tag.",
@@ -4050,37 +3995,9 @@ const processCJEvent = () => {
     data.gtmOnFailure();
     return;
   }
-  if (!data.cjOrderId) {
-    log("ERROR: Freshpaint CJ GTM Template missing order_id");
-    data.gtmOnFailure();
-    return;
-  }
-  if (!data.cjValue) {
-    log("ERROR: Freshpaint CJ GTM Template missing value");
-    data.gtmOnFailure();
-    return;
-  }
-  if (!data.cjCurrency) {
-    log("ERROR: Freshpaint CJ GTM Template missing currency");
-    data.gtmOnFailure();
-    return;
-  }
 
   const options = generateOptions(cjSDKKey);
-
   const props = parseSimpleTable(data.commonEventProperties || []);
-
-  props.order_id = data.cjOrderId;
-
-  let val = makeNumber(data.cjValue);
-  if (val !== val) { // Check for NaN
-    val = data.cjValue;
-    log("WARNING: Freshpaint CJ GTM Template could not parse 'value' as numeric, leaving as string: " + val);
-  }
-  props.value = val;
-
-  props.currency = data.cjCurrency;
-
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };

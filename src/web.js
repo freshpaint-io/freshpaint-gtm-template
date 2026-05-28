@@ -1447,37 +1447,9 @@ const processCJEvent = () => {
     data.gtmOnFailure();
     return;
   }
-  if (!data.cjOrderId) {
-    log("ERROR: Freshpaint CJ GTM Template missing order_id");
-    data.gtmOnFailure();
-    return;
-  }
-  if (!data.cjValue) {
-    log("ERROR: Freshpaint CJ GTM Template missing value");
-    data.gtmOnFailure();
-    return;
-  }
-  if (!data.cjCurrency) {
-    log("ERROR: Freshpaint CJ GTM Template missing currency");
-    data.gtmOnFailure();
-    return;
-  }
 
   const options = generateOptions(cjSDKKey);
-
   const props = parseSimpleTable(data.commonEventProperties || []);
-
-  props.order_id = data.cjOrderId;
-
-  let val = makeNumber(data.cjValue);
-  if (val !== val) { // Check for NaN
-    val = data.cjValue;
-    log("WARNING: Freshpaint CJ GTM Template could not parse 'value' as numeric, leaving as string: " + val);
-  }
-  props.value = val;
-
-  props.currency = data.cjCurrency;
-
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
