@@ -54,6 +54,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Bing Ads"
       },
       {
+        "value": "cjEvent",
+        "displayValue": "CJ"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
       },
@@ -198,6 +202,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "appLovinEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "cjEvent",
         "type": "EQUALS"
       },
       {
@@ -466,6 +475,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "basisEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "cjEvent",
         "type": "EQUALS"
       },
       {
@@ -957,6 +971,61 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "bingEventType",
         "paramValue": "pageViewSPA",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "cjOrderId",
+    "displayName": "order_id (required)",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "cjEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "cjValue",
+    "displayName": "value (required)",
+    "help": "Conversion value. Accepts total, revenue, or price from the data layer — map whichever is set.",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "cjEvent",
+        "type": "EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "cjCurrency",
+    "displayName": "currency (required)",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ],
+    "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "cjEvent",
         "type": "EQUALS"
       }
     ]
@@ -2124,6 +2193,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "cjEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
@@ -2324,6 +2398,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Bing Ads",
               "displayValue": "Bing Ads"
+            },
+            {
+              "value": "CJ",
+              "displayValue": "CJ"
             },
             {
               "value": "Facebook Conversions API",
@@ -2774,6 +2852,9 @@ const processEvent = () => {
       break;
     case "simplifiCAPIEvent":
       processSimplifiCAPIEvent();
+      break;
+    case "cjEvent":
+      processCJEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3962,6 +4043,58 @@ const processNextdoorEvent = () => {
   }
 
   const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processCJEvent = () => {
+  const cjSDKKey = "CJ";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint CJ GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.cjOrderId) {
+    log("ERROR: Freshpaint CJ GTM Template missing order_id");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.cjValue) {
+    log("ERROR: Freshpaint CJ GTM Template missing value");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.cjCurrency) {
+    log("ERROR: Freshpaint CJ GTM Template missing currency");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(cjSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(cjSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple CJ Instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+
+  props.order_id = data.cjOrderId;
+
+  let val = makeNumber(data.cjValue);
+  if (val !== val) { // Check for NaN
+    val = data.cjValue;
+    log("WARNING: Freshpaint CJ GTM Template could not parse 'value' as numeric, leaving as string: " + val);
+  }
+  props.value = val;
+
+  props.currency = data.cjCurrency;
+
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };

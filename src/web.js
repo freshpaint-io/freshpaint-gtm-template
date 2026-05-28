@@ -245,6 +245,9 @@ const processEvent = () => {
     case "simplifiCAPIEvent":
       processSimplifiCAPIEvent();
       break;
+    case "cjEvent":
+      processCJEvent();
+      break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
       data.gtmOnFailure();
@@ -1432,6 +1435,58 @@ const processNextdoorEvent = () => {
   }
 
   const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processCJEvent = () => {
+  const cjSDKKey = "CJ";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint CJ GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.cjOrderId) {
+    log("ERROR: Freshpaint CJ GTM Template missing order_id");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.cjValue) {
+    log("ERROR: Freshpaint CJ GTM Template missing value");
+    data.gtmOnFailure();
+    return;
+  }
+  if (!data.cjCurrency) {
+    log("ERROR: Freshpaint CJ GTM Template missing currency");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(cjSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(cjSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple CJ Instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+
+  props.order_id = data.cjOrderId;
+
+  let val = makeNumber(data.cjValue);
+  if (val !== val) { // Check for NaN
+    val = data.cjValue;
+    log("WARNING: Freshpaint CJ GTM Template could not parse 'value' as numeric, leaving as string: " + val);
+  }
+  props.value = val;
+
+  props.currency = data.cjCurrency;
+
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
