@@ -177,11 +177,6 @@
       },
       {
         "paramName": "tagType",
-        "paramValue": "cjEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
       },

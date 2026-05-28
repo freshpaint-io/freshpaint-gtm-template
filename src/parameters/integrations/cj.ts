@@ -1,4 +1,4 @@
-import { commonEventName, commonEventProperties, commonInstanceId } from '../common';
+import { commonEventName, commonEventProperties } from '../common';
 import { nonEmpty, tagTypeEq, text } from '../helpers';
 import { cjEvent } from '../integration';
 
@@ -7,7 +7,6 @@ export default function CJParams() {
   const onlyForCJ = [isCJEvent];
 
   return [
-    commonInstanceId(onlyForCJ),
     commonEventName(onlyForCJ),
     text({
       name: 'cjOrderId',

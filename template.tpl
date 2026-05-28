@@ -206,11 +206,6 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
-        "paramValue": "cjEvent",
-        "type": "EQUALS"
-      },
-      {
-        "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
       },
@@ -4071,16 +4066,7 @@ const processCJEvent = () => {
     return;
   }
 
-  let options = generateOptions(cjSDKKey);
-  if (data.commonInstanceId) {
-    const instanceNameToUse = data.commonInstanceId.trim();
-    options = generateOptionsFromInstances(cjSDKKey, instanceNameToUse, false);
-    if (options === undefined) {
-      log("ERROR: Multiple CJ Instance IDs not supported: " + instanceNameToUse);
-      data.gtmOnFailure();
-      return;
-    }
-  }
+  const options = generateOptions(cjSDKKey);
 
   const props = parseSimpleTable(data.commonEventProperties || []);
 
