@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 255ee842f66e5ccb0343aab2d0238e5c15ec6f1e
-    changeNotes: Add support for Simpli.fi Conversions API destination
+  - sha: 8bd6764596376c17c309af072767e13e8ecc14a6
+    changeNotes: Add support for CJ destination
