@@ -54,6 +54,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Bing Ads"
       },
       {
+        "value": "cjEvent",
+        "displayValue": "CJ"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
       },
@@ -466,6 +470,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "basisEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "cjEvent",
         "type": "EQUALS"
       },
       {
@@ -2124,6 +2133,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "cjEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
@@ -2324,6 +2338,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Bing Ads",
               "displayValue": "Bing Ads"
+            },
+            {
+              "value": "CJ",
+              "displayValue": "CJ"
             },
             {
               "value": "Facebook Conversions API",
@@ -2774,6 +2792,9 @@ const processEvent = () => {
       break;
     case "simplifiCAPIEvent":
       processSimplifiCAPIEvent();
+      break;
+    case "cjEvent":
+      processCJEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3961,6 +3982,21 @@ const processNextdoorEvent = () => {
     }
   }
 
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processCJEvent = () => {
+  const cjSDKKey = "CJ";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint CJ GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  const options = generateOptions(cjSDKKey);
   const props = parseSimpleTable(data.commonEventProperties || []);
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();

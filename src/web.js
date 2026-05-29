@@ -245,6 +245,9 @@ const processEvent = () => {
     case "simplifiCAPIEvent":
       processSimplifiCAPIEvent();
       break;
+    case "cjEvent":
+      processCJEvent();
+      break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
       data.gtmOnFailure();
@@ -1431,6 +1434,21 @@ const processNextdoorEvent = () => {
     }
   }
 
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processCJEvent = () => {
+  const cjSDKKey = "CJ";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint CJ GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  const options = generateOptions(cjSDKKey);
   const props = parseSimpleTable(data.commonEventProperties || []);
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
