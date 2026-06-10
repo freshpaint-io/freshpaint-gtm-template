@@ -248,6 +248,9 @@ const processEvent = () => {
     case "cjEvent":
       processCJEvent();
       break;
+    case "adMediaEvent":
+      processAdMediaEvent();
+      break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
       data.gtmOnFailure();
@@ -1449,6 +1452,31 @@ const processCJEvent = () => {
   }
 
   const options = generateOptions(cjSDKKey);
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processAdMediaEvent = () => {
+  const adMediaSDKKey = "AdMedia";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint AdMedia GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(adMediaSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(adMediaSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple AdMedia Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
   const props = parseSimpleTable(data.commonEventProperties || []);
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();

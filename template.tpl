@@ -42,6 +42,10 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [],
     "selectItems": [
       {
+        "value": "adMediaEvent",
+        "displayValue": "AdMedia"
+      },
+      {
         "value": "appLovinEvent",
         "displayValue": "AppLovin"
       },
@@ -199,6 +203,11 @@ ___TEMPLATE_PARAMETERS___
     "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
     "simpleValueType": true,
     "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "adMediaEvent",
+        "type": "EQUALS"
+      },
       {
         "paramName": "tagType",
         "paramValue": "appLovinEvent",
@@ -460,6 +469,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "adMediaEvent",
         "type": "EQUALS"
       },
       {
@@ -2118,6 +2132,11 @@ ___TEMPLATE_PARAMETERS___
     "enablingConditions": [
       {
         "paramName": "tagType",
+        "paramValue": "adMediaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "appLovinEvent",
         "type": "EQUALS"
       },
@@ -2323,6 +2342,10 @@ ___TEMPLATE_PARAMETERS___
           "displayName": "Destination Type",
           "simpleValueType": true,
           "selectItems": [
+            {
+              "value": "AdMedia",
+              "displayValue": "AdMedia"
+            },
             {
               "value": "Amplitude",
               "displayValue": "Amplitude"
@@ -2795,6 +2818,9 @@ const processEvent = () => {
       break;
     case "cjEvent":
       processCJEvent();
+      break;
+    case "adMediaEvent":
+      processAdMediaEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -3997,6 +4023,31 @@ const processCJEvent = () => {
   }
 
   const options = generateOptions(cjSDKKey);
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processAdMediaEvent = () => {
+  const adMediaSDKKey = "AdMedia";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint AdMedia GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(adMediaSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(adMediaSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple AdMedia Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
   const props = parseSimpleTable(data.commonEventProperties || []);
   track(data.commonEventName, props, options);
   data.gtmOnSuccess();
