@@ -13,6 +13,10 @@
     "enablingConditions": [],
     "selectItems": [
       {
+        "value": "adMediaEvent",
+        "displayValue": "AdMedia"
+      },
+      {
         "value": "appLovinEvent",
         "displayValue": "AppLovin"
       },
@@ -170,6 +174,11 @@
     "help": "If multiple instances are configured for this destination type, specify one to deliver to (if left blank, this event will be delivered to all configured instances)",
     "simpleValueType": true,
     "enablingConditions": [
+      {
+        "paramName": "tagType",
+        "paramValue": "adMediaEvent",
+        "type": "EQUALS"
+      },
       {
         "paramName": "tagType",
         "paramValue": "appLovinEvent",
@@ -431,6 +440,11 @@
       {
         "paramName": "tagType",
         "paramValue": "track",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "adMediaEvent",
         "type": "EQUALS"
       },
       {
@@ -2089,6 +2103,11 @@
     "enablingConditions": [
       {
         "paramName": "tagType",
+        "paramValue": "adMediaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "appLovinEvent",
         "type": "EQUALS"
       },
@@ -2294,6 +2313,10 @@
           "displayName": "Destination Type",
           "simpleValueType": true,
           "selectItems": [
+            {
+              "value": "AdMedia",
+              "displayValue": "AdMedia"
+            },
             {
               "value": "Amplitude",
               "displayValue": "Amplitude"

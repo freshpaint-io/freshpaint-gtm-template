@@ -1,3 +1,4 @@
+export const adMediaEvent = 'adMediaEvent';
 export const appLovinEvent = 'appLovinEvent';
 export const basisEvent = 'basisEvent';
 export const bingAdsEvent = 'bingAdsEvent';
@@ -39,6 +40,7 @@ export const linkedInAdsEvent = 'linkedInAdsEvent';
 export const floodlightEvent = 'floodlightEvent';
 
 export const rootParamSelectItems = [
+  { value: adMediaEvent, displayValue: 'AdMedia' },
   { value: appLovinEvent, displayValue: 'AppLovin' },
   { value: basisEvent, displayValue: 'Basis' },
   { value: bingAdsEvent, displayValue: 'Bing Ads' },
@@ -86,6 +88,7 @@ export const rootParamSelectItems = [
 ];
 
 export const trackDestinationSelectItems = [
+  { value: 'AdMedia', displayValue: 'AdMedia' },
   { value: 'Amplitude', displayValue: 'Amplitude' },
   { value: 'AppLovin', displayValue: 'AppLovin' },
   { value: 'Basis', displayValue: 'Basis' },
