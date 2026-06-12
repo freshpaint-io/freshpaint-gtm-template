@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 8bd6764596376c17c309af072767e13e8ecc14a6
-    changeNotes: Add support for CJ destination
+  - sha: d1351e066a1fb21ebe7ab9f6bfa6f1ae4cc2479d
+    changeNotes: Add support for AdMedia destination
