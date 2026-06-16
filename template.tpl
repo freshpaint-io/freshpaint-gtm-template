@@ -62,6 +62,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "CJ"
       },
       {
+        "value": "everflowEvent",
+        "displayValue": "Everflow"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
       },
@@ -211,6 +215,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "appLovinEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "everflowEvent",
         "type": "EQUALS"
       },
       {
@@ -494,6 +503,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "everflowEvent",
         "type": "EQUALS"
       },
       {
@@ -2157,6 +2171,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "everflowEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
@@ -2365,6 +2384,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "CJ",
               "displayValue": "CJ"
+            },
+            {
+              "value": "Everflow",
+              "displayValue": "Everflow"
             },
             {
               "value": "Facebook Conversions API",
@@ -2821,6 +2844,9 @@ const processEvent = () => {
       break;
     case "adMediaEvent":
       processAdMediaEvent();
+      break;
+    case "everflowEvent":
+      processEverflowEvent();
       break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
@@ -4043,6 +4069,31 @@ const processAdMediaEvent = () => {
     options = generateOptionsFromInstances(adMediaSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple AdMedia Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processEverflowEvent = () => {
+  const everflowSDKKey = "Everflow";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Everflow GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(everflowSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(everflowSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Everflow Instance IDs not supported: " + instanceNameToUse);
       data.gtmOnFailure();
       return;
     }

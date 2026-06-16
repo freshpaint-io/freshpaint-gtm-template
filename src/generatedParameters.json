@@ -33,6 +33,10 @@
         "displayValue": "CJ"
       },
       {
+        "value": "everflowEvent",
+        "displayValue": "Everflow"
+      },
+      {
         "value": "fbPixelEvent",
         "displayValue": "Facebook Conversions API"
       },
@@ -182,6 +186,11 @@
       {
         "paramName": "tagType",
         "paramValue": "appLovinEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "everflowEvent",
         "type": "EQUALS"
       },
       {
@@ -465,6 +474,11 @@
       {
         "paramName": "tagType",
         "paramValue": "googleCM360Event",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "everflowEvent",
         "type": "EQUALS"
       },
       {
@@ -2128,6 +2142,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "everflowEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
@@ -2336,6 +2355,10 @@
             {
               "value": "CJ",
               "displayValue": "CJ"
+            },
+            {
+              "value": "Everflow",
+              "displayValue": "Everflow"
             },
             {
               "value": "Facebook Conversions API",
