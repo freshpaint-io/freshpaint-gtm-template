@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: d1351e066a1fb21ebe7ab9f6bfa6f1ae4cc2479d
-    changeNotes: Add support for AdMedia destination
+  - sha: 9f7c90649cbf31f7b511cdcc09dc0a92be1f7110
+    changeNotes: Add support for Everflow destination
