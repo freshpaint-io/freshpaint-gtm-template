@@ -3,6 +3,7 @@ export const appLovinEvent = 'appLovinEvent';
 export const basisEvent = 'basisEvent';
 export const bingAdsEvent = 'bingAdsEvent';
 export const cjEvent = 'cjEvent';
+export const everflowEvent = 'everflowEvent';
 export const fbPixelEvent = 'fbPixelEvent';
 export const ga4Event = 'ga4Event';
 export const googleAdsCallConversionsEvent = 'googleAdsCallConversionsEvent';
@@ -45,6 +46,7 @@ export const rootParamSelectItems = [
   { value: basisEvent, displayValue: 'Basis' },
   { value: bingAdsEvent, displayValue: 'Bing Ads' },
   { value: cjEvent, displayValue: 'CJ' },
+  { value: everflowEvent, displayValue: 'Everflow' },
   { value: fbPixelEvent, displayValue: 'Facebook Conversions API' },
   { value: ga4Event, displayValue: 'Google Analytics 4 (Proxy)' },
   { value: googleAdsCallConversionsEvent, displayValue: 'Google Ads Call Conversions' },
@@ -94,6 +96,7 @@ export const trackDestinationSelectItems = [
   { value: 'Basis', displayValue: 'Basis' },
   { value: 'Bing Ads', displayValue: 'Bing Ads' },
   { value: 'CJ', displayValue: 'CJ' },
+  { value: 'Everflow', displayValue: 'Everflow' },
   { value: 'Facebook Conversions API', displayValue: 'Facebook Conversions API' },
   { value: 'Google Ads Conversion API', displayValue: 'Google Ads Conversion API' },
   { value: 'Google AdWords New', displayValue: 'Google Ads' },

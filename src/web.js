@@ -251,6 +251,9 @@ const processEvent = () => {
     case "adMediaEvent":
       processAdMediaEvent();
       break;
+    case "everflowEvent":
+      processEverflowEvent();
+      break;
     default:
       log("ERROR: Freshpaint GTM Template unsupported tagType '" + data.tagType + "'");
       data.gtmOnFailure();
@@ -1472,6 +1475,31 @@ const processAdMediaEvent = () => {
     options = generateOptionsFromInstances(adMediaSDKKey, instanceNameToUse, false);
     if (options === undefined) {
       log("ERROR: Multiple AdMedia Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processEverflowEvent = () => {
+  const everflowSDKKey = "Everflow";
+
+  if (!data.commonEventName) {
+    log("ERROR: Freshpaint Everflow GTM Template missing Freshpaint Event Name");
+    data.gtmOnFailure();
+    return;
+  }
+
+  let options = generateOptions(everflowSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(everflowSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Everflow Instance IDs not supported: " + instanceNameToUse);
       data.gtmOnFailure();
       return;
     }
