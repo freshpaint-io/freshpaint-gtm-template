@@ -14,6 +14,28 @@ const setDefaultConsentState = require('setDefaultConsentState');
 const gtagSet = require('gtagSet');
 const getCookieValues = require('getCookieValues');
 
+// A property name/value is considered blank when it is undefined, null, or an
+// empty string. Note: this intentionally does NOT treat 0 or false as blank so
+// legitimate numeric/boolean values are kept.
+function isBlank(value) {
+  return value === undefined || value === null || value === "";
+}
+
+// Returns a copy of obj with fully-blank entries (blank key AND blank value)
+// removed, leaving named properties — even empty-valued ones — intact so they
+// stay visible in the payload for troubleshooting. Keys are always strings, so
+// a blank key can only be the empty string.
+function dropBlankProps(obj) {
+  const cleaned = {};
+  for (let key in obj) {
+    if (key === "" && isBlank(obj[key])) {
+      continue;
+    }
+    cleaned[key] = obj[key];
+  }
+  return cleaned;
+}
+
 function parseSimpleTable(inputProps) {
   const props = {};
   for (let prop of inputProps) {
@@ -441,7 +463,9 @@ const processGA4Event = () => {
 
   const userPropsFromVar = getUserPropsFromGoogleTagEventSettingsVar(data.ga4EventPropsVariable);
   const userProps = parseSimpleTable(data.commonUserProperties || []);
-  const allUserProps = mergeObj(userPropsFromVar, userProps);
+  // Drop fully-blank rows so a phantom {"": ""} property doesn't make the
+  // emptiness check below fire an unintentional Identify call.
+  const allUserProps = dropBlankProps(mergeObj(userPropsFromVar, userProps));
   if (!objectIsEmpty(allUserProps)) {
     identify(undefined, allUserProps, options);
   }
