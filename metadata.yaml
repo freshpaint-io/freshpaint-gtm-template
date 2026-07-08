@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 9f7c90649cbf31f7b511cdcc09dc0a92be1f7110
-    changeNotes: Add support for Everflow destination
+  - sha: f9a27fe56df09054ca13098bb03669e66861fea3
+    changeNotes: Prevent empty GA4 user property rows from sending Identify events
