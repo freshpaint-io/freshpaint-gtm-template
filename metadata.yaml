@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: f9a27fe56df09054ca13098bb03669e66861fea3
-    changeNotes: Prevent empty GA4 user property rows from sending Identify events
+  - sha: 8647911d7362724b0fcfbcab1a13465c72274663
+    changeNotes: Add support for Rokt destination
