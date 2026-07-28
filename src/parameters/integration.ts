@@ -19,6 +19,7 @@ export const nextdoorEvent = 'nextdoorEvent';
 export const pinterestAdsEvent = 'pinterestAdsEvent';
 export const quoraCAPIEvent = 'quoraCAPIEvent';
 export const redditAdsEvent = 'redditAdsEvent';
+export const roktEvent = 'roktEvent';
 export const simplifiCAPIEvent = 'simplifiCAPIEvent';
 export const siriusXMEvent = 'siriusXMEvent';
 export const snapchatEvent = 'snapchatEvent';
@@ -62,6 +63,7 @@ export const rootParamSelectItems = [
   { value: pinterestAdsEvent, displayValue: 'Pinterest Ads' },
   { value: quoraCAPIEvent, displayValue: 'Quora Conversions API' },
   { value: redditAdsEvent, displayValue: 'Reddit Ads' },
+  { value: roktEvent, displayValue: 'Rokt' },
   { value: simplifiCAPIEvent, displayValue: 'Simpli.fi Conversions API' },
   { value: siriusXMEvent, displayValue: 'SiriusXM' },
   { value: snapchatEvent, displayValue: 'Snapchat' },
@@ -116,6 +118,7 @@ export const trackDestinationSelectItems = [
   { value: 'pinterest-ads', displayValue: 'Pinterest Ads' },
   { value: 'Quora Conversions API', displayValue: 'Quora Conversions API' },
   { value: 'reddit-ads', displayValue: 'Reddit Ads' },
+  { value: 'Rokt', displayValue: 'Rokt' },
   { value: 'Simpli.fi', displayValue: 'Simpli.fi Conversions API' },
   { value: 'SiriusXM', displayValue: 'SiriusXM' },
   { value: 'Snapchat', displayValue: 'Snapchat' },

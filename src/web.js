@@ -240,6 +240,9 @@ const processEvent = () => {
     case "redditAdsEvent":
       processRedditAdsEvent();
       break;
+    case "roktEvent":
+      processRoktEvent();
+      break;
     case "floodlightEvent":
       processFloodlightEvent();
       break;
@@ -1095,6 +1098,25 @@ const processSpotifyCAPIEvent = () => {
       options = generateOptionsFromInstances(spotifyCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Spotify Connection IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processRoktEvent = () => {
+    const roktSDKKey = "Rokt";
+
+    let options = generateOptions(roktSDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(roktSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Rokt API Keys not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }

@@ -97,6 +97,10 @@
         "displayValue": "Reddit Ads"
       },
       {
+        "value": "roktEvent",
+        "displayValue": "Rokt"
+      },
+      {
         "value": "simplifiCAPIEvent",
         "displayValue": "Simpli.fi Conversions API"
       },
@@ -226,6 +230,11 @@
       {
         "paramName": "tagType",
         "paramValue": "quoraCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "roktEvent",
         "type": "EQUALS"
       },
       {
@@ -544,6 +553,11 @@
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "roktEvent",
         "type": "EQUALS"
       },
       {
@@ -2192,6 +2206,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "roktEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "simplifiCAPIEvent",
         "type": "EQUALS"
       },
@@ -2423,6 +2442,10 @@
             {
               "value": "reddit-ads",
               "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "Rokt",
+              "displayValue": "Rokt"
             },
             {
               "value": "Simpli.fi",
