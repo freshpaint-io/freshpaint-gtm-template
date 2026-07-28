@@ -126,6 +126,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Reddit Ads"
       },
       {
+        "value": "roktEvent",
+        "displayValue": "Rokt"
+      },
+      {
         "value": "simplifiCAPIEvent",
         "displayValue": "Simpli.fi Conversions API"
       },
@@ -255,6 +259,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "quoraCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "roktEvent",
         "type": "EQUALS"
       },
       {
@@ -573,6 +582,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "redditAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "roktEvent",
         "type": "EQUALS"
       },
       {
@@ -2221,6 +2235,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "roktEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "simplifiCAPIEvent",
         "type": "EQUALS"
       },
@@ -2452,6 +2471,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "reddit-ads",
               "displayValue": "Reddit Ads"
+            },
+            {
+              "value": "Rokt",
+              "displayValue": "Rokt"
             },
             {
               "value": "Simpli.fi",
@@ -2833,6 +2856,9 @@ const processEvent = () => {
       break;
     case "redditAdsEvent":
       processRedditAdsEvent();
+      break;
+    case "roktEvent":
+      processRoktEvent();
       break;
     case "floodlightEvent":
       processFloodlightEvent();
@@ -3689,6 +3715,25 @@ const processSpotifyCAPIEvent = () => {
       options = generateOptionsFromInstances(spotifyCAPISDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Spotify Connection IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processRoktEvent = () => {
+    const roktSDKKey = "Rokt";
+
+    let options = generateOptions(roktSDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(roktSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Rokt API Keys not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
