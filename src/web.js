@@ -1585,7 +1585,7 @@ const track = (eventName, props, options) => {
   }
 
   if (props) {
-    props.$gtm_event = true;
+    props["$gtm_event"] = true;
   }
 
   callInWindow("freshpaint.track", eventName, props, options);
