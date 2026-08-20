@@ -2621,7 +2621,6 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 //    b. Add support for custom event props (Define your own event parameters)
 
 const callInWindow = require("callInWindow");
-const injectScript = require("injectScript");
 const log = require("logToConsole");
 const makeTableMap = require("makeTableMap");
 const makeNumber = require("makeNumber");
@@ -2759,17 +2758,10 @@ function objectIsEmpty(inputProps) {
 }
 
 const processEvent = () => {
-  let envID = undefined;
-
   // initialize environment
   // if already done before then this is a no-op
-  callFreshpaintProxy("init", {
-    envID: envID,
-    initPersistantProps: {
-      "$gtm": true,
-    },
-    initConfig: {
-    },
+  callInWindow("freshpaint.addEventProperties", {
+    "$gtm": true,
   });
 
   switch (data.tagType) {
@@ -4198,17 +4190,8 @@ const processAppLovinEvent = () => {
   data.gtmOnSuccess();
 };
 
-const callFreshpaintProxy = (cmdName, args) => {
-  return callInWindow("_freshpaint_gtm_proxy", cmdName, args);
-};
-
 const identify = (userID, props, options) => {
-  callFreshpaintProxy("apply", {
-    // envID is no longer used, left in for backward compatibility
-    envID: undefined,
-    methodName: "identify",
-    methodArgs: [userID, props, options],
-  });
+  callInWindow("freshpaint.identify", userID, props, options);
 };
 
 // track returns true if valid (truthy) event name, false otherwise
@@ -4218,39 +4201,27 @@ const track = (eventName, props, options) => {
     return false;
   }
 
-  callFreshpaintProxy("apply", {
-    envID: undefined,
-    methodName: "track",
-    methodArgs: [eventName, props, options],
-  });
+  if (props) {
+    props["$gtm_event"] = true;
+  }
+
+  callInWindow("freshpaint.track", eventName, props, options);
 
   return true;
 };
 
 const addEventProperties = (props) => {
   // register is the exposed sdk instance name for addEventProperties
-  callFreshpaintProxy("apply", {
-    envID: undefined,
-    methodName: "register",
-    methodArgs: [props],
-  });
+  callInWindow("freshpaint.register", props);
 };
 
 const registerCallConversion = (tagIdConversionLabel, phoneNbr) => {
-  callFreshpaintProxy("apply", {
-    envID: undefined,
-    methodName: "registerCallConversion",
-    methodArgs: [tagIdConversionLabel, phoneNbr],
-  });
+  callInWindow("freshpaint.registerCallConversion", tagIdConversionLabel, phoneNbr);
 };
-
-const JS_URL = "https://perfalytics.com/static/js/freshpaint-gtm.js";
 
 if (data.tagType === "consentInit") {
   // consent initialization needs to load synchronously
   processConsentInit();
-} else if (!callFreshpaintProxy("isLoaded")) {
-  injectScript(JS_URL, processEvent, data.gtmOnFailure, "freshpaint_gtm_proxy");
 } else {
   processEvent();
 }
@@ -4590,7 +4561,7 @@ ___WEB_PERMISSIONS___
                 "mapValue": [
                   {
                     "type": 1,
-                    "string": "_freshpaint_gtm_proxy"
+                    "string": "freshpaint.addEventProperties"
                   },
                   {
                     "type": 8,
@@ -4605,32 +4576,162 @@ ___WEB_PERMISSIONS___
                     "boolean": true
                   }
                 ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "clientAnnotations": {
-      "isEditedByUser": true
-    },
-    "isRequired": true
-  },
-  {
-    "instance": {
-      "key": {
-        "publicId": "inject_script",
-        "versionId": "1"
-      },
-      "param": [
-        {
-          "key": "urls",
-          "value": {
-            "type": 2,
-            "listItem": [
+              },
               {
-                "type": 1,
-                "string": "https://perfalytics.com/*"
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "freshpaint.identify"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "freshpaint.register"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "freshpaint.registerCallConversion"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "freshpaint.track"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
               }
             ]
           }
