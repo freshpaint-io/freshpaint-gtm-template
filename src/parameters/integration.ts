@@ -25,6 +25,7 @@ export const siriusXMEvent = 'siriusXMEvent';
 export const snapchatEvent = 'snapchatEvent';
 export const spotifyCAPIEvent = 'spotifyCAPIEvent';
 export const stackAdaptEvent = 'stackAdaptEvent';
+export const tatariEvent = 'tatariEvent';
 export const theTradeDeskEvent = 'theTradeDeskEvent';
 export const tikTokAdsEvent = 'tikTokAdsEvent';
 export const twitterAdsEvent = 'twitterAdsEvent';
@@ -69,6 +70,7 @@ export const rootParamSelectItems = [
   { value: snapchatEvent, displayValue: 'Snapchat' },
   { value: spotifyCAPIEvent, displayValue: 'Spotify Conversions API' },
   { value: stackAdaptEvent, displayValue: 'StackAdapt' },
+  { value: tatariEvent, displayValue: 'Tatari' },
   { value: theTradeDeskEvent, displayValue: 'theTradeDesk' },
   { value: tikTokAdsEvent, displayValue: 'TikTok Ads' },
   { value: twitterAdsEvent, displayValue: 'Twitter Ads' },
@@ -124,6 +126,7 @@ export const trackDestinationSelectItems = [
   { value: 'Snapchat', displayValue: 'Snapchat' },
   { value: 'Spotify Conversions API', displayValue: 'Spotify Conversions API' },
   { value: 'StackAdapt', displayValue: 'StackAdapt' },
+  { value: 'Tatari', displayValue: 'Tatari' },
   { value: 'theTradeDesk', displayValue: 'theTradeDesk' },
   { value: 'TikTok Ads', displayValue: 'TikTok Ads' },
   { value: 'Twitter Ads', displayValue: 'Twitter Ads' },

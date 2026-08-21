@@ -150,6 +150,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "StackAdapt"
       },
       {
+        "value": "tatariEvent",
+        "displayValue": "Tatari"
+      },
+      {
         "value": "theTradeDeskEvent",
         "displayValue": "theTradeDesk"
       },
@@ -279,6 +283,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tatariEvent",
         "type": "EQUALS"
       },
       {
@@ -612,6 +621,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tatariEvent",
         "type": "EQUALS"
       },
       {
@@ -2265,6 +2279,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "tatariEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
       },
@@ -2495,6 +2514,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "StackAdapt",
               "displayValue": "StackAdapt"
+            },
+            {
+              "value": "Tatari",
+              "displayValue": "Tatari"
             },
             {
               "value": "theTradeDesk",
@@ -2851,6 +2874,9 @@ const processEvent = () => {
       break;
     case "roktEvent":
       processRoktEvent();
+      break;
+    case "tatariEvent":
+      processTatariEvent();
       break;
     case "floodlightEvent":
       processFloodlightEvent();
@@ -3726,6 +3752,25 @@ const processRoktEvent = () => {
       options = generateOptionsFromInstances(roktSDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Rokt API Keys not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processTatariEvent = () => {
+    const tatariSDKKey = "Tatari";
+
+    let options = generateOptions(tatariSDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(tatariSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Tatari Client IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
