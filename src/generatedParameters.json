@@ -121,6 +121,10 @@
         "displayValue": "StackAdapt"
       },
       {
+        "value": "tatariEvent",
+        "displayValue": "Tatari"
+      },
+      {
         "value": "theTradeDeskEvent",
         "displayValue": "theTradeDesk"
       },
@@ -250,6 +254,11 @@
       {
         "paramName": "tagType",
         "paramValue": "spotifyCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tatariEvent",
         "type": "EQUALS"
       },
       {
@@ -583,6 +592,11 @@
       {
         "paramName": "tagType",
         "paramValue": "stackAdaptEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "tatariEvent",
         "type": "EQUALS"
       },
       {
@@ -2236,6 +2250,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "tatariEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "tikTokAdsEvent",
         "type": "EQUALS"
       },
@@ -2466,6 +2485,10 @@
             {
               "value": "StackAdapt",
               "displayValue": "StackAdapt"
+            },
+            {
+              "value": "Tatari",
+              "displayValue": "Tatari"
             },
             {
               "value": "theTradeDesk",

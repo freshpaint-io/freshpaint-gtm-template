@@ -235,6 +235,9 @@ const processEvent = () => {
     case "roktEvent":
       processRoktEvent();
       break;
+    case "tatariEvent":
+      processTatariEvent();
+      break;
     case "floodlightEvent":
       processFloodlightEvent();
       break;
@@ -1109,6 +1112,25 @@ const processRoktEvent = () => {
       options = generateOptionsFromInstances(roktSDKKey, instanceNameToUse, false);
       if (options === undefined) {
         log("ERROR: Multiple Rokt API Keys not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processTatariEvent = () => {
+    const tatariSDKKey = "Tatari";
+
+    let options = generateOptions(tatariSDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(tatariSDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple Tatari Client IDs not supported: " + instanceNameToUse);
         data.gtmOnFailure();
         return;
       }
