@@ -16,6 +16,7 @@ export const linkedInAdsCAPIEvent = 'linkedInAdsCAPIEvent';
 export const microsoftAdsConversionsApiEvent = 'microsoftAdsConversionsApiEvent';
 export const mntnEvent = 'mntnEvent';
 export const nextdoorEvent = 'nextdoorEvent';
+export const openAIEvent = 'openAIEvent';
 export const pinterestAdsEvent = 'pinterestAdsEvent';
 export const quoraCAPIEvent = 'quoraCAPIEvent';
 export const redditAdsEvent = 'redditAdsEvent';
@@ -61,6 +62,7 @@ export const rootParamSelectItems = [
   { value: microsoftAdsConversionsApiEvent, displayValue: 'Microsoft Ads Conversions API' },
   { value: mntnEvent, displayValue: 'MNTN' },
   { value: nextdoorEvent, displayValue: 'Nextdoor' },
+  { value: openAIEvent, displayValue: 'OpenAI' },
   { value: pinterestAdsEvent, displayValue: 'Pinterest Ads' },
   { value: quoraCAPIEvent, displayValue: 'Quora Conversions API' },
   { value: redditAdsEvent, displayValue: 'Reddit Ads' },
@@ -117,6 +119,7 @@ export const trackDestinationSelectItems = [
   { value: 'Mixpanel', displayValue: 'Mixpanel' },
   { value: 'MNTN', displayValue: 'MNTN' },
   { value: 'Nextdoor', displayValue: 'Nextdoor' },
+  { value: 'OpenAI', displayValue: 'OpenAI' },
   { value: 'pinterest-ads', displayValue: 'Pinterest Ads' },
   { value: 'Quora Conversions API', displayValue: 'Quora Conversions API' },
   { value: 'reddit-ads', displayValue: 'Reddit Ads' },
