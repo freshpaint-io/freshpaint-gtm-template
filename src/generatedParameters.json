@@ -85,6 +85,10 @@
         "displayValue": "Nextdoor"
       },
       {
+        "value": "openAIEvent",
+        "displayValue": "OpenAI"
+      },
+      {
         "value": "pinterestAdsEvent",
         "displayValue": "Pinterest Ads"
       },
@@ -224,6 +228,11 @@
       {
         "paramName": "tagType",
         "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "openAIEvent",
         "type": "EQUALS"
       },
       {
@@ -547,6 +556,11 @@
       {
         "paramName": "tagType",
         "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "openAIEvent",
         "type": "EQUALS"
       },
       {
@@ -2210,6 +2224,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "openAIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
         "type": "EQUALS"
       },
@@ -2449,6 +2468,10 @@
             {
               "value": "Nextdoor",
               "displayValue": "Nextdoor"
+            },
+            {
+              "value": "OpenAI",
+              "displayValue": "OpenAI"
             },
             {
               "value": "pinterest-ads",

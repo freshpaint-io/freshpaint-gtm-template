@@ -114,6 +114,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Nextdoor"
       },
       {
+        "value": "openAIEvent",
+        "displayValue": "OpenAI"
+      },
+      {
         "value": "pinterestAdsEvent",
         "displayValue": "Pinterest Ads"
       },
@@ -253,6 +257,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "openAIEvent",
         "type": "EQUALS"
       },
       {
@@ -576,6 +585,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "nextdoorEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "openAIEvent",
         "type": "EQUALS"
       },
       {
@@ -2239,6 +2253,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "openAIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
         "type": "EQUALS"
       },
@@ -2478,6 +2497,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "Nextdoor",
               "displayValue": "Nextdoor"
+            },
+            {
+              "value": "OpenAI",
+              "displayValue": "OpenAI"
             },
             {
               "value": "pinterest-ads",
@@ -2892,6 +2915,9 @@ const processEvent = () => {
       break;
     case "nextdoorEvent":
       processNextdoorEvent();
+      break;
+    case "openAIEvent":
+      processOpenAIEvent();
       break;
     case "appLovinEvent":
       processAppLovinEvent();
@@ -4119,6 +4145,25 @@ const processViantEvent = () => {
   track(data.commonEventName, {}, options);
   data.gtmOnSuccess();
 };
+
+const processOpenAIEvent = () => {
+    const openAISDKKey = "OpenAI";
+
+    let options = generateOptions(openAISDKKey);
+    if (data.commonInstanceId) {
+      const instanceNameToUse = data.commonInstanceId.trim();
+      options = generateOptionsFromInstances(openAISDKKey, instanceNameToUse, false);
+      if (options === undefined) {
+        log("ERROR: Multiple OpenAI Instance IDs not supported: " + instanceNameToUse);
+        data.gtmOnFailure();
+        return;
+      }
+    }
+
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
 
 const processNextdoorEvent = () => {
   const nextdoorSDKKey = "Nextdoor";
