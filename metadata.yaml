@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 181b038b2bdc9a48275c49da48f2797649f025dd
-    changeNotes: Add support for Tatari destination
+  - sha: 7d69b0d23b9eaaf1ba6e606a6c78f08beb315262
+    changeNotes: Add support for OpenAI destination
