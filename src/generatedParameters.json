@@ -93,6 +93,10 @@
         "displayValue": "Pinterest Ads"
       },
       {
+        "value": "premionEvent",
+        "displayValue": "Premion"
+      },
+      {
         "value": "quoraCAPIEvent",
         "displayValue": "Quora Conversions API"
       },
@@ -238,6 +242,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "premionEvent",
         "type": "EQUALS"
       },
       {
@@ -566,6 +575,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "premionEvent",
         "type": "EQUALS"
       },
       {
@@ -2234,6 +2248,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "premionEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "quoraCAPIEvent",
         "type": "EQUALS"
       },
@@ -2476,6 +2495,10 @@
             {
               "value": "pinterest-ads",
               "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "Premion",
+              "displayValue": "Premion"
             },
             {
               "value": "Quora Conversions API",

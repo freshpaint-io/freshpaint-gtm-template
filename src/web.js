@@ -226,6 +226,9 @@ const processEvent = () => {
     case "pinterestAdsEvent":
       processPinterestAdsEvent();
       break;
+    case "premionEvent":
+      processPremionEvent();
+      break;
     case "quoraCAPIEvent":
       processQuoraCAPIEvent();
       break;
@@ -1283,6 +1286,25 @@ const processPinterestAdsEvent = () => {
 
   track(data.commonEventName, props, options);
 
+  data.gtmOnSuccess();
+  };
+
+const processPremionEvent = () => {
+  const premionSDKKey = "Premion";
+
+  let options = generateOptions(premionSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(premionSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Premion Instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
 
