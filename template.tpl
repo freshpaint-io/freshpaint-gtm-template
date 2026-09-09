@@ -122,6 +122,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "Pinterest Ads"
       },
       {
+        "value": "premionEvent",
+        "displayValue": "Premion"
+      },
+      {
         "value": "quoraCAPIEvent",
         "displayValue": "Quora Conversions API"
       },
@@ -267,6 +271,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "premionEvent",
         "type": "EQUALS"
       },
       {
@@ -595,6 +604,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "premionEvent",
         "type": "EQUALS"
       },
       {
@@ -2263,6 +2277,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "premionEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "quoraCAPIEvent",
         "type": "EQUALS"
       },
@@ -2505,6 +2524,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "pinterest-ads",
               "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "Premion",
+              "displayValue": "Premion"
             },
             {
               "value": "Quora Conversions API",
@@ -2888,6 +2911,9 @@ const processEvent = () => {
       break;
     case "pinterestAdsEvent":
       processPinterestAdsEvent();
+      break;
+    case "premionEvent":
+      processPremionEvent();
       break;
     case "quoraCAPIEvent":
       processQuoraCAPIEvent();
@@ -3946,6 +3972,25 @@ const processPinterestAdsEvent = () => {
 
   track(data.commonEventName, props, options);
 
+  data.gtmOnSuccess();
+  };
+
+const processPremionEvent = () => {
+  const premionSDKKey = "Premion";
+
+  let options = generateOptions(premionSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(premionSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Premion Instance IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
   data.gtmOnSuccess();
 };
 

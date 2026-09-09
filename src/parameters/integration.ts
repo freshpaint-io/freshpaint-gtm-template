@@ -18,6 +18,7 @@ export const mntnEvent = 'mntnEvent';
 export const nextdoorEvent = 'nextdoorEvent';
 export const openAIEvent = 'openAIEvent';
 export const pinterestAdsEvent = 'pinterestAdsEvent';
+export const premionEvent = 'premionEvent';
 export const quoraCAPIEvent = 'quoraCAPIEvent';
 export const redditAdsEvent = 'redditAdsEvent';
 export const roktEvent = 'roktEvent';
@@ -64,6 +65,7 @@ export const rootParamSelectItems = [
   { value: nextdoorEvent, displayValue: 'Nextdoor' },
   { value: openAIEvent, displayValue: 'OpenAI' },
   { value: pinterestAdsEvent, displayValue: 'Pinterest Ads' },
+  { value: premionEvent, displayValue: 'Premion' },
   { value: quoraCAPIEvent, displayValue: 'Quora Conversions API' },
   { value: redditAdsEvent, displayValue: 'Reddit Ads' },
   { value: roktEvent, displayValue: 'Rokt' },
@@ -121,6 +123,7 @@ export const trackDestinationSelectItems = [
   { value: 'Nextdoor', displayValue: 'Nextdoor' },
   { value: 'OpenAI', displayValue: 'OpenAI' },
   { value: 'pinterest-ads', displayValue: 'Pinterest Ads' },
+  { value: 'Premion', displayValue: 'Premion' },
   { value: 'Quora Conversions API', displayValue: 'Quora Conversions API' },
   { value: 'reddit-ads', displayValue: 'Reddit Ads' },
   { value: 'Rokt', displayValue: 'Rokt' },
