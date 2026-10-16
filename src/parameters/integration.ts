@@ -13,6 +13,7 @@ export const googleCM360Event = 'googleCM360Event';
 export const impactEvent = 'impactEvent';
 export const kochavaEvent = 'kochavaEvent';
 export const linkedInAdsCAPIEvent = 'linkedInAdsCAPIEvent';
+export const mediaAlphaEvent = 'mediaAlphaEvent';
 export const microsoftAdsConversionsApiEvent = 'microsoftAdsConversionsApiEvent';
 export const mntnEvent = 'mntnEvent';
 export const nextdoorEvent = 'nextdoorEvent';
@@ -60,6 +61,7 @@ export const rootParamSelectItems = [
   { value: impactEvent, displayValue: 'impact.com' },
   { value: kochavaEvent, displayValue: 'Kochava' },
   { value: linkedInAdsCAPIEvent, displayValue: 'LinkedIn Ads Conversions API' },
+  { value: mediaAlphaEvent, displayValue: 'MediaAlpha' },
   { value: microsoftAdsConversionsApiEvent, displayValue: 'Microsoft Ads Conversions API' },
   { value: mntnEvent, displayValue: 'MNTN' },
   { value: nextdoorEvent, displayValue: 'Nextdoor' },
@@ -117,6 +119,7 @@ export const trackDestinationSelectItems = [
   { value: 'impactdotcom', displayValue: 'impact.com' },
   { value: 'Kochava', displayValue: 'Kochava' },
   { value: 'LinkedIn Ads Conversions API', displayValue: 'LinkedIn Ads Conversions API' },
+  { value: 'MediaAlpha', displayValue: 'MediaAlpha' },
   { value: 'Microsoft Ads Conversions API', displayValue: 'Microsoft Ads Conversions API' },
   { value: 'Mixpanel', displayValue: 'Mixpanel' },
   { value: 'MNTN', displayValue: 'MNTN' },
