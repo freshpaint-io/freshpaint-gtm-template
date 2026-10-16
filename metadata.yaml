@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: fa996feef1a1b4c79a1d927886079a718037c349
-    changeNotes: Add support for Premion destination
+  - sha: 1ce2b4dcac7af0c73fabb8dbaee3e6475eb72c1f
+    changeNotes: Add support for MediaAlpha destination
