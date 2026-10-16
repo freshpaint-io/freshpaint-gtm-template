@@ -256,6 +256,9 @@ const processEvent = () => {
     case "nextdoorEvent":
       processNextdoorEvent();
       break;
+    case "mediaAlphaEvent":
+      processMediaAlphaEvent();
+      break;
     case "openAIEvent":
       processOpenAIEvent();
       break;
@@ -1104,6 +1107,15 @@ const processSpotifyCAPIEvent = () => {
       }
     }
 
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processMediaAlphaEvent = () => {
+    const mediaAlphaSDKKey = "MediaAlpha";
+
+    const options = generateOptions(mediaAlphaSDKKey);
     const props = parseSimpleTable(data.commonEventProperties || []);
     track(data.commonEventName, props, options);
     data.gtmOnSuccess();

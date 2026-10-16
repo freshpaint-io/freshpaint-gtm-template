@@ -102,6 +102,10 @@ ___TEMPLATE_PARAMETERS___
         "displayValue": "LinkedIn Ads Conversions API"
       },
       {
+        "value": "mediaAlphaEvent",
+        "displayValue": "MediaAlpha"
+      },
+      {
         "value": "microsoftAdsConversionsApiEvent",
         "displayValue": "Microsoft Ads Conversions API"
       },
@@ -579,6 +583,11 @@ ___TEMPLATE_PARAMETERS___
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mediaAlphaEvent",
         "type": "EQUALS"
       },
       {
@@ -2252,6 +2261,11 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "paramName": "tagType",
+        "paramValue": "mediaAlphaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "microsoftAdsConversionsApiEvent",
         "type": "EQUALS"
       },
@@ -2500,6 +2514,10 @@ ___TEMPLATE_PARAMETERS___
             {
               "value": "LinkedIn Ads Conversions API",
               "displayValue": "LinkedIn Ads Conversions API"
+            },
+            {
+              "value": "MediaAlpha",
+              "displayValue": "MediaAlpha"
             },
             {
               "value": "Microsoft Ads Conversions API",
@@ -2941,6 +2959,9 @@ const processEvent = () => {
       break;
     case "nextdoorEvent":
       processNextdoorEvent();
+      break;
+    case "mediaAlphaEvent":
+      processMediaAlphaEvent();
       break;
     case "openAIEvent":
       processOpenAIEvent();
@@ -3790,6 +3811,15 @@ const processSpotifyCAPIEvent = () => {
       }
     }
 
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processMediaAlphaEvent = () => {
+    const mediaAlphaSDKKey = "MediaAlpha";
+
+    const options = generateOptions(mediaAlphaSDKKey);
     const props = parseSimpleTable(data.commonEventProperties || []);
     track(data.commonEventName, props, options);
     data.gtmOnSuccess();

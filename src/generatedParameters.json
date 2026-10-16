@@ -73,6 +73,10 @@
         "displayValue": "LinkedIn Ads Conversions API"
       },
       {
+        "value": "mediaAlphaEvent",
+        "displayValue": "MediaAlpha"
+      },
+      {
         "value": "microsoftAdsConversionsApiEvent",
         "displayValue": "Microsoft Ads Conversions API"
       },
@@ -550,6 +554,11 @@
       {
         "paramName": "tagType",
         "paramValue": "linkedInAdsCAPIEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "mediaAlphaEvent",
         "type": "EQUALS"
       },
       {
@@ -2223,6 +2232,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "mediaAlphaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "microsoftAdsConversionsApiEvent",
         "type": "EQUALS"
       },
@@ -2471,6 +2485,10 @@
             {
               "value": "LinkedIn Ads Conversions API",
               "displayValue": "LinkedIn Ads Conversions API"
+            },
+            {
+              "value": "MediaAlpha",
+              "displayValue": "MediaAlpha"
             },
             {
               "value": "Microsoft Ads Conversions API",
