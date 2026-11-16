@@ -230,6 +230,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "amazonAdsEventsApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "appLovinEvent",
         "type": "EQUALS"
       },

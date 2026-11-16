@@ -1166,13 +1166,23 @@ const processMediaAlphaEvent = () => {
   };
 
 const processAmazonAdsEventsApiEvent = () => {
-    const amazonAdsEventsApiSDKKey = "Amazon Ads Events API";
+  const amazonAdsEventsApiSDKKey = "Amazon Ads Events API";
 
-    const options = generateOptions(amazonAdsEventsApiSDKKey);
-    const props = parseSimpleTable(data.commonEventProperties || []);
-    track(data.commonEventName, props, options);
-    data.gtmOnSuccess();
-  };
+  let options = generateOptions(amazonAdsEventsApiSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(amazonAdsEventsApiSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Amazon Ads Account IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
 
 const processAdjustS2SEvent = () => {
   const adjustS2SSDKKey = "Adjust S2S";
