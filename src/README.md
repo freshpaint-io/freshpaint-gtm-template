@@ -35,6 +35,15 @@ locally, please refer to `scripts/paramSortOrder.js` to understand the final glo
 - add a case statement for the new integration in `processEvent`
 - create a new custom event processer called in the conditional case statement above
 
+### Other repositories
+
+A GTM tag only works for a destination that the backend already supports. A new destination usually needs these changes first:
+
+- **`freshpaint-io/perfalytics`**: the backend delivery, frontend catalog entry, and entitlement. Follow `.cursor/commands/create-destination.md`, then `.cursor/commands/implement-track-destination.md`. Add the GTM tag after the destination is live in the catalog.
+  - The SDK key in `web.js` and the value in `trackDestinationSelectItems` must exactly match the destination's `DestType` string in `back/models/destination_type.go`.
+  - Use `commonInstanceId()` only when `back/models/destinations/destination_factory.go` sets `InstanceName` for the destination. Otherwise the Instance ID cannot match any instance.
+- **`freshpaint-io/perfalytics-js`**: if the destination attributes conversions with a landing-page click ID, the SDK must capture that URL parameter. Follow `.agents/skills/add-ad-click-id/SKILL.md` in that repository.
+
 ### Updating `template.tpl`
 
 Run `npm run build` to update the `template.tpl` generated file
