@@ -382,7 +382,10 @@ const processInit = () => {
 
 const processConsentInit = () => {
   // Setting the initial consent state to match the existing cookie value (if present) eliminates the risk of a
-  // data race between consent initialization and the first update from the SDK
+  // data race between consent initialization and the first update from the SDK.
+  // The SDK stores the GCM state it sent in the cookie's data.gcm. The template must not derive signals from
+  // the cookie's categories, because the customer's category-to-signal mapping is only in the SDK config.
+  // A cookie without data.gcm is treated as unknown so the SDK's first update decides.
   const fpcmCookie = getCookieValues('fpconsent');
 
   let consentState = {
@@ -398,20 +401,14 @@ const processConsentInit = () => {
 
   if (fpcmCookie && fpcmCookie.length > 0) {
     const cookieData = JSON.parse(fpcmCookie[0]);
-    if (cookieData && getType(cookieData.categories) === 'array') {
+    const storedGCMState = cookieData && getType(cookieData.data) === 'object' ? cookieData.data.gcm : undefined;
+    if (cookieData && getType(cookieData.categories) === 'array' && getType(storedGCMState) === 'object') {
       hasExistingConsent = true;
-      const categories = cookieData.categories;
 
-      for (let i = 0; i < categories.length; i++) {
-        const cat = categories[i].toLowerCase();
-        if (cat === 'marketing') {
-          consentState.ad_storage = 'granted';
-          consentState.ad_user_data = 'granted';
-          consentState.ad_personalization = 'granted';
-        } else if (cat === 'analytics') {
-          consentState.analytics_storage = 'granted';
-        } else if (cat === 'personalization') {
-          consentState.personalization_storage = 'granted';
+      for (let signal in consentState) {
+        const value = storedGCMState[signal];
+        if (value === 'granted' || value === 'denied') {
+          consentState[signal] = value;
         }
       }
     }
