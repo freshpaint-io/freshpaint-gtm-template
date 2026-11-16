@@ -1,15 +1,19 @@
+export const adjustS2SEvent = 'adjustS2SEvent';
 export const adMediaEvent = 'adMediaEvent';
+export const amazonAdsEventsApiEvent = 'amazonAdsEventsApiEvent';
 export const appLovinEvent = 'appLovinEvent';
 export const basisEvent = 'basisEvent';
 export const bingAdsEvent = 'bingAdsEvent';
 export const cjEvent = 'cjEvent';
 export const everflowEvent = 'everflowEvent';
+export const facebookPixelProxyEvent = 'facebookPixelProxyEvent';
 export const fbPixelEvent = 'fbPixelEvent';
 export const ga4Event = 'ga4Event';
 export const googleAdsCallConversionsEvent = 'googleAdsCallConversionsEvent';
 export const googleAdsConversionApiEvent = 'googleAdsConversionApiEvent';
 export const googleAdsEvent = 'googleAdsEvent';
 export const googleCM360Event = 'googleCM360Event';
+export const googleDataManagerConversionApiEvent = 'googleDataManagerConversionApiEvent';
 export const impactEvent = 'impactEvent';
 export const kochavaEvent = 'kochavaEvent';
 export const linkedInAdsCAPIEvent = 'linkedInAdsCAPIEvent';
@@ -19,6 +23,7 @@ export const mntnEvent = 'mntnEvent';
 export const nextdoorEvent = 'nextdoorEvent';
 export const openAIEvent = 'openAIEvent';
 export const pinterestAdsEvent = 'pinterestAdsEvent';
+export const podscribeEvent = 'podscribeEvent';
 export const premionEvent = 'premionEvent';
 export const quoraCAPIEvent = 'quoraCAPIEvent';
 export const redditAdsEvent = 'redditAdsEvent';
@@ -46,16 +51,23 @@ export const linkedInAdsEvent = 'linkedInAdsEvent';
 export const floodlightEvent = 'floodlightEvent';
 
 export const rootParamSelectItems = [
+  { value: adjustS2SEvent, displayValue: 'Adjust S2S' },
   { value: adMediaEvent, displayValue: 'AdMedia' },
+  { value: amazonAdsEventsApiEvent, displayValue: 'Amazon Ads Events API' },
   { value: appLovinEvent, displayValue: 'AppLovin' },
   { value: basisEvent, displayValue: 'Basis' },
   { value: bingAdsEvent, displayValue: 'Bing Ads' },
   { value: cjEvent, displayValue: 'CJ' },
   { value: everflowEvent, displayValue: 'Everflow' },
   { value: fbPixelEvent, displayValue: 'Facebook Conversions API' },
+  { value: facebookPixelProxyEvent, displayValue: 'Facebook Pixel (Server-Side)' },
   { value: ga4Event, displayValue: 'Google Analytics 4 (Proxy)' },
   { value: googleAdsCallConversionsEvent, displayValue: 'Google Ads Call Conversions' },
   { value: googleAdsConversionApiEvent, displayValue: 'Google Ads Conversion API' },
+  {
+    value: googleDataManagerConversionApiEvent,
+    displayValue: 'Google Ads Conversion API (Data Manager)',
+  },
   { value: googleAdsEvent, displayValue: 'Google Ads' },
   { value: googleCM360Event, displayValue: 'Google Campaign Manager 360 Conversions API' },
   { value: impactEvent, displayValue: 'impact.com' },
@@ -67,6 +79,7 @@ export const rootParamSelectItems = [
   { value: nextdoorEvent, displayValue: 'Nextdoor' },
   { value: openAIEvent, displayValue: 'OpenAI' },
   { value: pinterestAdsEvent, displayValue: 'Pinterest Ads' },
+  { value: podscribeEvent, displayValue: 'Podscribe' },
   { value: premionEvent, displayValue: 'Premion' },
   { value: quoraCAPIEvent, displayValue: 'Quora Conversions API' },
   { value: redditAdsEvent, displayValue: 'Reddit Ads' },
@@ -100,7 +113,9 @@ export const rootParamSelectItems = [
 ];
 
 export const trackDestinationSelectItems = [
+  { value: 'Adjust S2S', displayValue: 'Adjust S2S' },
   { value: 'AdMedia', displayValue: 'AdMedia' },
+  { value: 'Amazon Ads Events API', displayValue: 'Amazon Ads Events API' },
   { value: 'Amplitude', displayValue: 'Amplitude' },
   { value: 'AppLovin', displayValue: 'AppLovin' },
   { value: 'Basis', displayValue: 'Basis' },
@@ -108,7 +123,12 @@ export const trackDestinationSelectItems = [
   { value: 'CJ', displayValue: 'CJ' },
   { value: 'Everflow', displayValue: 'Everflow' },
   { value: 'Facebook Conversions API', displayValue: 'Facebook Conversions API' },
+  { value: 'Facebook Pixel Proxy', displayValue: 'Facebook Pixel (Server-Side)' },
   { value: 'Google Ads Conversion API', displayValue: 'Google Ads Conversion API' },
+  {
+    value: 'Google Data Manager Conversion API',
+    displayValue: 'Google Ads Conversion API (Data Manager)',
+  },
   { value: 'Google AdWords New', displayValue: 'Google Ads' },
   { value: 'Google Analytics 4 Proxy', displayValue: 'Google Analytics 4 (Proxy)' },
   { value: 'Google Analytics 4', displayValue: 'Google Analytics 4 (Server-Side)' },
@@ -126,6 +146,7 @@ export const trackDestinationSelectItems = [
   { value: 'Nextdoor', displayValue: 'Nextdoor' },
   { value: 'OpenAI', displayValue: 'OpenAI' },
   { value: 'pinterest-ads', displayValue: 'Pinterest Ads' },
+  { value: 'Podscribe', displayValue: 'Podscribe' },
   { value: 'Premion', displayValue: 'Premion' },
   { value: 'Quora Conversions API', displayValue: 'Quora Conversions API' },
   { value: 'reddit-ads', displayValue: 'Reddit Ads' },

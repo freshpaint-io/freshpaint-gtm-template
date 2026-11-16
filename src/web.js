@@ -205,6 +205,9 @@ const processEvent = () => {
     case "googleAdsConversionApiEvent":
       processGoogleAdsConversionApiEvent();
       break;
+    case "googleDataManagerConversionApiEvent":
+      processGoogleDataManagerConversionApiEvent();
+      break;
     case "theTradeDeskEvent":
       processTheTradeDeskEvent();
       break;
@@ -258,6 +261,18 @@ const processEvent = () => {
       break;
     case "mediaAlphaEvent":
       processMediaAlphaEvent();
+      break;
+    case "amazonAdsEventsApiEvent":
+      processAmazonAdsEventsApiEvent();
+      break;
+    case "adjustS2SEvent":
+      processAdjustS2SEvent();
+      break;
+    case "facebookPixelProxyEvent":
+      processFacebookPixelProxyEvent();
+      break;
+    case "podscribeEvent":
+      processPodscribeEvent();
       break;
     case "openAIEvent":
       processOpenAIEvent();
@@ -892,6 +907,35 @@ const processGoogleAdsConversionApiEvent = () => {
   data.gtmOnSuccess();
 };
 
+const processGoogleDataManagerConversionApiEvent = () => {
+  const googleDataManagerConversionApiSDKKey = "Google Data Manager Conversion API";
+  let options = generateOptions(googleDataManagerConversionApiSDKKey);
+
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(googleDataManagerConversionApiSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Google Data Manager Conversion API Operating Account IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+
+  if (data.googleAdsConversionApiConversionId) {
+    props.ctid = data.googleAdsConversionApiConversionId;
+  }
+
+  if (data.googleAdsConversionApiConversionName) {
+    props.ctname = data.googleAdsConversionApiConversionName;
+  }
+
+  track(data.commonEventName, props, options);
+
+  data.gtmOnSuccess();
+};
+
 const processLinkedInAdsEvent = () => {
   const options = generateOptions("linkedin-ads");
 
@@ -1120,6 +1164,72 @@ const processMediaAlphaEvent = () => {
     track(data.commonEventName, props, options);
     data.gtmOnSuccess();
   };
+
+const processAmazonAdsEventsApiEvent = () => {
+    const amazonAdsEventsApiSDKKey = "Amazon Ads Events API";
+
+    const options = generateOptions(amazonAdsEventsApiSDKKey);
+    const props = parseSimpleTable(data.commonEventProperties || []);
+    track(data.commonEventName, props, options);
+    data.gtmOnSuccess();
+  };
+
+const processAdjustS2SEvent = () => {
+  const adjustS2SSDKKey = "Adjust S2S";
+
+  let options = generateOptions(adjustS2SSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(adjustS2SSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Adjust S2S App Tokens not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processFacebookPixelProxyEvent = () => {
+  const facebookPixelProxySDKKey = "Facebook Pixel Proxy";
+
+  let options = generateOptions(facebookPixelProxySDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(facebookPixelProxySDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Facebook Pixel (Server-Side) Pixel IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
+
+const processPodscribeEvent = () => {
+  const podscribeSDKKey = "Podscribe";
+
+  let options = generateOptions(podscribeSDKKey);
+  if (data.commonInstanceId) {
+    const instanceNameToUse = data.commonInstanceId.trim();
+    options = generateOptionsFromInstances(podscribeSDKKey, instanceNameToUse, false);
+    if (options === undefined) {
+      log("ERROR: Multiple Podscribe Advertiser IDs not supported: " + instanceNameToUse);
+      data.gtmOnFailure();
+      return;
+    }
+  }
+
+  const props = parseSimpleTable(data.commonEventProperties || []);
+  track(data.commonEventName, props, options);
+  data.gtmOnSuccess();
+};
 
 const processRoktEvent = () => {
     const roktSDKKey = "Rokt";

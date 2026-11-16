@@ -13,8 +13,16 @@
     "enablingConditions": [],
     "selectItems": [
       {
+        "value": "adjustS2SEvent",
+        "displayValue": "Adjust S2S"
+      },
+      {
         "value": "adMediaEvent",
         "displayValue": "AdMedia"
+      },
+      {
+        "value": "amazonAdsEventsApiEvent",
+        "displayValue": "Amazon Ads Events API"
       },
       {
         "value": "appLovinEvent",
@@ -41,6 +49,10 @@
         "displayValue": "Facebook Conversions API"
       },
       {
+        "value": "facebookPixelProxyEvent",
+        "displayValue": "Facebook Pixel (Server-Side)"
+      },
+      {
         "value": "ga4Event",
         "displayValue": "Google Analytics 4 (Proxy)"
       },
@@ -51,6 +63,10 @@
       {
         "value": "googleAdsConversionApiEvent",
         "displayValue": "Google Ads Conversion API"
+      },
+      {
+        "value": "googleDataManagerConversionApiEvent",
+        "displayValue": "Google Ads Conversion API (Data Manager)"
       },
       {
         "value": "googleAdsEvent",
@@ -95,6 +111,10 @@
       {
         "value": "pinterestAdsEvent",
         "displayValue": "Pinterest Ads"
+      },
+      {
+        "value": "podscribeEvent",
+        "displayValue": "Podscribe"
       },
       {
         "value": "premionEvent",
@@ -200,6 +220,11 @@
     "enablingConditions": [
       {
         "paramName": "tagType",
+        "paramValue": "adjustS2SEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "adMediaEvent",
         "type": "EQUALS"
       },
@@ -215,7 +240,17 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "facebookPixelProxyEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleDataManagerConversionApiEvent",
         "type": "EQUALS"
       },
       {
@@ -246,6 +281,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "podscribeEvent",
         "type": "EQUALS"
       },
       {
@@ -493,7 +533,17 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "adjustS2SEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "adMediaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "amazonAdsEventsApiEvent",
         "type": "EQUALS"
       },
       {
@@ -523,6 +573,11 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "facebookPixelProxyEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "floodlightEvent",
         "type": "EQUALS"
       },
@@ -539,6 +594,11 @@
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleDataManagerConversionApiEvent",
         "type": "EQUALS"
       },
       {
@@ -584,6 +644,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "podscribeEvent",
         "type": "EQUALS"
       },
       {
@@ -1582,6 +1647,11 @@
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
         "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleDataManagerConversionApiEvent",
+        "type": "EQUALS"
       }
     ]
   },
@@ -1595,6 +1665,11 @@
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleDataManagerConversionApiEvent",
         "type": "EQUALS"
       }
     ]
@@ -2182,7 +2257,17 @@
     "enablingConditions": [
       {
         "paramName": "tagType",
+        "paramValue": "adjustS2SEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "adMediaEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "amazonAdsEventsApiEvent",
         "type": "EQUALS"
       },
       {
@@ -2212,12 +2297,22 @@
       },
       {
         "paramName": "tagType",
+        "paramValue": "facebookPixelProxyEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
         "paramValue": "ga4Event",
         "type": "EQUALS"
       },
       {
         "paramName": "tagType",
         "paramValue": "googleAdsConversionApiEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "googleDataManagerConversionApiEvent",
         "type": "EQUALS"
       },
       {
@@ -2258,6 +2353,11 @@
       {
         "paramName": "tagType",
         "paramValue": "pinterestAdsEvent",
+        "type": "EQUALS"
+      },
+      {
+        "paramName": "tagType",
+        "paramValue": "podscribeEvent",
         "type": "EQUALS"
       },
       {
@@ -2423,8 +2523,16 @@
           "simpleValueType": true,
           "selectItems": [
             {
+              "value": "Adjust S2S",
+              "displayValue": "Adjust S2S"
+            },
+            {
               "value": "AdMedia",
               "displayValue": "AdMedia"
+            },
+            {
+              "value": "Amazon Ads Events API",
+              "displayValue": "Amazon Ads Events API"
             },
             {
               "value": "Amplitude",
@@ -2455,8 +2563,16 @@
               "displayValue": "Facebook Conversions API"
             },
             {
+              "value": "Facebook Pixel Proxy",
+              "displayValue": "Facebook Pixel (Server-Side)"
+            },
+            {
               "value": "Google Ads Conversion API",
               "displayValue": "Google Ads Conversion API"
+            },
+            {
+              "value": "Google Data Manager Conversion API",
+              "displayValue": "Google Ads Conversion API (Data Manager)"
             },
             {
               "value": "Google AdWords New",
@@ -2513,6 +2629,10 @@
             {
               "value": "pinterest-ads",
               "displayValue": "Pinterest Ads"
+            },
+            {
+              "value": "Podscribe",
+              "displayValue": "Podscribe"
             },
             {
               "value": "Premion",
