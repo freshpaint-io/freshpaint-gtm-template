@@ -78,6 +78,8 @@ To add a new destination integration:
 
 4. **Build template**: Run `npm run build`
 
+A new destination also needs changes in `perfalytics` and sometimes `perfalytics-js` before the GTM tag works. See "Other repositories" in `src/README.md`.
+
 ## Template Testing
 
 Before merging changes:
