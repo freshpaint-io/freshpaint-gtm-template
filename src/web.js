@@ -381,11 +381,11 @@ const processInit = () => {
 };
 
 const processConsentInit = () => {
+  // Setting the initial consent state to match the existing cookie value (if present) eliminates the risk of a
+  // data race between consent initialization and the first update from the SDK.
   // The SDK stores the GCM state it sent in the cookie's data.gcm. The template must not derive signals from
   // the cookie's categories, because the customer's category-to-signal mapping is only in the SDK config.
   // A cookie without data.gcm is treated as unknown so the SDK's first update decides.
-  // data.gcm can be stale when the consent config was republished with a new revision since the visitor's last
-  // page view, so tags always wait for the SDK's page-load update.
   const fpcmCookie = getCookieValues('fpconsent');
 
   let consentState = {
@@ -397,11 +397,14 @@ const processConsentInit = () => {
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
   };
+  let hasExistingConsent = false;
 
   if (fpcmCookie && fpcmCookie.length > 0) {
     const cookieData = JSON.parse(fpcmCookie[0]);
     const storedGCMState = cookieData && getType(cookieData.data) === 'object' ? cookieData.data.gcm : undefined;
     if (cookieData && getType(cookieData.categories) === 'array' && getType(storedGCMState) === 'object') {
+      hasExistingConsent = true;
+
       for (let signal in consentState) {
         const value = storedGCMState[signal];
         if (value === 'granted' || value === 'denied') {
@@ -411,7 +414,9 @@ const processConsentInit = () => {
     }
   }
 
-  consentState.wait_for_update = 500;
+  if (!hasExistingConsent) {
+    consentState.wait_for_update = 1000;
+  }
 
   setDefaultConsentState(consentState);
 
