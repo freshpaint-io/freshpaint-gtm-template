@@ -156,8 +156,11 @@ const plan = planMigration({
 printPlan(plan);
 if (args.report) writeFileSync(args.report, JSON.stringify(reportJson(plan, workspace), null, 2));
 
-if (!args.apply) {
-  console.log('\nDry run. Rerun with --apply to make these changes in a new workspace.');
+if (plan.migrate.length === 0) {
+  console.log('\nNothing to migrate.');
+} else if (!args.apply) {
+  const target = args.workspace ? `workspace "${workspace.name}"` : 'a new workspace';
+  console.log(`\nDry run. Rerun with --apply to make these changes in ${target}.`);
 } else {
   await apply(plan, workspace);
   console.log(
