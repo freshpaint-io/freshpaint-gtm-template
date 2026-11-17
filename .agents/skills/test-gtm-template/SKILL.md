@@ -78,10 +78,18 @@ The demo site's Shield script loads the SDK from `https://perfalytics.com/static
 node .agents/skills/test-gtm-template/scripts/capture-consent-flow.mjs \
   --url https://ci-test-sites.s3-us-west-2.amazonaws.com/demos/gatekeeper/index.html \
   --sdk ../perfalytics-js/build/freshpaint.iife.js --label "SDK with perfalytics-js#<PR>" \
+  --remap ad_personalization=marketing --bump-revision \
   --out /tmp/gtm-consent-shots
 ```
 
-In a fresh browser context, the script screenshots three steps: first visit, after "Accept all", and the next page view. Each screenshot has an overlay showing every signal's GTM default and update, the `fpconsent` cookie's `data.gcm`, and the number of `fp_consent_update` events. It writes the same data to `results.json`. To compare with the production SDK, run it again without `--sdk` and a different `--out`.
+In a fresh browser context, the script screenshots three steps: first visit, after "Accept all", and the next page view. Each screenshot has an overlay showing every signal's category mapping, GTM default and update, the config and cookie revisions, whether the banner shows, the `fpconsent` cookie's `data.gcm`, and the number of `fp_consent_update` events.
+
+Always cover a consent config change made in the app after the visitor consented, because the cookie's `data.gcm` then reflects the old config. The two flags simulate a publish by rewriting the SDK's `event-definitions` response in the test browser, so the shared demo env is left alone:
+
+- `--remap signal=category,...` (use `null` to unmap) reloads after a mapping change published without "prompt again". Expect the remapped signal's default to come from the old `data.gcm`, its update to follow the new mapping, and `data.gcm` to be rewritten.
+- `--bump-revision` reloads after a publish with "prompt again" checked, which increments `revision`. Expect the defaults to keep the old grants, every update to deny until the visitor elects again, the banner to show, and `data.gcm` to be rewritten as denied. The script then accepts all again on the new revision.
+
+In both cases `waitPeriodTimedOut` must be `false`. Otherwise Google tags fired on grants from the old config. It writes the same data to `results.json`. To compare with the production SDK, run it again without `--sdk` and a different `--out`.
 
 - Read consent state from `window.google_tag_data.ics` (`entries[signal].default` / `.update`, `waitPeriodTimedOut`), as the overlay does. `setDefaultConsentState` doesn't push to `dataLayer`, so the dataLayer can't show the defaults.
 - `waitPeriodTimedOut: true` means the SDK's update arrived after `wait_for_update` and Google tags fired on the defaults.
