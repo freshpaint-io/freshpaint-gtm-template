@@ -19,7 +19,7 @@ scenarios:
 
     assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
     assertApi('gtmOnSuccess').wasCalled();
-- name: Consent init sets the GCM state the SDK stored, without waiting
+- name: Consent init sets the GCM state the SDK stored and waits for the SDK
   code: |-
     mockConsentCookie(JSON.stringify({
       categories: ['essential', 'analytics', 'marketing'],
@@ -46,6 +46,7 @@ scenarios:
       security_storage: 'granted',
       ad_user_data: 'granted',
       ad_personalization: 'denied',
+      wait_for_update: 500,
     });
     assertApi('gtmOnSuccess').wasCalled();
 - name: Consent init keeps the default for stored signals that are missing or invalid
@@ -71,6 +72,7 @@ scenarios:
       security_storage: 'denied',
       ad_user_data: 'denied',
       ad_personalization: 'denied',
+      wait_for_update: 500,
     });
 - name: Consent init treats a malformed cookie as no consent
   code: |-
@@ -93,7 +95,7 @@ setup: |-
     security_storage: 'granted',
     ad_user_data: 'denied',
     ad_personalization: 'denied',
-    wait_for_update: 1000,
+    wait_for_update: 500,
   };
 
   const mockConsentCookie = (value) => {
