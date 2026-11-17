@@ -5219,7 +5219,7 @@ scenarios:
     assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
     assertApi('gtagSet').wasCalledWith('ads_data_redaction', true);
     assertApi('gtmOnSuccess').wasCalled();
-- name: Consent init ignores the categories of a cookie without data.gcm
+- name: Consent init ignores the categories of a cookie without data[gcm]
   code: |-
     mockConsentCookie(JSON.stringify({
       categories: ['essential', 'analytics', 'marketing'],
