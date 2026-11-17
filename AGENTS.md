@@ -83,13 +83,14 @@ A new destination also needs changes in `perfalytics` and sometimes `perfalytics
 
 ## Template Testing
 
-Before merging changes:
+Freshpaint engineers test template changes with the `test-gtm-template` skill from the private `freshpaint-io/lavender-fields` plugin marketplace (`/plugin install gtm-template@lavender-fields`). Read its full `SKILL.md` before testing a change. If you can't access it, say so instead of improvising an internal test procedure.
 
-- Import the generated `template.tpl` into GTM UI
+This repository is public. Keep internal details out of its code, comments, commits, PR descriptions and issues. That includes test GTM accounts, containers and workspaces, Freshpaint env IDs, test sites, internal tooling such as private skills and scripts, and internal testing procedures. Describe what was verified and its result, not how or where.
+
+At a minimum, before merging:
+
+- Import the generated `template.tpl` into GTM and check that it loads without parsing errors. Template changes won't appear if there are parsing errors.
 - Run the scenarios from `src/tests.yaml` in the template editor's Tests tab. They only run in GTM's sandbox; there is no local runner.
-- Test functionality thoroughly
-- Verify no parsing errors on import
-- Template changes won't appear if there are parsing errors
 
 ### Naming in the built template
 
