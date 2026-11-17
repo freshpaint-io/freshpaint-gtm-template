@@ -5207,3 +5207,113 @@ ___WEB_PERMISSIONS___
 ]
 
 
+___TESTS___
+
+scenarios:
+- name: Consent init with no consent cookie denies optional signals and waits for the SDK
+  code: |-
+    mockConsentCookie(undefined);
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
+    assertApi('gtagSet').wasCalledWith('ads_data_redaction', true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: Consent init ignores the categories of a cookie without data.gcm
+  code: |-
+    mockConsentCookie(JSON.stringify({
+      categories: ['essential', 'analytics', 'marketing'],
+      data: null,
+    }));
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: Consent init sets the GCM state the SDK stored, without waiting
+  code: |-
+    mockConsentCookie(JSON.stringify({
+      categories: ['essential', 'analytics', 'marketing'],
+      data: {
+        gcm: {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'denied',
+          analytics_storage: 'granted',
+          personalization_storage: 'denied',
+          functionality_storage: 'granted',
+          security_storage: 'granted',
+        },
+      },
+    }));
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith({
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'denied',
+    });
+    assertApi('gtmOnSuccess').wasCalled();
+- name: Consent init keeps the default for stored signals that are missing or invalid
+  code: |-
+    mockConsentCookie(JSON.stringify({
+      categories: ['essential', 'marketing'],
+      data: {
+        gcm: {
+          ad_storage: 'granted',
+          ad_personalization: 'yes',
+          security_storage: 'denied',
+        },
+      },
+    }));
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith({
+      ad_storage: 'granted',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      personalization_storage: 'denied',
+      security_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+- name: Consent init treats a malformed cookie as no consent
+  code: |-
+    mockConsentCookie('not json');
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
+    assertApi('gtmOnSuccess').wasCalled();
+setup: |-
+  const JSON = require('JSON');
+
+  const consentInitData = { tagType: 'consentInit' };
+
+  const deniedAwaitingSDK = {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 1000,
+  };
+
+  const mockConsentCookie = (value) => {
+    mock('getCookieValues', (name) => {
+      if (name === 'fpconsent' && value !== undefined) {
+        return [value];
+      }
+      return [];
+    });
+  };
+
+
