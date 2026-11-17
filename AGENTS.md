@@ -83,13 +83,11 @@ A new destination also needs changes in `perfalytics` and sometimes `perfalytics
 
 ## Template Testing
 
-Before merging changes:
+Before merging changes, follow the `test-gtm-template` skill in `.agents/skills/test-gtm-template/SKILL.md`. It covers running the `src/tests.yaml` scenarios in GTM, which is the only place they run, and checking consent behavior on the demo site. Template changes won't appear if `template.tpl` has parsing errors.
 
-- Import the generated `template.tpl` into GTM UI
-- Run the scenarios from `src/tests.yaml` in the template editor's Tests tab. They only run in GTM's sandbox; there is no local runner.
-- Test functionality thoroughly
-- Verify no parsing errors on import
-- Template changes won't appear if there are parsing errors
+## Skills
+
+Repository skills live in `.agents/skills/<skill-name>/SKILL.md`. `.claude/skills` is a symlink to that directory. Read a skill's full `SKILL.md` before doing the work it covers.
 
 ### Naming in the built template
 

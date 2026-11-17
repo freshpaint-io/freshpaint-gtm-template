@@ -9,6 +9,7 @@
     "build:test": "npm run build && node scripts/diffTest.js tmp/parameters_original.json src/parameters.json; diff tmp/old.canon.json tmp/new.canon.json"
   },
   "devDependencies": {
+    "playwright-core": "1.59.1",
     "prettier": "^3.6.2",
     "tsx": "^4.20.4"
   }
