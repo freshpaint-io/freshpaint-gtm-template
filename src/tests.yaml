@@ -8,16 +8,25 @@ scenarios:
     assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
     assertApi('gtagSet').wasCalledWith('ads_data_redaction', true);
     assertApi('gtmOnSuccess').wasCalled();
-- name: Consent init ignores the categories of a cookie without data[gcm]
+- name: Consent init derives signals from the categories of a cookie without data[gcm]
   code: |-
     mockConsentCookie(JSON.stringify({
-      categories: ['essential', 'analytics', 'marketing'],
+      categories: ['Essential', 'Analytics', 'Marketing'],
       data: null,
     }));
 
     runCode(consentInitData);
 
-    assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
+    assertApi('setDefaultConsentState').wasCalledWith({
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+      wait_for_update: 1000,
+    });
     assertApi('gtmOnSuccess').wasCalled();
 - name: Consent init sets the GCM state the SDK stored and waits for the SDK
   code: |-
