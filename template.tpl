@@ -3210,8 +3210,11 @@ const processInit = () => {
 };
 
 const processConsentInit = () => {
-  // Setting the initial consent state to match the existing cookie value (if present) eliminates the risk of a
-  // data race between consent initialization and the first update from the SDK
+  // The SDK stores the GCM state it sent in the cookie's data.gcm, which follows the customer's
+  // category-to-signal mapping. The template can't see that mapping, so it only derives signals from the
+  // cookie's categories, using the default mapping, for a cookie the SDK wrote before it stored data.gcm.
+  // data.gcm can be stale when the consent config was republished with a new revision since the visitor's last
+  // page view, so tags always wait for the SDK's page-load update.
   const fpcmCookie = getCookieValues('fpconsent');
 
   let consentState = {
@@ -3223,32 +3226,37 @@ const processConsentInit = () => {
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
   };
-  let hasExistingConsent = false;
 
   if (fpcmCookie && fpcmCookie.length > 0) {
     const cookieData = JSON.parse(fpcmCookie[0]);
+    const storedGCMState = cookieData && getType(cookieData.data) === 'object' ? cookieData.data.gcm : undefined;
     if (cookieData && getType(cookieData.categories) === 'array') {
-      hasExistingConsent = true;
-      const categories = cookieData.categories;
-
-      for (let i = 0; i < categories.length; i++) {
-        const cat = categories[i].toLowerCase();
-        if (cat === 'marketing') {
-          consentState.ad_storage = 'granted';
-          consentState.ad_user_data = 'granted';
-          consentState.ad_personalization = 'granted';
-        } else if (cat === 'analytics') {
-          consentState.analytics_storage = 'granted';
-        } else if (cat === 'personalization') {
-          consentState.personalization_storage = 'granted';
+      if (getType(storedGCMState) === 'object') {
+        for (let signal in consentState) {
+          const value = storedGCMState[signal];
+          if (value === 'granted' || value === 'denied') {
+            consentState[signal] = value;
+          }
+        }
+      } else {
+        const categories = cookieData.categories;
+        for (let i = 0; i < categories.length; i++) {
+          const cat = getType(categories[i]) === 'string' ? categories[i].toLowerCase() : '';
+          if (cat === 'marketing') {
+            consentState.ad_storage = 'granted';
+            consentState.ad_user_data = 'granted';
+            consentState.ad_personalization = 'granted';
+          } else if (cat === 'analytics') {
+            consentState.analytics_storage = 'granted';
+          } else if (cat === 'personalization') {
+            consentState.personalization_storage = 'granted';
+          }
         }
       }
     }
   }
 
-  if (!hasExistingConsent) {
-    consentState.wait_for_update = 1000;
-  }
+  consentState.wait_for_update = 1000;
 
   setDefaultConsentState(consentState);
 
@@ -5208,5 +5216,126 @@ ___WEB_PERMISSIONS___
     "isRequired": true
   }
 ]
+
+
+___TESTS___
+
+scenarios:
+- name: Consent init with no consent cookie denies optional signals and waits for the SDK
+  code: |-
+    mockConsentCookie(undefined);
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
+    assertApi('gtagSet').wasCalledWith('ads_data_redaction', true);
+    assertApi('gtmOnSuccess').wasCalled();
+- name: Consent init derives signals from the categories of a cookie without data[gcm]
+  code: |-
+    mockConsentCookie(JSON.stringify({
+      categories: ['Essential', 'Analytics', 'Marketing'],
+      data: null,
+    }));
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith({
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+      wait_for_update: 1000,
+    });
+    assertApi('gtmOnSuccess').wasCalled();
+- name: Consent init sets the GCM state the SDK stored and waits for the SDK
+  code: |-
+    mockConsentCookie(JSON.stringify({
+      categories: ['essential', 'analytics', 'marketing'],
+      data: {
+        gcm: {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'denied',
+          analytics_storage: 'granted',
+          personalization_storage: 'denied',
+          functionality_storage: 'granted',
+          security_storage: 'granted',
+        },
+      },
+    }));
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith({
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'denied',
+      wait_for_update: 1000,
+    });
+    assertApi('gtmOnSuccess').wasCalled();
+- name: Consent init keeps the default for stored signals that are missing or invalid
+  code: |-
+    mockConsentCookie(JSON.stringify({
+      categories: ['essential', 'marketing'],
+      data: {
+        gcm: {
+          ad_storage: 'granted',
+          ad_personalization: 'yes',
+          security_storage: 'denied',
+        },
+      },
+    }));
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith({
+      ad_storage: 'granted',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      personalization_storage: 'denied',
+      security_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 1000,
+    });
+- name: Consent init treats a malformed cookie as no consent
+  code: |-
+    mockConsentCookie('not json');
+
+    runCode(consentInitData);
+
+    assertApi('setDefaultConsentState').wasCalledWith(deniedAwaitingSDK);
+    assertApi('gtmOnSuccess').wasCalled();
+setup: |-
+  const JSON = require('JSON');
+
+  const consentInitData = { tagType: 'consentInit' };
+
+  const deniedAwaitingSDK = {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 1000,
+  };
+
+  const mockConsentCookie = (value) => {
+    mock('getCookieValues', (name) => {
+      if (name === 'fpconsent' && value !== undefined) {
+        return [value];
+      }
+      return [];
+    });
+  };
 
 

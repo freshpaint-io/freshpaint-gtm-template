@@ -8,6 +8,7 @@ const SECTIONS = [
   ['___TEMPLATE_PARAMETERS___', 'generatedParameters.json'],
   ['___SANDBOXED_JS_FOR_WEB_TEMPLATE___', 'web.js'],
   ['___WEB_PERMISSIONS___', 'permissions.json'],
+  ['___TESTS___', 'tests.yaml'],
 ];
 
 let out = '';
