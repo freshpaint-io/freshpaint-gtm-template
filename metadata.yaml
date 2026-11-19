@@ -1,5 +1,5 @@
 homepage: 'https://freshpaint.io'
 documentation: 'https://documentation.freshpaint.io/integrations/google-tag-manager-integration'
 versions:
-  - sha: 21ff042971a625af5f064addade36b920400b6ef
-    changeNotes: Add support for Amazon Ads Events API, Google Ads Conversion API (Data Manager), Adjust S2S, Podscribe, and Facebook Pixel (Server-Side) destinations
+  - sha: d9f18be49e8975ebfdf8dbaba86d0f2990c301ab
+    changeNotes: Support custom GCM signal mappings for Freshpaint consent manager
